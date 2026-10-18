@@ -41,10 +41,13 @@ header{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-
 header{position:relative;padding-bottom:18px;border-bottom:1px solid var(--line)}
 header::after{content:"";position:absolute;left:0;bottom:-1px;width:76px;height:3px;background:var(--red)}
 .brand{display:flex;align-items:center;gap:clamp(12px,2vw,18px);min-width:0}
-.brand-mark{width:82px;height:48px;flex:none;display:block;overflow:visible}
+.brand-mark{width:112px;height:58px;flex:none;display:block;overflow:visible}
 .brand-mark svg{display:block;width:100%;height:100%}
-.brand-name{font-style:italic}
-@media(max-width:480px){.brand-mark{width:58px;height:38px}.brand{gap:10px}}
+.brand-divider{width:1px;height:54px;flex:none;background:var(--line);margin:0 4px}
+.brand-name{font-style:italic;letter-spacing:.025em}
+h1.brand-name span{display:block;font-size:.72em;line-height:.95;letter-spacing:.18em;color:var(--red)}
+.brand-text{min-width:0}
+@media(max-width:480px){.brand-mark{width:70px;height:40px}.brand-divider{height:38px;margin:0 1px}.brand{gap:8px}h1.brand-name{font-size:clamp(25px,7vw,34px)}.tag{font-size:8px;letter-spacing:.1em}}
 h1.brand-name{font:800 clamp(32px,4.2vw,48px)/.92 'Barlow Condensed',Manrope,system-ui,sans-serif;letter-spacing:.015em;text-transform:uppercase}h1.brand-name span{color:var(--red)}
 .tag{color:var(--mute);margin-top:8px;font:700 clamp(10px,1.1vw,12px)/1.4 Manrope,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase}
 .last{display:flex;align-items:center;flex-wrap:wrap;gap:8px 22px;max-width:100%;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:14px;padding:12px 20px;backdrop-filter:blur(10px)}
@@ -1398,7 +1401,8 @@ body::after{background:linear-gradient(180deg,transparent 0%,var(--veil) 58%,var
 <div class="wrap">
  <header>
   <div class="brand">
-   <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 112 64" xmlns="http://www.w3.org/2000/svg"><path d="M8 8H55C72 8 81 15 81 28C81 39 74 46 61 49L78 61H52L34 46H29L24 61H2L17 8Z" fill="#F2F4F8"/><path d="M17 8H34L17 61H0Z" fill="#FF2A18"/><path d="M31 23H53C59 23 62 25 62 29C62 33 58 35 52 35H27L31 23Z" fill="#090B10"/><g fill="#9299A8"><path d="M83 34h10v10H83zM94 23h10v10H94zM105 34h7v10h-7zM94 45h10v10H94zM83 56h10v5H83z"/></g><path d="M83 34h10v10H83zM105 34h7v10h-7z" fill="#F2F4F8"/></svg></span>
+   <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 160 78" xmlns="http://www.w3.org/2000/svg"><path d="M20 8H78C96 8 106 16 106 31C106 44 97 52 80 55L101 72H72L49 54H39L34 72H7Z" fill="#F4F4F6"/><path d="M20 8H40L18 72H0Z" fill="#F04445"/><path d="M43 22H75C82 22 86 25 86 30C86 35 81 38 74 38H38Z" fill="#0B0D12"/><g fill="#8C929D"><path d="M110 36h13v13h-13zM124 22h13v13h-13zM138 36h13v13h-13zM124 50h13v13h-13z"/></g><path d="M110 36h13v13h-13zM138 36h13v13h-13z" fill="#F4F4F6"/></svg></span>
+   <span class="brand-divider" aria-hidden="true"></span>
    <div class="brand-text"><h1 class="brand-name">REDLINE <span>GRID</span></h1><p class="tag">Race Data. Rivalries. Every Detail.</p></div>
   </div>
   <div class="last" id="last"><small>Loading season…</small></div>
