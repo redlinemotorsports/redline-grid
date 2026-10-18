@@ -6,12 +6,11 @@
 <meta name="theme-color" content="#0A0A0D">
 <meta name="apple-mobile-web-app-title" content="Redline Grid">
 <meta name="description" content="Independent racing data, driver comparisons, circuit guides and race-weekend insight — all season long.">
-<link rel="icon" type="image/svg+xml" href="./assets/favicon.svg?v=3">
-<link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png?v=3">
-<link rel="apple-touch-icon" href="./assets/apple-touch-icon.png?v=3">
+<link rel="icon" type="image/svg+xml" href="./assets/favicon.svg?v=4">
+
 <script>try{document.documentElement.dataset.theme=localStorage.getItem("redline-theme")==="light"?"light":"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
 <title>Redline Grid · The Racing Season, Decoded</title>
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,600;0,700;1,600;1,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* Refined motorsport canvas: graphite, soft pit-lane glow and restrained technical grid. */
 :root{--bg-image:none;color-scheme:dark;--bg:#090B10;--card:rgba(255,255,255,.045);--card2:#151820;--sheet:#10131A;--chip:#252A35;--soft:rgba(255,255,255,.035);--hover:rgba(255,255,255,.06);
@@ -43,8 +42,8 @@ header{position:relative;padding-bottom:18px;border-bottom:1px solid var(--line)
 header::after{content:"";position:absolute;left:0;bottom:-1px;width:76px;height:3px;background:var(--red)}
 .brand{display:flex;align-items:center;gap:clamp(12px,2vw,18px);min-width:0}
 .brand-mark{width:clamp(46px,6.2vw,64px);height:auto;flex:none;display:block}
-h1.brand-name{font:italic 700 clamp(28px,4.2vw,44px)/.98 'Chakra Petch',Inter,system-ui,sans-serif;letter-spacing:.055em;text-transform:uppercase}
-.tag{color:var(--mute);margin-top:7px;font:500 clamp(13px,1.6vw,15px)/1.35 Inter,system-ui,sans-serif;letter-spacing:.02em}
+h1.brand-name{font:800 clamp(32px,4.2vw,48px)/.92 'Barlow Condensed',Manrope,system-ui,sans-serif;letter-spacing:.035em;text-transform:uppercase}
+.tag{color:var(--mute);margin-top:8px;font:700 clamp(10px,1.1vw,12px)/1.4 Manrope,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase}
 .last{display:flex;align-items:center;flex-wrap:wrap;gap:8px 22px;max-width:100%;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:14px;padding:12px 20px;backdrop-filter:blur(10px)}
 .last .lr{display:flex;align-items:center;gap:14px;min-width:0}.last .lt{min-width:0}
 .rnd{font:700 15px Inter;letter-spacing:.06em;background:var(--red);color:#fff;border-radius:8px;padding:5px 10px}
@@ -794,7 +793,7 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
   .brand{gap:10px;padding-right:48px}
   .brand-mark{width:38px}
   h1.brand-name{font-size:clamp(22px,6.2vw,27px);letter-spacing:.035em}
-  .tag{font-size:12px;line-height:1.35;max-width:28ch}
+  .tag{font-size:10px;line-height:1.4;letter-spacing:.12em;max-width:32ch}
   .themebtn{top:12px;right:12px;width:40px;height:40px}
   .last{gap:10px;padding:11px 12px;border-radius:12px}
   .last .lr{align-items:flex-start}
@@ -1045,7 +1044,7 @@ header:after{width:112px;height:3px}
 .brand{gap:15px}
 .brand-mark{width:clamp(48px,5vw,60px);filter:drop-shadow(0 8px 20px rgba(227,38,54,.12))}
 h1.brand-name{font-size:clamp(29px,3.2vw,40px);letter-spacing:.075em}
-.tag{font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin-top:8px}
+.tag{font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin-top:8px}
 .last{border-radius:10px;background:linear-gradient(110deg,rgba(255,255,255,.045),rgba(255,255,255,.015));border-color:var(--line);border-left:2px solid var(--red);box-shadow:0 12px 34px rgba(0,0,0,.13);backdrop-filter:blur(18px)}
 .rnd{border-radius:4px;letter-spacing:.04em}
 .pickbtn{border-radius:8px;text-transform:uppercase;letter-spacing:.04em;font-size:11px}
@@ -1073,7 +1072,7 @@ button:active{transform:translateY(1px)}
 button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--red);outline-offset:3px}
 .briefing-head,.strategy-hero,.standings-head{background:linear-gradient(110deg,rgba(227,38,54,.085),transparent 72%);border-bottom-color:var(--line)}
 .briefing-kicker,.stats-kicker{font-size:9px;letter-spacing:.19em}
-.briefing-head h2,.panel .stats-head h2{font-family:"Chakra Petch",Inter,sans-serif;letter-spacing:-.035em}
+.briefing-head h2,.panel .stats-head h2{font-family:"Barlow Condensed",Manrope,sans-serif;letter-spacing:-.035em}
 .briefing-intro{max-width:600px;line-height:1.65}
 .briefing-refresh,.strategy-controls button,.strategy-controls select{border-radius:7px}
 .briefing-note{background:rgba(255,255,255,.012)}
@@ -1312,7 +1311,7 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
  .brand{gap:16px}
  .brand-mark{width:58px}
  h1.brand-name{font-size:clamp(32px,3vw,44px)}
- .tag{font-size:13px;max-width:none}
+ .tag{font-size:11px;max-width:none}
  .last{width:100%;max-width:none;min-width:0;display:grid;grid-template-columns:minmax(180px,.72fr) minmax(0,1.28fr);align-items:center;gap:10px 16px;padding:13px 15px;border-radius:8px}
  .last .lr{min-width:0;flex:initial;gap:12px}
  .last .lr .rnd{font-size:11px;padding:5px 7px;border-radius:4px}
@@ -1356,7 +1355,7 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
  header{grid-template-columns:minmax(220px,.8fr) minmax(430px,1.2fr);gap:16px}
  .brand-mark{width:48px}
  h1.brand-name{font-size:30px}
- .tag{font-size:11px}
+ .tag{font-size:10px}
  .last{grid-template-columns:minmax(150px,.7fr) minmax(0,1.3fr);padding:11px}
  .cinema-hero{min-height:390px}
  .cinema-hero h2{font-size:clamp(56px,6vw,72px)}
@@ -1396,7 +1395,7 @@ body::after{background:linear-gradient(180deg,transparent 0%,var(--veil) 58%,var
 <div class="wrap">
  <header>
   <div class="brand">
-   <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="14" fill="#0B0B10"/><rect x=".75" y=".75" width="62.5" height="62.5" rx="13.3" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="1.5"/><g transform="translate(6.8 0) skewX(-12)"><path fill="#F4F4F6" fill-rule="evenodd" d="M16 14L38 14L48 19L50 26L50 29L47 35L41 38L24 38L24 50L16 50ZM24 21L36 21L42 24L42 28L36 31L24 31Z"/><path fill="#FF1E00" d="M30 38L40 38L51 50L40.5 50Z"/></g></svg>
+   <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="Redline Grid monogram"><rect width="64" height="64" rx="12" fill="#101116"/><path d="M1 12Q1 1 12 1H52Q63 1 63 12V52Q63 63 52 63H12Q1 63 1 52Z" fill="none" stroke="#3A3B43" stroke-width="1.5"/><path d="M10 16H25C34 16 38 20 38 27C38 32 35 35 30 37L39 49H28L20 38H19V49H10ZM19 24V31H25C28 31 29 30 29 27.5S28 24 25 24Z" fill="#F4F4F6"/><path d="M42 18H55V25H47V40H54V35H49V29H58V46H40V25Z" fill="#F04445"/><path d="M8 55H56" stroke="#F04445" stroke-width="2"/></svg>
    <div class="brand-text"><h1 class="brand-name">REDLINE GRID</h1><p class="tag">Race Data. Rivalries. Every Detail.</p></div>
   </div>
   <div class="last" id="last"><small>Loading season…</small></div>
