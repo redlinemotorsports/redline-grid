@@ -1517,6 +1517,35 @@ select{border-radius:6px}
 @media(max-width:820px){
  #v-news .cinema-hero h2{line-height:1}
 }
+
+/* Race Centre headline: match the oversized Oxanium motorsport wordmark. */
+#v-news > .briefing-head > div > h2{
+  font-family:"Oxanium",sans-serif!important;
+  font-size:clamp(2.7rem,6.2vw,5.1rem)!important;
+  font-weight:800!important;
+  line-height:.98!important;
+  letter-spacing:-.035em!important;
+  text-transform:uppercase!important;
+  margin:8px 0 12px!important;
+  color:var(--text,#f4f5f7)!important;
+  border:0!important;
+  padding:0!important;
+}
+#v-news > .briefing-head > div > h2:after{
+  content:"";
+  display:block;
+  width:clamp(54px,8vw,92px);
+  height:4px;
+  margin-top:15px;
+  background:var(--red,#ef4444);
+}
+@media(max-width:600px){
+  #v-news > .briefing-head > div > h2{
+    font-size:clamp(2.25rem,11vw,3.5rem)!important;
+    line-height:1!important;
+  }
+}
+
 </style>
 </head>
 <body>
