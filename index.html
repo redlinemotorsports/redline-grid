@@ -1293,6 +1293,11 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
   #last .sc-unit small{font-size:7px}
 }
 
+
+/* Precise motorsport-style action mark; avoid emoji/glyph rendering differences. */
+.cinema-action-mark{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;flex:0 0 20px;margin-left:8px;opacity:.92}
+.cinema-action-mark svg{display:block;width:16px;height:16px}
+
 </style>
 </head>
 <body>
@@ -1368,7 +1373,7 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
     <p class="cinema-kicker"><span></span> REDLINE GRID <i>/</i> MOTORSPORT INTELLIGENCE</p>
     <h2>THE RACE.<br><em>DECODED.</em></h2>
     <p class="cinema-deck">Every lap. Every rivalry. Every detail that changes the story.</p>
-    <div class="cinema-actions"><button type="button" class="cinema-primary" id="heroRaceLink">Enter Race Centre <span>↗</span></button><button type="button" class="cinema-secondary" id="heroDataLink">Explore the data <span>→</span></button></div>
+    <div class="cinema-actions"><button type="button" class="cinema-primary" id="heroRaceLink">Enter Race Centre <span class="cinema-action-mark" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 15.5 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg></span></button><button type="button" class="cinema-secondary" id="heroDataLink">Explore the data <span>→</span></button></div>
     <div class="cinema-signature"><span>INDEPENDENT F1 DATA</span><span class="cinema-signature-line"></span><span>BUILT FOR THE DETAIL</span></div>
    </div>
    <div class="cinema-hero-index"><span>RG</span><b>01</b><small>RACE INTELLIGENCE</small></div>
