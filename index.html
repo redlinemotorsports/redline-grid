@@ -1177,12 +1177,14 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
 .cinema-hero h2 em{font-style:italic;color:#E32636}
 .cinema-deck{max-width:390px;margin:21px 0 24px;color:#B4BBC5;font-size:13px;line-height:1.7}
 .cinema-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
-.cinema-actions button{min-height:42px;border-radius:6px;padding:12px 15px;font:600 10px Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
-.cinema-primary{border:1px solid var(--red);background:var(--red);color:white;box-shadow:0 8px 22px rgba(227,38,54,.17)}
-.cinema-primary:hover{background:#F03343}
-.cinema-primary span{padding-left:14px}
+.cinema-actions button{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:46px;border-radius:6px;padding:11px 15px;font:700 15px/1 "Barlow Condensed",Impact,sans-serif;letter-spacing:.055em;text-transform:uppercase;cursor:pointer;transition:background .18s,border-color .18s,color .18s,box-shadow .18s,transform .18s}
+.cinema-primary{border:1px solid rgba(255,42,24,.85);background:linear-gradient(110deg,#E32636,#B91424);color:#fff;box-shadow:0 7px 20px rgba(227,38,54,.18),inset 0 1px 0 rgba(255,255,255,.12)}
+.cinema-primary:hover{background:linear-gradient(110deg,#F03343,#D21A2A);border-color:#F03343;box-shadow:0 9px 25px rgba(227,38,54,.27)}
+.cinema-primary .cinema-action-mark{display:grid;place-items:center;width:25px;height:25px;flex:0 0 25px;padding:0;border:1px solid rgba(255,255,255,.3);border-radius:4px;background:rgba(20,5,8,.13)}
+.cinema-primary .cinema-action-mark svg{display:block;width:15px;height:15px}
 .cinema-secondary{border:1px solid rgba(230,235,242,.22);background:rgba(255,255,255,.025);color:#E6E9EE}
 .cinema-secondary:hover{border-color:rgba(230,235,242,.55);background:rgba(255,255,255,.06)}
+.cinema-secondary span{font:600 17px/1 Inter,sans-serif;opacity:.8}
 .cinema-hero-art{position:absolute;inset:0 0 0 35%;color:#C8CDD4;opacity:.45;pointer-events:none;overflow:hidden}
 .cinema-track{position:absolute;width:min(78%,650px);height:auto;right:-5%;top:50%;transform:translateY(-47%);filter:drop-shadow(0 0 25px rgba(227,38,54,.08))}
 .cinema-orbit{position:absolute;border:1px solid rgba(227,38,54,.25);border-radius:50%;transform:rotate(-25deg)}
