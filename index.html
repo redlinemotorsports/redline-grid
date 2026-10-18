@@ -10,7 +10,7 @@
 
 <script>try{document.documentElement.dataset.theme=localStorage.getItem("redline-theme")==="light"?"light":"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
 <title>Redline Grid · The Racing Season, Decoded</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* Refined motorsport canvas: graphite, soft pit-lane glow and restrained technical grid. */
 :root{--bg-image:none;color-scheme:dark;--bg:#090B10;--card:rgba(255,255,255,.045);--card2:#151820;--sheet:#10131A;--chip:#252A35;--soft:rgba(255,255,255,.035);--hover:rgba(255,255,255,.06);
@@ -47,9 +47,11 @@ header::after{content:"";position:absolute;left:0;bottom:-1px;width:76px;height:
 .brand-name{font-style:italic;letter-spacing:.025em}
 h1.brand-name span{display:block;font-size:.72em;line-height:.95;letter-spacing:.18em;color:var(--red)}
 .brand-text{min-width:0}
-@media(max-width:480px){.brand-mark{width:70px;height:40px}.brand-divider{height:38px;margin:0 1px}.brand{gap:8px}h1.brand-name{font-size:clamp(25px,7vw,34px)}.tag{font-size:8px;letter-spacing:.1em}}
+@media(max-width:480px){.brand-mark{width:70px;height:40px}.brand-divider{height:38px;margin:0 1px}.brand{gap:8px}.tag{font-size:8px;letter-spacing:.1em}}
 h1.brand-name{font:800 clamp(32px,4.2vw,48px)/.92 'Barlow Condensed',Manrope,system-ui,sans-serif;letter-spacing:.015em;text-transform:uppercase}h1.brand-name span{color:var(--red)}
 .tag{color:var(--mute);margin-top:8px;font:700 clamp(10px,1.1vw,12px)/1.4 Manrope,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase}
+/* Keep the mobile wordmark scale override after the desktop heading rule. */
+@media(max-width:480px){h1.brand-name{font-size:clamp(25px,7vw,34px)}}
 .last{display:flex;align-items:center;flex-wrap:wrap;gap:8px 22px;max-width:100%;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:14px;padding:12px 20px;backdrop-filter:blur(10px)}
 .last .lr{display:flex;align-items:center;gap:14px;min-width:0}.last .lt{min-width:0}
 .rnd{font:700 15px Inter;letter-spacing:.06em;background:var(--red);color:#fff;border-radius:8px;padding:5px 10px}
