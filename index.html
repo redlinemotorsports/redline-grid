@@ -1554,6 +1554,32 @@ select{border-radius:6px}
   #v-result > .race-tab-title{padding:21px 16px 17px}
 }
 
+
+/* Race Decoded: compact desktop motorsport panel, built entirely with CSS (no artwork). */
+@media(min-width:821px){
+ #v-news .cinema-hero{
+  min-height:248px;
+  padding:30px 38px;
+  border:1px solid rgba(240,68,69,.24);
+  border-radius:7px;
+  background:
+   linear-gradient(90deg,rgba(240,68,69,.055) 1px,transparent 1px) 0 0/34px 34px,
+   linear-gradient(0deg,rgba(240,68,69,.035) 1px,transparent 1px) 0 0/34px 34px,
+   linear-gradient(112deg,#0B0D12 0%,#11151D 58%,#0A0C11 100%)!important;
+  box-shadow:inset 3px 0 0 var(--red),0 12px 28px rgba(0,0,0,.2);
+ }
+ #v-news .cinema-hero::before{display:none}
+ #v-news .cinema-hero-copy{max-width:620px}
+ #v-news .cinema-kicker{margin-bottom:12px;font-size:9px;letter-spacing:.16em}
+ #v-news .cinema-hero h2{font-size:clamp(43px,4.4vw,58px);line-height:.94;letter-spacing:.015em}
+ #v-news .cinema-deck{max-width:410px;margin:12px 0 15px;font-size:12px;line-height:1.5}
+ #v-news .cinema-actions{gap:8px}
+ #v-news .cinema-actions button{min-height:39px;padding:10px 13px;font-size:10px}
+ #v-news .cinema-signature{margin-top:17px;font-size:8px;letter-spacing:.12em}
+ #v-news .cinema-signature-line{width:25px;flex-basis:25px}
+ #v-news .cinema-hero-index{right:20px;bottom:17px;opacity:.48}
+}
+
 </style>
 </head>
 <body>
