@@ -1519,7 +1519,16 @@ select{border-radius:6px}
 }
 
 
-/* Match the Race tab title typography to the other main tab headings. */
+/* Force both headings inside the Race tab to use the same condensed display face. */
+#v-result > .race-tab-title,
+#v-result > #resTitle{
+  font-family:"Barlow Condensed",Impact,sans-serif!important;
+  font-weight:700!important;
+  font-size:clamp(28px,4vw,40px)!important;
+  line-height:1.02!important;
+  letter-spacing:-.025em!important;
+  text-transform:uppercase;
+}
 #v-result > .race-tab-title{
   display:flex;
   flex-direction:column;
@@ -1528,9 +1537,6 @@ select{border-radius:6px}
   padding:25px 22px 20px;
   border-bottom:1px solid var(--line);
   background:linear-gradient(110deg,rgba(227,38,54,.09),transparent 72%);
-  font:700 clamp(28px,4vw,40px)/1.02 "Barlow Condensed",Manrope,sans-serif;
-  letter-spacing:-.035em;
-  text-transform:uppercase;
   color:var(--txt);
 }
 #v-result > .race-tab-title:before{
