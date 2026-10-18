@@ -41,8 +41,8 @@ header{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-
 header{position:relative;padding-bottom:18px;border-bottom:1px solid var(--line)}
 header::after{content:"";position:absolute;left:0;bottom:-1px;width:76px;height:3px;background:var(--red)}
 .brand{display:flex;align-items:center;gap:clamp(12px,2vw,18px);min-width:0}
-.brand-mark{width:clamp(46px,6.2vw,64px);height:auto;flex:none;display:block}
-h1.brand-name{font:800 clamp(32px,4.2vw,48px)/.92 'Barlow Condensed',Manrope,system-ui,sans-serif;letter-spacing:.035em;text-transform:uppercase}
+.brand-mark{width:5px;height:40px;flex:none;display:block;background:var(--red);transform:skewX(-14deg);border-radius:1px}
+h1.brand-name{font:800 clamp(32px,4.2vw,48px)/.92 'Barlow Condensed',Manrope,system-ui,sans-serif;letter-spacing:.015em;text-transform:uppercase}h1.brand-name span{color:var(--red)}
 .tag{color:var(--mute);margin-top:8px;font:700 clamp(10px,1.1vw,12px)/1.4 Manrope,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase}
 .last{display:flex;align-items:center;flex-wrap:wrap;gap:8px 22px;max-width:100%;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:14px;padding:12px 20px;backdrop-filter:blur(10px)}
 .last .lr{display:flex;align-items:center;gap:14px;min-width:0}.last .lt{min-width:0}
@@ -409,7 +409,7 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
  .layout{display:block}
  body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
  .wrap{padding:16px 14px 20px}
- header{margin-bottom:14px;padding-bottom:14px}.brand{padding-right:54px}.brand-mark{width:44px}h1.brand-name{font-size:27px}.tag{margin-top:5px}
+ header{margin-bottom:14px;padding-bottom:14px}.brand{padding-right:54px}.brand-mark{width:44px}h1.brand-name{font-size:27px}.brand-mark{height:30px}.tag{margin-top:5px}
  .last{width:100%;display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding:12px 14px}
  .last .lr{width:100%;gap:10px}.last .lt b{font-size:16px}.last .lt small{font-size:12px}
  .lnx{padding:10px 0 0;border-left:0;border-top:1px solid var(--line);width:100%;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.lnx b{font-size:14px}
@@ -524,7 +524,7 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
  @media(min-width:821px) and (max-width:1100px){
   #tabs{width:100%;box-sizing:border-box;justify-content:center;flex-wrap:wrap;overflow:visible;row-gap:0}
  }
- @media(max-width:380px){h1.brand-name{font-size:24px;letter-spacing:.035em}.brand-mark{width:40px}}
+ @media(max-width:380px){h1.brand-name{font-size:24px;letter-spacing:.035em}.brand-mark{height:27px}}
 #newsList.scroll{max-height:max(380px,calc(100vh - 330px))}
 @media(min-width:821px){.nchips{flex-wrap:wrap;overflow:visible}}
 @media(max-width:820px){#newsList.scroll{max-height:none}}
@@ -791,7 +791,7 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
   .wrap{padding:12px 12px 24px}
   header{gap:12px;margin-bottom:12px;padding-bottom:12px}
   .brand{gap:10px;padding-right:48px}
-  .brand-mark{width:38px}
+  .brand-mark{height:26px}
   h1.brand-name{font-size:clamp(22px,6.2vw,27px);letter-spacing:.035em}
   .tag{font-size:10px;line-height:1.4;letter-spacing:.12em;max-width:32ch}
   .themebtn{top:12px;right:12px;width:40px;height:40px}
@@ -1042,7 +1042,7 @@ body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 header{align-items:center;gap:22px;margin-bottom:24px;padding-bottom:20px;border-bottom-color:rgba(255,255,255,.12)}
 header:after{width:112px;height:3px}
 .brand{gap:15px}
-.brand-mark{width:clamp(48px,5vw,60px);filter:drop-shadow(0 8px 20px rgba(227,38,54,.12))}
+.brand-mark{height:36px}
 h1.brand-name{font-size:clamp(29px,3.2vw,40px);letter-spacing:.075em}
 .tag{font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin-top:8px}
 .last{border-radius:10px;background:linear-gradient(110deg,rgba(255,255,255,.045),rgba(255,255,255,.015));border-color:var(--line);border-left:2px solid var(--red);box-shadow:0 12px 34px rgba(0,0,0,.13);backdrop-filter:blur(18px)}
@@ -1309,7 +1309,7 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
  .wrap{width:min(100% - 64px,1440px);max-width:1440px;padding:30px 0 72px}
  header{display:grid;grid-template-columns:minmax(280px,.85fr) minmax(480px,1.15fr);align-items:center;gap:24px;margin-bottom:26px;padding-bottom:22px}
  .brand{gap:16px}
- .brand-mark{width:58px}
+ .brand-mark{height:40px}
  h1.brand-name{font-size:clamp(32px,3vw,44px)}
  .tag{font-size:11px;max-width:none}
  .last{width:100%;max-width:none;min-width:0;display:grid;grid-template-columns:minmax(180px,.72fr) minmax(0,1.28fr);align-items:center;gap:10px 16px;padding:13px 15px;border-radius:8px}
@@ -1353,7 +1353,7 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
 @media(min-width:821px) and (max-width:1100px){
  .wrap{width:calc(100% - 40px)}
  header{grid-template-columns:minmax(220px,.8fr) minmax(430px,1.2fr);gap:16px}
- .brand-mark{width:48px}
+ .brand-mark{height:32px}
  h1.brand-name{font-size:30px}
  .tag{font-size:10px}
  .last{grid-template-columns:minmax(150px,.7fr) minmax(0,1.3fr);padding:11px}
@@ -1395,8 +1395,8 @@ body::after{background:linear-gradient(180deg,transparent 0%,var(--veil) 58%,var
 <div class="wrap">
  <header>
   <div class="brand">
-   <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="Redline Grid monogram"><rect width="64" height="64" rx="12" fill="#101116"/><path d="M1 12Q1 1 12 1H52Q63 1 63 12V52Q63 63 52 63H12Q1 63 1 52Z" fill="none" stroke="#3A3B43" stroke-width="1.5"/><path d="M10 16H25C34 16 38 20 38 27C38 32 35 35 30 37L39 49H28L20 38H19V49H10ZM19 24V31H25C28 31 29 30 29 27.5S28 24 25 24Z" fill="#F4F4F6"/><path d="M42 18H55V25H47V40H54V35H49V29H58V46H40V25Z" fill="#F04445"/><path d="M8 55H56" stroke="#F04445" stroke-width="2"/></svg>
-   <div class="brand-text"><h1 class="brand-name">REDLINE GRID</h1><p class="tag">Race Data. Rivalries. Every Detail.</p></div>
+   <span class="brand-mark" aria-hidden="true"></span>
+   <div class="brand-text"><h1 class="brand-name">REDLINE <span>GRID</span></h1><p class="tag">Race Data. Rivalries. Every Detail.</p></div>
   </div>
   <div class="last" id="last"><small>Loading season…</small></div>
  </header>
