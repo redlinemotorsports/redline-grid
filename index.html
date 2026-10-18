@@ -1182,9 +1182,10 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
 .cinema-primary:hover{background:linear-gradient(110deg,#F03343,#D21A2A);border-color:#F03343;box-shadow:0 9px 25px rgba(227,38,54,.27)}
 .cinema-primary .cinema-action-mark{display:grid;place-items:center;width:25px;height:25px;flex:0 0 25px;padding:0;border:1px solid rgba(255,255,255,.3);border-radius:4px;background:rgba(20,5,8,.13)}
 .cinema-primary .cinema-action-mark svg{display:block;width:15px;height:15px}
-.cinema-secondary{border:1px solid rgba(230,235,242,.22);background:rgba(255,255,255,.025);color:#E6E9EE}
-.cinema-secondary:hover{border-color:rgba(230,235,242,.55);background:rgba(255,255,255,.06)}
-.cinema-secondary span{font:600 17px/1 Inter,sans-serif;opacity:.8}
+.cinema-secondary{border:1px solid rgba(230,235,242,.24);background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.025));color:#E6E9EE;box-shadow:inset 0 1px 0 rgba(255,255,255,.055)}
+.cinema-secondary:hover{border-color:rgba(230,235,242,.55);background:linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.045));box-shadow:0 7px 20px rgba(0,0,0,.18)}
+.cinema-secondary span{display:grid;place-items:center;width:25px;height:25px;flex:0 0 25px;border:1px solid rgba(230,235,242,.2);border-radius:4px;background:rgba(255,255,255,.035);font:600 17px/1 Inter,sans-serif;opacity:.9;transition:transform .18s,border-color .18s}
+.cinema-secondary:hover span{transform:translateX(2px);border-color:rgba(230,235,242,.45)}
 .cinema-hero-art{position:absolute;inset:0 0 0 35%;color:#C8CDD4;opacity:.45;pointer-events:none;overflow:hidden}
 .cinema-track{position:absolute;width:min(78%,650px);height:auto;right:-5%;top:50%;transform:translateY(-47%);filter:drop-shadow(0 0 25px rgba(227,38,54,.08))}
 .cinema-orbit{position:absolute;border:1px solid rgba(227,38,54,.25);border-radius:50%;transform:rotate(-25deg)}
