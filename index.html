@@ -1459,6 +1459,47 @@ select{border-radius:6px}
  #tabs button{font-size:13px;padding:10px 3px}
 }
 
+
+/* Race Decoded hero: tighter hierarchy, intentional spacing, and a real signature lockup. */
+#v-news .cinema-hero{
+ min-height:330px;
+ padding:clamp(28px,4.2vw,54px);
+ border:1px solid var(--line);
+ border-radius:10px;
+ background:radial-gradient(ellipse at 92% 10%,rgba(240,68,69,.10),transparent 36%),linear-gradient(120deg,var(--card2) 0%,var(--bg) 100%)!important;
+}
+#v-news .cinema-hero::before{width:3px;background:var(--red)}
+#v-news .cinema-hero-copy{max-width:680px;padding:0}
+#v-news .cinema-kicker{font-size:10px;letter-spacing:.13em;gap:10px;margin:0 0 18px;color:var(--mute)}
+#v-news .cinema-kicker span{flex:0 0 7px}
+#v-news .cinema-hero h2{font-size:clamp(52px,6.1vw,78px);line-height:.91;letter-spacing:-.015em;font-weight:800}
+#v-news .cinema-hero h2 em{font-style:normal;color:var(--red)}
+#v-news .cinema-deck{max-width:430px;margin:18px 0 22px;font-size:14px;line-height:1.6;color:var(--mute)}
+#v-news .cinema-actions{gap:9px}
+#v-news .cinema-actions button{min-height:44px;padding:12px 16px;font-size:10px;letter-spacing:.045em}
+#v-news .cinema-signature{display:flex;align-items:center;gap:10px;margin-top:27px;color:var(--mute);font:600 9px/1.4 "IBM Plex Mono",monospace;letter-spacing:.09em}
+#v-news .cinema-signature-line{display:block;width:34px;height:1px;flex:0 0 34px;background:var(--red);opacity:.9}
+#v-news .cinema-hero-index{right:24px;bottom:22px;opacity:.65}
+@media(min-width:821px){
+ #v-news .cinema-hero{min-height:330px;padding:44px 54px}
+ #v-news .cinema-hero-index{right:26px;bottom:24px}
+}
+@media(max-width:820px){
+ #v-news .cinema-hero{min-height:0;padding:29px 22px 24px}
+ #v-news .cinema-kicker{font-size:8px;letter-spacing:.105em;margin-bottom:19px}
+ #v-news .cinema-hero h2{font-size:clamp(45px,10.5vw,64px);line-height:.93}
+ #v-news .cinema-deck{max-width:310px;font-size:12px;margin:17px 0 20px}
+ #v-news .cinema-signature{flex-wrap:wrap;gap:8px;font-size:8px;margin-top:23px}
+ #v-news .cinema-hero-index{display:none}
+}
+@media(max-width:420px){
+ #v-news .cinema-hero{padding:25px 17px 21px}
+ #v-news .cinema-kicker{font-size:7px;letter-spacing:.08em;gap:7px}
+ #v-news .cinema-hero h2{font-size:clamp(39px,10.8vw,48px)}
+ #v-news .cinema-actions{align-items:stretch;flex-direction:column}
+ #v-news .cinema-actions button{width:100%;justify-content:space-between}
+ #v-news .cinema-signature{font-size:7px;letter-spacing:.06em}
+}
 </style>
 </head>
 <body>
