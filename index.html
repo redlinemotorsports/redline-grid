@@ -1606,6 +1606,17 @@ select{border-radius:6px}
  #v-news #briefingCircuit .briefing-desktop-deepdive{display:none!important}
 }
 
+
+/* Team radio waveform: fuller signal trace on desktop while retaining the original mobile density. */
+@media(min-width:821px){
+ #v-radio .radio-wave{height:34px;gap:2px;margin-bottom:9px;opacity:.95}
+ #v-radio .radio-wave i{max-width:none;width:auto;min-width:1px;flex:1 1 0;border-radius:2px;background:linear-gradient(180deg,#FF6568 0%,var(--red) 62%,rgba(240,68,69,.55) 100%)}
+}
+@media(max-width:820px){
+ #v-radio .radio-wave{height:22px;gap:3px}
+ #v-radio .radio-wave i:nth-child(n+65){display:none}
+}
+
 </style>
 </head>
 <body>
@@ -2280,7 +2291,7 @@ function drawRadio(){
   const what=summary.length?"At "+time+", "+(d.full_name||"this driver")+" was "+summary.join("; ")+".":"There isn't enough nearby timing data to describe this moment reliably.";
   return `<article class="radio${isFavD(d)?" hot":""}">
    <div class="radio-head">${driverNoBadge(c.driver_number,d.team_colour)}<div class="radio-id"><div class="radio-kicker">Original team radio</div><b>${esc(d.full_name||"Driver #"+c.driver_number)}</b><small>${esc(d.team_name||"")} · Driver #${esc(c.driver_number)}</small></div><div class="radio-time">${esc(time)}<br><span>${esc(dt.toLocaleDateString([],{day:"numeric",month:"short"}))}</span></div></div>
-   <div class="radio-audio"><div class="radio-wave" aria-hidden="true">${[5,10,7,15,9,18,11,6,14,20,8,12,17,7,10,15,5,13,8,18,11,6,14,9,16,7,12,5,10,15,8,13,6,16,9,12,20,7,14,5,11,18,8,15,10,6,17,12,4,14,9,19,7,13,5,16,10,8,18,11,6,15,9,20].map((h,j)=>`<i style="height:${h}px;opacity:${.45+(j%4)*.15}"></i>`).join("")}</div><audio controls preload="none" src="${esc(c.recording_url)}">Your browser does not support audio playback.</audio></div>
+   <div class="radio-audio"><div class="radio-wave" aria-hidden="true">${Array.from({length:128},(_,j)=>{const envelope=0.38+0.62*Math.abs(Math.sin(j*0.19)+0.42*Math.sin(j*0.071));const h=Math.max(3,Math.min(28,Math.round(3+envelope*(8+((j*17+j*j*3)%17)))));return `<i style="height:${h}px;opacity:${.42+(j%5)*.11}"></i>`}).join("")}</div><audio controls preload="none" src="${esc(c.recording_url)}">Your browser does not support audio playback.</audio></div>
    <section class="radio-context"><div class="context-head"><b>REDLINE TEAM RADIO CONTEXT</b><small>${esc(cur&&cur.country_name?cur.country_name+" Grand Prix":"Race weekend")} · ${esc(sessionLabel)} · ${lapNo!=null?"Lap "+lapNo:"Lap not available"}</small></div>
     <div class="context-grid">
      <div class="context-card"><small>Race Control</small><b>${esc(nearby&&nearby.flag||"Session notes")}</b><p>${esc(raceText)}</p></div>
