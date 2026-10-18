@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
 <title>Redline Grid</title>
-<rect width="64" height="64" rx="10" fill="#0B0D12"/>
-<path d="M12 12H36C46 12 52 17 52 26C52 34 47 39 38 41L50 52H34L21 40H19L15 52H6Z" fill="#F2F4F8"/>
-<path d="M12 12H23L12 52H3Z" fill="#FF2A18"/>
-<path d="M23 22H35C39 22 41 24 41 27C41 30 38 32 34 32H20Z" fill="#0B0D12"/>
-<g fill="#9299A8"><path d="M42 36h8v8h-8zM51 27h8v8h-8zM51 45h8v8h-8z"/></g>
-<path d="M42 36h8v8h-8z" fill="#F2F4F8"/>
+<rect width="64" height="64" rx="9" fill="#0B0D12"/>
+<path d="M12 10H35C45 10 51 16 51 26C51 34 46 39 37 41L49 53H33L20 40H18L14 53H5Z" fill="#F4F4F6"/>
+<path d="M12 10H22L10 53H2Z" fill="#F04445"/>
+<path d="M22 21H34C39 21 41 23 41 27C41 30 37 32 33 32H19Z" fill="#0B0D12"/>
+<g fill="#8C929D"><path d="M43 36h7v7h-7zM51 28h7v7h-7zM51 44h7v7h-7z"/></g>
+<path d="M43 36h7v7h-7z" fill="#F4F4F6"/>
 </svg>
