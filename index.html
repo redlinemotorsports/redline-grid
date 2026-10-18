@@ -1057,9 +1057,10 @@ h1.brand-name{font-size:clamp(29px,3.2vw,40px);letter-spacing:.075em}
 .rnd{border-radius:4px;letter-spacing:.04em}
 .pickbtn{border-radius:8px;text-transform:uppercase;letter-spacing:.04em;font-size:11px}
 #tabs{gap:5px;padding:5px;border-radius:10px;background:rgba(255,255,255,.025);border-color:rgba(255,255,255,.10);margin-bottom:12px}
-#tabs button{border-radius:7px;text-transform:uppercase;font-size:11px;letter-spacing:.08em;padding:13px 16px;transition:background .18s,color .18s,transform .18s}
-#tabs button[aria-selected=true]{background:var(--red);color:#fff;box-shadow:0 5px 18px rgba(227,38,54,.16)}
-#tabs button[aria-selected=true]:hover{color:#fff}
+#tabs button{min-width:0;border:1px solid transparent;border-radius:6px;text-transform:uppercase;font:700 15px/1.05 "Barlow Condensed",Impact,sans-serif;letter-spacing:.055em;padding:13px 16px;white-space:nowrap;transition:background .18s,border-color .18s,color .18s,transform .18s}
+#tabs button:hover{background:rgba(255,255,255,.045);color:var(--txt)}
+#tabs button[aria-selected=true]{background:linear-gradient(110deg,rgba(255,42,24,.18),rgba(255,42,24,.06));border-color:rgba(255,42,24,.3);color:var(--txt);box-shadow:inset 0 -2px 0 var(--red)}
+#tabs button[aria-selected=true]:hover{color:var(--txt)}
 #sub{gap:7px;margin-bottom:18px}
 #sub button{border-radius:7px;padding:9px 13px;font-size:10px;letter-spacing:.04em;text-transform:uppercase;background:rgba(255,255,255,.025)}
 #sub button[aria-selected=true]{background:rgba(227,38,54,.11);border-color:rgba(227,38,54,.65);color:#fff}
