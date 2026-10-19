@@ -1,4 +1,4 @@
-const CACHE_NAME="redline-shell-v4";
+const CACHE_NAME="redline-shell-v5";
 const CIRCUIT_ASSET_CACHE="redline-circuit-assets-v1";
 const SHELL=["./","./index.html"];
 self.addEventListener("install",event=>{event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()))});
