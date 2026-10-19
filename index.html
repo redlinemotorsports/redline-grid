@@ -1818,6 +1818,58 @@ select{border-radius:6px}
 
 
 /* Bright white light theme: prioritize maximum legibility over tinted surfaces. */
+
+/* Hard override for light mode: remove remaining dark inline surfaces and preserve readable contrast. */
+:root[data-theme=light] body::after{background:#FFFFFF!important;opacity:1!important}
+:root[data-theme=light] .wrap,
+:root[data-theme=light] main,
+:root[data-theme=light] .layout,
+:root[data-theme=light] #gps,
+:root[data-theme=light] .panel,
+:root[data-theme=light] .pane,
+:root[data-theme=light] section,
+:root[data-theme=light] article,
+:root[data-theme=light] [class*="card"],
+:root[data-theme=light] [class*="panel"],
+:root[data-theme=light] [class*="tile"],
+:root[data-theme=light] [class*="surface"],
+:root[data-theme=light] [class*="summary"],
+:root[data-theme=light] [class*="metric"],
+:root[data-theme=light] [class*="stat"]{
+ background-color:#FFFFFF!important;
+ color:#171A20!important;
+}
+:root[data-theme=light] .last,
+:root[data-theme=light] .session-countdown,
+:root[data-theme=light] .sc-unit,
+:root[data-theme=light] .yr,
+:root[data-theme=light] .gplist,
+:root[data-theme=light] .tools,
+:root[data-theme=light] .result-tools,
+:root[data-theme=light] .control-tools,
+:root[data-theme=light] .stats-subnav,
+:root[data-theme=light] .standings-switch{background:#FFFFFF!important;color:#171A20!important}
+:root[data-theme=light] .state,
+:root[data-theme=light] .briefing-intro,
+:root[data-theme=light] .stats-intro,
+:root[data-theme=light] .tag,
+:root[data-theme=light] .last small,
+:root[data-theme=light] .sc-gp,
+:root[data-theme=light] .sc-time,
+:root[data-theme=light] .sc-unit small{color:#4B5563!important}
+:root[data-theme=light] .rnd,
+:root[data-theme=light] .sc-status.live,
+:root[data-theme=light] .pickbtn{background:#C9151E!important;color:#FFFFFF!important}
+:root[data-theme=light] .brand-mark{background:#11151C!important}
+:root[data-theme=light] .brand-mark svg path{stroke:initial}
+:root[data-theme=light] .kerb{background:#C9151E!important;box-shadow:none!important}
+:root[data-theme=light] #tabs button{color:#343B46!important}
+:root[data-theme=light] #tabs button[aria-selected=true]{color:#A80F18!important}
+:root[data-theme=light] .scroll table,
+:root[data-theme=light] .scroll tbody,
+:root[data-theme=light] .scroll tr,
+:root[data-theme=light] .scroll td{color:#171A20!important}
+
 :root[data-theme=light]{
  color-scheme:light;
  --bg:#FFFFFF;--card:#FFFFFF;--card2:#FFFFFF;--sheet:#FFFFFF;--chip:#F1F3F5;
