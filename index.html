@@ -1816,6 +1816,101 @@ select{border-radius:6px}
  :root[data-theme=light] .weekend-shortcuts{margin-inline:9px}
 }
 
+
+/* Bright white light theme: prioritize maximum legibility over tinted surfaces. */
+:root[data-theme=light]{
+ color-scheme:light;
+ --bg:#FFFFFF;--card:#FFFFFF;--card2:#FFFFFF;--sheet:#FFFFFF;--chip:#F1F3F5;
+ --soft:#F7F8FA;--hover:#F0F2F5;--line:#D8DDE4;--red:#C9151E;--mute:#505966;
+ --txt:#171A20;--navbg:#FFFFFF;--subbg:#FFFFFF;--on-bg:#171A20;--on-fg:#FFFFFF;
+ --glow:rgba(201,21,30,.08);--veil:rgba(255,255,255,.94);--carbon:0
+}
+:root[data-theme=light] body{background:#FFFFFF!important;color:#171A20!important}
+:root[data-theme=light] body::before{opacity:0!important}
+:root[data-theme=light] .wrap{background:#FFFFFF!important}
+:root[data-theme=light] body *{border-color:#D8DDE4}
+:root[data-theme=light] .panel,
+:root[data-theme=light] .pane,
+:root[data-theme=light] .card,
+:root[data-theme=light] .stat,
+:root[data-theme=light] .metric,
+:root[data-theme=light] .briefing-card,
+:root[data-theme=light] .context-card,
+:root[data-theme=light] .strategy-section,
+:root[data-theme=light] .strategy-summary,
+:root[data-theme=light] .weather-card,
+:root[data-theme=light] .weather-session,
+:root[data-theme=light] .race-card,
+:root[data-theme=light] .home-card,
+:root[data-theme=light] .tile,
+:root[data-theme=light] .data-card,
+:root[data-theme=light] .stats-driver,
+:root[data-theme=light] .stats-metric,
+:root[data-theme=light] .result-card,
+:root[data-theme=light] .radio-card,
+:root[data-theme=light] .control-card{background:#FFFFFF!important;color:#171A20!important;border-color:#D8DDE4!important;box-shadow:0 1px 3px rgba(20,30,45,.06)!important}
+:root[data-theme=light] h1,
+:root[data-theme=light] h2,
+:root[data-theme=light] h3,
+:root[data-theme=light] h4,
+:root[data-theme=light] p,
+:root[data-theme=light] span,
+:root[data-theme=light] label,
+:root[data-theme=light] small,
+:root[data-theme=light] li,
+:root[data-theme=light] td,
+:root[data-theme=light] th,
+:root[data-theme=light] dt,
+:root[data-theme=light] dd,
+:root[data-theme=light] .state,
+:root[data-theme=light] .briefing-intro,
+:root[data-theme=light] .stats-intro,
+:root[data-theme=light] .tag,
+:root[data-theme=light] .last{color:#252B34}
+:root[data-theme=light] .mute,
+:root[data-theme=light] .muted,
+:root[data-theme=light] .subtle,
+:root[data-theme=light] .briefing-kicker,
+:root[data-theme=light] .stats-kicker,
+:root[data-theme=light] .documents-kicker,
+:root[data-theme=light] .strategy-section-head>p{color:#505966!important}
+:root[data-theme=light] a{color:#B5121B}
+:root[data-theme=light] button,
+:root[data-theme=light] select,
+:root[data-theme=light] input,
+:root[data-theme=light] textarea{color:#171A20!important;background-color:#FFFFFF;border-color:#C9CFD8}
+:root[data-theme=light] input::placeholder,
+:root[data-theme=light] textarea::placeholder{color:#737C88!important;opacity:1}
+:root[data-theme=light] button:hover,
+:root[data-theme=light] [role=button]:hover{background-color:#F1F3F5}
+:root[data-theme=light] button[aria-selected=true],
+:root[data-theme=light] button[aria-pressed=true],
+:root[data-theme=light] #tabs button[aria-selected=true]{background:#FFF0F0!important;color:#A80F18!important;border-color:#D71920!important}
+:root[data-theme=light] table{background:#FFFFFF;color:#171A20}
+:root[data-theme=light] thead,
+:root[data-theme=light] th{background:#F1F3F5!important;color:#252B34!important}
+:root[data-theme=light] tbody tr:nth-child(even){background:#F8F9FB!important}
+:root[data-theme=light] tbody tr:nth-child(odd){background:#FFFFFF!important}
+:root[data-theme=light] .brand-mark{background:#11151C;border-radius:8px}
+:root[data-theme=light] .brand-name{color:#171A20!important}
+:root[data-theme=light] .brand-name span,
+:root[data-theme=light] .briefing-kicker,
+:root[data-theme=light] .stats-kicker{color:#C9151E!important}
+:root[data-theme=light] .themebtn,
+:root[data-theme=light] #tabs{background:#FFFFFF!important;border-color:#D8DDE4!important}
+:root[data-theme=light] .kerb{opacity:.35}
+:root[data-theme=light] .scroll,
+:root[data-theme=light] .gplist,
+:root[data-theme=light] .layout{background:transparent}
+:root[data-theme=light] .pickbtn{background:#C9151E!important;color:#FFFFFF!important;border-color:#C9151E!important}
+:root[data-theme=light] .weekend-shortcuts a,
+:root[data-theme=light] .weekend-shortcuts button{background:#FFFFFF!important;color:#171A20!important;border-color:#D8DDE4!important}
+:root[data-theme=light] svg.nav-icon{color:inherit}
+@media(max-width:700px){
+ :root[data-theme=light] #tabs{background:#FFFFFF!important;box-shadow:0 -2px 12px rgba(20,30,45,.08)!important}
+ :root[data-theme=light] .panel,:root[data-theme=light] .pane{box-shadow:0 1px 3px rgba(20,30,45,.05)!important}
+}
+
 </style>
 </head>
 <body>
