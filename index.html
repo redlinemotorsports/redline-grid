@@ -2431,6 +2431,39 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
   #tabs{margin-bottom:7px!important;padding:3px!important}
   #tabs button{padding-top:7px!important;padding-bottom:7px!important}
 }
+
+/* Race Decoded evolves into a compact Race Centre launchpad. */
+#v-news .cinema-hero{
+  min-height:0!important;padding:25px 30px!important;margin-bottom:13px!important;
+  border-radius:10px!important;align-items:center;
+  background:radial-gradient(ellipse at 92% 12%,rgba(255,42,24,.10),transparent 34%),linear-gradient(110deg,var(--card2),var(--bg))!important;
+}
+#v-news .cinema-hero-copy{max-width:760px!important}
+#v-news .cinema-kicker{margin-bottom:10px!important;font-size:9px!important}
+#v-news .cinema-hero h2{font-size:clamp(34px,4.1vw,52px)!important;line-height:.9!important;letter-spacing:0!important}
+#v-news .cinema-deck{max-width:560px!important;margin:12px 0 14px!important;font-size:12px!important;line-height:1.5!important}
+#v-news .cinema-actions{gap:8px!important}
+#v-news .cinema-actions button{min-height:37px!important;padding:9px 12px!important;font-size:10px!important}
+#v-news .cinema-signature{margin-top:13px!important;font-size:8px!important}
+#v-news .cinema-hero-index{right:22px!important;bottom:17px!important}
+#v-news .briefing-head{margin-top:0!important;margin-bottom:10px!important}
+#v-news .briefing-intro{margin-top:5px!important}
+#v-news .weekend-shortcuts{margin-bottom:10px!important}
+#v-news .weekend-shortcuts-grid{gap:8px!important}
+#v-news .weekend-shortcuts-grid button{min-height:86px!important;padding:12px!important}
+@media(max-width:820px){
+ #v-news .cinema-hero{padding:19px 16px 16px!important;margin-bottom:10px!important}
+ #v-news .cinema-kicker{font-size:7px!important;letter-spacing:.09em!important;margin-bottom:10px!important}
+ #v-news .cinema-hero h2{font-size:clamp(31px,8vw,42px)!important;line-height:.91!important}
+ #v-news .cinema-deck{max-width:340px!important;font-size:11px!important;margin:10px 0 12px!important}
+ #v-news .cinema-actions button{min-height:36px!important;padding:9px 10px!important}
+ #v-news .cinema-signature{margin-top:11px!important;gap:7px!important;font-size:7px!important}
+ #v-news .cinema-hero-index{display:none!important}
+ #v-news .briefing-head{gap:10px!important}
+ #v-news .briefing-head h2{font-size:22px!important}
+ #v-news .weekend-shortcuts-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #v-news .weekend-shortcuts-grid button{min-height:76px!important}
+}
 </style>
 </head>
 <body>
@@ -2556,15 +2589,15 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
   <section class="cinema-hero" aria-label="Redline Grid introduction">
    <div class="cinema-hero-copy">
     <p class="cinema-kicker"><span></span> REDLINE GRID <i>/</i> MOTORSPORT INTELLIGENCE</p>
-    <h2>THE RACE.<br><em>DECODED.</em></h2>
-    <p class="cinema-deck">Every lap. Every rivalry. Every detail that changes the story.</p>
-    <div class="cinema-actions"><button type="button" class="cinema-primary" id="heroRaceLink">Enter Race Centre <span class="cinema-action-mark" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 15.5 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg></span></button><button type="button" class="cinema-secondary" id="heroDataLink">Explore the data <span>→</span></button></div>
-    <div class="cinema-signature"><span>INDEPENDENT F1 DATA</span><span class="cinema-signature-line"></span><span>BUILT FOR THE DETAIL</span></div>
+    <h2>RACE<br><em>CENTRE.</em></h2>
+    <p class="cinema-deck">Your race weekend, in one place. Jump straight to results, schedule, race control, weather and strategy.</p>
+    <div class="cinema-actions"><button type="button" class="cinema-primary" id="heroRaceLink">View race results <span class="cinema-action-mark" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 15.5 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg></span></button><button type="button" class="cinema-secondary" id="heroDataLink">Explore the data <span>→</span></button></div>
+    <div class="cinema-signature"><span>RACE WEEKEND HUB</span><span class="cinema-signature-line"></span><span>ALL THE KEY DATA</span></div>
    </div>
    <div class="cinema-hero-index"><span>RG</span><b>01</b><small>RACE INTELLIGENCE</small></div>
   </section>
   <div class="briefing-head">
-   <div><p class="briefing-kicker">REDLINE GRID / WEEKEND INTELLIGENCE</p><h2>Race Centre</h2><p class="briefing-intro">A quick guide to what's coming up and what has already happened this race weekend.</p></div>
+   <div><p class="briefing-kicker">REDLINE GRID / WEEKEND INTELLIGENCE</p><h2>Weekend Overview</h2><p class="briefing-intro">The key updates and tools for the selected Grand Prix.</p></div>
    <button type="button" class="briefing-refresh" id="briefingRefresh">Refresh schedule ↻</button>
   </div>
   <section class="weekend-shortcuts" aria-label="Race weekend quick access">
