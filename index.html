@@ -2085,6 +2085,30 @@ select{border-radius:6px}
 @media(max-width:760px){.strategy-lab-head{padding:18px 16px 14px}.lab-tabs{padding:0 16px 14px}.lab-tool{padding:17px 16px}.lab-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.lab-compare-result{grid-template-columns:1fr 1fr}}
 @media(max-width:430px){.strategy-lab-head{flex-direction:column}.lab-fields{grid-template-columns:1fr}.lab-compare-fields{grid-template-columns:1fr}.lab-driver-card{padding:12px}.lab-driver-card strong{font-size:15px}.lab-driver-card .lab-driver-points{font-size:20px}}
 
+
+/* Final brand-title typography: unified typeface and equal sizing for both words. */
+h1.brand-name,
+header>.brand>.brand-text>h1.brand-name{
+  font-family:"Oxanium","Barlow Condensed",sans-serif!important;
+  font-style:normal!important;
+  font-weight:800!important;
+  letter-spacing:.035em!important;
+  line-height:1!important;
+}
+h1.brand-name span,
+header>.brand>.brand-text>h1.brand-name span{
+  font-family:inherit!important;
+  font-size:1em!important;
+  font-weight:inherit!important;
+  letter-spacing:inherit!important;
+  line-height:inherit!important;
+  margin-top:0!important;
+}
+@media(min-width:761px){
+  h1.brand-name{white-space:nowrap;display:flex;align-items:baseline;gap:.22em}
+  h1.brand-name span{display:inline!important}
+}
+
 </style>
 </head>
 <body>
