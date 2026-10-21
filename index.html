@@ -3035,6 +3035,67 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
  #statsContent .driver-hub-metrics{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
 
+
+/* Mobile weekend-first hierarchy: surface the essential race-weekend actions,
+   keep supporting context secondary, and leave desktop untouched. */
+@media(max-width:820px){
+ #v-news .cinema-hero{padding:17px 14px 14px;margin-bottom:12px}
+ #v-news .cinema-hero-copy{padding:0;max-width:none}
+ #v-news .cinema-kicker{font-size:8px;letter-spacing:.09em;margin-bottom:12px}
+ #v-news .cinema-hero h2{font-size:clamp(34px,9vw,43px);line-height:.94;letter-spacing:-.045em}
+ #v-news .cinema-deck{font-size:12px;line-height:1.45;margin-top:9px;max-width:36ch}
+ #v-news .cinema-hero-index,
+ #v-news .cinema-signature,
+ #v-news .cinema-secondary{display:none!important}
+ #v-news .cinema-actions{display:flex;gap:8px;margin-top:13px}
+ #v-news .cinema-actions .cinema-primary{width:auto;min-height:39px;padding:10px 12px;font-size:11px}
+ #v-news .briefing-head{padding:13px 13px 11px;align-items:center;gap:10px}
+ #v-news .briefing-head .briefing-kicker{font-size:8px;margin-bottom:4px}
+ #v-news .briefing-head h2{font-size:22px;line-height:1.05}
+ #v-news .briefing-head .briefing-intro{font-size:11px;line-height:1.4;margin-top:5px}
+ #v-news .briefing-refresh{width:auto;min-height:34px;align-self:center;padding:8px 9px;font-size:10px;white-space:nowrap}
+ #v-news .race-pulse{margin:8px 9px 10px}
+ #v-news .race-pulse-head{padding:11px 12px 8px;border-bottom:0}
+ #v-news .race-pulse-head .briefing-kicker{font-size:8px;margin-bottom:4px}
+ #v-news .race-pulse-head h3{font-size:16px}
+ #v-news .race-pulse-sub,
+ #v-news .pulse-status,
+ #v-news .pulse-foot{display:none!important}
+ #v-news .race-pulse-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
+ #v-news .pulse-stat{padding:9px 12px 12px;border-right:1px solid var(--line)}
+ #v-news .pulse-stat:last-child{border-right:0}
+ #v-news .pulse-label{font-size:8px;letter-spacing:.1em}
+ #v-news .pulse-stat b{font-size:13px;line-height:1.25}
+ #v-news .pulse-stat small{font-size:10px;line-height:1.35}
+ #v-news .weekend-shortcuts{margin:9px;padding:10px}
+ #v-news .weekend-shortcuts-head{flex-direction:row;align-items:center;gap:8px;padding:0 1px 9px}
+ #v-news .weekend-shortcuts-head>span{font-size:9px;letter-spacing:.1em}
+ #v-news .weekend-shortcuts-head small{display:none}
+ #v-news .weekend-shortcuts-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+ #v-news .weekend-shortcuts-grid button{min-height:56px;grid-template-columns:17px minmax(0,1fr) auto;align-content:center;padding:8px;gap:2px 6px;border-radius:8px}
+ #v-news .weekend-shortcuts-grid button svg{width:16px;height:16px;grid-row:1 / span 2}
+ #v-news .weekend-shortcuts-grid button>span{font-size:11px;line-height:1.2}
+ #v-news .weekend-shortcuts-grid button>small{grid-column:2;font-size:9px;line-height:1.2}
+ #v-news .weekend-shortcuts-grid button>b{grid-column:3;grid-row:1 / span 2}
+ #v-news .briefing-note{margin:8px 12px;padding:9px 10px;font-size:10px;line-height:1.4}
+ #v-news .briefing-grid{grid-template-columns:minmax(0,1fr);padding:8px;gap:8px}
+ #v-news .briefing-grid .briefing-card:not(.briefing-wide){display:none!important}
+ #v-news .briefing-card{padding:12px}
+ #v-news .briefing-card .briefing-kicker{font-size:8px;margin-bottom:5px}
+ #v-news .briefing-card h3{font-size:16px;margin-bottom:7px}
+ #v-news #briefingWeather{display:none!important}
+ #v-news .briefing-footer,
+ #v-news .briefing-disclaimer{display:none!important}
+}
+@media(max-width:420px){
+ #v-news .cinema-hero{padding:15px 12px 12px}
+ #v-news .cinema-hero h2{font-size:clamp(32px,9vw,39px)}
+ #v-news .cinema-deck{font-size:11px;max-width:33ch}
+ #v-news .briefing-head h2{font-size:20px}
+ #v-news .briefing-refresh{font-size:9px;padding:7px}
+ #v-news .weekend-shortcuts-grid button{min-height:53px}
+}
+
 </style>
 </head>
 <body>
