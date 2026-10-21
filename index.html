@@ -2376,6 +2376,38 @@ h1.brand-name span{display:inline-block;font-size:.72em;line-height:1;letter-spa
   .last .session-countdown{padding-left:8px!important;padding-right:8px!important}
 }
 
+
+/* Compact the page top so content starts sooner without hiding key controls. */
+.wrap{padding-top:14px}
+header{gap:12px;margin-bottom:12px;padding-bottom:10px}
+.tag{margin-top:4px;line-height:1.2}
+#tabs{margin-bottom:9px;padding:3px}
+#tabs button{padding-top:8px;padding-bottom:8px}
+@media(min-width:821px){
+  .wrap{padding-top:16px}
+  header{gap:12px;padding-bottom:10px;margin-bottom:12px}
+  .last{padding-top:7px;padding-bottom:7px}
+}
+@media(max-width:820px){
+  .wrap{padding:8px 12px 18px}
+  header{gap:9px;margin-bottom:9px;padding-bottom:9px}
+  h1.brand-name{line-height:.95}
+  .tag{margin-top:3px;font-size:9px;letter-spacing:.12em}
+  .last{gap:8px;padding:9px 11px;border-radius:11px}
+  .last .lr{gap:8px}
+  .last .lt b{font-size:14px}
+  .last .lt small{font-size:11px}
+  .lnx{padding-top:7px}
+  .session-countdown{padding-top:8px;gap:6px}
+  .sc-session{font-size:14px}
+  .sc-clock{gap:4px}
+  .sc-unit{padding:5px 2px}
+  .sc-unit b{font-size:18px}
+  .sc-unit small{font-size:8px}
+  .pickbtn{margin-bottom:9px;padding:10px 13px;min-height:42px;font-size:14px;border-radius:11px}
+  #tabs{margin-bottom:8px;padding:4px}
+  #tabs button{padding:8px 10px}
+}
 </style>
 </head>
 <body>
