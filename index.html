@@ -1997,6 +1997,33 @@ select{border-radius:6px}
   header>.last .sc-unit small{font-size:6px;margin-top:2px}
 }
 
+
+/* Championship predictions: keep the feature alongside the live title standings. */
+.prediction-panel{margin-top:18px;overflow:hidden}
+.prediction-hero{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:20px 20px 16px;border-bottom:1px solid var(--line);background:linear-gradient(115deg,rgba(240,68,69,.12),transparent 65%)}
+.prediction-kicker{margin:0 0 7px;color:var(--red);font:700 10px "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase}
+.prediction-hero h2{margin:0;font-size:clamp(21px,3vw,29px);letter-spacing:-.025em}
+.prediction-hero p:last-child{margin:7px 0 0;color:var(--mute);font-size:12px;line-height:1.55;max-width:580px}
+.prediction-badge{flex:none;border:1px solid var(--line);border-radius:7px;padding:7px 9px;color:var(--mute);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.08em}
+.prediction-body{padding:18px 20px 20px}
+.prediction-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.prediction-field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.prediction-field label,.prediction-top-three-label{font:700 10px "IBM Plex Mono",monospace;color:var(--mute);letter-spacing:.1em;text-transform:uppercase}
+.prediction-field select{width:100%;min-width:0;padding:12px 36px 12px 12px;border:1px solid var(--line);border-radius:8px;background:var(--soft);color:var(--txt);font:600 13px Inter,system-ui,sans-serif}
+.prediction-top-three{margin-top:19px;padding-top:17px;border-top:1px solid var(--line)}
+.prediction-top-three-label{display:block;margin-bottom:10px}
+.prediction-podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.prediction-slot{min-width:0;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--soft)}
+.prediction-slot small{display:block;margin-bottom:8px;color:var(--red);font:700 9px "IBM Plex Mono",monospace;letter-spacing:.1em}
+.prediction-slot select{width:100%;min-width:0;border:0;background:transparent;color:var(--txt);font:600 12px Inter,system-ui,sans-serif}
+.prediction-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;flex-wrap:wrap}
+.prediction-save{border:0;border-radius:7px;padding:11px 16px;background:var(--red);color:#fff;font:800 11px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.prediction-reset{border:1px solid var(--line);border-radius:7px;padding:10px 12px;background:transparent;color:var(--mute);font:600 10px "IBM Plex Mono",monospace;cursor:pointer}
+.prediction-status{font-size:11px;color:var(--mute);line-height:1.4}
+.prediction-status.saved{color:var(--txt)}
+.prediction-note{margin:12px 0 0;color:var(--mute);font-size:10px;line-height:1.5}
+@media(max-width:620px){.prediction-hero{padding:16px;gap:8px}.prediction-badge{font-size:8px;padding:6px}.prediction-body{padding:15px}.prediction-grid{grid-template-columns:1fr}.prediction-podium{gap:6px}.prediction-slot{padding:9px 7px}.prediction-slot select{font-size:11px}.prediction-actions{align-items:stretch}.prediction-save{flex:1}}
+
 </style>
 </head>
 <body>
@@ -2029,6 +2056,24 @@ select{border-radius:6px}
   <div class="standings-switch" role="group" aria-label="Standings category"><button type="button" data-standing-kind="drivers" aria-pressed="true">Drivers</button><button type="button" data-standing-kind="teams" aria-pressed="false">Constructors</button></div>
   <section class="panel standings-driver-panel"><h2>Drivers’ Championship</h2><div id="drivers"><div class="state">Loading…</div></div></section>
   <section class="panel standings-team-panel"><h2>Constructors’ Championship</h2><div id="teams"><div class="state">Loading…</div></div></section>
+
+  <section class="panel prediction-panel" id="championPredictions">
+   <div class="prediction-hero"><div><p class="prediction-kicker">Redline Grid / Your call</p><h2>Championship Predictions</h2><p>Call the title fight. Pick your Drivers’ Champion, Constructors’ Champion and predicted top three before the season finale.</p></div><span class="prediction-badge">PREDICTION MODE</span></div>
+   <div class="prediction-body">
+    <div class="prediction-grid">
+     <div class="prediction-field"><label for="predictionDriverChampion">Drivers’ Champion</label><select id="predictionDriverChampion"><option value="">Choose your champion…</option></select></div>
+     <div class="prediction-field"><label for="predictionConstructorChampion">Constructors’ Champion</label><select id="predictionConstructorChampion"><option value="">Choose your team…</option></select></div>
+    </div>
+    <div class="prediction-top-three"><span class="prediction-top-three-label">Predicted Drivers’ Top Three</span><div class="prediction-podium">
+     <div class="prediction-slot"><small>01 / CHAMPION</small><select id="predictionP1" aria-label="Predicted first place"><option value="">1st place…</option></select></div>
+     <div class="prediction-slot"><small>02 / RUNNER-UP</small><select id="predictionP2" aria-label="Predicted second place"><option value="">2nd place…</option></select></div>
+     <div class="prediction-slot"><small>03 / THIRD</small><select id="predictionP3" aria-label="Predicted third place"><option value="">3rd place…</option></select></div>
+    </div></div>
+    <div class="prediction-actions"><span id="predictionStatus" class="prediction-status" role="status" aria-live="polite">Your picks stay on this device.</span><div style="display:flex;gap:8px"><button type="button" class="prediction-reset" id="predictionReset">Reset</button><button type="button" class="prediction-save" id="predictionSave">Save predictions ↗</button></div></div>
+    <p class="prediction-note">Saved locally in this browser — predictions are personal and won’t sync across devices yet. Your picks can be changed at any time.</p>
+   </div>
+  </section>
+
  </div>
  <section class="panel pane" id="v-stats" hidden>
   <div class="stats-head"><div><p class="stats-kicker">REDLINE GRID / DRIVER DATABASE</p><h2>Drivers Hub</h2><p class="stats-intro">Explore the grid, open driver profiles, and compare season performance.</p></div><label class="stats-season">Season <select id="statsYear" aria-label="Driver statistics season"></select></label></div>
@@ -3887,6 +3932,46 @@ if("serviceWorker" in navigator && location.protocol.startsWith("http")){
 }
 
 // Prioritise Home's schedule and race summary requests before initialising the heavier season-data panels.
+
+/* Championship predictions live beside the standings and persist in this browser. */
+(function(){
+ const ids=["predictionDriverChampion","predictionConstructorChampion","predictionP1","predictionP2","predictionP3"];
+ const $p=id=>document.getElementById(id);
+ const key="redline-championship-predictions-v1";
+ const status=$p("predictionStatus");
+ function optionsFrom(container,teamMode){
+  const root=$p(container);if(!root)return[];
+  return [...root.querySelectorAll(".row .who b")].map(el=>el.textContent.trim()).filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).map(name=>({name}));
+ }
+ function fill(select,items,placeholder,selected){
+  const el=$p(select);if(!el)return;
+  const old=selected!==undefined?selected:el.value;
+  el.innerHTML="";
+  const first=document.createElement("option");first.value="";first.textContent=placeholder;el.append(first);
+  items.forEach(item=>{const o=document.createElement("option");o.value=item.name;o.textContent=item.name;el.append(o)});
+  if(items.some(x=>x.name===old))el.value=old;
+ }
+ function loadSaved(){try{return JSON.parse(localStorage.getItem(key)||"{}")}catch(e){return{}}}
+ function populate(){
+  const drivers=optionsFrom("drivers"),teams=optionsFrom("teams"),saved=loadSaved();
+  if(drivers.length){fill("predictionDriverChampion",drivers,"Choose your champion…",saved.driverChampion);["predictionP1","predictionP2","predictionP3"].forEach((id,i)=>fill(id,drivers,["1st place…","2nd place…","3rd place…"][i],saved.topThree?.[i]||""))}
+  if(teams.length)fill("predictionConstructorChampion",teams,"Choose your team…",saved.constructorChampion||"");
+  if(saved.updatedAt)status.textContent="Saved "+new Date(saved.updatedAt).toLocaleDateString()+" · edit any pick anytime";
+ }
+ function save(){
+  const picks={driverChampion:$p("predictionDriverChampion").value,constructorChampion:$p("predictionConstructorChampion").value,topThree:["predictionP1","predictionP2","predictionP3"].map(id=>$p(id).value)};
+  if(!picks.driverChampion||!picks.constructorChampion||picks.topThree.some(x=>!x)){status.textContent="Choose both champions and all three podium places first.";status.classList.remove("saved");return}
+  if(new Set(picks.topThree).size!==3){status.textContent="Your top three must contain three different drivers.";status.classList.remove("saved");return}
+  if(picks.topThree[0]!==picks.driverChampion){status.textContent="Your Drivers’ Champion should also be 1st in your predicted top three.";status.classList.remove("saved");return}
+  picks.updatedAt=new Date().toISOString();
+  try{localStorage.setItem(key,JSON.stringify(picks));status.textContent="Predictions saved · "+new Date(picks.updatedAt).toLocaleDateString();status.classList.add("saved")}catch(e){status.textContent="This browser couldn’t save your picks. Check local storage settings."}
+ }
+ function reset(){try{localStorage.removeItem(key)}catch(e){}ids.forEach(id=>{if($p(id))$p(id).value=""});status.textContent="Predictions reset. Make a fresh call.";status.classList.remove("saved")}
+ $p("predictionSave").addEventListener("click",save);$p("predictionReset").addEventListener("click",reset);
+ const obs=new MutationObserver(populate);["drivers","teams"].forEach(id=>{if($p(id))obs.observe($p(id),{childList:true,subtree:true})});
+ populate();
+})();
+
 show("home","news");
 renderBriefing();
 setTimeout(()=>loadYear(nowY),1200);
