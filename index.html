@@ -2750,6 +2750,183 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
   #v-standings .strategy-lab-head .prediction-badge{font-size:9px;padding:6px 8px}
 }
 @media(max-width:420px){#v-standings .strategy-lab-head{flex-direction:column;align-items:flex-start!important}}
+
+
+/* Minimal interface applies only on mobile; desktop keeps the full strategy analysis. */
+@media(max-width:600px){
+ .strategy-pane .strategy-section:nth-child(4),
+ .strategy-pane .strategy-section:nth-child(6){display:none}
+ .strategy-pane .strategy-section-head>p{display:none}
+ .strategy-pane .strategy-section{padding:14px}
+ .strategy-pane .strategy-summary{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding-top:6px;padding-bottom:14px}
+ .strategy-pane .strategy-stat{padding:11px}
+ .strategy-pane .strategy-stat small{font-size:9px}
+ .strategy-pane .strategy-stat strong{font-size:21px;margin-top:5px}
+ .strategy-pane .strategy-pirelli{padding:10px}
+ .strategy-pane .strategy-section-head h3{font-size:17px}
+ .strategy-pane .strategy-note{margin:0 14px 14px;padding:10px 12px;font-size:11px;line-height:1.45}
+}
+
+/* Desktop race-engineer workstation: denser analysis, clearer hierarchy, live-data feel. */
+@media(min-width:900px){
+ .strategy-pane{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start;gap:0}
+ .strategy-pane>.strategy-hero,
+ .strategy-pane>.strategy-summary,
+ .strategy-pane>.strategy-section:nth-child(3),
+ .strategy-pane>.strategy-section:nth-child(6),
+ .strategy-pane>.strategy-note{grid-column:1/-1}
+ .strategy-pane>.strategy-hero{padding:26px 28px 20px;border-bottom:1px solid var(--line);background:linear-gradient(110deg,var(--panel),var(--soft))}
+ .strategy-pane .strategy-hero h2{font-size:clamp(30px,2.6vw,40px);letter-spacing:.015em}
+ .strategy-pane .strategy-hero .briefing-intro{max-width:760px;font-size:14px;line-height:1.6}
+ .strategy-pane .strategy-controls{align-self:center}
+ .strategy-pane .strategy-summary{grid-template-columns:repeat(4,minmax(0,1fr));padding:18px 24px;gap:12px}
+ .strategy-pane .strategy-stat{background:var(--panel);border-radius:10px;padding:16px;position:relative}
+ .strategy-pane .strategy-stat:before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:3px;background:var(--red)}
+ .strategy-pane .strategy-stat small{font-size:10px;letter-spacing:.12em}
+ .strategy-pane .strategy-stat strong{font-size:clamp(22px,1.8vw,30px);font-variant-numeric:tabular-nums}
+ .strategy-pane .strategy-section{min-width:0;padding:22px 24px;border-right:1px solid var(--line)}
+ .strategy-pane>.strategy-section:nth-child(4){border-right:0}
+ .strategy-pane .strategy-section-head{align-items:flex-start;margin-bottom:16px}
+ .strategy-pane .strategy-section-head h3{font-size:21px;letter-spacing:.01em}
+ .strategy-pane .strategy-section-head>p{display:block;max-width:360px;font-size:12px;line-height:1.55}
+ .strategy-pane .strategy-section-head>div>span{color:var(--red);font-size:10px}
+ .strategy-pane #strategyStints,
+ .strategy-pane #strategyCompare,
+ .strategy-pane #strategyInsights,
+ .strategy-pane #strategyPace{min-width:0}
+ .strategy-pane .strategy-driver{background:var(--panel);padding:16px}
+ .strategy-pane .strategy-pirelli{padding:15px}
+ .strategy-pane .strategy-note{margin:0 24px 22px;padding:12px 15px;border-left:3px solid var(--red);background:var(--soft);font-size:11px;line-height:1.55}
+}
+@media(min-width:601px) and (max-width:899px){
+ .strategy-pane .strategy-section-head>p{display:block}
+ .strategy-pane .strategy-summary{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
+
+/* Race engineer workstation treatment — desktop only. */
+@media(min-width:900px){
+ .strategy-pane{
+  background:
+   linear-gradient(rgba(128,128,128,.035) 1px,transparent 1px),
+   linear-gradient(90deg,rgba(128,128,128,.035) 1px,transparent 1px),
+   var(--panel);
+  background-size:24px 24px,24px 24px,auto;
+ }
+ .strategy-pane>.strategy-hero{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:linear-gradient(105deg,var(--panel) 0%,var(--soft) 68%,rgba(220,30,45,.07) 100%);
+ }
+ .strategy-pane>.strategy-hero:after{
+  content:"RACE ENGINEERING / STRATEGY DESK";
+  position:absolute;right:28px;top:14px;z-index:-1;
+  color:var(--mute);opacity:.12;font-family:Oxanium,Inter,sans-serif;
+  font-size:clamp(22px,3vw,42px);font-weight:900;letter-spacing:.08em;
+  white-space:nowrap;pointer-events:none
+ }
+ .strategy-pane .strategy-hero .briefing-kicker{
+  display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.2em
+ }
+ .strategy-pane .strategy-hero .briefing-kicker:before{
+  content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--red);box-shadow:0 0 0 4px rgba(220,30,45,.12)
+ }
+ .strategy-pane .strategy-controls label{
+  font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:800
+ }
+ .strategy-pane .strategy-controls select{min-width:210px}
+ .strategy-pane #strategyRefresh{background:var(--red);border-color:var(--red);color:#fff}
+ .strategy-pane>.strategy-summary{border-bottom:1px solid var(--line)}
+ .strategy-pane .strategy-stat{box-shadow:0 5px 16px rgba(0,0,0,.045)}
+ .strategy-pane .strategy-section{background:rgba(128,128,128,.018)}
+ .strategy-pane .strategy-section:nth-child(4),
+ .strategy-pane .strategy-section:nth-child(5){background:var(--panel)}
+ .strategy-pane .strategy-section-head>div>span{display:inline-flex;align-items:center;gap:7px}
+ .strategy-pane .strategy-section-head>div>span:before{content:"";width:18px;height:2px;background:var(--red)}
+ .strategy-pane .strategy-note{letter-spacing:.01em}
+}
+
+
+/* Desktop engineering workstation: dense, instrument-like analysis without inventing live telemetry. */
+@media(min-width:900px){
+ .strategy-pane{
+  position:relative;
+  border-color:color-mix(in srgb,var(--red) 20%,var(--line));
+  box-shadow:0 18px 48px rgba(0,0,0,.08);
+  background:
+   linear-gradient(rgba(128,128,128,.035) 1px,transparent 1px),
+   linear-gradient(90deg,rgba(128,128,128,.035) 1px,transparent 1px),
+   var(--panel);
+  background-size:24px 24px,24px 24px,auto;
+ }
+ .strategy-pane:before{
+  content:"ENGINEERING DESK   /   RECORDED SESSION DATA   /   STRATEGY ANALYSIS";
+  display:block;
+  padding:10px 24px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(90deg,rgba(220,30,45,.11),transparent 72%);
+  color:var(--mute);
+  font:700 9px/1.4 "IBM Plex Mono",monospace;
+  letter-spacing:.15em;
+ }
+ .strategy-pane>.strategy-hero{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:linear-gradient(105deg,var(--panel) 0%,var(--soft) 68%,rgba(220,30,45,.08) 100%);
+ }
+ .strategy-pane>.strategy-hero:after{
+  content:"RACE ENGINEERING / STRATEGY DESK";
+  position:absolute;right:28px;top:14px;z-index:-1;
+  color:var(--mute);opacity:.12;font-family:Oxanium,Inter,sans-serif;
+  font-size:clamp(22px,3vw,42px);font-weight:900;letter-spacing:.08em;
+  white-space:nowrap;pointer-events:none
+ }
+ .strategy-pane .strategy-hero .briefing-kicker{display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.2em}
+ .strategy-pane .strategy-hero .briefing-kicker:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px rgba(220,30,45,.12)}
+ .strategy-pane .strategy-controls label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:800}
+ .strategy-pane .strategy-controls select{min-width:210px}
+ .strategy-pane #strategyRefresh{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 5px 15px rgba(220,30,45,.18)}
+ .strategy-pane>.strategy-summary{border-bottom:1px solid var(--line)}
+ .strategy-pane .strategy-stat{background:linear-gradient(145deg,var(--panel),var(--soft));box-shadow:0 5px 16px rgba(0,0,0,.045);border-radius:8px}
+ .strategy-pane .strategy-stat small{font:700 9px/1.4 "IBM Plex Mono",monospace;letter-spacing:.13em}
+ .strategy-pane .strategy-stat strong{font-family:"IBM Plex Mono",monospace;letter-spacing:-.045em}
+ .strategy-pane .strategy-stat span{font-size:10px;line-height:1.45}
+ .strategy-pane .strategy-section{position:relative;min-width:0;background:rgba(128,128,128,.018);border-right:1px solid var(--line)}
+ .strategy-pane>.strategy-section:nth-child(4),.strategy-pane>.strategy-section:nth-child(5){background:var(--panel)}
+ .strategy-pane .strategy-section-head{position:relative;padding-bottom:12px;border-bottom:1px solid var(--line)}
+ .strategy-pane .strategy-section-head>div>span{display:inline-flex;align-items:center;gap:7px;color:var(--red);font:700 9px/1.4 "IBM Plex Mono",monospace;letter-spacing:.14em}
+ .strategy-pane .strategy-section-head>div>span:before{content:"";width:18px;height:2px;background:var(--red)}
+ .strategy-pane .strategy-section-head h3{font-size:20px;letter-spacing:-.025em}
+ .strategy-pane .strategy-section-head>p{font-size:11px;line-height:1.6}
+ .strategy-pane .strategy-driver,.strategy-pane .strategy-insight-card,.strategy-pane .strategy-pirelli{border-radius:7px;box-shadow:0 4px 14px rgba(0,0,0,.025)}
+ .strategy-pane .strategy-driver{background:var(--panel);padding:16px}
+ .strategy-pane .strategy-driver-head{padding-bottom:10px;border-bottom:1px solid var(--line)}
+ .strategy-pane .strategy-stint-track{height:38px;gap:3px}
+ .strategy-pane .strategy-stint{border-radius:3px;font-family:"IBM Plex Mono",monospace}
+ .strategy-pane .strategy-stint-analysis-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .strategy-pane .strategy-stint-metric{border-radius:5px;padding:11px;background:var(--soft)}
+ .strategy-pane .strategy-stint-metric strong{font:700 12px "IBM Plex Mono",monospace}
+ .strategy-pane .strategy-insight-grid{gap:8px}
+ .strategy-pane .strategy-insight-card{background:var(--panel);padding:15px;border-radius:7px}
+ .strategy-pane .strategy-insight-card>span{font:700 9px "IBM Plex Mono",monospace;letter-spacing:.12em}
+ .strategy-pane .strategy-insight-card h4{font-size:13px}
+ .strategy-pane .strategy-insight-card p{font-size:11px;line-height:1.65}
+ .strategy-pane .strategy-compare-wrap,.strategy-pane .strategy-pace-wrap{border:1px solid var(--line);border-radius:7px;background:var(--panel)}
+ .strategy-pane .strategy-compare-table,.strategy-pane .strategy-pace{font-family:"IBM Plex Mono",monospace;font-size:10px}
+ .strategy-pane .strategy-compare-table th,.strategy-pane .strategy-pace th{position:sticky;top:0;background:var(--soft);z-index:1;font-size:9px;letter-spacing:.1em}
+ .strategy-pane .strategy-compare-table td,.strategy-pane .strategy-pace td{padding:12px 10px}
+ .strategy-pane .strategy-compare-table tbody tr:hover,.strategy-pane .strategy-pace tbody tr:hover{background:rgba(220,30,45,.045)}
+ .strategy-pane .strategy-compare-note{padding:10px 12px;border-left:2px solid var(--red);background:var(--soft)}
+ .strategy-pane .strategy-note{margin:0 24px 22px;padding:12px 15px;border-left:3px solid var(--red);background:var(--soft);font:500 10px/1.6 "IBM Plex Mono",monospace}
+}
+@media(min-width:900px) and (max-width:1180px){
+ .strategy-pane .strategy-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .strategy-pane .strategy-stint-analysis-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .strategy-pane>.strategy-section{padding-left:18px;padding-right:18px}
+}
+@media(max-width:899px){
+ .strategy-pane:before{display:none}
+}
+
 </style>
 </head>
 <body>
@@ -4942,100 +5119,3 @@ setInterval(renderBriefingRecapSessionStatus,15000);
 </script>
 </body>
 </html>
-
-
-/* Minimal interface applies only on mobile; desktop keeps the full strategy analysis. */
-@media(max-width:600px){
- .strategy-pane .strategy-section:nth-child(4),
- .strategy-pane .strategy-section:nth-child(6){display:none}
- .strategy-pane .strategy-section-head>p{display:none}
- .strategy-pane .strategy-section{padding:14px}
- .strategy-pane .strategy-summary{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding-top:6px;padding-bottom:14px}
- .strategy-pane .strategy-stat{padding:11px}
- .strategy-pane .strategy-stat small{font-size:9px}
- .strategy-pane .strategy-stat strong{font-size:21px;margin-top:5px}
- .strategy-pane .strategy-pirelli{padding:10px}
- .strategy-pane .strategy-section-head h3{font-size:17px}
- .strategy-pane .strategy-note{margin:0 14px 14px;padding:10px 12px;font-size:11px;line-height:1.45}
-}
-
-/* Desktop race-engineer workstation: denser analysis, clearer hierarchy, live-data feel. */
-@media(min-width:900px){
- .strategy-pane{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start;gap:0}
- .strategy-pane>.strategy-hero,
- .strategy-pane>.strategy-summary,
- .strategy-pane>.strategy-section:nth-child(3),
- .strategy-pane>.strategy-section:nth-child(6),
- .strategy-pane>.strategy-note{grid-column:1/-1}
- .strategy-pane>.strategy-hero{padding:26px 28px 20px;border-bottom:1px solid var(--line);background:linear-gradient(110deg,var(--panel),var(--soft))}
- .strategy-pane .strategy-hero h2{font-size:clamp(30px,2.6vw,40px);letter-spacing:.015em}
- .strategy-pane .strategy-hero .briefing-intro{max-width:760px;font-size:14px;line-height:1.6}
- .strategy-pane .strategy-controls{align-self:center}
- .strategy-pane .strategy-summary{grid-template-columns:repeat(4,minmax(0,1fr));padding:18px 24px;gap:12px}
- .strategy-pane .strategy-stat{background:var(--panel);border-radius:10px;padding:16px;position:relative}
- .strategy-pane .strategy-stat:before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:3px;background:var(--red)}
- .strategy-pane .strategy-stat small{font-size:10px;letter-spacing:.12em}
- .strategy-pane .strategy-stat strong{font-size:clamp(22px,1.8vw,30px);font-variant-numeric:tabular-nums}
- .strategy-pane .strategy-section{min-width:0;padding:22px 24px;border-right:1px solid var(--line)}
- .strategy-pane>.strategy-section:nth-child(4){border-right:0}
- .strategy-pane .strategy-section-head{align-items:flex-start;margin-bottom:16px}
- .strategy-pane .strategy-section-head h3{font-size:21px;letter-spacing:.01em}
- .strategy-pane .strategy-section-head>p{display:block;max-width:360px;font-size:12px;line-height:1.55}
- .strategy-pane .strategy-section-head>div>span{color:var(--red);font-size:10px}
- .strategy-pane #strategyStints,
- .strategy-pane #strategyCompare,
- .strategy-pane #strategyInsights,
- .strategy-pane #strategyPace{min-width:0}
- .strategy-pane .strategy-driver{background:var(--panel);padding:16px}
- .strategy-pane .strategy-pirelli{padding:15px}
- .strategy-pane .strategy-note{margin:0 24px 22px;padding:12px 15px;border-left:3px solid var(--red);background:var(--soft);font-size:11px;line-height:1.55}
-}
-@media(min-width:601px) and (max-width:899px){
- .strategy-pane .strategy-section-head>p{display:block}
- .strategy-pane .strategy-summary{grid-template-columns:repeat(4,minmax(0,1fr))}
-}
-
-
-/* Race engineer workstation treatment — desktop only. */
-@media(min-width:900px){
- .strategy-pane{
-  background:
-   linear-gradient(rgba(128,128,128,.035) 1px,transparent 1px),
-   linear-gradient(90deg,rgba(128,128,128,.035) 1px,transparent 1px),
-   var(--panel);
-  background-size:24px 24px,24px 24px,auto;
- }
- .strategy-pane>.strategy-hero{
-  position:relative;isolation:isolate;overflow:hidden;
-  background:linear-gradient(105deg,var(--panel) 0%,var(--soft) 68%,rgba(220,30,45,.07) 100%);
- }
- .strategy-pane>.strategy-hero:after{
-  content:"RACE ENGINEERING / STRATEGY DESK";
-  position:absolute;right:28px;top:14px;z-index:-1;
-  color:var(--mute);opacity:.12;font-family:Oxanium,Inter,sans-serif;
-  font-size:clamp(22px,3vw,42px);font-weight:900;letter-spacing:.08em;
-  white-space:nowrap;pointer-events:none
- }
- .strategy-pane .strategy-hero .briefing-kicker{
-  display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.2em
- }
- .strategy-pane .strategy-hero .briefing-kicker:before{
-  content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
-  background:var(--red);box-shadow:0 0 0 4px rgba(220,30,45,.12)
- }
- .strategy-pane .strategy-controls label{
-  font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:800
- }
- .strategy-pane .strategy-controls select{min-width:210px}
- .strategy-pane #strategyRefresh{background:var(--red);border-color:var(--red);color:#fff}
- .strategy-pane>.strategy-summary{border-bottom:1px solid var(--line)}
- .strategy-pane .strategy-stat{box-shadow:0 5px 16px rgba(0,0,0,.045)}
- .strategy-pane .strategy-section{background:rgba(128,128,128,.018)}
- .strategy-pane .strategy-section:nth-child(4),
- .strategy-pane .strategy-section:nth-child(5){background:var(--panel)}
- .strategy-pane .strategy-section-head>div>span{display:inline-flex;align-items:center;gap:7px}
- .strategy-pane .strategy-section-head>div>span:before{content:"";width:18px;height:2px;background:var(--red)}
- .strategy-pane .strategy-note{letter-spacing:.01em}
-}
-
-<!-- Redline Grid Pages deployment refresh: 2026-10-21 -->
