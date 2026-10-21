@@ -2527,7 +2527,7 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
 .race-pulse-sub{margin:7px 0 0;color:var(--mute);font-size:12px}
 .pulse-status{display:flex;align-items:center;gap:7px;flex:none;border:1px solid var(--line);border-radius:99px;padding:7px 9px;color:var(--mute);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.07em}
 .pulse-status i{width:7px;height:7px;border-radius:50%;background:#e5a34c;box-shadow:0 0 8px #e5a34c55}
-.race-pulse-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+#v-news .race-pulse-grid{grid-template-columns:repeat(2,minmax(0,1fr))} @media(max-width:600px){#v-news .race-pulse-grid{grid-template-columns:1fr}} .race-pulse-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
 .pulse-stat{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0;padding:17px 16px;border-right:1px solid var(--line)}
 .pulse-stat:last-child{border-right:0}.pulse-label{font:600 9px "IBM Plex Mono",monospace;letter-spacing:.09em;color:var(--mute)}
 .pulse-stat>b{font:750 15px/1.25 Inter,sans-serif;color:var(--txt)}.pulse-stat small{font-size:11px;line-height:1.45;color:var(--mute)}
@@ -2657,16 +2657,7 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
   <div id="statsContent"><div class="state">Loading driver statistics…</div></div>
 </section>
 <section class="panel pane strategy-pane" id="v-live" hidden>
-  <section class="race-pulse" aria-label="Live Race Pulse">
-   <div class="race-pulse-head"><div><p class="briefing-kicker">REDLINE GRID / LIVE RACE PULSE</p><h3>Trackside at a glance</h3><p class="race-pulse-sub">A fast read on the weekend's competitive picture.</p></div><span class="pulse-status"><i></i> PULSE MONITOR</span></div>
-   <div class="race-pulse-grid">
-    <article class="pulse-stat"><span class="pulse-label">SESSION</span><b id="pulseSessionRace">Weekend overview</b><small id="pulseSessionNoteRace">Schedule-led status</small></article>
-    <article class="pulse-stat"><span class="pulse-label">TRACK CONDITIONS</span><b>Weather watch</b><small>Open Weather for forecast details</small><button type="button" data-weekend-link="weather">VIEW WEATHER ↗</button></article>
-    <article class="pulse-stat"><span class="pulse-label">RACE CONTROL</span><b>Incident watch</b><small>Check notices and race-control updates</small><button type="button" data-weekend-link="control">VIEW NOTICES ↗</button></article>
-    <article class="pulse-stat pulse-integrity"><span class="pulse-label">DATA STATUS</span><b>Schedule-linked</b><small>Live timing / telemetry feed not connected</small></article>
-   </div>
-   <div class="pulse-foot"><span>BUILT FOR THE RACE WEEKEND</span><span>Use the linked panels for the latest available data.</span></div>
-  </section>
+  
 <div class="briefing-head strategy-hero">
 <div><p class="briefing-kicker">REDLINE GRID / RACE STRATEGY</p><h2>Race Strategy</h2><p class="briefing-intro">Tyre choices, pit windows and pace evolution from the selected Grand Prix. Built from recorded session data, not simulated strategy.</p></div><div class="strategy-controls"><label for="strategySession">Session</label><select id="strategySession" aria-label="Strategy session"><option value="">Selected Grand Prix</option></select><button type="button" id="strategyRefresh">Refresh data</button></div></div><div id="strategySummary" class="strategy-summary"><div class="state">Select a Grand Prix to explore its strategy.</div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>01 / TYRE PLAN</span><h3>Stints &amp; pit stops</h3></div><p>Recorded tyre stints, with lap boundaries where the source provides them.</p></div><div id="strategyPirelli" class="strategy-pirelli"></div><div id="strategyStints"><div class="state">Strategy data will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>02 / STRATEGY COMPARISON</span><h3>Compound &amp; stint comparison</h3></div><p>Compare recorded stint lengths, median pace and within-stint pace change across drivers. Context matters: these are not controlled tyre tests.</p></div><div id="strategyCompare"><div class="state">Strategy comparison will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>03 / AUTOMATED READOUT</span><h3>Automatic Strategy Insights</h3></div><p>Data-led observations from the selected session, with uncertainty called out where the timing feed cannot prove cause and effect.</p></div><div id="strategyInsights"><div class="state">Strategy insights will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>04 / PACE EVOLUTION</span><h3>Lap-time progression</h3></div><p>Median lap pace by race phase, using available lap-time records.</p></div><div id="strategyPace"><div class="state">Strategy data will appear here.</div></div></div><div class="strategy-note" id="strategyNote">Data coverage varies by season and session. Tyre compounds and stint boundaries are shown only when the source provides them.</div></section>
  <section class="panel pane" id="v-result" hidden><h2 class="race-tab-title">Race</h2><h2 id="resTitle">Race result</h2><div class="result-tools"><label for="resultSearch">Find driver or team</label><input id="resultSearch" type="search" placeholder="Search results…" autocomplete="off"><span id="resultMatchCount" aria-live="polite">All results</span></div><div class="scroll" id="result"><div class="state">Loading…</div></div></section>
@@ -2717,8 +2708,6 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
    <div class="race-pulse-head"><div><p class="briefing-kicker">REDLINE GRID / LIVE RACE PULSE</p><h3>Trackside at a glance</h3><p class="race-pulse-sub">A fast read on the weekend's competitive picture.</p></div><span class="pulse-status"><i></i> PULSE MONITOR</span></div>
    <div class="race-pulse-grid">
     <article class="pulse-stat"><span class="pulse-label">SESSION</span><b id="pulseSession">Weekend overview</b><small id="pulseSessionNote">Schedule-led status</small></article>
-    <article class="pulse-stat"><span class="pulse-label">TRACK CONDITIONS</span><b>Weather watch</b><small>Open Weather for forecast details</small><button type="button" data-weekend-link="weather">VIEW WEATHER ↗</button></article>
-    <article class="pulse-stat"><span class="pulse-label">RACE CONTROL</span><b>Incident watch</b><small>Check notices and race-control updates</small><button type="button" data-weekend-link="control">VIEW NOTICES ↗</button></article>
     <article class="pulse-stat pulse-integrity"><span class="pulse-label">DATA STATUS</span><b>Schedule-linked</b><small>Live timing / telemetry feed not connected</small></article>
    </div>
    <div class="pulse-foot"><span>BUILT FOR THE RACE WEEKEND</span><span>Use the linked panels for the latest available data.</span></div>
