@@ -2116,21 +2116,6 @@ select{border-radius:6px}
   <section class="panel standings-driver-panel"><h2>Drivers’ Championship</h2><div id="drivers"><div class="state">Loading…</div></div></section>
   <section class="panel standings-team-panel"><h2>Constructors’ Championship</h2><div id="teams"><div class="state">Loading…</div></div></section>
 
-  <section class="panel prediction-panel" id="championPredictions">
-   <div class="prediction-hero"><div><p class="prediction-kicker">Redline Grid / Data forecast</p><h2>Championship Forecast</h2><p>Projected title outcomes calculated from the selected season’s current points, completed race results and remaining scoring opportunities.</p></div><span class="prediction-badge">MODEL ESTIMATE</span></div>
-   <div class="prediction-body">
-    <div id="predictionStatus" class="prediction-status" role="status" aria-live="polite">Analysing championship data…</div>
-    <div class="prediction-grid prediction-results-grid">
-     <article class="prediction-result-card"><span class="prediction-result-label">PREDICTED DRIVERS’ CHAMPION</span><h3 id="forecastDriverName">Calculating…</h3><p id="forecastDriverMeta">Waiting for standings data</p><div class="prediction-meter"><span id="forecastDriverMeter"></span></div><small id="forecastDriverConfidence">Forecast confidence unavailable</small></article>
-     <article class="prediction-result-card"><span class="prediction-result-label">PREDICTED CONSTRUCTORS’ CHAMPION</span><h3 id="forecastTeamName">Calculating…</h3><p id="forecastTeamMeta">Waiting for standings data</p><div class="prediction-meter"><span id="forecastTeamMeter"></span></div><small id="forecastTeamConfidence">Forecast confidence unavailable</small></article>
-    </div>
-    <div class="prediction-top-three"><span class="prediction-top-three-label">PROJECTED DRIVERS’ FINISH</span><div id="forecastDriverTable" class="prediction-forecast-list"><div class="state">Loading driver projections…</div></div></div>
-    <div class="prediction-top-three"><span class="prediction-top-three-label">PROJECTED CONSTRUCTORS’ FINISH</span><div id="forecastTeamTable" class="prediction-forecast-list"><div class="state">Loading constructor projections…</div></div></div>
-    <p class="prediction-note">Forecasts are estimates, not guarantees. The projection extends current championship performance across remaining rounds; uncertainty rises when only a small amount of season data is available.</p>
-   </div>
-  </section>
-
-
   <section class="panel strategy-lab" id="strategyLab">
    <div class="strategy-lab-head"><div><p class="prediction-kicker">REDLINE GRID / INTERACTIVE TOOLS</p><h2>Strategy Lab</h2><p>Test championship scenarios, calculate points and compare drivers using the selected season’s standings.</p></div><span class="prediction-badge">LIVE DATA</span></div>
    <div class="lab-tabs" role="tablist" aria-label="Strategy Lab tools">
@@ -2169,6 +2154,23 @@ select{border-radius:6px}
     <div class="lab-compare-result" id="labCompareResult" aria-live="polite"><div class="state">Waiting for driver standings…</div></div>
    </div>
   </section>
+
+  <section class="panel prediction-panel" id="championPredictions">
+   <div class="prediction-hero"><div><p class="prediction-kicker">Redline Grid / Data forecast</p><h2>Championship Forecast</h2><p>Projected title outcomes calculated from the selected season’s current points, completed race results and remaining scoring opportunities.</p></div><span class="prediction-badge">MODEL ESTIMATE</span></div>
+   <div class="prediction-body">
+    <div id="predictionStatus" class="prediction-status" role="status" aria-live="polite">Analysing championship data…</div>
+    <div class="prediction-grid prediction-results-grid">
+     <article class="prediction-result-card"><span class="prediction-result-label">PREDICTED DRIVERS’ CHAMPION</span><h3 id="forecastDriverName">Calculating…</h3><p id="forecastDriverMeta">Waiting for standings data</p><div class="prediction-meter"><span id="forecastDriverMeter"></span></div><small id="forecastDriverConfidence">Forecast confidence unavailable</small></article>
+     <article class="prediction-result-card"><span class="prediction-result-label">PREDICTED CONSTRUCTORS’ CHAMPION</span><h3 id="forecastTeamName">Calculating…</h3><p id="forecastTeamMeta">Waiting for standings data</p><div class="prediction-meter"><span id="forecastTeamMeter"></span></div><small id="forecastTeamConfidence">Forecast confidence unavailable</small></article>
+    </div>
+    <div class="prediction-top-three"><span class="prediction-top-three-label">PROJECTED DRIVERS’ FINISH</span><div id="forecastDriverTable" class="prediction-forecast-list"><div class="state">Loading driver projections…</div></div></div>
+    <div class="prediction-top-three"><span class="prediction-top-three-label">PROJECTED CONSTRUCTORS’ FINISH</span><div id="forecastTeamTable" class="prediction-forecast-list"><div class="state">Loading constructor projections…</div></div></div>
+    <p class="prediction-note">Forecasts are estimates, not guarantees. The projection extends current championship performance across remaining rounds; uncertainty rises when only a small amount of season data is available.</p>
+   </div>
+  </section>
+
+
+
 
  </div>
  <section class="panel pane" id="v-stats" hidden>
