@@ -2308,6 +2308,15 @@ h1.brand-name span{
   -webkit-text-stroke:.35px currentColor;
 }
 
+
+/* Desktop: keep the glass countdown panel clear of the header's vertical divider */
+@media(min-width:821px){
+  .last{min-width:0;overflow:visible;column-gap:18px}
+  .last .lr{position:relative;flex:0 1 205px;min-width:0;padding-right:18px;box-sizing:border-box}
+  .last .lr:after{right:0}
+  .session-countdown{position:relative;z-index:1;min-width:0;max-width:100%;margin-left:2px;box-sizing:border-box}
+}
+
 </style>
 </head>
 <body>
