@@ -2025,6 +2025,25 @@ select{border-radius:6px}
 @media(max-width:620px){.prediction-hero{padding:16px;gap:8px}.prediction-badge{font-size:8px;padding:6px}.prediction-body{padding:15px}.prediction-grid{grid-template-columns:1fr}.prediction-podium{gap:6px}.prediction-slot{padding:9px 7px}.prediction-slot select{font-size:11px}.prediction-actions{align-items:stretch}.prediction-save{flex:1}}
 
 
+/* Data-driven championship forecast cards */
+.prediction-results-grid{margin-top:14px}
+.prediction-result-card{min-width:0;border:1px solid var(--line);border-radius:10px;background:var(--soft);padding:16px}
+.prediction-result-label{font:700 9px "IBM Plex Mono",monospace;letter-spacing:.09em;color:var(--mute)}
+.prediction-result-card h3{font-size:clamp(19px,2.4vw,27px);margin:10px 0 5px;letter-spacing:-.03em}
+.prediction-result-card p{margin:0;color:var(--mute);font-size:11px;line-height:1.5}
+.prediction-meter{height:5px;border-radius:10px;background:var(--line);overflow:hidden;margin:15px 0 8px}
+.prediction-meter span{display:block;width:0;height:100%;background:var(--red);border-radius:inherit;transition:width .35s ease}
+.prediction-result-card>small{font-size:10px;color:var(--mute)}
+.prediction-forecast-list{display:grid;gap:0}
+.prediction-forecast-row{display:grid;grid-template-columns:30px minmax(0,1fr) minmax(78px,120px) 64px;gap:10px;align-items:center;padding:10px 2px;border-bottom:1px solid var(--line);font-size:12px}
+.prediction-forecast-row:last-child{border-bottom:0}
+.prediction-forecast-row .forecast-pos{color:var(--mute);font:700 11px "IBM Plex Mono",monospace}
+.prediction-forecast-row .forecast-name{font-weight:700;min-width:0;overflow-wrap:anywhere}
+.prediction-forecast-row .forecast-points{color:var(--mute);font-size:11px;text-align:right}
+.prediction-forecast-row .forecast-delta{text-align:right;font:600 10px "IBM Plex Mono",monospace;color:var(--mute)}
+.prediction-forecast-row .forecast-delta.positive{color:var(--red)}
+@media(max-width:620px){.prediction-result-card{padding:13px}.prediction-forecast-row{grid-template-columns:24px minmax(0,1fr) 80px;gap:7px}.prediction-forecast-row .forecast-delta{display:none}.prediction-result-card h3{font-size:20px}}
+
 /* Desktop main tabs: remove pictograms so every label aligns cleanly. */
 @media(min-width:821px){#tabs button .nav-icon{display:none}#tabs button{display:flex;align-items:center;justify-content:center;gap:0;padding-top:12px;padding-bottom:12px}}
 
@@ -2085,19 +2104,16 @@ select{border-radius:6px}
   <section class="panel standings-team-panel"><h2>Constructors’ Championship</h2><div id="teams"><div class="state">Loading…</div></div></section>
 
   <section class="panel prediction-panel" id="championPredictions">
-   <div class="prediction-hero"><div><p class="prediction-kicker">Redline Grid / Your call</p><h2>Championship Predictions</h2><p>Call the title fight. Pick your Drivers’ Champion, Constructors’ Champion and predicted top three before the season finale.</p></div><span class="prediction-badge">PREDICTION MODE</span></div>
+   <div class="prediction-hero"><div><p class="prediction-kicker">Redline Grid / Data forecast</p><h2>Championship Forecast</h2><p>Projected title outcomes calculated from the selected season’s current points, completed race results and remaining scoring opportunities.</p></div><span class="prediction-badge">MODEL ESTIMATE</span></div>
    <div class="prediction-body">
-    <div class="prediction-grid">
-     <div class="prediction-field"><label for="predictionDriverChampion">Drivers’ Champion</label><select id="predictionDriverChampion"><option value="">Choose your champion…</option></select></div>
-     <div class="prediction-field"><label for="predictionConstructorChampion">Constructors’ Champion</label><select id="predictionConstructorChampion"><option value="">Choose your team…</option></select></div>
+    <div id="predictionStatus" class="prediction-status" role="status" aria-live="polite">Analysing championship data…</div>
+    <div class="prediction-grid prediction-results-grid">
+     <article class="prediction-result-card"><span class="prediction-result-label">PREDICTED DRIVERS’ CHAMPION</span><h3 id="forecastDriverName">Calculating…</h3><p id="forecastDriverMeta">Waiting for standings data</p><div class="prediction-meter"><span id="forecastDriverMeter"></span></div><small id="forecastDriverConfidence">Forecast confidence unavailable</small></article>
+     <article class="prediction-result-card"><span class="prediction-result-label">PREDICTED CONSTRUCTORS’ CHAMPION</span><h3 id="forecastTeamName">Calculating…</h3><p id="forecastTeamMeta">Waiting for standings data</p><div class="prediction-meter"><span id="forecastTeamMeter"></span></div><small id="forecastTeamConfidence">Forecast confidence unavailable</small></article>
     </div>
-    <div class="prediction-top-three"><span class="prediction-top-three-label">Predicted Drivers’ Top Three</span><div class="prediction-podium">
-     <div class="prediction-slot"><small>01 / CHAMPION</small><select id="predictionP1" aria-label="Predicted first place"><option value="">1st place…</option></select></div>
-     <div class="prediction-slot"><small>02 / RUNNER-UP</small><select id="predictionP2" aria-label="Predicted second place"><option value="">2nd place…</option></select></div>
-     <div class="prediction-slot"><small>03 / THIRD</small><select id="predictionP3" aria-label="Predicted third place"><option value="">3rd place…</option></select></div>
-    </div></div>
-    <div class="prediction-actions"><span id="predictionStatus" class="prediction-status" role="status" aria-live="polite">Your picks stay on this device.</span><div style="display:flex;gap:8px"><button type="button" class="prediction-reset" id="predictionReset">Reset</button><button type="button" class="prediction-save" id="predictionSave">Save predictions ↗</button></div></div>
-    <p class="prediction-note">Saved locally in this browser — predictions are personal and won’t sync across devices yet. Your picks can be changed at any time.</p>
+    <div class="prediction-top-three"><span class="prediction-top-three-label">PROJECTED DRIVERS’ FINISH</span><div id="forecastDriverTable" class="prediction-forecast-list"><div class="state">Loading driver projections…</div></div></div>
+    <div class="prediction-top-three"><span class="prediction-top-three-label">PROJECTED CONSTRUCTORS’ FINISH</span><div id="forecastTeamTable" class="prediction-forecast-list"><div class="state">Loading constructor projections…</div></div></div>
+    <p class="prediction-note">Forecasts are estimates, not guarantees. The projection extends current championship performance across remaining rounds; uncertainty rises when only a small amount of season data is available.</p>
    </div>
   </section>
 
@@ -3960,45 +3976,80 @@ if("serviceWorker" in navigator && location.protocol.startsWith("http")){
 
 // Prioritise Home's schedule and race summary requests before initialising the heavier season-data panels.
 
-/* Championship predictions live beside the standings and persist in this browser. */
+/* Data-driven title forecast using official standings and race schedule data. */
 (function(){
- const ids=["predictionDriverChampion","predictionConstructorChampion","predictionP1","predictionP2","predictionP3"];
  const $p=id=>document.getElementById(id);
- const key="redline-championship-predictions-v1";
- const status=$p("predictionStatus");
- function optionsFrom(container,teamMode){
-  const root=$p(container);if(!root)return[];
-  return [...root.querySelectorAll(".row .who b")].map(el=>el.textContent.trim()).filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).map(name=>({name}));
+ const safeNum=v=>{const n=Number(v);return Number.isFinite(n)?n:0};
+ const escHtml=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ const setText=(id,v)=>{const el=$p(id);if(el)el.textContent=v};
+ const setMeter=(id,v)=>{const el=$p(id);if(el)el.style.width=Math.max(0,Math.min(100,v))+"%"};
+ const parseRows=id=>[...($p(id)?.querySelectorAll(".row")||[])].map(el=>{
+  const name=el.querySelector(".who b")?.textContent?.trim()||"";
+  const sub=el.querySelector(".who small")?.textContent?.trim()||"";
+  const points=safeNum(el.querySelector(".pts")?.textContent?.replace(/[^\d.-]/g,""));
+  const pos=safeNum(el.querySelector(".pos")?.textContent);
+  return {name,sub,points,pos};
+ }).filter(x=>x.name);
+ function roundsLeft(){
+  const list=Array.isArray(rounds)?rounds:[];
+  return Math.max(0,list.filter(r=>new Date(r.date_end||r.date_start||0).getTime()>Date.now()).length);
  }
- function fill(select,items,placeholder,selected){
-  const el=$p(select);if(!el)return;
-  const old=selected!==undefined?selected:el.value;
-  el.innerHTML="";
-  const first=document.createElement("option");first.value="";first.textContent=placeholder;el.append(first);
-  items.forEach(item=>{const o=document.createElement("option");o.value=item.name;o.textContent=item.name;el.append(o)});
-  if(items.some(x=>x.name===old))el.value=old;
+ function forecast(items,left,teamMode){
+  if(!items.length)return[];
+  const total=Math.max(1,items.length);
+  const completed=Math.max(0,(Array.isArray(rounds)?rounds.length:0)-left);
+  const projected=items.map((x,i)=>{
+   const ptsPerRound=completed>0?x.points/completed:x.points/Math.max(1,total);
+   const estimate=x.points+ptsPerRound*left;
+   const rankWeight=(total-i)/total;
+   return {...x,estimate,pace:ptsPerRound,rankWeight};
+  }).sort((a,b)=>b.estimate-a.estimate||b.points-a.points);
+  return projected.map((x,i)=>({...x,rank:i+1,lead:i===0?0:projected[0].estimate-x.estimate}));
  }
- function loadSaved(){try{return JSON.parse(localStorage.getItem(key)||"{}")}catch(e){return{}}}
- function populate(){
-  const drivers=optionsFrom("drivers"),teams=optionsFrom("teams"),saved=loadSaved();
-  if(drivers.length){fill("predictionDriverChampion",drivers,"Choose your champion…",saved.driverChampion);["predictionP1","predictionP2","predictionP3"].forEach((id,i)=>fill(id,drivers,["1st place…","2nd place…","3rd place…"][i],saved.topThree?.[i]||""))}
-  if(teams.length)fill("predictionConstructorChampion",teams,"Choose your team…",saved.constructorChampion||"");
-  if(saved.updatedAt)status.textContent="Saved "+new Date(saved.updatedAt).toLocaleDateString()+" · edit any pick anytime";
+ function confidence(items,left){
+  if(items.length<2)return 0;
+  const completed=Math.max(0,(Array.isArray(rounds)?rounds.length:0)-left);
+  const lead=items[0].estimate-items[1].estimate;
+  const scale=Math.max(1,items[0].estimate||items[0].points||1);
+  const separation=Math.max(0,lead/scale);
+  const sample=completed/(completed+3);
+  const remainingPenalty=1/(1+left/Math.max(1,completed||1));
+  return Math.round(Math.max(8,Math.min(92,35+separation*110*sample*remainingPenalty)));
  }
- function save(){
-  const picks={driverChampion:$p("predictionDriverChampion").value,constructorChampion:$p("predictionConstructorChampion").value,topThree:["predictionP1","predictionP2","predictionP3"].map(id=>$p(id).value)};
-  if(!picks.driverChampion||!picks.constructorChampion||picks.topThree.some(x=>!x)){status.textContent="Choose both champions and all three podium places first.";status.classList.remove("saved");return}
-  if(new Set(picks.topThree).size!==3){status.textContent="Your top three must contain three different drivers.";status.classList.remove("saved");return}
-  if(picks.topThree[0]!==picks.driverChampion){status.textContent="Your Drivers’ Champion should also be 1st in your predicted top three.";status.classList.remove("saved");return}
-  picks.updatedAt=new Date().toISOString();
-  try{localStorage.setItem(key,JSON.stringify(picks));status.textContent="Predictions saved · "+new Date(picks.updatedAt).toLocaleDateString();status.classList.add("saved")}catch(e){status.textContent="This browser couldn’t save your picks. Check local storage settings."}
+ function renderList(id,items){
+  const root=$p(id);if(!root)return;
+  if(!items.length){root.innerHTML='<div class="state">Standings data is not available for this season yet.</div>';return}
+  root.innerHTML=items.slice(0,10).map((x,i)=>'<div class="prediction-forecast-row"><span class="forecast-pos">'+String(i+1).padStart(2,"0")+'</span><span class="forecast-name">'+escHtml(x.name)+'</span><span class="forecast-points">'+Math.round(x.estimate).toLocaleString()+' projected pts</span><span class="forecast-delta">'+(i===0?"LEADER":"−"+Math.round(x.lead))+'</span></div>').join("");
  }
- function reset(){try{localStorage.removeItem(key)}catch(e){}ids.forEach(id=>{if($p(id))$p(id).value=""});status.textContent="Predictions reset. Make a fresh call.";status.classList.remove("saved")}
- $p("predictionSave").addEventListener("click",save);$p("predictionReset").addEventListener("click",reset);
- const obs=new MutationObserver(populate);["drivers","teams"].forEach(id=>{if($p(id))obs.observe($p(id),{childList:true,subtree:true})});
- populate();
+ function render(){
+  const drivers=parseRows("drivers"),teams=parseRows("teams");
+  if(!drivers.length||!teams.length){
+   setText("predictionStatus","Waiting for current season standings to load…");
+   if(!drivers.length&&year<nowY){setText("forecastDriverName","No data");setText("forecastDriverMeta","Historical data unavailable")}
+   return;
+  }
+  const left=roundsLeft(),ds=forecast(drivers,left,false),ts=forecast(teams,left,true);
+  const dc=confidence(ds,left),tc=confidence(ts,left);
+  setText("forecastDriverName",ds[0]?.name||"Unavailable");
+  setText("forecastDriverMeta",(ds[0]?.points??0).toLocaleString()+" current points · "+Math.round(ds[0]?.estimate||0).toLocaleString()+" projected");
+  setMeter("forecastDriverMeter",dc);setText("forecastDriverConfidence","Model separation indicator: "+dc+"% · "+left+" rounds remaining");
+  setText("forecastTeamName",ts[0]?.name||"Unavailable");
+  setText("forecastTeamMeta",(ts[0]?.points??0).toLocaleString()+" current points · "+Math.round(ts[0]?.estimate||0).toLocaleString()+" projected");
+  setMeter("forecastTeamMeter",tc);setText("forecastTeamConfidence","Model separation indicator: "+tc+"% · "+left+" rounds remaining");
+  renderList("forecastDriverTable",ds);renderList("forecastTeamTable",ts);
+  const complete=Math.max(0,(Array.isArray(rounds)?rounds.length:0)-left);
+  setText("predictionStatus","Updated from live championship standings · "+complete+" completed rounds counted");
+ }
+ const obs=new MutationObserver(()=>render());
+ ["drivers","teams"].forEach(id=>{if($p(id))obs.observe($p(id),{childList:true,subtree:true,characterData:true})});
+ const originalLoadYear=window.loadYear;
+ if(typeof originalLoadYear==="function"){
+  window.loadYear=async function(y){const result=await originalLoadYear(y);render();return result}
+ }
+ render();
+ const tick=()=>render();
+ setInterval(tick,30000);
 })();
-
 show("home","news");
 renderBriefing();
 setTimeout(()=>loadYear(nowY),1200);
