@@ -4723,7 +4723,7 @@ setInterval(renderBriefingRecapSessionStatus,15000);
  ['drivers','teams'].forEach(id=>{if($(id))pObserver.observe($(id),{childList:true,subtree:true,characterData:true})});
  pressure();
  function deltaOptions(){
-  const data=window.lapData;
+  const data=lapData;
   const order=data?.order||[];
   const best=data?.best||{};
   const by=data?.by||{};
@@ -4737,7 +4737,7 @@ setInterval(renderBriefingRecapSessionStatus,15000);
  }
  function renderDelta(opts){
   const box=$('lapDeltaResult');if(!box)return;
-  const data=window.lapData, best=data?.best||{},a=$('deltaDriverA')?.value,b=$('deltaDriverB')?.value;
+  const data=lapData, best=data?.best||{},a=$('deltaDriverA')?.value,b=$('deltaDriverB')?.value;
   const rows=opts||[];
   if(!rows.length){box.textContent='No comparable timed laps are available for this session.';return}
   const da=rows.find(x=>x.id===a),db=rows.find(x=>x.id===b);
