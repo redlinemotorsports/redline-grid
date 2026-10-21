@@ -2927,6 +2927,100 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
  .strategy-pane:before{display:none}
 }
 
+
+
+/* Desktop Drivers Hub — race-engineer data workstation treatment.
+   Scoped to wide screens so the mobile directory stays clean and compact. */
+@media(min-width:900px){
+ #v-stats{
+  position:relative;
+  display:block;
+  overflow:hidden;
+  border-color:color-mix(in srgb,var(--red) 22%,var(--line));
+  background:
+   linear-gradient(rgba(128,128,128,.028) 1px,transparent 1px),
+   linear-gradient(90deg,rgba(128,128,128,.028) 1px,transparent 1px),
+   var(--card);
+  background-size:26px 26px,26px 26px,auto;
+  box-shadow:0 18px 48px rgba(0,0,0,.10);
+ }
+ #v-stats:before{
+  content:"ENGINEERING DESK   /   DRIVER DATABASE   /   PERFORMANCE ANALYSIS";
+  display:block;padding:10px 24px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(90deg,rgba(227,38,54,.12),transparent 72%);
+  color:var(--mute);font:700 9px/1.4 "IBM Plex Mono",monospace;letter-spacing:.15em;
+ }
+ #v-stats>.stats-head{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;
+  gap:24px;padding:26px 28px 20px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(110deg,var(--card2),transparent 75%);
+ }
+ #v-stats .stats-kicker{font-size:10px;letter-spacing:.2em}
+ #v-stats .stats-head h2{font-size:clamp(32px,2.8vw,42px);letter-spacing:-.035em}
+ #v-stats .stats-intro{max-width:760px;font-size:14px;line-height:1.65}
+ #v-stats .stats-season{min-width:210px;justify-content:flex-end;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+ #v-stats .stats-season select{min-width:120px;font-size:12px;padding:10px 12px;border-radius:7px}
+ #v-stats .stats-subnav{padding:16px 24px 18px;gap:8px;border-bottom:1px solid var(--line)}
+ #v-stats .stats-subnav button{flex:0 0 auto;min-width:130px;padding:11px 16px;border-radius:7px;text-align:left;font-size:11px;letter-spacing:.07em;text-transform:uppercase;background:var(--soft)}
+ #v-stats .stats-subnav button[aria-selected=true]{background:rgba(227,38,54,.13);border-color:var(--red);color:var(--txt);box-shadow:inset 0 -2px 0 var(--red)}
+ #statsContent{padding:0 24px 24px;min-width:0}
+ #statsContent>.driver-directory-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,340px);align-items:end;gap:24px;padding:24px 0 18px}
+ #statsContent .stats-section-title{margin:0 0 8px;font-size:10px;letter-spacing:.17em}
+ #statsContent .stats-note{font-size:11px;line-height:1.6}
+ #statsContent .driver-directory-head input{padding:11px 12px;border-radius:7px}
+ #statsContent .driver-directory-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:0 0 18px}
+ #statsContent .driver-directory-card{position:relative;min-height:104px;padding:15px;border-radius:9px;background:linear-gradient(135deg,var(--card2),var(--soft));transition:transform .16s,border-color .16s,background .16s}
+ #statsContent .driver-directory-card:hover{transform:translateY(-2px);border-color:var(--red)}
+ #statsContent .driver-directory-badge .av{width:54px;height:54px;flex-basis:54px;border-radius:8px}
+ #statsContent .driver-directory-info b{font-size:14px;line-height:1.25}
+ #statsContent .driver-directory-info small{font-size:11px}
+ #statsContent .driver-directory-info>span{font:500 10px "IBM Plex Mono",monospace;letter-spacing:.02em}
+ #statsContent .driver-directory-arrow{align-self:flex-start;font-size:16px}
+ #statsContent>.stats-body{padding:24px 0 4px}
+ #statsContent .driver-profile-top{gap:22px;padding:8px 0 24px}
+ #statsContent .driver-profile-badge .av{width:100px;height:100px;border-radius:12px}
+ #statsContent .driver-profile-badge .driver-no-text{font-size:43px!important}
+ #statsContent .driver-profile-identity h3{font-size:38px;letter-spacing:-.035em}
+ #statsContent .driver-profile-identity p:not(.stats-kicker){font-size:14px}
+ #statsContent .driver-spotlight{margin:20px 0;padding:20px 22px;background:linear-gradient(100deg,rgba(227,38,54,.08),var(--card) 48%);border-radius:8px}
+ #statsContent .driver-spotlight h4{font-size:19px}
+ #statsContent .driver-spotlight>p:last-child{font-size:13px;max-width:100ch}
+ #statsContent .driver-hub-metrics{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:4px 0 24px}
+ #statsContent .driver-hub-metric{padding:16px;border-radius:8px;background:linear-gradient(145deg,var(--card2),var(--soft))}
+ #statsContent .driver-hub-metric span{font:600 9px/1.45 Inter,sans-serif;letter-spacing:.09em;text-transform:uppercase}
+ #statsContent .driver-hub-metric b{font:600 27px/1.1 "IBM Plex Mono",monospace;margin-top:9px}
+ #statsContent .driver-profile-actions{padding-bottom:24px}
+ #statsContent .driver-profile-actions button{font-size:10px;letter-spacing:.08em;text-transform:uppercase;border-radius:6px;padding:10px 14px}
+ #statsContent .driver-race-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ #statsContent .driver-race-row{padding:13px;border-radius:8px;background:var(--card2)}
+ #statsContent .driver-race-round{flex-basis:42px;font-size:12px}
+ #statsContent .driver-race-name b{font-size:13px}
+ #statsContent .driver-race-name small{font-size:10px}
+ #statsContent .driver-race-stats{font-size:11px;gap:5px 12px}
+ #statsContent .stats-record-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+ #statsContent .stats-record{padding:17px;border-radius:9px;background:linear-gradient(145deg,var(--card2),var(--soft))}
+ #statsContent .stats-record-value{font-size:32px}
+ #statsContent .stats-record-label{letter-spacing:.12em}
+ #statsContent .stats-record-row{font-size:12px;gap:8px}
+ #statsContent .stats-record-stat{font-size:12px}
+ #statsContent .stats-pair{gap:16px;margin-bottom:18px}
+ #statsContent .stats-driver{padding:18px;border-radius:9px}
+ #statsContent .stats-driver .stats-points{font-size:36px}
+ #statsContent .stats-verdict{padding:22px;border-radius:9px}
+ #statsContent .stats-verdict h3{font-size:24px}
+ #statsContent .stats-verdict p{font-size:14px}
+ #statsContent .stats-lower{gap:22px}
+ #statsContent .stats-side{padding:18px;border-radius:9px}
+ #statsContent .stats-trend-summary{gap:12px}
+ #statsContent .stats-trend-summary article{padding:15px;border-radius:8px}
+}
+@media(min-width:900px) and (max-width:1199px){
+ #statsContent .driver-directory-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ #statsContent .driver-hub-metrics{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
 </style>
 </head>
 <body>
