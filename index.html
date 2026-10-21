@@ -4958,3 +4958,39 @@ setInterval(renderBriefingRecapSessionStatus,15000);
  .strategy-pane .strategy-section-head h3{font-size:17px}
  .strategy-pane .strategy-note{margin:0 14px 14px;padding:10px 12px;font-size:11px;line-height:1.45}
 }
+
+/* Desktop race-engineer workstation: denser analysis, clearer hierarchy, live-data feel. */
+@media(min-width:900px){
+ .strategy-pane{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start;gap:0}
+ .strategy-pane>.strategy-hero,
+ .strategy-pane>.strategy-summary,
+ .strategy-pane>.strategy-section:nth-child(3),
+ .strategy-pane>.strategy-section:nth-child(6),
+ .strategy-pane>.strategy-note{grid-column:1/-1}
+ .strategy-pane>.strategy-hero{padding:26px 28px 20px;border-bottom:1px solid var(--line);background:linear-gradient(110deg,var(--panel),var(--soft))}
+ .strategy-pane .strategy-hero h2{font-size:clamp(30px,2.6vw,40px);letter-spacing:.015em}
+ .strategy-pane .strategy-hero .briefing-intro{max-width:760px;font-size:14px;line-height:1.6}
+ .strategy-pane .strategy-controls{align-self:center}
+ .strategy-pane .strategy-summary{grid-template-columns:repeat(4,minmax(0,1fr));padding:18px 24px;gap:12px}
+ .strategy-pane .strategy-stat{background:var(--panel);border-radius:10px;padding:16px;position:relative}
+ .strategy-pane .strategy-stat:before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:3px;background:var(--red)}
+ .strategy-pane .strategy-stat small{font-size:10px;letter-spacing:.12em}
+ .strategy-pane .strategy-stat strong{font-size:clamp(22px,1.8vw,30px);font-variant-numeric:tabular-nums}
+ .strategy-pane .strategy-section{min-width:0;padding:22px 24px;border-right:1px solid var(--line)}
+ .strategy-pane>.strategy-section:nth-child(4){border-right:0}
+ .strategy-pane .strategy-section-head{align-items:flex-start;margin-bottom:16px}
+ .strategy-pane .strategy-section-head h3{font-size:21px;letter-spacing:.01em}
+ .strategy-pane .strategy-section-head>p{display:block;max-width:360px;font-size:12px;line-height:1.55}
+ .strategy-pane .strategy-section-head>div>span{color:var(--red);font-size:10px}
+ .strategy-pane #strategyStints,
+ .strategy-pane #strategyCompare,
+ .strategy-pane #strategyInsights,
+ .strategy-pane #strategyPace{min-width:0}
+ .strategy-pane .strategy-driver{background:var(--panel);padding:16px}
+ .strategy-pane .strategy-pirelli{padding:15px}
+ .strategy-pane .strategy-note{margin:0 24px 22px;padding:12px 15px;border-left:3px solid var(--red);background:var(--soft);font-size:11px;line-height:1.55}
+}
+@media(min-width:601px) and (max-width:899px){
+ .strategy-pane .strategy-section-head>p{display:block}
+ .strategy-pane .strategy-summary{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
