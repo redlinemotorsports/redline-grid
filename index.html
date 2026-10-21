@@ -4179,3 +4179,9 @@ setInterval(renderBriefingRecapSessionStatus,15000);
 </script>
 </body>
 </html>
+
+/* Keep the REDLINE GRID wordmark on a single line at every viewport size. */
+h1.brand-name{white-space:nowrap;line-height:1;display:block}
+h1.brand-name span{display:inline-block;font-size:.72em;line-height:1;letter-spacing:.18em;margin:0 0 0 .12em;vertical-align:baseline}
+@media(max-width:480px){h1.brand-name{font-size:clamp(20px,6vw,29px);letter-spacing:.015em}h1.brand-name span{font-size:.72em;letter-spacing:.12em;margin-left:.1em}}
+@media(max-width:380px){h1.brand-name{font-size:clamp(18px,5.7vw,23px);letter-spacing:0}h1.brand-name span{letter-spacing:.08em}}
