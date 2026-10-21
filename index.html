@@ -2275,6 +2275,21 @@ header>.brand>.brand-text>h1.brand-name span{
  .last .lr .lt{padding-left:1px}
 }
 
+
+/* Prevent the countdown glass panel from visually crossing the header's right edge */
+@media(min-width:821px){
+ .last{box-sizing:border-box;width:100%;min-width:0;max-width:100%;gap:12px 14px;padding-right:14px}
+ .session-countdown{box-sizing:border-box;min-width:0;max-width:100%;flex:1 1 230px;padding-right:10px!important;overflow:hidden}
+ .sc-clock{width:100%;max-width:100%;grid-template-columns:repeat(4,minmax(0,1fr))}
+ .sc-unit{min-width:0}
+}
+@media(min-width:821px) and (max-width:1100px){
+ .last{gap:10px;padding:10px!important}
+ .last .lr{flex:0 1 185px;min-width:0;gap:12px}
+ .last .lr .rnd{min-width:70px}
+ .session-countdown{flex-basis:210px;padding-left:12px!important}
+}
+
 </style>
 </head>
 <body>
