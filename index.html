@@ -2317,6 +2317,65 @@ h1.brand-name span{
   .session-countdown{position:relative;z-index:1;min-width:0;max-width:100%;margin-left:2px;box-sizing:border-box}
 }
 
+
+
+/* Keep the REDLINE GRID wordmark on a single line at every viewport size. */
+h1.brand-name{white-space:nowrap;line-height:1;display:block}
+h1.brand-name span{display:inline-block;font-size:.72em;line-height:1;letter-spacing:.18em;margin:0 0 0 .12em;vertical-align:baseline}
+@media(max-width:480px){h1.brand-name{font-size:clamp(20px,6vw,29px);letter-spacing:.015em}h1.brand-name span{font-size:.72em;letter-spacing:.12em;margin-left:.1em}}
+@media(max-width:380px){h1.brand-name{font-size:clamp(18px,5.7vw,23px);letter-spacing:0}h1.brand-name span{letter-spacing:.08em}}
+
+
+/* Robust desktop header layout: reserve a real column for each countdown section.
+   This prevents the glass timer from crossing the round divider at wide and medium widths. */
+@media(min-width:821px){
+  header{min-width:0}
+  .last{
+    display:grid!important;
+    grid-template-columns:minmax(0,220px) minmax(0,max-content) minmax(0,1fr);
+    align-items:stretch;
+    gap:12px!important;
+    width:100%;
+    min-width:0!important;
+    max-width:100%;
+    box-sizing:border-box;
+    overflow:hidden;
+  }
+  .last .lr{
+    width:auto;
+    min-width:0;
+    max-width:100%;
+    flex:none!important;
+    padding-right:14px!important;
+    box-sizing:border-box;
+  }
+  .last .lr:after{right:0}
+  .last .lnx{
+    min-width:0;
+    max-width:100%;
+    flex:none!important;
+    padding-left:12px!important;
+    box-sizing:border-box;
+  }
+  .last .session-countdown{
+    width:100%;
+    min-width:0!important;
+    max-width:100%;
+    flex:none!important;
+    margin:0!important;
+    box-sizing:border-box;
+    overflow:hidden;
+  }
+  .last .sc-clock{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(min-width:821px) and (max-width:1100px){
+  .last{grid-template-columns:minmax(0,175px) minmax(0,max-content) minmax(0,1fr);gap:8px!important}
+  .last .lr{padding-right:8px!important}
+  .last .lr .rnd{min-width:64px!important}
+  .last .lnx{padding-left:6px!important}
+  .last .session-countdown{padding-left:8px!important;padding-right:8px!important}
+}
+
 </style>
 </head>
 <body>
@@ -4411,10 +4470,3 @@ setInterval(renderBriefingRecapSessionStatus,15000);
 </script>
 </body>
 </html>
-
-/* Keep the REDLINE GRID wordmark on a single line at every viewport size. */
-h1.brand-name{white-space:nowrap;line-height:1;display:block}
-h1.brand-name span{display:inline-block;font-size:.72em;line-height:1;letter-spacing:.18em;margin:0 0 0 .12em;vertical-align:baseline}
-@media(max-width:480px){h1.brand-name{font-size:clamp(20px,6vw,29px);letter-spacing:.015em}h1.brand-name span{font-size:.72em;letter-spacing:.12em;margin-left:.1em}}
-@media(max-width:380px){h1.brand-name{font-size:clamp(18px,5.7vw,23px);letter-spacing:0}h1.brand-name span{letter-spacing:.08em}}
-
