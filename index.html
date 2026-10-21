@@ -2300,6 +2300,14 @@ h1.brand-name span{font-size:1em!important;color:var(--red)!important;letter-spa
 .brand-text .tag{margin-top:6px;font-family:"IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
 @media(max-width:480px){h1.brand-name{font-size:clamp(25px,7vw,34px)!important;gap:.18em}.brand-text .tag{font-size:7px;letter-spacing:.07em;margin-top:5px}}
 
+
+/* Stronger, unified bold weight for the header wordmark */
+h1.brand-name,
+h1.brand-name span{
+  font-weight:800!important;
+  -webkit-text-stroke:.35px currentColor;
+}
+
 </style>
 </head>
 <body>
