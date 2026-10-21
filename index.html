@@ -8,7 +8,7 @@
 <meta name="description" content="Independent racing data, driver comparisons, circuit guides and race-weekend insight — all season long.">
 <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg?v=4">
 
-<script>try{document.documentElement.dataset.theme=localStorage.getItem("redline-theme")==="light"?"light":"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
+<script>document.documentElement.dataset.theme="dark";</script>
 <title>Redline Grid · The Racing Season, Decoded</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Oxanium:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -2097,7 +2097,7 @@ select{border-radius:6px}
    <div class="brand-text"><h1 class="brand-name">REDLINE <span>GRID</span></h1><p class="tag">Race Data. Rivalries. Every Detail.</p></div>
   </div>
   <div class="last" id="last"><small>Loading season…</small></div>
-  <button id="themebtn" class="themebtn" aria-label="Switch to light mode"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg></button>
+  
  </header>
  <button class="pickbtn" id="pick" aria-haspopup="dialog">Choose Grand Prix</button>
   <nav id="tabs" role="tablist" aria-label="Main sections">
@@ -4021,10 +4021,9 @@ function drawLive(){
   const gap=p===1?"Leader":typeof g==="number"?"+"+g.toFixed(3):g?String(g):"";
   return row(p,av(d.headshot_url,d.full_name,d.team_colour),d.full_name||"Driver #"+n,d.team_name||"",gap,isFavD(d),"")}).join("")||'<div class="state">No position data for this session yet.</div>';
 }
-const root=document.documentElement,tb=$("themebtn");
-function setTheme(t,save){root.dataset.theme=t;tb.innerHTML=t==="light"?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"></path></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg>';tb.setAttribute("aria-label",t==="light"?"Switch to dark mode":"Switch to light mode");
- document.querySelector('meta[name=theme-color]')?.setAttribute("content",t==="light"?"#EEF0F3":"#0A0A0D");if(save)try{localStorage.setItem("redline-theme",t)}catch(e){}}
-setTheme(root.dataset.theme==="light"?"light":"dark");tb.onclick=()=>setTheme(root.dataset.theme==="light"?"dark":"light",true);
+const root=document.documentElement;
+root.dataset.theme="dark";
+document.querySelector('meta[name=theme-color]')?.setAttribute("content","#0A0A0D");
 // Install the offline app shell; API responses are archived separately in IndexedDB.
 if("serviceWorker" in navigator && location.protocol.startsWith("http")){
  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}),{once:true});
