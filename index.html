@@ -2260,6 +2260,21 @@ header>.brand>.brand-text>h1.brand-name span{
  .last .lt small{font-size:9px}
 }
 
+
+/* Give the round marker and Grand Prix title more editorial breathing room */
+.last .lr{gap:20px}
+.last .lr .rnd{margin-right:4px;padding-right:13px;min-width:86px}
+.last .lr .lt{padding-left:2px}
+@media(min-width:821px){
+ .last .lr{gap:20px;flex-basis:220px}
+ .last .lr .rnd{min-width:86px;padding-right:14px}
+}
+@media(max-width:820px){
+ .last .lr{gap:14px}
+ .last .lr .rnd{min-width:66px;padding-right:10px;margin-right:1px}
+ .last .lr .lt{padding-left:1px}
+}
+
 </style>
 </head>
 <body>
