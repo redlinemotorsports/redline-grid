@@ -2519,6 +2519,23 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
 @media(max-width:360px){
   .tag{font-size:7px!important;letter-spacing:.035em!important}
 }
+
+/* Live Race Pulse — shared Home and Race Strategy/Race Centre component */
+.race-pulse{margin:0 20px 22px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:linear-gradient(135deg,rgba(255,38,20,.075),transparent 44%),var(--card)}
+.race-pulse-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:20px 20px 17px;border-bottom:1px solid var(--line)}
+.race-pulse-head .briefing-kicker{margin:0 0 7px}.race-pulse-head h3{margin:0;color:var(--txt);font:800 clamp(21px,2.5vw,28px)/1.1 Inter,sans-serif;letter-spacing:-.04em}
+.race-pulse-sub{margin:7px 0 0;color:var(--mute);font-size:12px}
+.pulse-status{display:flex;align-items:center;gap:7px;flex:none;border:1px solid var(--line);border-radius:99px;padding:7px 9px;color:var(--mute);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.07em}
+.pulse-status i{width:7px;height:7px;border-radius:50%;background:#e5a34c;box-shadow:0 0 8px #e5a34c55}
+.race-pulse-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.pulse-stat{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0;padding:17px 16px;border-right:1px solid var(--line)}
+.pulse-stat:last-child{border-right:0}.pulse-label{font:600 9px "IBM Plex Mono",monospace;letter-spacing:.09em;color:var(--mute)}
+.pulse-stat>b{font:750 15px/1.25 Inter,sans-serif;color:var(--txt)}.pulse-stat small{font-size:11px;line-height:1.45;color:var(--mute)}
+.pulse-stat button{margin-top:auto;padding:7px 0 0;border:0;background:none;color:var(--red);font:700 10px Inter,sans-serif;cursor:pointer}
+.pulse-integrity>b{color:#e5a34c}.pulse-foot{display:flex;justify-content:space-between;gap:12px;padding:10px 16px;border-top:1px solid var(--line);color:var(--mute);font:500 9px "IBM Plex Mono",monospace;letter-spacing:.025em}
+#v-live .race-pulse{margin:0 20px 22px}
+@media(max-width:820px){.race-pulse{margin:0 12px 18px;border-radius:13px}.race-pulse-head{padding:16px 14px 14px;gap:9px}.pulse-status{font-size:8px;padding:6px 7px}.race-pulse-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pulse-stat{padding:14px 12px;border-bottom:1px solid var(--line)}.pulse-stat:nth-child(2){border-right:0}.pulse-stat:nth-child(3),.pulse-stat:nth-child(4){border-bottom:0}.pulse-stat>b{font-size:14px}.pulse-foot{flex-direction:column;gap:5px;padding:10px 12px}#v-live .race-pulse{margin:0 12px 18px}}
+
 </style>
 </head>
 <body>
@@ -2612,7 +2629,17 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
   <div class="stats-subnav" role="tablist" aria-label="Drivers hub sections"><button type="button" data-stats-view="directory" aria-selected="true">Directory</button><button type="button" data-stats-view="profile" aria-selected="false">Profile</button><button type="button" data-stats-view="overview" aria-selected="false">Records</button><button type="button" data-stats-view="head" aria-selected="false">Head-to-Head</button><button type="button" data-stats-view="trends" aria-selected="false">Trends</button></div>
   <div id="statsContent"><div class="state">Loading driver statistics…</div></div>
 </section>
-<section class="panel pane strategy-pane" id="v-live" hidden><div class="briefing-head strategy-hero"><div><p class="briefing-kicker">REDLINE GRID / RACE STRATEGY</p><h2>Race Strategy</h2><p class="briefing-intro">Tyre choices, pit windows and pace evolution from the selected Grand Prix. Built from recorded session data, not simulated strategy.</p></div><div class="strategy-controls"><label for="strategySession">Session</label><select id="strategySession" aria-label="Strategy session"><option value="">Selected Grand Prix</option></select><button type="button" id="strategyRefresh">Refresh data</button></div></div><div id="strategySummary" class="strategy-summary"><div class="state">Select a Grand Prix to explore its strategy.</div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>01 / TYRE PLAN</span><h3>Stints &amp; pit stops</h3></div><p>Recorded tyre stints, with lap boundaries where the source provides them.</p></div><div id="strategyPirelli" class="strategy-pirelli"></div><div id="strategyStints"><div class="state">Strategy data will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>02 / STRATEGY COMPARISON</span><h3>Compound &amp; stint comparison</h3></div><p>Compare recorded stint lengths, median pace and within-stint pace change across drivers. Context matters: these are not controlled tyre tests.</p></div><div id="strategyCompare"><div class="state">Strategy comparison will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>03 / AUTOMATED READOUT</span><h3>Automatic Strategy Insights</h3></div><p>Data-led observations from the selected session, with uncertainty called out where the timing feed cannot prove cause and effect.</p></div><div id="strategyInsights"><div class="state">Strategy insights will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>04 / PACE EVOLUTION</span><h3>Lap-time progression</h3></div><p>Median lap pace by race phase, using available lap-time records.</p></div><div id="strategyPace"><div class="state">Strategy data will appear here.</div></div></div><div class="strategy-note" id="strategyNote">Data coverage varies by season and session. Tyre compounds and stint boundaries are shown only when the source provides them.</div></section>
+<section class="panel pane strategy-pane" id="v-live" hidden><div class="briefing-head strategy-hero">
+  <section class="race-pulse" aria-label="Live Race Pulse">
+   <div class="race-pulse-head"><div><p class="briefing-kicker">REDLINE GRID / LIVE RACE PULSE</p><h3>Trackside at a glance</h3><p class="race-pulse-sub">A fast read on the weekend's competitive picture.</p></div><span class="pulse-status"><i></i> PULSE MONITOR</span></div>
+   <div class="race-pulse-grid">
+    <article class="pulse-stat"><span class="pulse-label">SESSION</span><b id="pulseSessionRace">Weekend overview</b><small id="pulseSessionNoteRace">Schedule-led status</small></article>
+    <article class="pulse-stat"><span class="pulse-label">TRACK CONDITIONS</span><b>Weather watch</b><small>Open Weather for forecast details</small><button type="button" data-weekend-link="weather">VIEW WEATHER ↗</button></article>
+    <article class="pulse-stat"><span class="pulse-label">RACE CONTROL</span><b>Incident watch</b><small>Check notices and race-control updates</small><button type="button" data-weekend-link="control">VIEW NOTICES ↗</button></article>
+    <article class="pulse-stat pulse-integrity"><span class="pulse-label">DATA STATUS</span><b>Schedule-linked</b><small>Live timing / telemetry feed not connected</small></article>
+   </div>
+   <div class="pulse-foot"><span>BUILT FOR THE RACE WEEKEND</span><span>Use the linked panels for the latest available data.</span></div>
+  </section><div><p class="briefing-kicker">REDLINE GRID / RACE STRATEGY</p><h2>Race Strategy</h2><p class="briefing-intro">Tyre choices, pit windows and pace evolution from the selected Grand Prix. Built from recorded session data, not simulated strategy.</p></div><div class="strategy-controls"><label for="strategySession">Session</label><select id="strategySession" aria-label="Strategy session"><option value="">Selected Grand Prix</option></select><button type="button" id="strategyRefresh">Refresh data</button></div></div><div id="strategySummary" class="strategy-summary"><div class="state">Select a Grand Prix to explore its strategy.</div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>01 / TYRE PLAN</span><h3>Stints &amp; pit stops</h3></div><p>Recorded tyre stints, with lap boundaries where the source provides them.</p></div><div id="strategyPirelli" class="strategy-pirelli"></div><div id="strategyStints"><div class="state">Strategy data will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>02 / STRATEGY COMPARISON</span><h3>Compound &amp; stint comparison</h3></div><p>Compare recorded stint lengths, median pace and within-stint pace change across drivers. Context matters: these are not controlled tyre tests.</p></div><div id="strategyCompare"><div class="state">Strategy comparison will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>03 / AUTOMATED READOUT</span><h3>Automatic Strategy Insights</h3></div><p>Data-led observations from the selected session, with uncertainty called out where the timing feed cannot prove cause and effect.</p></div><div id="strategyInsights"><div class="state">Strategy insights will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>04 / PACE EVOLUTION</span><h3>Lap-time progression</h3></div><p>Median lap pace by race phase, using available lap-time records.</p></div><div id="strategyPace"><div class="state">Strategy data will appear here.</div></div></div><div class="strategy-note" id="strategyNote">Data coverage varies by season and session. Tyre compounds and stint boundaries are shown only when the source provides them.</div></section>
  <section class="panel pane" id="v-result" hidden><h2 class="race-tab-title">Race</h2><h2 id="resTitle">Race result</h2><div class="result-tools"><label for="resultSearch">Find driver or team</label><input id="resultSearch" type="search" placeholder="Search results…" autocomplete="off"><span id="resultMatchCount" aria-live="polite">All results</span></div><div class="scroll" id="result"><div class="state">Loading…</div></div></section>
  <section class="panel pane" id="v-control" hidden><h2>Race control</h2><div id="controlInsights" class="control-insights" aria-live="polite"><div class="state">Building race-control summary…</div></div><div class="control-tools" id="controlTools" aria-label="Filter race control messages"><div class="control-filters" role="group" aria-label="Message category"><button type="button" data-control-filter="all" aria-pressed="true">All</button><button type="button" data-control-filter="flags" aria-pressed="false">Flags</button><button type="button" data-control-filter="safety" aria-pressed="false">Safety Car</button><button type="button" data-control-filter="incidents" aria-pressed="false">Incidents</button><button type="button" data-control-filter="other" aria-pressed="false">Other</button></div><button type="button" class="control-order" id="controlOrder" aria-label="Change message order">Newest first ↓</button></div><div class="scroll" id="control"><div class="state">Loading…</div></div></section>
  <section class="panel pane" id="v-radio" hidden><h2>Team radio</h2><div class="tools"><select id="rsess" aria-label="Session"></select></div><div class="scroll" id="radioList"><div class="state">Loading…</div></div></section>
@@ -2655,6 +2682,17 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
    <div><p class="briefing-kicker">REDLINE GRID / WEEKEND INTELLIGENCE</p><h2>Weekend Overview</h2><p class="briefing-intro">The key updates and tools for the selected Grand Prix.</p></div>
    <button type="button" class="briefing-refresh" id="briefingRefresh">Refresh schedule ↻</button>
   </div>
+
+  <section class="race-pulse" aria-label="Live Race Pulse">
+   <div class="race-pulse-head"><div><p class="briefing-kicker">REDLINE GRID / LIVE RACE PULSE</p><h3>Trackside at a glance</h3><p class="race-pulse-sub">A fast read on the weekend's competitive picture.</p></div><span class="pulse-status"><i></i> PULSE MONITOR</span></div>
+   <div class="race-pulse-grid">
+    <article class="pulse-stat"><span class="pulse-label">SESSION</span><b id="pulseSession">Weekend overview</b><small id="pulseSessionNote">Schedule-led status</small></article>
+    <article class="pulse-stat"><span class="pulse-label">TRACK CONDITIONS</span><b>Weather watch</b><small>Open Weather for forecast details</small><button type="button" data-weekend-link="weather">VIEW WEATHER ↗</button></article>
+    <article class="pulse-stat"><span class="pulse-label">RACE CONTROL</span><b>Incident watch</b><small>Check notices and race-control updates</small><button type="button" data-weekend-link="control">VIEW NOTICES ↗</button></article>
+    <article class="pulse-stat pulse-integrity"><span class="pulse-label">DATA STATUS</span><b>Schedule-linked</b><small>Live timing / telemetry feed not connected</small></article>
+   </div>
+   <div class="pulse-foot"><span>BUILT FOR THE RACE WEEKEND</span><span>Use the linked panels for the latest available data.</span></div>
+  </section>
   <section class="weekend-shortcuts" aria-label="Race weekend quick access">
    <div class="weekend-shortcuts-head"><span>WEEKEND QUICK ACCESS</span><small>JUMP TO THE DATA YOU NEED</small></div>
    <div class="weekend-shortcuts-grid">
@@ -4610,12 +4648,33 @@ renderBriefing();
 setTimeout(()=>loadYear(nowY),1200);
 // Keep the recap's live-session notice in sync with session start/end times.
 setInterval(renderBriefingRecapSessionStatus,15000);
+
+/* Live Race Pulse: keep the session label aligned with the selected weekend where possible. */
+(function(){
+ const sessionText = () => {
+  const selected = document.querySelector('#raceSelect option:checked, #gpSelect option:checked, select[name="race"] option:checked');
+  const name = selected && selected.textContent.trim();
+  return name ? name + ' weekend' : 'Weekend overview';
+ };
+ const updatePulse = () => {
+  const label = sessionText();
+  ['pulseSession','pulseSessionRace'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=label;});
+  ['pulseSessionNote','pulseSessionNoteRace'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='Schedule-led status · no live timing';});
+ };
+ updatePulse();
+ document.addEventListener('change',e=>{if(e.target.matches('select'))updatePulse();});
+ document.addEventListener('click',e=>{
+  const btn=e.target.closest('[data-weekend-link]');
+  if(!btn)return;
+  const key=btn.getAttribute('data-weekend-link');
+  const map={weather:'weather',control:'control'};
+  if(map[key]){
+   const nav=document.querySelector('[data-view="'+map[key]+'"],[data-tab="'+map[key]+'"],button[onclick*="'+map[key]+'"]');
+   if(nav)nav.click();
+  }
+ });
+})();
+
 </script>
 </body>
 </html>
-/* Mobile: add a clear separator between the brand tagline and session countdown. */
-@media(max-width:820px){
-  header{margin-bottom:18px!important}
-  .last{position:relative;margin-top:0!important}
-  .last::before{content:"";position:absolute;left:0;right:0;top:-10px;height:1px;background:linear-gradient(90deg,rgba(255,42,24,.72),var(--line) 24%,var(--line) 76%,rgba(255,42,24,.18));pointer-events:none}
-}
