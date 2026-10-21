@@ -4942,3 +4942,22 @@ setInterval(renderBriefingRecapSessionStatus,15000);
 </script>
 </body>
 </html>
+
+
+/* Minimal interface: keep the core strategy decision visible and move secondary analysis out of the way. */
+.strategy-pane .strategy-section:nth-of-type(3),
+.strategy-pane .strategy-section:nth-of-type(5){display:none}
+.strategy-pane .strategy-section-head>p{display:none}
+.strategy-pane .strategy-section{padding:16px clamp(14px,3vw,26px)}
+.strategy-pane .strategy-summary{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding-top:6px;padding-bottom:14px}
+.strategy-pane .strategy-stat{padding:11px}
+.strategy-pane .strategy-stat strong{margin-top:5px}
+.strategy-pane .strategy-pirelli{padding:10px}
+.strategy-pane .strategy-note{margin:0 16px 16px;padding:10px 12px;font-size:11px;line-height:1.45}
+@media(max-width:600px){
+ .strategy-pane .strategy-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .strategy-pane .strategy-section-head h3{font-size:17px}
+ .strategy-pane .strategy-section{padding:14px}
+ .strategy-pane .strategy-stat small{font-size:9px}
+ .strategy-pane .strategy-stat strong{font-size:21px}
+}
