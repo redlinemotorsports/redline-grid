@@ -2024,6 +2024,9 @@ select{border-radius:6px}
 .prediction-note{margin:12px 0 0;color:var(--mute);font-size:10px;line-height:1.5}
 @media(max-width:620px){.prediction-hero{padding:16px;gap:8px}.prediction-badge{font-size:8px;padding:6px}.prediction-body{padding:15px}.prediction-grid{grid-template-columns:1fr}.prediction-podium{gap:6px}.prediction-slot{padding:9px 7px}.prediction-slot select{font-size:11px}.prediction-actions{align-items:stretch}.prediction-save{flex:1}}
 
+
+/* Desktop main tabs: remove pictograms so every label aligns cleanly. */
+@media(min-width:821px){#tabs button .nav-icon{display:none}#tabs button{display:flex;align-items:center;justify-content:center;gap:0;padding-top:12px;padding-bottom:12px}}
 </style>
 </head>
 <body>
