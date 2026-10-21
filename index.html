@@ -4613,3 +4613,9 @@ setInterval(renderBriefingRecapSessionStatus,15000);
 </script>
 </body>
 </html>
+/* Mobile: add a clear separator between the brand tagline and session countdown. */
+@media(max-width:820px){
+  header{margin-bottom:18px!important}
+  .last{position:relative;margin-top:0!important}
+  .last::before{content:"";position:absolute;left:0;right:0;top:-10px;height:1px;background:linear-gradient(90deg,rgba(255,42,24,.72),var(--line) 24%,var(--line) 76%,rgba(255,42,24,.18));pointer-events:none}
+}
