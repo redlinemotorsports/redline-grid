@@ -4994,3 +4994,46 @@ setInterval(renderBriefingRecapSessionStatus,15000);
  .strategy-pane .strategy-section-head>p{display:block}
  .strategy-pane .strategy-summary{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
+
+
+/* Race engineer workstation treatment — desktop only. */
+@media(min-width:900px){
+ .strategy-pane{
+  background:
+   linear-gradient(rgba(128,128,128,.035) 1px,transparent 1px),
+   linear-gradient(90deg,rgba(128,128,128,.035) 1px,transparent 1px),
+   var(--panel);
+  background-size:24px 24px,24px 24px,auto;
+ }
+ .strategy-pane>.strategy-hero{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:linear-gradient(105deg,var(--panel) 0%,var(--soft) 68%,rgba(220,30,45,.07) 100%);
+ }
+ .strategy-pane>.strategy-hero:after{
+  content:"RACE ENGINEERING / STRATEGY DESK";
+  position:absolute;right:28px;top:14px;z-index:-1;
+  color:var(--mute);opacity:.12;font-family:Oxanium,Inter,sans-serif;
+  font-size:clamp(22px,3vw,42px);font-weight:900;letter-spacing:.08em;
+  white-space:nowrap;pointer-events:none
+ }
+ .strategy-pane .strategy-hero .briefing-kicker{
+  display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.2em
+ }
+ .strategy-pane .strategy-hero .briefing-kicker:before{
+  content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--red);box-shadow:0 0 0 4px rgba(220,30,45,.12)
+ }
+ .strategy-pane .strategy-controls label{
+  font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:800
+ }
+ .strategy-pane .strategy-controls select{min-width:210px}
+ .strategy-pane #strategyRefresh{background:var(--red);border-color:var(--red);color:#fff}
+ .strategy-pane>.strategy-summary{border-bottom:1px solid var(--line)}
+ .strategy-pane .strategy-stat{box-shadow:0 5px 16px rgba(0,0,0,.045)}
+ .strategy-pane .strategy-section{background:rgba(128,128,128,.018)}
+ .strategy-pane .strategy-section:nth-child(4),
+ .strategy-pane .strategy-section:nth-child(5){background:var(--panel)}
+ .strategy-pane .strategy-section-head>div>span{display:inline-flex;align-items:center;gap:7px}
+ .strategy-pane .strategy-section-head>div>span:before{content:"";width:18px;height:2px;background:var(--red)}
+ .strategy-pane .strategy-note{letter-spacing:.01em}
+}
