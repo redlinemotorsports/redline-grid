@@ -2070,6 +2070,39 @@ select{border-radius:6px}
  #v-standings .prediction-slot small{margin:0}
 }
 
+
+/* Strategy Lab: interactive standings tools */
+.strategy-lab{grid-column:1/-1;overflow:hidden}
+.strategy-lab-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:22px 22px 18px}
+.strategy-lab-head h2{font-family:Oxanium,Inter,sans-serif;font-size:clamp(22px,3vw,30px);letter-spacing:.02em}
+.strategy-lab-head p:not(.prediction-kicker){color:var(--mute);font-size:13px;max-width:660px;margin-top:5px}
+.lab-tabs{display:flex;gap:6px;padding:0 22px 16px;border-bottom:1px solid var(--line);overflow-x:auto}
+.lab-tab{border:1px solid var(--line);background:var(--soft);color:var(--mute);border-radius:8px;padding:10px 14px;font:600 12px Inter,sans-serif;white-space:nowrap;cursor:pointer}
+.lab-tab.active,.lab-tab[aria-selected=true]{background:var(--glow);border-color:var(--red);color:var(--txt)}
+.lab-tool{padding:20px 22px 22px}
+.lab-tool[hidden]{display:none!important}
+.lab-tool-intro h3{font-size:17px;margin-bottom:4px}
+.lab-tool-intro p{font-size:12px;color:var(--mute);margin-bottom:18px}
+.lab-fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.lab-fields label{display:flex;flex-direction:column;gap:7px;color:var(--mute);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.055em}
+.lab-fields select,.lab-fields input{width:100%;min-width:0;background:var(--card2);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:11px 10px;font:500 13px Inter,sans-serif;outline:none}
+.lab-fields select:focus,.lab-fields input:focus{border-color:var(--red);box-shadow:0 0 0 2px var(--glow)}
+.lab-result{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--soft);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:10px;padding:15px 17px;margin-top:18px}
+.lab-result span{font:700 10px "IBM Plex Mono",monospace;letter-spacing:.09em;color:var(--mute)}
+.lab-result strong{font:800 25px Oxanium,Inter,sans-serif;color:var(--red)}
+.lab-result small{flex-basis:100%;color:var(--mute);font-size:12px}
+.lab-footnote{font-size:11px;color:var(--mute);margin-top:12px}
+.lab-compare-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+.lab-compare-result{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.lab-driver-card{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+.lab-driver-card small{display:block;color:var(--mute);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.lab-driver-card strong{display:block;font-size:18px;margin:5px 0 8px;overflow-wrap:anywhere}
+.lab-driver-card .lab-driver-points{font:700 23px Oxanium,Inter,sans-serif;color:var(--red)}
+.lab-driver-card p{font-size:12px;color:var(--mute);margin-top:4px}
+.lab-compare-gap{grid-column:1/-1;text-align:center;background:var(--glow);border-radius:8px;padding:12px;font-size:12px;font-weight:700}
+@media(max-width:760px){.strategy-lab-head{padding:18px 16px 14px}.lab-tabs{padding:0 16px 14px}.lab-tool{padding:17px 16px}.lab-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.lab-compare-result{grid-template-columns:1fr 1fr}}
+@media(max-width:430px){.strategy-lab-head{flex-direction:column}.lab-fields{grid-template-columns:1fr}.lab-compare-fields{grid-template-columns:1fr}.lab-driver-card{padding:12px}.lab-driver-card strong{font-size:15px}.lab-driver-card .lab-driver-points{font-size:20px}}
+
 </style>
 </head>
 <body>
@@ -2114,6 +2147,46 @@ select{border-radius:6px}
     <div class="prediction-top-three"><span class="prediction-top-three-label">PROJECTED DRIVERS’ FINISH</span><div id="forecastDriverTable" class="prediction-forecast-list"><div class="state">Loading driver projections…</div></div></div>
     <div class="prediction-top-three"><span class="prediction-top-three-label">PROJECTED CONSTRUCTORS’ FINISH</span><div id="forecastTeamTable" class="prediction-forecast-list"><div class="state">Loading constructor projections…</div></div></div>
     <p class="prediction-note">Forecasts are estimates, not guarantees. The projection extends current championship performance across remaining rounds; uncertainty rises when only a small amount of season data is available.</p>
+   </div>
+  </section>
+
+
+  <section class="panel strategy-lab" id="strategyLab">
+   <div class="strategy-lab-head"><div><p class="prediction-kicker">REDLINE GRID / INTERACTIVE TOOLS</p><h2>Strategy Lab</h2><p>Test championship scenarios, calculate points and compare drivers using the selected season’s standings.</p></div><span class="prediction-badge">LIVE DATA</span></div>
+   <div class="lab-tabs" role="tablist" aria-label="Strategy Lab tools">
+    <button type="button" class="lab-tab active" data-lab-tool="calculator" aria-selected="true">Points Calculator</button>
+    <button type="button" class="lab-tab" data-lab-tool="scenarios" aria-selected="false">Title Scenarios</button>
+    <button type="button" class="lab-tab" data-lab-tool="compare" aria-selected="false">Driver vs Driver</button>
+   </div>
+   <div class="lab-tool" data-lab-panel="calculator">
+    <div class="lab-tool-intro"><h3>Race points calculator</h3><p>Choose a driver or constructor, then test a finishing result across multiple upcoming rounds.</p></div>
+    <div class="lab-fields">
+     <label>Championship<select id="labCalcKind"><option value="drivers">Drivers</option><option value="teams">Constructors</option></select></label>
+     <label>Competitor<select id="labCalcCompetitor"><option value="">Loading standings…</option></select></label>
+     <label>Finishing position<select id="labCalcPosition"><option value="1">P1 · 25 pts</option><option value="2">P2 · 18 pts</option><option value="3">P3 · 15 pts</option><option value="4">P4 · 12 pts</option><option value="5">P5 · 10 pts</option><option value="6">P6 · 8 pts</option><option value="7">P7 · 6 pts</option><option value="8">P8 · 4 pts</option><option value="9">P9 · 2 pts</option><option value="10">P10 · 1 pt</option><option value="11">Outside points · 0 pts</option></select></label>
+     <label>Number of rounds<input id="labCalcRounds" type="number" min="1" max="24" value="3" inputmode="numeric"></label>
+    </div>
+    <div class="lab-result" id="labCalcResult" aria-live="polite"><span>PROJECTED POINTS ADDED</span><strong>—</strong><small>Select a competitor to calculate a scenario.</small></div>
+   </div>
+   <div class="lab-tool" data-lab-panel="scenarios" hidden>
+    <div class="lab-tool-intro"><h3>What does a title run look like?</h3><p>Model a contender’s points haul over the remaining rounds and compare it with a rival’s current total.</p></div>
+    <div class="lab-fields">
+     <label>Championship<select id="labTitleKind"><option value="drivers">Drivers</option><option value="teams">Constructors</option></select></label>
+     <label>Contender<select id="labTitleTarget"><option value="">Loading standings…</option></select></label>
+     <label>Closest rival<select id="labTitleRival"><option value="">Loading standings…</option></select></label>
+     <label>Contender wins in next rounds<input id="labTitleWins" type="number" min="0" max="24" value="3" inputmode="numeric"></label>
+     <label>Rounds to simulate<input id="labTitleRounds" type="number" min="1" max="24" value="5" inputmode="numeric"></label>
+    </div>
+    <div class="lab-result" id="labTitleResult" aria-live="polite"><span>PROJECTED TITLE GAP</span><strong>—</strong><small>Choose two competitors to simulate the run-in.</small></div>
+    <p class="lab-footnote">Scenario estimate only: assumes 25 points for each contender win and uses the rival’s current points-per-round average. Sprint points and fastest-lap points are excluded.</p>
+   </div>
+   <div class="lab-tool" data-lab-panel="compare" hidden>
+    <div class="lab-tool-intro"><h3>Head-to-head comparison</h3><p>Compare current championship position, points total and points gap between any two drivers.</p></div>
+    <div class="lab-fields lab-compare-fields">
+     <label>Driver A<select id="labDriverA"><option value="">Loading drivers…</option></select></label>
+     <label>Driver B<select id="labDriverB"><option value="">Loading drivers…</option></select></label>
+    </div>
+    <div class="lab-compare-result" id="labCompareResult" aria-live="polite"><div class="state">Waiting for driver standings…</div></div>
    </div>
   </section>
 
@@ -4050,6 +4123,70 @@ if("serviceWorker" in navigator && location.protocol.startsWith("http")){
  const tick=()=>render();
  setInterval(tick,30000);
 })();
+
+/* Standings Strategy Lab tools: driven by the selected season's displayed points. */
+(function initStrategyLab(){
+ const $=id=>document.getElementById(id);
+ const points=[25,18,15,12,10,8,6,4,2,1];
+ const readRows=id=>[...($(id)?.querySelectorAll(".row")||[])].map((el,index)=>({
+  name:el.querySelector(".who b")?.textContent?.trim()||"",
+  points:Number((el.querySelector(".pts")?.textContent||"").replace(/[^\d.-]/g,""))||0,
+  rank:Number((el.querySelector(".pos")?.textContent||"").replace(/[^\d]/g,""))||index+1
+ })).filter(x=>x.name);
+ const escape=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ const options=(rows,placeholder)=>rows.length?rows.map((x,i)=>'<option value="'+i+'">'+escape(x.name)+' · P'+x.rank+'</option>').join(""):'<option value="">'+placeholder+'</option>';
+ const setOptions=(id,rows,placeholder)=>{const el=$(id);if(!el)return;const old=el.value;el.innerHTML=options(rows,placeholder);if([...el.options].some(o=>o.value===old))el.value=old};
+ const chosen=(id,rows)=>{const el=$(id);return el&&el.value!==""?rows[Number(el.value)]:null};
+ const num=id=>Math.max(0,Math.min(24,Math.floor(Number($(id)?.value)||0)));
+ function refreshOptions(){
+  const drivers=readRows("drivers"),teams=readRows("teams");
+  setOptions("labCalcCompetitor",($("labCalcKind")?.value==="teams"?teams:drivers),"No standings data");
+  setOptions("labTitleTarget",($("labTitleKind")?.value==="teams"?teams:drivers),"No standings data");
+  setOptions("labTitleRival",($("labTitleKind")?.value==="teams"?teams:drivers),"No standings data");
+  setOptions("labDriverA",drivers,"No driver data");setOptions("labDriverB",drivers,"No driver data");
+  calc();title();compare();
+ }
+ function result(id,label,value,detail){
+  const el=$(id);if(!el)return;
+  el.innerHTML='<span>'+label+'</span><strong>'+value+'</strong><small>'+detail+'</small>';
+ }
+ function calc(){
+  const kind=$("labCalcKind")?.value||"drivers",rows=readRows(kind==="teams"?"teams":"drivers"),x=chosen("labCalcCompetitor",rows);
+  const pos=Math.max(1,Math.min(11,Number($("labCalcPosition")?.value)||1)),r=Math.max(1,Math.min(24,Number($("labCalcRounds")?.value)||1));
+  if(!x){result("labCalcResult","PROJECTED POINTS ADDED","—","Standings data has not loaded yet.");return}
+  const per=points[pos-1]||0,added=per*r;
+  result("labCalcResult","PROJECTED POINTS ADDED","+"+added.toLocaleString(),x.name+" would move from "+x.points.toLocaleString()+" to "+(x.points+added).toLocaleString()+" points if they finish P"+(pos<=10?pos:"11+")+" in each of "+r+" rounds. Sprint and fastest-lap points excluded.");
+ }
+ function title(){
+  const kind=$("labTitleKind")?.value||"drivers",rows=readRows(kind==="teams"?"teams":"drivers"),target=chosen("labTitleTarget",rows),rival=chosen("labTitleRival",rows);
+  const wins=num("labTitleWins"),rounds=Math.max(1,num("labTitleRounds"));
+  if(!target||!rival||target.name===rival.name){result("labTitleResult","PROJECTED TITLE GAP","—","Choose two different competitors.");return}
+  const targetProjected=target.points+wins*25;
+  const rivalRate=rows.length?Math.max(0,rival.points/Math.max(1,Math.max(...rows.map(x=>x.rank)))):0;
+  const rivalProjected=rival.points+rivalRate*rounds;
+  const gap=Math.round(targetProjected-rivalProjected);
+  result("labTitleResult","PROJECTED TITLE GAP",(gap>0?"+":"")+gap+" pts",target.name+" projected at "+Math.round(targetProjected)+" pts versus "+rival.name+" at approximately "+Math.round(rivalProjected)+" pts. Assumes "+wins+" wins for the contender over "+rounds+" rounds.");
+ }
+ function compare(){
+  const rows=readRows("drivers"),a=chosen("labDriverA",rows),b=chosen("labDriverB",rows),root=$("labCompareResult");
+  if(!root)return;
+  if(!a||!b){root.innerHTML='<div class="state">Driver standings have not loaded yet.</div>';return}
+  if(a.name===b.name){root.innerHTML='<div class="state">Choose two different drivers to compare.</div>';return}
+  const leader=a.points>=b.points?a:b,trail=leader===a?b:a,gap=Math.abs(a.points-b.points);
+  root.innerHTML='<article class="lab-driver-card"><small>DRIVER A · P'+a.rank+'</small><strong>'+escape(a.name)+'</strong><div class="lab-driver-points">'+a.points.toLocaleString()+' pts</div><p>Current championship position: '+a.rank+'</p></article><article class="lab-driver-card"><small>DRIVER B · P'+b.rank+'</small><strong>'+escape(b.name)+'</strong><div class="lab-driver-points">'+b.points.toLocaleString()+' pts</div><p>Current championship position: '+b.rank+'</p></article><div class="lab-compare-gap">'+escape(leader.name)+' leads '+escape(trail.name)+' by '+gap.toLocaleString()+' points'+(gap===0?' · TIED':'')+'</div>';
+ }
+ document.querySelectorAll("[data-lab-tool]").forEach(btn=>btn.addEventListener("click",()=>{
+  document.querySelectorAll("[data-lab-tool]").forEach(b=>{const active=b===btn;b.classList.toggle("active",active);b.setAttribute("aria-selected",String(active))});
+  document.querySelectorAll("[data-lab-panel]").forEach(p=>p.hidden=p.dataset.labPanel!==btn.dataset.labTool);
+ }));
+ ["labCalcKind","labCalcCompetitor","labCalcPosition","labCalcRounds"].forEach(id=>$(id)?.addEventListener("change",()=>{if(id==="labCalcKind")refreshOptions();else calc()}));
+ ["labTitleKind","labTitleTarget","labTitleRival","labTitleWins","labTitleRounds"].forEach(id=>$(id)?.addEventListener("change",()=>{if(id==="labTitleKind")refreshOptions();else title()}));
+ ["labDriverA","labDriverB"].forEach(id=>$(id)?.addEventListener("change",compare));
+ const roots=["drivers","teams"].map($).filter(Boolean);
+ if(roots.length){const observer=new MutationObserver(()=>refreshOptions());roots.forEach(el=>observer.observe(el,{childList:true,subtree:true,characterData:true}))}
+ refreshOptions();
+})();
+
 show("home","news");
 renderBriefing();
 setTimeout(()=>loadYear(nowY),1200);
