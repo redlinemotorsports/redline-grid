@@ -2027,6 +2027,30 @@ select{border-radius:6px}
 
 /* Desktop main tabs: remove pictograms so every label aligns cleanly. */
 @media(min-width:821px){#tabs button .nav-icon{display:none}#tabs button{display:flex;align-items:center;justify-content:center;gap:0;padding-top:12px;padding-bottom:12px}}
+
+/* Fit the prediction module to the standings grid and reduce its visual weight. */
+#v-standings>.prediction-panel{grid-column:1/-1;margin-top:0}
+#v-standings .prediction-hero{padding:16px 18px 13px;align-items:center}
+#v-standings .prediction-hero h2{font-size:clamp(20px,2.3vw,25px)}
+#v-standings .prediction-hero p:last-child{font-size:11px;margin-top:5px;max-width:620px}
+#v-standings .prediction-body{padding:15px 18px 16px}
+#v-standings .prediction-grid{gap:10px}
+#v-standings .prediction-field{gap:6px}
+#v-standings .prediction-field select{padding-top:10px;padding-bottom:10px;font-size:12px}
+#v-standings .prediction-top-three{margin-top:14px;padding-top:13px}
+#v-standings .prediction-podium{gap:8px}
+#v-standings .prediction-slot{padding:10px}
+#v-standings .prediction-actions{margin-top:14px}
+#v-standings .prediction-note{margin-top:8px}
+@media(max-width:620px){
+ #v-standings>.prediction-panel{grid-column:1/-1}
+ #v-standings .prediction-hero{align-items:flex-start;padding:14px}
+ #v-standings .prediction-body{padding:13px}
+ #v-standings .prediction-podium{grid-template-columns:1fr;gap:7px}
+ #v-standings .prediction-slot{display:grid;grid-template-columns:112px minmax(0,1fr);align-items:center;gap:8px}
+ #v-standings .prediction-slot small{margin:0}
+}
+
 </style>
 </head>
 <body>
