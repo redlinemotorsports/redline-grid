@@ -2464,6 +2464,28 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
  #v-news .weekend-shortcuts-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
  #v-news .weekend-shortcuts-grid button{min-height:76px!important}
 }
+
+/* Mobile Home: align the hero, overview heading, and quick-access labels consistently. */
+@media(max-width:820px){
+  #v-news .briefing-head{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    justify-content:flex-start!important;
+    text-align:left!important;
+    padding:16px 14px 13px!important;
+    gap:11px!important;
+  }
+  #v-news .briefing-head>div{width:100%!important;min-width:0!important;text-align:left!important}
+  #v-news .briefing-kicker{margin:0 0 6px!important;text-align:left!important;line-height:1.35!important}
+  #v-news .briefing-head h2{margin:0!important;padding:0!important;text-align:left!important;line-height:1.12!important;letter-spacing:-.025em!important}
+  #v-news .briefing-intro{margin:6px 0 0!important;text-align:left!important;line-height:1.45!important;max-width:42ch}
+  #v-news .briefing-refresh{align-self:flex-start!important;margin:0!important}
+  #v-news .weekend-shortcuts-head{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:4px!important;text-align:left!important}
+  #v-news .weekend-shortcuts-head span,#v-news .weekend-shortcuts-head small{text-align:left!important}
+  #v-news .cinema-hero-copy{width:100%!important;text-align:left!important;align-items:flex-start!important}
+  #v-news .cinema-kicker,#v-news .cinema-hero h2,#v-news .cinema-deck{text-align:left!important}
+}
 </style>
 </head>
 <body>
