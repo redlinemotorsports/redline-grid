@@ -2290,6 +2290,16 @@ header>.brand>.brand-text>h1.brand-name span{
  .session-countdown{flex-basis:210px;padding-left:12px!important}
 }
 
+
+/* Wordmark-first header: clean editorial motorsport typography */
+.brand{gap:0;min-width:0}
+.brand-mark,.brand-divider{display:none!important}
+.brand-text{min-width:0}
+h1.brand-name{display:flex;align-items:baseline;gap:.22em;font-family:"Oxanium","Barlow Condensed",sans-serif!important;font-size:clamp(30px,3.4vw,43px)!important;font-style:italic!important;font-weight:800!important;letter-spacing:.015em!important;line-height:1!important;text-transform:uppercase;white-space:nowrap}
+h1.brand-name span{font-size:1em!important;color:var(--red)!important;letter-spacing:inherit!important}
+.brand-text .tag{margin-top:6px;font-family:"IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
+@media(max-width:480px){h1.brand-name{font-size:clamp(25px,7vw,34px)!important;gap:.18em}.brand-text .tag{font-size:7px;letter-spacing:.07em;margin-top:5px}}
+
 </style>
 </head>
 <body>
@@ -2298,8 +2308,6 @@ header>.brand>.brand-text>h1.brand-name span{
 <div class="wrap">
  <header>
   <div class="brand">
-   <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 156 78" xmlns="http://www.w3.org/2000/svg"><title>Redline Grid checker R logo</title><path d="M16 8H75C96 8 107 17 107 32C107 44 98 52 81 55L105 72H74L50 54H36L31 72H3L16 8ZM39 22L35 38H70C78 38 85 35 85 30C85 25 80 22 72 22H39Z" fill="#F4F4F6" fill-rule="evenodd"/><g fill="#FF243A"><path d="M12 8H35L30 21H8Z"/><path d="M7 27H29L24 40H2Z"/><path d="M2 46H24L19 59H0Z"/><path d="M29 27H51L46 40H24Z"/><path d="M24 46H46L41 59H19Z"/><path d="M46 8H68L63 21H41Z"/></g><path d="M5 76H43M51 76H67M75 76H113" stroke="#FF243A" stroke-width="2.5" stroke-linecap="square"/></svg></span>
-   <span class="brand-divider" aria-hidden="true"></span>
    <div class="brand-text"><h1 class="brand-name">REDLINE <span>GRID</span></h1><p class="tag">Race Data. Rivalries. Every Detail.</p></div>
   </div>
   <div class="last" id="last"><small>Loading season…</small></div>
@@ -4392,3 +4400,4 @@ h1.brand-name{white-space:nowrap;line-height:1;display:block}
 h1.brand-name span{display:inline-block;font-size:.72em;line-height:1;letter-spacing:.18em;margin:0 0 0 .12em;vertical-align:baseline}
 @media(max-width:480px){h1.brand-name{font-size:clamp(20px,6vw,29px);letter-spacing:.015em}h1.brand-name span{font-size:.72em;letter-spacing:.12em;margin-left:.1em}}
 @media(max-width:380px){h1.brand-name{font-size:clamp(18px,5.7vw,23px);letter-spacing:0}h1.brand-name span{letter-spacing:.08em}}
+
