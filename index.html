@@ -2536,6 +2536,32 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
 #v-live .race-pulse{margin:0 20px 22px}
 @media(max-width:820px){.race-pulse{margin:0 12px 18px;border-radius:13px}.race-pulse-head{padding:16px 14px 14px;gap:9px}.pulse-status{font-size:8px;padding:6px 7px}.race-pulse-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pulse-stat{padding:14px 12px;border-bottom:1px solid var(--line)}.pulse-stat:nth-child(2){border-right:0}.pulse-stat:nth-child(3),.pulse-stat:nth-child(4){border-bottom:0}.pulse-stat>b{font-size:14px}.pulse-foot{flex-direction:column;gap:5px;padding:10px 12px}#v-live .race-pulse{margin:0 12px 18px}}
 
+
+/* Polished analysis tools for standings, telemetry, control, radio and weather */
+.feature-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:16px}
+.feature-head h3{margin:0;color:var(--txt);font:800 clamp(20px,2.4vw,27px)/1.1 Inter,sans-serif;letter-spacing:-.035em}
+.feature-head p:not(.briefing-kicker){margin:7px 0 0;color:var(--mute);font-size:12px;line-height:1.5;max-width:600px}
+.feature-tag{flex:none;border:1px solid var(--line);border-radius:999px;padding:7px 9px;color:var(--mute);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.05em}
+.championship-pressure,.lap-delta-tool,.weather-strategy{margin:18px 0;padding:20px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(135deg,rgba(255,42,24,.055),transparent 55%),var(--card)}
+.pressure-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pressure-card{min-width:0;padding:16px;border:1px solid var(--line);border-radius:11px;background:var(--card2);display:flex;flex-direction:column;gap:7px}
+.pressure-card small{color:var(--mute);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.07em}
+.pressure-card strong{color:var(--txt);font:800 clamp(20px,3vw,30px)/1.1 Inter,sans-serif}
+.pressure-card span{color:var(--mute);font-size:11px;line-height:1.45}
+.feature-footnote{margin:13px 0 0;color:var(--mute);font-size:10px;line-height:1.55}
+.delta-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.delta-controls label,.feature-search label{display:flex;flex-direction:column;gap:7px;color:var(--mute);font-size:11px;font-weight:600}
+.delta-controls select,.feature-search input{width:100%;min-width:0;border:1px solid var(--line);border-radius:9px;padding:11px 12px;background:var(--card2);color:var(--txt);font:500 12px Inter,sans-serif}
+.delta-result{margin-top:12px;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--card2);color:var(--mute);font-size:12px;line-height:1.6}
+.delta-result strong{display:block;margin:2px 0;color:var(--txt);font:800 25px Inter,sans-serif}
+.feature-search{padding:12px 14px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--card)}
+.feature-search label{max-width:520px}
+.weather-guides{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.weather-guides article{padding:14px;border:1px solid var(--line);border-radius:11px;background:var(--card2)}
+.weather-guides b{font-size:12px;color:var(--txt)}.weather-guides p{margin:8px 0 0;color:var(--mute);font-size:11px;line-height:1.6}
+#v-standings .championship-pressure{margin-top:20px}
+@media(max-width:680px){.championship-pressure,.lap-delta-tool,.weather-strategy{padding:15px;margin:14px 0}.feature-head{gap:8px}.feature-tag{font-size:8px;padding:6px 7px;max-width:112px;white-space:normal;text-align:center}.pressure-grid,.delta-controls{grid-template-columns:1fr 1fr;gap:8px}.pressure-card{padding:12px}.pressure-card strong{font-size:21px}.weather-guides{grid-template-columns:1fr}.weather-guides article{padding:12px}.feature-search{padding:10px}}
+
 </style>
 </head>
 <body>
@@ -2567,7 +2593,8 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
   <section class="panel standings-driver-panel"><h2>Drivers’ Championship</h2><div id="drivers"><div class="state">Loading…</div></div></section>
   <section class="panel standings-team-panel"><h2>Constructors’ Championship</h2><div id="teams"><div class="state">Loading…</div></div></section>
 
-  <section class="panel strategy-lab" id="strategyLab">
+  <section class="panel championship-pressure" id="championshipPressure"><div class="feature-head"><div><p class="briefing-kicker">TITLE FIGHT / LIVE GAP</p><h3>Championship Pressure</h3><p>Points gaps calculated from the standings loaded above.</p></div><span class="feature-tag">LIVE STANDINGS</span></div><div class="pressure-grid"><div class="pressure-card"><small>DRIVERS’ TITLE GAP</small><strong id="pressureDriverGap">Waiting for data</strong><span id="pressureDriverDetail">Requires current driver standings</span></div><div class="pressure-card"><small>CONSTRUCTORS’ TITLE GAP</small><strong id="pressureTeamGap">Waiting for data</strong><span id="pressureTeamDetail">Requires current team standings</span></div></div><p class="feature-footnote">Gaps reflect the points currently shown in Redline Grid; this does not predict future results.</p></section>
+
    <div class="strategy-lab-head"><div><p class="prediction-kicker">REDLINE GRID / INTERACTIVE TOOLS</p><h2>Strategy Lab</h2><p>Test championship scenarios, calculate points and compare drivers using the selected season’s standings.</p></div><span class="prediction-badge">LIVE DATA</span></div>
    <div class="lab-tabs" role="tablist" aria-label="Strategy Lab tools">
     <button type="button" class="lab-tab active" data-lab-tool="calculator" aria-selected="true">Points Calculator</button>
@@ -2643,9 +2670,9 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
 <div class="briefing-head strategy-hero">
 <div><p class="briefing-kicker">REDLINE GRID / RACE STRATEGY</p><h2>Race Strategy</h2><p class="briefing-intro">Tyre choices, pit windows and pace evolution from the selected Grand Prix. Built from recorded session data, not simulated strategy.</p></div><div class="strategy-controls"><label for="strategySession">Session</label><select id="strategySession" aria-label="Strategy session"><option value="">Selected Grand Prix</option></select><button type="button" id="strategyRefresh">Refresh data</button></div></div><div id="strategySummary" class="strategy-summary"><div class="state">Select a Grand Prix to explore its strategy.</div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>01 / TYRE PLAN</span><h3>Stints &amp; pit stops</h3></div><p>Recorded tyre stints, with lap boundaries where the source provides them.</p></div><div id="strategyPirelli" class="strategy-pirelli"></div><div id="strategyStints"><div class="state">Strategy data will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>02 / STRATEGY COMPARISON</span><h3>Compound &amp; stint comparison</h3></div><p>Compare recorded stint lengths, median pace and within-stint pace change across drivers. Context matters: these are not controlled tyre tests.</p></div><div id="strategyCompare"><div class="state">Strategy comparison will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>03 / AUTOMATED READOUT</span><h3>Automatic Strategy Insights</h3></div><p>Data-led observations from the selected session, with uncertainty called out where the timing feed cannot prove cause and effect.</p></div><div id="strategyInsights"><div class="state">Strategy insights will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>04 / PACE EVOLUTION</span><h3>Lap-time progression</h3></div><p>Median lap pace by race phase, using available lap-time records.</p></div><div id="strategyPace"><div class="state">Strategy data will appear here.</div></div></div><div class="strategy-note" id="strategyNote">Data coverage varies by season and session. Tyre compounds and stint boundaries are shown only when the source provides them.</div></section>
  <section class="panel pane" id="v-result" hidden><h2 class="race-tab-title">Race</h2><h2 id="resTitle">Race result</h2><div class="result-tools"><label for="resultSearch">Find driver or team</label><input id="resultSearch" type="search" placeholder="Search results…" autocomplete="off"><span id="resultMatchCount" aria-live="polite">All results</span></div><div class="scroll" id="result"><div class="state">Loading…</div></div></section>
- <section class="panel pane" id="v-control" hidden><h2>Race control</h2><div id="controlInsights" class="control-insights" aria-live="polite"><div class="state">Building race-control summary…</div></div><div class="control-tools" id="controlTools" aria-label="Filter race control messages"><div class="control-filters" role="group" aria-label="Message category"><button type="button" data-control-filter="all" aria-pressed="true">All</button><button type="button" data-control-filter="flags" aria-pressed="false">Flags</button><button type="button" data-control-filter="safety" aria-pressed="false">Safety Car</button><button type="button" data-control-filter="incidents" aria-pressed="false">Incidents</button><button type="button" data-control-filter="other" aria-pressed="false">Other</button></div><button type="button" class="control-order" id="controlOrder" aria-label="Change message order">Newest first ↓</button></div><div class="scroll" id="control"><div class="state">Loading…</div></div></section>
- <section class="panel pane" id="v-radio" hidden><h2>Team radio</h2><div class="tools"><select id="rsess" aria-label="Session"></select></div><div class="scroll" id="radioList"><div class="state">Loading…</div></div></section>
- <section class="panel pane" id="v-weather" hidden><h2>Weather</h2><div class="tools"><select id="wsess" aria-label="Session"></select></div><div id="weatherView"><div class="state">Loading…</div></div></section>
+ <section class="panel pane" id="v-control" hidden><h2>Race control</h2><div id="controlInsights" class="control-insights" aria-live="polite"><div class="state">Building race-control summary…</div></div><div class="control-tools" id="controlTools" aria-label="Filter race control messages"><div class="control-filters" role="group" aria-label="Message category"><button type="button" data-control-filter="all" aria-pressed="true">All</button><button type="button" data-control-filter="flags" aria-pressed="false">Flags</button><button type="button" data-control-filter="safety" aria-pressed="false">Safety Car</button><button type="button" data-control-filter="incidents" aria-pressed="false">Incidents</button><button type="button" data-control-filter="other" aria-pressed="false">Other</button></div><button type="button" class="control-order" id="controlOrder" aria-label="Change message order">Newest first ↓</button></div><div class="feature-search"><label for="controlSearch">Search race-control messages</label><input id="controlSearch" type="search" placeholder="e.g. driver, turn, penalty…" autocomplete="off"></div><div class="scroll" id="control"><div class="state">Loading…</div></div></section>
+ <section class="panel pane" id="v-radio" hidden><h2>Team radio</h2><div class="tools"><select id="rsess" aria-label="Session"></select></div><div class="feature-search"><label for="radioSearch">Search available radio context</label><input id="radioSearch" type="search" placeholder="Search driver, message or context…" autocomplete="off"></div><div class="scroll" id="radioList"><div class="state">Loading…</div></div></section>
+ <section class="panel pane" id="v-weather" hidden><h2>Weather</h2><div class="tools"><select id="wsess" aria-label="Session"></select></div><div id="weatherView"><div class="state">Loading…</div></div><section class="weather-strategy" id="weatherStrategy"><div class="feature-head"><div><p class="briefing-kicker">WEATHER / STRATEGY DESK</p><h3>What the conditions can mean</h3><p>Guidance based on the weather readings available for the selected session.</p></div><span class="feature-tag">CONTEXT, NOT PREDICTION</span></div><div class="weather-guides"><article><b>Rain readings</b><p>Recorded rain can reduce grip and increase the relevance of intermediate or wet tyres. A dry sample does not guarantee a dry track throughout the session.</p></article><article><b>Track vs air temperature</b><p>A warmer track can increase tyre-energy demands, but compound, setup, traffic and stint length also matter.</p></article><article><b>Wind and humidity</b><p>Wind can affect balance and braking references; humidity alone is not a reliable rain forecast.</p></article></div><p class="feature-footnote">These are general interpretation notes, not a tyre recommendation. If session weather data is missing, no conditions are inferred.</p></section></section>
  <section class="panel pane paddock-archive" id="v-documents" hidden>
   <header class="paddock-hero">
    <div class="paddock-hero-top"><span class="paddock-mark">RG<span> / </span>ARCHIVE</span><span class="paddock-live"><i></i> OFFICIAL SOURCES</span></div>
@@ -2668,6 +2695,7 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
  </section>
  <section class="panel pane" id="v-tele" hidden><h2>Telemetry</h2>
   <div class="tools"><select id="lsess" aria-label="Session"></select><select id="ldrv" aria-label="Driver"></select><select id="clap" aria-label="Lap" hidden></select></div>
+  <section class="panel lap-delta-tool" id="lapDeltaTool"><div class="feature-head"><div><p class="briefing-kicker">TELEMETRY / COMPARISON</p><h3>Lap Delta Explorer</h3><p>Compare the fastest recorded lap for two drivers in the selected session.</p></div><span class="feature-tag">SESSION DATA</span></div><div class="delta-controls"><label>Driver A<select id="deltaDriverA" aria-label="First driver for lap delta"></select></label><label>Driver B<select id="deltaDriverB" aria-label="Second driver for lap delta"></select></label></div><div class="delta-result" id="lapDeltaResult" aria-live="polite">Waiting for timed lap data…</div><p class="feature-footnote">Uses recorded lap durations only. Different tyre, fuel, traffic and track conditions are not normalized.</p></section>
   <div id="lapEditorial" class="lap-editorial-wrap" aria-live="polite"></div><div id="paceCompare" class="pace-compare-wrap" aria-live="polite"></div><div id="sessionCompare" class="pace-compare-wrap" aria-live="polite"></div><div id="qualifyingGap" class="pace-compare-wrap" aria-live="polite"></div><div class="scroll" id="lapList"><div class="state">Loading…</div></div><div id="carView" hidden></div></section>
  <section class="panel pane" id="v-news">
   <section class="cinema-hero" aria-label="Redline Grid introduction">
@@ -4675,6 +4703,63 @@ setInterval(renderBriefingRecapSessionStatus,15000);
    if(nav)nav.click();
   }
  });
+})();
+
+
+/* Interactive enhancements: derive every metric from data already loaded by the app. */
+(function(){
+ const $=id=>document.getElementById(id);
+ const text=(id,value)=>{const el=$(id);if(el)el.textContent=value};
+ const pts=id=>[...($(id)?.querySelectorAll('.row')||[])].map(r=>({name:r.querySelector('.who b')?.textContent?.trim()||'',points:Number((r.querySelector('.pts')?.textContent||'').replace(/[^0-9.-]/g,''))})).filter(x=>x.name&&Number.isFinite(x.points));
+ function pressure(){
+  [['drivers','pressureDriverGap','pressureDriverDetail','driver'],['teams','pressureTeamGap','pressureTeamDetail','constructor']].forEach(([root,gap,detail,label])=>{
+   const rows=pts(root).sort((a,b)=>b.points-a.points);
+   if(rows.length<2){text(gap,'Data unavailable');text(detail,'Need at least two classified '+label+' entries');return}
+   const d=rows[0].points-rows[1].points;
+   text(gap,d.toLocaleString()+' pts');text(detail,rows[0].name+' leads '+rows[1].name+' by '+d.toLocaleString()+' point'+(d===1?'':'s'));
+  });
+ }
+ const pObserver=new MutationObserver(pressure);
+ ['drivers','teams'].forEach(id=>{if($(id))pObserver.observe($(id),{childList:true,subtree:true,characterData:true})});
+ pressure();
+ function deltaOptions(){
+  const data=window.lapData;
+  const order=data?.order||[];
+  const best=data?.best||{};
+  const by=data?.by||{};
+  const opts=order.filter(k=>Number.isFinite(best[k])).map(k=>({id:String(k),name:(by[k]?.full_name||by[k]?.name||('Driver #'+k)),time:best[k]})).sort((a,b)=>a.time-b.time);
+  ['deltaDriverA','deltaDriverB'].forEach((id,idx)=>{
+   const el=$(id);if(!el)return;const old=el.value;
+   el.innerHTML=opts.map(d=>'<option value="'+d.id.replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'">'+d.name.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+' · '+d.time.toFixed(3)+'s</option>').join('');
+   if(opts.some(d=>d.id===old))el.value=old;else if(opts[idx])el.value=opts[idx].id;
+  });
+  renderDelta(opts);
+ }
+ function renderDelta(opts){
+  const box=$('lapDeltaResult');if(!box)return;
+  const data=window.lapData, best=data?.best||{},a=$('deltaDriverA')?.value,b=$('deltaDriverB')?.value;
+  const rows=opts||[];
+  if(!rows.length){box.textContent='No comparable timed laps are available for this session.';return}
+  const da=rows.find(x=>x.id===a),db=rows.find(x=>x.id===b);
+  if(!da||!db){box.textContent='Select two drivers with recorded lap times to compare.';return}
+  if(a===b){box.textContent='Choose two different drivers for a meaningful comparison.';return}
+  const gap=Math.abs(da.time-db.time),faster=da.time<db.time?da:db,slower=da.time<db.time?db:da;
+  box.innerHTML='<span>'+faster.name+' recorded the quicker best lap</span><strong>'+gap.toFixed(3)+' s</strong><span>'+slower.name+' was '+gap.toFixed(3)+' seconds slower in the fastest recorded lap comparison.</span>';
+ }
+ ['deltaDriverA','deltaDriverB'].forEach(id=>$(id)?.addEventListener('change',()=>renderDelta()));
+ // Refresh selector options after the app replaces its session lap data.
+ const teleRoot=$('lapList');
+ if(teleRoot)new MutationObserver(()=>deltaOptions()).observe(teleRoot,{childList:true,subtree:true});
+ const originalDrawTele=window.drawTele;
+ if(typeof originalDrawTele==='function')window.drawTele=function(){const r=originalDrawTele.apply(this,arguments);setTimeout(deltaOptions,0);return r};
+ function searchCards(inputId,rootId,selector){
+  const input=$(inputId),root=$(rootId);if(!input||!root)return;
+  const run=()=>{const q=input.value.trim().toLowerCase();root.querySelectorAll(selector).forEach(el=>{el.hidden=!!q&&!el.textContent.toLowerCase().includes(q)});};
+  input.addEventListener('input',run);
+  new MutationObserver(run).observe(root,{childList:true,subtree:true});
+ }
+ searchCards('controlSearch','control','.msg');
+ searchCards('radioSearch','radioList','[class*="radio"],.msg,.row,article');
 })();
 
 </script>
