@@ -2408,6 +2408,29 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
   #tabs{margin-bottom:8px;padding:4px}
   #tabs button{padding:8px 10px}
 }
+
+/* Desktop top spacing: keep the title, round card, and navigation tighter. */
+@media(min-width:821px){
+  .wrap{padding-top:8px;padding-bottom:44px}
+  header{margin-bottom:8px!important;padding-bottom:7px!important;gap:10px!important}
+  header .brand{align-self:center}
+  h1.brand-name{font-size:clamp(30px,3.2vw,38px)!important;line-height:.92!important}
+  .tag{margin-top:3px!important;font-size:10px!important;letter-spacing:.12em!important}
+  .last{padding-top:5px!important;padding-bottom:5px!important;gap:6px 9px!important}
+  .last .lr{gap:7px!important}
+  .last .lt b{font-size:13px!important;line-height:1.15!important}
+  .last .lt small{font-size:10px!important}
+  .last .lnx{padding-left:10px!important}
+  .last .session-countdown{padding-top:0!important;padding-bottom:0!important;gap:4px!important}
+  .last .sc-top{gap:5px!important}
+  .last .sc-session{font-size:12px!important;line-height:1.1!important}
+  .last .sc-clock{gap:3px!important}
+  .last .sc-unit{padding:3px 2px!important}
+  .last .sc-unit b{font-size:14px!important;line-height:1.05!important}
+  .last .sc-unit small{font-size:7px!important;margin-top:1px!important}
+  #tabs{margin-bottom:7px!important;padding:3px!important}
+  #tabs button{padding-top:7px!important;padding-bottom:7px!important}
+}
 </style>
 </head>
 <body>
