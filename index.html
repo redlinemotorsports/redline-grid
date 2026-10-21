@@ -2717,6 +2717,39 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
   .strategy-pane .strategy-stat small{letter-spacing:.055em}
   .strategy-pane .strategy-section{padding:21px 14px}
 }
+
+
+/* Strategy Lab heading alignment: use the same left edge, type rhythm, and spacing as the standings panels. */
+#v-standings .strategy-lab-head{
+  box-sizing:border-box;
+  width:100%;
+  padding:22px 22px 18px!important;
+  margin:0!important;
+  align-items:flex-start!important;
+  text-align:left!important;
+}
+#v-standings .strategy-lab-head>div{min-width:0;flex:1 1 auto;text-align:left!important}
+#v-standings .strategy-lab-head .prediction-kicker{margin:0 0 7px!important;text-align:left!important;line-height:1.4!important}
+#v-standings .strategy-lab-head h2{
+  display:block!important;
+  width:auto!important;
+  margin:0!important;
+  padding:0!important;
+  background:none!important;
+  font:700 clamp(22px,2.3vw,27px)/1.2 Inter,sans-serif!important;
+  letter-spacing:-.025em!important;
+  text-align:left!important;
+  text-transform:none!important;
+}
+#v-standings .strategy-lab-head p:not(.prediction-kicker){margin:7px 0 0!important;max-width:660px;font-size:13px;line-height:1.6;text-align:left!important}
+#v-standings .strategy-lab-head .prediction-badge{flex:none;margin-top:1px}
+@media(max-width:620px){
+  #v-standings .strategy-lab-head{padding:17px 14px 15px!important;gap:10px!important}
+  #v-standings .strategy-lab-head h2{font-size:23px!important;line-height:1.25!important}
+  #v-standings .strategy-lab-head p:not(.prediction-kicker){font-size:13px;line-height:1.65;margin-top:8px!important}
+  #v-standings .strategy-lab-head .prediction-badge{font-size:9px;padding:6px 8px}
+}
+@media(max-width:420px){#v-standings .strategy-lab-head{flex-direction:column;align-items:flex-start!important}}
 </style>
 </head>
 <body>
