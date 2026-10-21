@@ -4759,7 +4759,7 @@ setInterval(renderBriefingRecapSessionStatus,15000);
   new MutationObserver(run).observe(root,{childList:true,subtree:true});
  }
  searchCards('controlSearch','control','.msg');
- searchCards('radioSearch','radioList','[class*="radio"],.msg,.row,article');
+ searchCards('radioSearch','radioList','article.radio');
 })();
 
 </script>
