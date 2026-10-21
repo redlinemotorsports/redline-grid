@@ -2562,6 +2562,103 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
 #v-standings .championship-pressure{margin-top:20px}
 @media(max-width:680px){.championship-pressure,.lap-delta-tool,.weather-strategy{padding:15px;margin:14px 0}.feature-head{gap:8px}.feature-tag{font-size:8px;padding:6px 7px;max-width:112px;white-space:normal;text-align:center}.pressure-grid,.delta-controls{grid-template-columns:1fr 1fr;gap:8px}.pressure-card{padding:12px}.pressure-card strong{font-size:21px}.weather-guides{grid-template-columns:1fr}.weather-guides article{padding:12px}.feature-search{padding:10px}}
 
+
+/* Mobile polish pass — consistent spacing, calmer hierarchy, and safer narrow-screen layouts */
+@media(max-width:820px){
+  .wrap{padding:12px 10px 18px}
+  header{gap:10px;min-width:0}
+  .brand{min-width:0;gap:8px;padding-right:0}
+  .brand-text{min-width:0}
+  .brand-mark{flex:0 0 auto}
+  .tag{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:clip}
+  .last{border-radius:12px;margin-top:10px}
+  .panel{border-radius:13px;margin-bottom:12px}
+  .panel h2{padding:15px 14px}
+  .tools{gap:8px;padding:10px 12px;flex-wrap:wrap}
+  .tools select,.strategy-controls select,.strategy-controls button{max-width:100%;min-width:0}
+  #sub{margin-bottom:9px;gap:6px}
+  #sub button{border-radius:8px}
+  #tabs{gap:4px;padding-left:7px;padding-right:7px}
+  #tabs button{min-width:68px;padding:9px 7px;font-size:11px;letter-spacing:0}
+  .row{grid-template-columns:25px 34px minmax(0,1fr) auto;gap:8px;padding:10px}
+  .pos{font-size:17px}
+  .av{width:34px;height:34px}
+  .who{min-width:0}
+  .who b{overflow-wrap:anywhere}
+  .who small{display:block;line-height:1.35;overflow-wrap:anywhere}
+  .pts{white-space:nowrap;font-size:13px}
+  .scroll{max-width:100%;overscroll-behavior-x:contain}
+  .feature-search{margin:10px 12px}
+  .feature-search input,.result-tools input,.documents-search{min-width:0;width:100%;box-sizing:border-box}
+  .lap-delta-tool{margin:10px 12px;padding:13px}
+  .delta-controls{grid-template-columns:minmax(0,1fr);gap:9px}
+  .delta-controls label,.delta-controls select{min-width:0;width:100%;box-sizing:border-box}
+  .weather-guides{grid-template-columns:minmax(0,1fr);gap:8px}
+  .weather-strategy{margin:12px;padding:13px}
+  .strategy-pane .briefing-head{padding:16px 13px 12px}
+  .strategy-controls{width:100%;justify-content:flex-start;gap:8px}
+  .strategy-controls select{flex:1 1 150px}
+  .strategy-controls button{flex:0 0 auto}
+  #v-news .cinema-hero{padding:23px 17px 19px;border-radius:11px}
+  #v-news .cinema-kicker{max-width:100%;overflow-wrap:anywhere;line-height:1.5}
+  #v-news .cinema-deck{max-width:100%;font-size:13px;line-height:1.55}
+  #v-news .cinema-actions{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+  #v-news .cinema-actions button{width:100%;justify-content:space-between;min-height:44px}
+  #v-news .cinema-signature{margin-top:18px}
+  #v-news .briefing-head{padding:16px 13px 13px}
+  #v-news .briefing-refresh{align-self:stretch;width:100%;min-height:42px}
+  #v-news .race-pulse{margin:10px 10px 12px;border-radius:11px}
+  #v-news .race-pulse-head{padding:13px 12px;gap:8px}
+  #v-news .race-pulse-head h3{font-size:17px}
+  #v-news .race-pulse-grid{gap:1px}
+  #v-news .pulse-stat{padding:11px 12px;min-width:0}
+  #v-news .pulse-stat b{overflow-wrap:anywhere}
+  #v-news .pulse-foot{gap:5px;flex-wrap:wrap;padding:9px 12px}
+  #v-news .weekend-shortcuts{margin:10px;padding:10px}
+  #v-news .weekend-shortcuts-head{align-items:flex-start;flex-direction:column;gap:4px}
+  #v-news .weekend-shortcuts-head small{text-align:left;font-size:8px}
+  #v-news .weekend-shortcuts-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  #v-news .weekend-shortcuts-grid button{grid-template-columns:18px minmax(0,1fr) auto;padding:10px 8px;gap:3px 6px}
+  #v-news .weekend-shortcuts-grid button>span{font-size:11px}
+  #v-news .weekend-shortcuts-grid button>small{font-size:9px}
+  #v-news .briefing-grid{padding:10px;gap:9px}
+  #v-news .briefing-card{padding:13px}
+  #v-news .briefing-footer{padding:14px 13px}
+  #v-news .briefing-links{display:flex;flex-wrap:wrap;gap:8px 12px}
+  #v-news .briefing-disclaimer{padding:0 13px 14px;font-size:11px}
+  .control-tools{padding:10px 12px}
+  .control-filters{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .control-filters button{min-width:0}
+  .control-order{align-self:flex-start}
+  .msg{min-width:0}
+}
+@media(max-width:420px){
+  .wrap{padding:9px 8px 16px}
+  header{margin-bottom:10px;padding-bottom:11px}
+  .brand-mark{width:36px!important;height:27px!important}
+  .brand-divider{height:29px;margin:0}
+  h1.brand-name{font-size:clamp(20px,6vw,26px)!important;letter-spacing:0}
+  .brand-text .tag{font-size:7px;letter-spacing:.045em}
+  .last{padding:10px;border-radius:10px;gap:9px}
+  .last .lr{gap:8px}
+  .last .lt b{font-size:14px}
+  .last .lt small{font-size:10px}
+  .rnd{font-size:12px;padding:5px 7px}
+  #tabs button{min-width:62px;padding:8px 5px;font-size:10px}
+  #tabs button[data-v="stats"]{min-width:76px}
+  #tabs button[data-v="standings"]{min-width:70px}
+  #v-news .cinema-hero h2{font-size:clamp(39px,11vw,48px);line-height:.95}
+  #v-news .cinema-kicker{font-size:7px;letter-spacing:.07em;gap:6px}
+  #v-news .weekend-shortcuts-grid button{min-height:65px}
+  .row{grid-template-columns:22px 30px minmax(0,1fr) auto;gap:6px;padding:9px 8px}
+  .av{width:30px;height:30px}
+  .pos{font-size:15px}
+  .who b{font-size:12px}
+  .who small{font-size:10px}
+  .pts{font-size:12px}
+  .panel.pane:not(#v-news):not(#v-live):not(#v-stats):not(#v-documents):not(#v-standings)>h2{padding:14px 12px}
+}
+
 </style>
 </head>
 <body>
