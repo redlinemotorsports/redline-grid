@@ -2502,6 +2502,23 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
   #v-news .weekend-shortcuts-grid button small,
   #v-news .weekend-shortcuts-grid button .shortcut-note{font-size:11px!important;line-height:1.4!important}
 }
+
+/* Keep the brand tagline on one line on mobile without clipping. */
+@media(max-width:820px){
+  .tag{
+    white-space:nowrap!important;
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    font-size:clamp(7px,2.05vw,10px)!important;
+    letter-spacing:clamp(.04em,.22vw,.11em)!important;
+    line-height:1.2!important;
+    overflow:visible!important;
+  }
+}
+@media(max-width:360px){
+  .tag{font-size:7px!important;letter-spacing:.035em!important}
+}
 </style>
 </head>
 <body>
