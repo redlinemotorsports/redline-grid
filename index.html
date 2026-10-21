@@ -4159,15 +4159,15 @@ if("serviceWorker" in navigator && location.protocol.startsWith("http")){
  }
  function title(){
   const kind=$("labTitleKind")?.value||"drivers",rows=readRows(kind==="teams"?"teams":"drivers"),target=chosen("labTitleTarget",rows),rival=chosen("labTitleRival",rows);
-  const wins=num("labTitleWins"),rounds=Math.max(1,num("labTitleRounds"));
+  const wins=num("labTitleWins"),simRounds=Math.max(1,num("labTitleRounds"));
   if(!target||!rival||target.name===rival.name){result("labTitleResult","PROJECTED TITLE GAP","—","Choose two different competitors.");return}
   const targetProjected=target.points+wins*25;
-  const remainingCount=Array.isArray(window.rounds)?window.rounds.filter(item=>new Date(item.date_end||item.date_start||0).getTime()>Date.now()).length:0;
-  const completedCount=Math.max(0,(Array.isArray(window.rounds)?window.rounds.length:0)-remainingCount);
+  const remainingCount=Array.isArray(rounds)?rounds.filter(item=>new Date(item.date_end||item.date_start||0).getTime()>Date.now()).length:0;
+  const completedCount=Math.max(0,(Array.isArray(rounds)?rounds.length:0)-remainingCount);
   const rivalRate=completedCount>0?Math.max(0,rival.points/completedCount):0;
-  const rivalProjected=rival.points+rivalRate*rounds;
+  const rivalProjected=rival.points+rivalRate*simRounds;
   const gap=Math.round(targetProjected-rivalProjected);
-  result("labTitleResult","PROJECTED TITLE GAP",(gap>0?"+":"")+gap+" pts",target.name+" projected at "+Math.round(targetProjected)+" pts versus "+rival.name+" at approximately "+Math.round(rivalProjected)+" pts. Assumes "+wins+" wins for the contender over "+rounds+" rounds.");
+  result("labTitleResult","PROJECTED TITLE GAP",(gap>0?"+":"")+gap+" pts",target.name+" projected at "+Math.round(targetProjected)+" pts versus "+rival.name+" at approximately "+Math.round(rivalProjected)+" pts. Assumes "+wins+" wins for the contender over "+simRounds+" rounds.");
  }
  function compare(){
   const rows=readRows("drivers"),a=chosen("labDriverA",rows),b=chosen("labDriverB",rows),root=$("labCompareResult");
