@@ -4397,6 +4397,31 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  #v-standings .standings-advanced-body>.lab-tool{padding:14px 13px}
  #v-standings .standings-advanced-body>.prediction-panel{margin:10px}
 }
+
+/* CHAMPIONSHIP ARCHIVE — season analytics */
+#v-standings .archive-data-caption{margin:2px 0 9px;color:var(--mute);font:600 8px "IBM Plex Mono",monospace;letter-spacing:.11em}
+#v-standings .archive-data-subhead{margin-top:17px;padding-top:13px;border-top:1px solid var(--line)}
+#v-standings .archive-milestone-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+#v-standings .archive-milestone{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 8px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:7px;background:var(--card)}
+#v-standings .archive-milestone small{grid-column:1/-1;color:var(--mute);font:600 8px "IBM Plex Mono",monospace;letter-spacing:.08em}
+#v-standings .archive-milestone b{min-width:0;color:var(--txt);font-size:10px;overflow-wrap:anywhere}
+#v-standings .archive-milestone strong{color:var(--red);font:700 19px "Barlow Condensed",sans-serif}
+#v-standings .archive-milestone em{grid-column:1/-1;color:var(--mute);font:normal 8px "IBM Plex Mono",monospace}
+#v-standings .archive-data-note{margin:12px 0 0;color:var(--mute);font-size:9px;line-height:1.5}
+#v-standings .archive-performance-table{display:grid;gap:0}
+#v-standings .archive-performance-head,#v-standings .archive-performance-row{display:grid;grid-template-columns:minmax(90px,1.4fr) .65fr .85fr .85fr;gap:7px;align-items:center}
+#v-standings .archive-performance-head{padding:0 7px 7px;color:var(--mute);font:600 7px "IBM Plex Mono",monospace;letter-spacing:.06em}
+#v-standings .archive-performance-row{padding:9px 7px;border-top:1px solid var(--line);font-size:9px}
+#v-standings .archive-performance-row>b{min-width:0;overflow-wrap:anywhere}
+#v-standings .archive-performance-row>strong{color:var(--txt);font:700 12px "IBM Plex Mono",monospace}
+#v-standings .archive-performance-row>span{color:var(--txt);font:600 9px "IBM Plex Mono",monospace}
+#v-standings .archive-performance-row small{display:block;color:var(--mute);font:500 7px "IBM Plex Mono",monospace}
+#v-standings .archive-performance-row .archive-rank{color:var(--red)}
+#v-standings .archive-teammate{display:grid;grid-template-columns:minmax(0,1fr) 1fr 1fr;gap:8px;padding:9px 0;border-top:1px solid var(--line);font-size:9px}
+#v-standings .archive-teammate>b{color:var(--mute);font-size:8px}
+#v-standings .archive-teammate span{display:flex;justify-content:space-between;gap:5px;min-width:0;overflow-wrap:anywhere}
+#v-standings .archive-teammate strong{color:var(--txt);font-family:"IBM Plex Mono",monospace}
+@media(max-width:520px){#v-standings .archive-performance-head,#v-standings .archive-performance-row{grid-template-columns:minmax(78px,1.3fr) .6fr .75fr .75fr;gap:4px}#v-standings .archive-performance-row{font-size:8px}#v-standings .archive-teammate{grid-template-columns:1fr 1fr}#v-standings .archive-teammate>b{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -4439,17 +4464,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
      <div class="archive-card-body" id="archiveHonours"><div class="state">Loading season records…</div></div>
     </details>
     <details class="archive-card">
-     <summary><span class="archive-card-icon">02</span><span><b>Constructor registry</b><small>Teams · Championship entries · Driver line-up</small></span><i>＋</i></summary>
-     <div class="archive-card-body" id="archiveTeams"><div class="state">Waiting for championship entries…</div></div>
+     <summary><span class="archive-card-icon">02</span><span><b>Championship milestones</b><small>Wins · Podiums · Pole positions · Fastest laps</small></span><i>＋</i></summary>
+     <div class="archive-card-body" id="archiveMilestones"><div class="state">Loading season milestones…</div></div>
     </details>
     <details class="archive-card">
-     <summary><span class="archive-card-icon">03</span><span><b>Sporting regulations</b><small>Points allocation · Sprint format · Classification</small></span><i>＋</i></summary>
-     <div class="archive-card-body">
-      <div class="archive-reg-group"><span>GRAND PRIX POINTS</span><b>25 · 18 · 15 · 12 · 10 · 8 · 6 · 4 · 2 · 1</b><small>Points are awarded to the top ten classified drivers.</small></div>
-      <div class="archive-reg-group"><span>SPRINT POINTS</span><b>8 · 7 · 6 · 5 · 4 · 3 · 2 · 1</b><small>Points are awarded to the top eight classified drivers.</small></div>
-      <div class="archive-reg-group"><span>CHAMPIONSHIP TIE-BREAK</span><b>Race wins, then second places, third places and so on.</b><small>If records remain equal, the FIA determines the outcome under the applicable regulations.</small></div>
-      <p class="archive-reg-note">Reference summary only. The FIA Formula One Sporting Regulations take precedence where a detailed rule or exception applies.</p>
-     </div>
+     <summary><span class="archive-card-icon">03</span><span><b>Season performance</b><small>Points efficiency · Finishing pace · Team-mate comparison</small></span><i>＋</i></summary>
+     <div class="archive-card-body" id="archivePerformance"><div class="state">Loading performance analysis…</div></div>
     </details>
    </div>
   </section>
@@ -4695,11 +4715,14 @@ function setStandingsView(teams){
 document.querySelectorAll("[data-standing-kind]").forEach(btn=>btn.addEventListener("click",()=>setStandingsView(btn.dataset.standingKind==="teams")));
 let archiveHonoursYear=null,archiveHonoursTask=null;
 async function renderSeasonHonours(){
- const root=$("archiveHonours");if(!root)return;
+ const root=$("archiveHonours"),milestones=$("archiveMilestones"),performance=$("archivePerformance");
+ if(!root)return;
  const selectedYear=Number(year);if(!selectedYear)return;
  if(archiveHonoursYear===selectedYear&&archiveHonoursTask)return archiveHonoursTask;
  archiveHonoursYear=selectedYear;
  root.innerHTML='<div class="state">Loading recorded race honours…</div>';
+ if(milestones)milestones.innerHTML='<div class="state">Calculating season milestones…</div>';
+ if(performance)performance.innerHTML='<div class="state">Analysing completed race results…</div>';
  archiveHonoursTask=(async()=>{
   try{
    const [resultsData,qualifyingData,fastestData]=await Promise.all([
@@ -4713,39 +4736,61 @@ async function renderSeasonHonours(){
    const fastest=fastestData?.RaceTable?.Races||[];
    const qByRound=new Map(qualifying.map(r=>[Number(r.round),r]));
    const fByRound=new Map(fastest.map(r=>[Number(r.round),r]));
+   const driverName=v=>[v?.Driver?.givenName,v?.Driver?.familyName].filter(Boolean).join(" ")||v?.Driver?.driverId||"—";
+   const teamName=v=>v?.Constructor?.name||v?.Constructor?.constructorId||"Unknown team";
    const records=results.map(r=>{
     const entries=[...(r.Results||[])].sort((a,b)=>Number(a.position)-Number(b.position));
     if(!entries.length)return null;
-    const q=qByRound.get(Number(r.round));
-    const pole=q?.QualifyingResults?.find(v=>Number(v.position)===1);
-    const fRace=fByRound.get(Number(r.round));
-    const fastestEntry=fRace?.Results?.[0]||entries.find(v=>Number(v.FastestLap?.rank)===1);
-    const driverName=v=>[v?.Driver?.givenName,v?.Driver?.familyName].filter(Boolean).join(" ")||v?.Driver?.driverId||"—";
+    const q=qByRound.get(Number(r.round)),pole=q?.QualifyingResults?.find(v=>Number(v.position)===1);
+    const fRace=fByRound.get(Number(r.round)),fastestEntry=fRace?.Results?.[0]||entries.find(v=>Number(v.FastestLap?.rank)===1);
     return {round:Number(r.round),name:r.raceName||"Round "+r.round,date:r.date,winner:driverName(entries.find(v=>Number(v.position)===1)),podium:entries.filter(v=>[1,2,3].includes(Number(v.position))).map(driverName),pole:pole?driverName(pole):"—",fastest:fastestEntry?driverName(fastestEntry):"—",fastestTime:fastestEntry?.FastestLap?.Time?.time||""};
    }).filter(Boolean);
-   if(!records.length){root.innerHTML='<div class="state">No completed race honours are available for '+selectedYear+'.</div>';return}
+   if(!records.length){root.innerHTML='<div class="state">No completed race honours are available for '+selectedYear+'.</div>';if(milestones)milestones.innerHTML='<div class="state">No completed race data is available.</div>';if(performance)performance.innerHTML='<div class="state">No performance data is available.</div>';return}
    root.innerHTML=records.map(r=>{
     const podium=r.podium.length?r.podium.map((n,i)=>'<span class="honour-podium-item"><b>'+(i+1)+'</b>'+esc(n)+'</span>').join(""):'<span class="honour-muted">Podium unavailable</span>';
     return '<article class="honour-round"><header><span>ROUND '+String(r.round).padStart(2,"0")+'</span><b>'+esc(r.name)+'</b><time>'+esc(r.date||"")+'</time></header><div class="honour-winner"><small>RACE WINNER</small><strong>'+esc(r.winner)+'</strong></div><div class="honour-podium">'+podium+'</div><div class="honour-details"><div><small>POLE POSITION</small><b>'+esc(r.pole)+'</b></div><div><small>FASTEST LAP</small><b>'+esc(r.fastest)+'</b>'+(r.fastestTime?'<em>'+esc(r.fastestTime)+'</em>':'')+'</div></div></article>';
    }).join("");
-  }catch(e){if(Number(year)===selectedYear)root.innerHTML='<div class="state">Season honours are temporarily unavailable. Please try again later.</div>'}
+   const drivers=new Map(),teams=new Map(),teamDrivers=new Map();
+   const getStat=(map,id,name)=>{if(!map.has(id))map.set(id,{id,name,wins:0,podiums:0,poles:0,fastest:0,points:0,finishes:[],starts:0});return map.get(id)};
+   results.forEach(r=>{
+    (r.Results||[]).forEach(v=>{
+     const did=v.Driver?.driverId||driverName(v),dn=driverName(v),tid=v.Constructor?.constructorId||teamName(v),tn=teamName(v);
+     const d=getStat(drivers,did,dn),t=getStat(teams,tid,tn);
+     d.starts++;t.starts++;d.points+=Number(v.points)||0;t.points+=Number(v.points)||0;
+     const pos=Number(v.position);
+     if(Number.isFinite(pos)&&pos>0){d.finishes.push(pos);t.finishes.push(pos)}
+     if(pos===1){d.wins++;t.wins++}if(pos<=3&&pos>0){d.podiums++;t.podiums++}
+     if(!teamDrivers.has(tid))teamDrivers.set(tid,new Map());
+     const mates=teamDrivers.get(tid);if(!mates.has(did))mates.set(did,{name:dn,points:0,finishes:[],starts:0});
+     const m=mates.get(did);m.points+=Number(v.points)||0;m.starts++;if(Number.isFinite(pos)&&pos>0)m.finishes.push(pos);
+    });
+    const pole=qByRound.get(Number(r.round))?.QualifyingResults?.find(v=>Number(v.position)===1);
+    if(pole){const d=getStat(drivers,pole.Driver?.driverId||driverName(pole),driverName(pole));d.poles++;const t=getStat(teams,pole.Constructor?.constructorId||teamName(pole),teamName(pole));t.poles++}
+    const f=fByRound.get(Number(r.round))?.Results?.[0]||(r.Results||[]).find(v=>Number(v.FastestLap?.rank)===1);
+    if(f){const d=getStat(drivers,f.Driver?.driverId||driverName(f),driverName(f));d.fastest++;const t=getStat(teams,f.Constructor?.constructorId||teamName(f),teamName(f));t.fastest++}
+   });
+   const leaders=(map,key)=>[...map.values()].filter(x=>x[key]>0).sort((a,b)=>b[key]-a[key]||a.name.localeCompare(b.name));
+   const metric=(label,items,key)=>{const top=items[0];return '<div class="archive-milestone"><small>'+label+'</small><b>'+(top?esc(top.name):'—')+'</b><strong>'+(top?top[key]:'—')+'</strong>'+(top&&items[1]&&items[1][key]===top[key]?'<em>Tied lead</em>':'')+'</div>'};
+   if(milestones){
+    const dw=leaders(drivers,"wins"),dp=leaders(drivers,"podiums"),dpo=leaders(drivers,"poles"),df=leaders(drivers,"fastest");
+    const tw=leaders(teams,"wins"),tp=leaders(teams,"podiums"),tpo=leaders(teams,"poles"),tf=leaders(teams,"fastest");
+    milestones.innerHTML='<div class="archive-data-caption">'+records.length+' COMPLETED GRANDS PRIX · DRIVER RECORDS</div><div class="archive-milestone-grid">'+metric("RACE WINS",dw,"wins")+metric("PODIUMS",dp,"podiums")+metric("POLE POSITIONS",dpo,"poles")+metric("FASTEST LAPS",df,"fastest")+'</div><div class="archive-data-caption archive-data-subhead">CONSTRUCTOR RECORDS</div><div class="archive-milestone-grid">'+metric("RACE WINS",tw,"wins")+metric("PODIUMS",tp,"podiums")+metric("POLE POSITIONS",tpo,"poles")+metric("FASTEST LAPS",tf,"fastest")+'</div><p class="archive-data-note">Season totals from recorded Grand Prix results. Sprint sessions are excluded; fastest-lap records follow the available race timing feed.</p>';
+   }
+   if(performance){
+    const ranked=[...drivers.values()].filter(x=>x.starts>0).sort((a,b)=>b.points-a.points||a.name.localeCompare(b.name)).slice(0,6);
+    const avg=x=>x.finishes.length?(x.finishes.reduce((a,b)=>a+b,0)/x.finishes.length).toFixed(1):"—";
+    const rate=(n,d)=>d?(100*n/d).toFixed(0)+"%":"—";
+    const driverRows=ranked.map((x,i)=>'<div class="archive-performance-row"><span class="archive-rank">'+String(i+1).padStart(2,"0")+'</span><b>'+esc(x.name)+'</b><strong>'+x.points+' <small>PTS</small></strong><span>'+avg(x)+' <small>AVG FIN.</small></span><span>'+rate(x.podiums,x.starts)+' <small>PODIUM</small></span></div>').join("");
+    const teammateRows=[...teamDrivers.entries()].map(([tid,m])=>({team:teams.get(tid)?.name||tid,drivers:[...m.values()].sort((a,b)=>b.points-a.points)})).filter(x=>x.drivers.length>=2).map(x=>'<div class="archive-teammate"><b>'+esc(x.team)+'</b><span>'+esc(x.drivers[0].name)+' <strong>'+x.drivers[0].points+'</strong></span><span>'+esc(x.drivers[1].name)+' <strong>'+x.drivers[1].points+'</strong></span></div>').join("");
+    performance.innerHTML='<div class="archive-data-caption">TOP DRIVERS · '+records.length+' COMPLETED GRANDS PRIX</div><div class="archive-performance-table"><div class="archive-performance-head"><span>DRIVER</span><span>POINTS</span><span>AVG FINISH</span><span>PODIUM RATE</span></div>'+driverRows+'</div><div class="archive-data-caption archive-data-subhead">TEAM-MATE POINTS COMPARISON</div>'+(teammateRows||'<div class="state">Team-mate comparisons are not available yet.</div>')+'<p class="archive-data-note">Average finish uses numeric classified finishing positions only. Points and podium rates use each driver’s recorded Grand Prix starts; sprint results are excluded.</p>';
+   }
+  }catch(e){
+   if(Number(year)===selectedYear){root.innerHTML='<div class="state">Season honours are temporarily unavailable. Please try again later.</div>';if(milestones)milestones.innerHTML='<div class="state">Season milestones are temporarily unavailable.</div>';if(performance)performance.innerHTML='<div class="state">Season performance is temporarily unavailable.</div>'}
+  }
  })();
  return archiveHonoursTask;
 }
-function renderChampionshipArchive(){
- renderSeasonHonours();
- const registry=$("archiveTeams");
- if(registry){
-  const teamRows=[...($("teams")?.querySelectorAll(".row")||[])].filter(row=>row.querySelector(".who b"));
-  const driverRows=[...($("drivers")?.querySelectorAll(".row")||[])].filter(row=>row.querySelector(".who b"));
-  const entries=teamRows.map(row=>{
-   const name=row.querySelector(".who b")?.textContent?.trim()||"";
-   const drivers=driverRows.filter(d=>d.querySelector(".who small")?.textContent?.trim()===name).map(d=>d.querySelector(".who b")?.textContent?.trim()).filter(Boolean);
-   return {name,drivers};
-  }).filter(x=>x.name);
-  registry.innerHTML=entries.length?entries.map(x=>'<div class="archive-team"><b>'+esc(x.name)+'</b><small>'+esc(x.drivers.length?x.drivers.join(" · "):"Driver line-up not available")+'</small></div>').join(""):'<div class="state">Constructor entries will appear when standings data is available.</div>';
- }
-}
+function renderChampionshipArchive(){renderSeasonHonours()}
 function updateStandingsLeader(type){
  const root=$(type==="teams"?"teams":"drivers"),first=root?.querySelector(".row");
  if(!first)return;
