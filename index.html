@@ -4422,6 +4422,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-standings .archive-teammate span{display:flex;justify-content:space-between;gap:5px;min-width:0;overflow-wrap:anywhere}
 #v-standings .archive-teammate strong{color:var(--txt);font-family:"IBM Plex Mono",monospace}
 @media(max-width:520px){#v-standings .archive-performance-head,#v-standings .archive-performance-row{grid-template-columns:minmax(78px,1.3fr) .6fr .75fr .75fr;gap:4px}#v-standings .archive-performance-row{font-size:8px}#v-standings .archive-teammate{grid-template-columns:1fr 1fr}#v-standings .archive-teammate>b{grid-column:1/-1}}
+
+/* COLLAPSIBLE CHAMPIONSHIP ARCHIVE */
+#v-standings .archive-shell{padding:0;overflow:hidden}
+#v-standings .archive-shell>.archive-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 19px;cursor:pointer;list-style:none}
+#v-standings .archive-shell>.archive-head::-webkit-details-marker{display:none}
+#v-standings .archive-shell>.archive-head::marker{content:""}
+#v-standings .archive-shell-side{display:flex;align-items:center;gap:13px;flex-shrink:0}
+#v-standings .archive-shell-side>i{display:grid;place-items:center;width:27px;height:27px;border:1px solid var(--line);border-radius:50%;color:var(--txt);font:500 18px/1 Inter,sans-serif;font-style:normal;transition:transform .2s ease,background .2s ease,color .2s ease}
+#v-standings .archive-shell[open]>.archive-head .archive-shell-side>i{transform:rotate(45deg);background:rgba(255,35,24,.1);color:var(--red)}
+#v-standings .archive-shell-content{padding:0 19px 18px}
+#v-standings .archive-shell-content .archive-grid{margin:0}
+@media(max-width:600px){#v-standings .archive-shell>.archive-head{padding:14px;gap:10px}#v-standings .archive-shell-side{gap:8px}#v-standings .archive-shell-side .feature-tag{display:none}#v-standings .archive-shell-content{padding:0 12px 13px}}
 </style>
 </head>
 <body>
@@ -4456,8 +4468,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   <section class="panel standings-driver-panel"><div class="standings-section-head"><div><span>DRIVER CHAMPIONSHIP</span><h2>Drivers’ Championship</h2></div><small>POINTS TABLE</small></div><div id="drivers"><div class="state">Loading…</div></div></section>
   <section class="panel standings-team-panel"><div class="standings-section-head"><div><span>TEAM CHAMPIONSHIP</span><h2>Constructors’ Championship</h2></div><small>POINTS TABLE</small></div><div id="teams"><div class="state">Loading…</div></div></section>
 
-  <section class="panel championship-archive" id="championshipArchive">
-   <div class="archive-head"><div><p class="briefing-kicker">CHAMPIONSHIP / REFERENCE</p><h3>Championship Archive</h3><p>Season records, team entries and the points framework in one place.</p></div><span class="feature-tag">SEASON REFERENCE</span></div>
+  <details class="panel championship-archive archive-shell" id="championshipArchive">
+   <summary class="archive-head"><div><p class="briefing-kicker">CHAMPIONSHIP / REFERENCE</p><h3>Championship Archive</h3><p>Season records and performance analysis.</p></div><span class="archive-shell-side"><span class="feature-tag">SEASON REFERENCE</span><i aria-hidden="true">＋</i></span></summary>
+   <div class="archive-shell-content">
    <div class="archive-grid">
     <details class="archive-card" open>
      <summary><span class="archive-card-icon">01</span><span><b>Season honours</b><small>Race winners · Pole positions · Podium finishers · Fastest laps</small></span><i>＋</i></summary>
@@ -4472,7 +4485,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
      <div class="archive-card-body" id="archivePerformance"><div class="state">Loading performance analysis…</div></div>
     </details>
    </div>
-  </section>
+   </div>
+  </details>
 
 
 
