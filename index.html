@@ -4643,11 +4643,11 @@ function renderBriefing(){
  const completed=sessions.filter(s=>s.end<=now).sort((a,b)=>b.end-a.end);
  const status=$("weekendStatus"),meta=$("weekendSessionMeta");
  if(!sessions.length){
-  if(status)status.textContent="SCHEDULE UNAVAILABLE";
-  if(meta)meta.textContent="SESSION INFORMATION UNAVAILABLE";
-  summary.innerHTML='<p class="home-weekend-race">Schedule unavailable</p><p class="home-weekend-session">No verified session information is available right now.</p>';
-  note.textContent="Try refreshing the schedule in a moment.";
- }else{
+  if(status)status.textContent="UPDATING";
+  if(meta)meta.textContent="SCHEDULE CHECK IN PROGRESS";
+  summary.innerHTML='<p class="home-weekend-race">Weekend schedule</p><p class="home-weekend-session">Race information is being refreshed. Saved race details remain available below.</p>';
+  note.textContent=navigator.onLine?"Loading the season schedule…":"Offline · showing saved information where available.";
+ } }else{
   const next=upcoming[0],last=completed[0],focus=active||next||last;
   const race=focus?.race||"Grand Prix";
   if(active){
