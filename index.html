@@ -4295,6 +4295,55 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  }
 }
 
+
+/* STANDINGS REVAMP — scoped layout; retain existing data rows and renderers */
+#v-standings.pane.grid{grid-template-columns:minmax(0,1fr)!important;gap:14px}
+#v-standings>.standings-head,#v-standings>.standings-leaders,
+#v-standings>.standings-switch,#v-standings>.standings-driver-panel,
+#v-standings>.standings-team-panel,#v-standings>.championship-pressure,
+#v-standings>.standings-advanced{grid-column:1/-1;min-width:0}
+#v-standings>.standings-head{margin:0}
+#v-standings>.standings-leaders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#v-standings .standings-leader-card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:7px 12px;min-width:0;padding:13px 15px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(120deg,rgba(255,35,24,.07),var(--card) 62%)}
+#v-standings .standings-leader-card>span{grid-column:1/-1;color:var(--mute);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.13em}
+#v-standings .standings-leader-card>div{display:grid;gap:3px;min-width:0}
+#v-standings .standings-leader-card>div b{font:700 18px/1.1 "Barlow Condensed",Inter,sans-serif;overflow-wrap:anywhere}
+#v-standings .standings-leader-card>div small{font-size:10px;color:var(--mute);overflow-wrap:anywhere}
+#v-standings .standings-leader-card>strong{font:700 16px "IBM Plex Mono",monospace;white-space:nowrap}
+#v-standings>.standings-switch{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:5px;margin:0;background:var(--soft);border:1px solid var(--line);border-radius:10px}
+#v-standings .standings-switch button{min-height:39px;border:1px solid transparent;border-radius:7px;background:transparent;color:var(--mute);font:600 12px Inter;cursor:pointer}
+#v-standings .standings-switch button[aria-pressed=true]{background:var(--red);border-color:var(--red);color:#fff}
+#v-standings .standings-team-panel{display:none}
+#v-standings.show-team-standings .standings-driver-panel{display:none}
+#v-standings.show-team-standings .standings-team-panel{display:block}
+#v-standings .standings-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+#v-standings .standings-section-head span{color:var(--red);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.13em}
+#v-standings .standings-section-head h2{margin:4px 0 0;font:700 20px "Barlow Condensed",Inter,sans-serif;text-transform:uppercase}
+#v-standings .championship-pressure{margin:0}
+#v-standings .standings-advanced{border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+#v-standings .standings-advanced>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;cursor:pointer;list-style:none}
+#v-standings .standings-advanced>summary::-webkit-details-marker{display:none}
+#v-standings .standings-advanced>summary>span:first-child{display:grid;gap:4px}
+#v-standings .standings-advanced>summary b{font:700 15px "Barlow Condensed",Inter,sans-serif;text-transform:uppercase;letter-spacing:.04em}
+#v-standings .standings-advanced>summary small{font-size:10px;color:var(--mute)}
+#v-standings .standings-advanced-toggle{color:var(--red);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.08em;white-space:nowrap}
+#v-standings .standings-advanced[open] .standings-advanced-toggle i{display:inline-block;transform:rotate(45deg)}
+#v-standings .standings-advanced-body{border-top:1px solid var(--line)}
+#v-standings .standings-advanced-body>.strategy-lab-head{padding:18px 18px 12px}
+#v-standings .standings-advanced-body>.lab-tabs{padding-left:18px;padding-right:18px}
+#v-standings .standings-advanced-body>.lab-tool{padding:17px 18px}
+#v-standings .standings-advanced-body>.prediction-panel{margin:12px 18px 18px}
+@media(max-width:640px){
+ #v-standings.pane.grid{gap:10px}
+ #v-standings>.standings-leaders{grid-template-columns:1fr;gap:7px}
+ #v-standings .standings-leader-card{padding:11px 13px}
+ #v-standings .standings-section-head{padding:12px 13px}
+ #v-standings .standings-advanced>summary{padding:12px 13px}
+ #v-standings .standings-advanced-body>.strategy-lab-head{padding:15px 13px 10px}
+ #v-standings .standings-advanced-body>.lab-tabs{padding:0 13px 12px}
+ #v-standings .standings-advanced-body>.lab-tool{padding:14px 13px}
+ #v-standings .standings-advanced-body>.prediction-panel{margin:10px}
+}
 </style>
 </head>
 <body>
@@ -4321,12 +4370,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  <main>
  <div class="pane grid" id="v-standings" hidden>
   <div class="briefing-head standings-head"><div><p class="briefing-kicker">CHAMPIONSHIP</p><h2>Standings</h2><p class="briefing-intro">Follow the drivers’ and constructors’ title fights across the season.</p></div></div>
+  <section class="standings-leaders" aria-label="Championship leaders">
+   <article class="standings-leader-card"><span>DRIVER LEADER</span><div><b id="standingsDriverLeader">Loading…</b><small id="standingsDriverTeam">—</small></div><strong id="standingsDriverPoints">— pts</strong></article>
+   <article class="standings-leader-card"><span>TEAM LEADER</span><div><b id="standingsTeamLeader">Loading…</b><small id="standingsTeamMeta">—</small></div><strong id="standingsTeamPoints">— pts</strong></article>
+  </section>
   <div class="standings-switch" role="group" aria-label="Standings category"><button type="button" data-standing-kind="drivers" aria-pressed="true">Drivers</button><button type="button" data-standing-kind="teams" aria-pressed="false">Constructors</button></div>
   <section class="panel standings-driver-panel"><h2>Drivers’ Championship</h2><div id="drivers"><div class="state">Loading…</div></div></section>
   <section class="panel standings-team-panel"><h2>Constructors’ Championship</h2><div id="teams"><div class="state">Loading…</div></div></section>
 
   <section class="panel championship-pressure" id="championshipPressure"><div class="feature-head"><div><p class="briefing-kicker">TITLE FIGHT / LIVE GAP</p><h3>Championship Pressure</h3><p>Points gaps calculated from the standings loaded above.</p></div><span class="feature-tag">LIVE STANDINGS</span></div><div class="pressure-grid"><div class="pressure-card"><small>DRIVERS’ TITLE GAP</small><strong id="pressureDriverGap">Waiting for data</strong><span id="pressureDriverDetail">Requires current driver standings</span></div><div class="pressure-card"><small>CONSTRUCTORS’ TITLE GAP</small><strong id="pressureTeamGap">Waiting for data</strong><span id="pressureTeamDetail">Requires current team standings</span></div></div><p class="feature-footnote">Gaps reflect the points currently shown in Redline Grid; this does not predict future results.</p></section>
 
+  <details class="standings-advanced"><summary><span><b>Championship tools</b><small>Points calculator · Title scenarios · Forecasts</small></span><span class="standings-advanced-toggle">EXPLORE <i>＋</i></span></summary><div class="standings-advanced-body">
    <div class="strategy-lab-head"><div><p class="prediction-kicker">REDLINE GRID / INTERACTIVE TOOLS</p><h2>Strategy Lab</h2><p>Test championship scenarios, calculate points and compare drivers using the selected season’s standings.</p></div><span class="prediction-badge">LIVE DATA</span></div>
    <div class="lab-tabs" role="tablist" aria-label="Strategy Lab tools">
     <button type="button" class="lab-tab active" data-lab-tool="calculator" aria-selected="true">Points Calculator</button>
@@ -4379,6 +4433,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
    </div>
   </section>
 
+  </div></details>
 
 
 
@@ -4613,11 +4668,28 @@ function saveRaceSelection(index){
 // Initial tab activation runs after all state variables are initialized.
 
 // Mobile navigation and championship/result browsing enhancements.
-document.querySelectorAll("[data-standing-kind]").forEach(btn=>btn.addEventListener("click",()=>{
- const teams=btn.dataset.standingKind==="teams";
+function setStandingsView(teams){
+ $("v-standings")?.classList.toggle("show-team-standings",teams);
  document.body.classList.toggle("show-team-standings",teams);
- document.querySelectorAll("[data-standing-kind]").forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));
-}));
+ document.querySelectorAll("[data-standing-kind]").forEach(b=>b.setAttribute("aria-pressed",String((b.dataset.standingKind==="teams")===teams)));
+}
+document.querySelectorAll("[data-standing-kind]").forEach(btn=>btn.addEventListener("click",()=>setStandingsView(btn.dataset.standingKind==="teams")));
+function updateStandingsLeader(type){
+ const root=$(type==="teams"?"teams":"drivers"),first=root?.querySelector(".row");
+ if(!first)return;
+ const name=first.querySelector(".who b")?.textContent?.trim()||"—";
+ const sub=first.querySelector(".who small")?.textContent?.trim()||"Championship leader";
+ const pts=first.querySelector(".pts")?.childNodes?.[0]?.textContent?.trim()||"—";
+ const prefix=type==="teams"?"standingsTeam":"standingsDriver";
+ const nameEl=$(prefix+"Leader"),metaEl=$(prefix+(type==="teams"?"Meta":"Team")),pointsEl=$(prefix+"Points");
+ if(nameEl)nameEl.textContent=name;
+ if(metaEl)metaEl.textContent=sub;
+ if(pointsEl)pointsEl.textContent=pts+" pts";
+}
+["drivers","teams"].forEach(type=>{
+ const root=$(type);
+ if(root){new MutationObserver(()=>updateStandingsLeader(type)).observe(root,{childList:true,subtree:true});updateStandingsLeader(type)}
+});
 const resultSearch=$("resultSearch"),resultRoot=$("result"),resultMatchCount=$("resultMatchCount");
 function filterRaceResults(){
  if(!resultRoot||!resultSearch)return;
