@@ -3880,6 +3880,22 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 @media(max-width:899px){#v-stats .newsroom-head{padding:18px 16px 14px}#v-stats .newsroom-body{padding:14px}#v-stats .newsroom-feature{grid-template-columns:1fr;min-height:0}#v-stats .newsroom-feature-media{min-height:185px;height:185px}#v-stats .newsroom-feature-copy{padding:16px}#v-stats .newsroom-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){#v-stats .newsroom-toolbar{display:block}#v-stats .newsroom-updated{display:block;margin-top:9px}#v-stats .newsroom-grid{grid-template-columns:1fr}#v-stats .newsroom-card{display:grid;grid-template-columns:108px minmax(0,1fr);min-height:100px}#v-stats .newsroom-card-media{height:100%;min-height:100px}#v-stats .newsroom-card-copy{padding:10px}#v-stats .newsroom-card h3{font-size:15px}#v-stats .newsroom-feature-media{height:160px;min-height:160px}#v-stats .newsroom-feature-copy{gap:8px;padding:13px}#v-stats .newsroom-feature h3{font-size:24px}}
 
+/* Newsroom refinement: editorial spacing and clearer hierarchy. */
+#v-stats .newsroom-head{padding-bottom:20px}
+#v-stats .newsroom-intro{max-width:520px}
+#v-stats .newsroom-toolbar{padding-bottom:10px;border-bottom:1px solid var(--line)}
+#v-stats .newsroom-filter{letter-spacing:.045em}
+#v-stats .newsroom-feature{grid-template-columns:minmax(0,1fr) minmax(280px,.92fr);min-height:230px}
+#v-stats .newsroom-feature-media{min-height:230px}
+#v-stats .newsroom-feature-copy{padding:20px 22px}
+#v-stats .newsroom-card{border-radius:7px}
+#v-stats .newsroom-card-media{height:108px}
+#v-stats .newsroom-card-copy{gap:7px;padding:11px}
+#v-stats .newsroom-card h3{font-size:15px;line-height:1.25}
+#v-stats .newsroom-sources{font:8px "IBM Plex Mono",monospace;letter-spacing:.035em}
+@media(max-width:899px){#v-stats .newsroom-feature{grid-template-columns:1fr}#v-stats .newsroom-feature-media{min-height:180px;height:180px}}
+@media(max-width:520px){#v-stats .newsroom-toolbar{padding-bottom:9px}#v-stats .newsroom-feature-media{height:155px;min-height:155px}#v-stats .newsroom-card-media{min-height:100px}}
+
 </style>
 </head>
 <body>
@@ -3897,7 +3913,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   <button role="tab" aria-selected="false" data-v="timing"><span class="nav-index" aria-hidden="true">02</span><span>Live Timing</span></button>
   <button role="tab" aria-selected="false" data-v="standings"><span class="nav-index" aria-hidden="true">03</span><span>Standings</span></button>
   <button role="tab" aria-selected="false" data-v="race"><span class="nav-index" aria-hidden="true">04</span><span>Race</span></button>
-  <button role="tab" aria-selected="false" data-v="drivers"><span class="nav-index" aria-hidden="true">05</span><span>News</span></button>
+  <button role="tab" aria-selected="false" data-v="drivers"><span class="nav-index" aria-hidden="true">05</span><span>Newsroom</span></button>
   <button role="tab" aria-selected="false" data-v="data"><span class="nav-index" aria-hidden="true">06</span><span>Data</span></button>
  </nav>
  <div id="sub" hidden></div>
@@ -3969,7 +3985,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 
  </div>
  <section class="panel pane" id="v-stats" hidden>
-  <div class="newsroom-head"><div><p class="briefing-kicker">REDLINE GRID / PADDOCK REPORT</p><h2>Latest F1 News</h2><p class="newsroom-intro">The latest stories from across the Formula 1 paddock.</p></div><button type="button" class="newsroom-refresh" id="newsRefresh" aria-label="Refresh latest news">↻ <span>REFRESH</span></button></div>
+  <div class="newsroom-head"><div><p class="briefing-kicker">REDLINE GRID / PADDOCK REPORT</p><h2>Newsroom</h2><p class="newsroom-intro">F1 headlines, paddock developments and race-weekend reporting.</p></div><button type="button" class="newsroom-refresh" id="newsRefresh" aria-label="Refresh latest news">↻ <span>REFRESH</span></button></div>
   <div id="newsroomContent" aria-live="polite"><div class="state">Loading the latest paddock stories…</div></div>
 </section>
 <section class="panel pane" id="v-timing" hidden>
@@ -5778,7 +5794,7 @@ function renderNewsroom(){
  const root=$("newsroomContent");if(!root)return;
  const filters=["ALL","RACE","DRIVERS","TEAMS","TECH"],visible=newsroomFilter==="ALL"?newsroomItems:newsroomItems.filter(x=>x.category===newsroomFilter);
  const stamp=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
- const filterHtml=filters.map(f=>'<button type="button" class="newsroom-filter" data-news-filter="'+f+'" aria-pressed="'+(f===newsroomFilter)+'">'+(f==="TECH"?"TECHNICAL":f)+'</button>').join("");
+ const filterHtml=filters.map(f=>'<button type="button" class="newsroom-filter" data-news-filter="'+f+'" aria-pressed="'+(f===newsroomFilter)+'">'+({ALL:"ALL",RACE:"RACE WEEKEND",DRIVERS:"DRIVERS",TEAMS:"TEAMS",TECH:"TECHNICAL"}[f])+'</button>').join("");
  root.innerHTML='<div class="newsroom-body"><div class="newsroom-toolbar"><div class="newsroom-filters" role="group" aria-label="Filter news">'+filterHtml+'</div><span class="newsroom-updated">'+newsroomItems.length+' STORIES · UPDATED '+stamp+'</span></div>'+(visible.length?newsCard(visible[0],true)+'<div class="newsroom-grid">'+visible.slice(1,10).map(x=>newsCard(x)).join("")+'</div>':'<div class="newsroom-empty">No stories match this filter. Try another category.</div>')+'<div class="newsroom-sources"><span>HEADLINES VIA PUBLISHER RSS · OPEN ORIGINAL ARTICLES</span><span><a href="https://www.motorsport.com/rss/f1/news/" target="_blank" rel="noopener">MOTORSPORT.COM</a> · <a href="https://www.autosport.com/rss/feed/f1" target="_blank" rel="noopener">AUTOSPORT</a></span></div></div>';
  root.querySelectorAll("[data-news-filter]").forEach(btn=>btn.addEventListener("click",()=>{newsroomFilter=btn.dataset.newsFilter;renderNewsroom()}));
 }
