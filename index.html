@@ -4452,6 +4452,24 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-standings .archive-form-callout>strong{color:var(--red);font:700 16px "Barlow Condensed",sans-serif}
 #v-standings .archive-form-callout>strong small{color:var(--mute);font:500 7px "IBM Plex Mono",monospace}
 @media(max-width:520px){#v-standings .archive-form-head,#v-standings .archive-form-row{grid-template-columns:minmax(70px,.9fr) minmax(110px,1.4fr) 38px;gap:5px}#v-standings .archive-form-trends{grid-template-columns:1fr}}
+
+/* NEWSROOM — compact paddock briefing, matched to the existing pitwall language. */
+#v-stats .newsroom-briefing{margin:0 0 16px;padding:15px 16px 10px;border:1px solid var(--line);border-radius:8px;background:linear-gradient(115deg,rgba(227,38,54,.055),transparent 58%),var(--card2)}
+#v-stats .newsroom-briefing-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+#v-stats .newsroom-briefing-head h3{margin:3px 0 0;color:var(--txt);font:700 19px/1.1 "Barlow Condensed",Manrope,sans-serif;letter-spacing:.005em}
+#v-stats .newsroom-briefing-count{color:var(--mute);font:8px "IBM Plex Mono",monospace;letter-spacing:.08em;white-space:nowrap}
+#v-stats .newsroom-briefing-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+#v-stats .newsroom-briefing-row{display:grid;grid-template-columns:22px minmax(0,1fr) 12px;gap:9px;align-items:start;min-width:0;padding:12px 12px 7px 0;color:var(--txt);text-decoration:none}
+#v-stats .newsroom-briefing-row+.newsroom-briefing-row{padding-left:12px;border-left:1px solid var(--line)}
+#v-stats .newsroom-briefing-index{color:var(--red);font:700 10px "IBM Plex Mono",monospace;padding-top:1px}
+#v-stats .newsroom-briefing-copy{display:flex;min-width:0;flex-direction:column;gap:5px}
+#v-stats .newsroom-briefing-copy .newsroom-kicker{font-size:8px;letter-spacing:.09em}
+#v-stats .newsroom-briefing-copy b{font:650 14px/1.2 "Barlow Condensed",Manrope,sans-serif}
+#v-stats .newsroom-briefing-copy small{color:var(--mute);font-size:10px;line-height:1.45}
+#v-stats .newsroom-briefing-arrow{color:var(--mute);font-size:11px}
+#v-stats .newsroom-briefing-row:hover .newsroom-briefing-copy b,#v-stats .newsroom-briefing-row:hover .newsroom-briefing-arrow{color:var(--red)}
+@media(max-width:899px){#v-stats .newsroom-briefing-list{grid-template-columns:1fr}#v-stats .newsroom-briefing-row{padding:10px 0}#v-stats .newsroom-briefing-row+.newsroom-briefing-row{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
+@media(max-width:520px){#v-stats .newsroom-briefing{padding:12px 12px 7px}#v-stats .newsroom-briefing-head h3{font-size:18px}#v-stats .newsroom-briefing-copy b{font-size:14px}}
 </style>
 </head>
 <body>
@@ -6433,13 +6451,23 @@ function newsCard(item,featured=false){
  if(featured)return '<a class="newsroom-feature" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer"><div class="newsroom-feature-media">'+media+'</div><div class="newsroom-feature-copy"><span class="newsroom-kicker">FEATURED STORY · '+esc(item.category)+'</span><h3>'+esc(item.title)+'</h3>'+meta+'<span class="newsroom-open">READ ORIGINAL STORY ↗</span></div></a>';
  return '<a class="newsroom-card" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer"><div class="newsroom-card-media">'+media+'</div><div class="newsroom-card-copy"><span class="newsroom-kicker">'+esc(item.category)+'</span><h3>'+esc(item.title)+'</h3>'+meta+'</div></a>';
 }
+function newsroomBriefing(items){
+ const picks=items.slice(0,3);
+ if(!picks.length)return "";
+ const rows=picks.map((item,index)=>{
+  const url=newsSafeUrl(item.link),summary=newsText(item.description)||item.title;
+  const excerpt=summary.length>172?summary.slice(0,169).replace(/\\s+\\S*$/,"")+"…":summary;
+  return '<a class="newsroom-briefing-row" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer"><span class="newsroom-briefing-index">0'+(index+1)+'</span><span class="newsroom-briefing-copy"><span class="newsroom-kicker">'+esc(item.category)+' / '+esc(item.source)+'</span><b>'+esc(item.title)+'</b><small>'+esc(excerpt)+'</small></span><span class="newsroom-briefing-arrow" aria-hidden="true">↗</span></a>';
+ }).join("");
+ return '<section class="newsroom-briefing" aria-label="Paddock briefing"><div class="newsroom-briefing-head"><div><span class="newsroom-kicker">DAILY READOUT</span><h3>Paddock briefing</h3></div><span class="newsroom-briefing-count">03 / KEY DEVELOPMENTS</span></div><div class="newsroom-briefing-list">'+rows+'</div></section>';
+}
 function renderNewsroom(){
  const root=$("newsroomContent");if(!root)return;
  const filters=["ALL","RACE","DRIVERS","TEAMS","TECH"],visible=newsroomFilter==="ALL"?newsroomItems:newsroomItems.filter(x=>x.category===newsroomFilter);
  const stamp=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
  const filterHtml=filters.map(f=>'<button type="button" class="newsroom-filter" data-news-filter="'+f+'" aria-pressed="'+(f===newsroomFilter)+'">'+({ALL:"ALL",RACE:"RACE WEEKEND",DRIVERS:"DRIVERS",TEAMS:"TEAMS",TECH:"TECHNICAL"}[f])+'</button>').join("");
- const displayed=visible.slice(0,16);
- root.innerHTML='<div class="newsroom-body"><div class="newsroom-toolbar"><div class="newsroom-filters" role="group" aria-label="Filter news">'+filterHtml+'</div><span class="newsroom-updated">SHOWING '+displayed.length+' OF '+visible.length+' STORIES · UPDATED '+stamp+'</span></div>'+(displayed.length?newsCard(displayed[0],true)+(displayed.length>1?'<div class="newsroom-grid">'+displayed.slice(1).map(x=>newsCard(x)).join("")+'</div>':''): '<div class="newsroom-empty">No stories match this filter. Try another category.</div>')+'<div class="newsroom-sources"><span>HEADLINES VIA PUBLISHER RSS · OPEN ORIGINAL ARTICLES</span><span><a href="https://www.motorsport.com/rss/f1/news/" target="_blank" rel="noopener">MOTORSPORT.COM</a> · <a href="https://www.autosport.com/rss/feed/f1" target="_blank" rel="noopener">AUTOSPORT</a></span></div></div>';
+ const briefingItems=visible.slice(0,3),displayed=visible.slice(3,19);
+ root.innerHTML='<div class="newsroom-body"><div class="newsroom-toolbar"><div class="newsroom-filters" role="group" aria-label="Filter news">'+filterHtml+'</div><span class="newsroom-updated">SHOWING '+Math.min(visible.length,19)+' OF '+visible.length+' STORIES · UPDATED '+stamp+'</span></div>'+(briefingItems.length?newsroomBriefing(briefingItems):"")+(displayed.length?newsCard(displayed[0],true)+(displayed.length>1?'<div class="newsroom-grid">'+displayed.slice(1).map(x=>newsCard(x)).join("")+'</div>':''):(!briefingItems.length?'<div class="newsroom-empty">No stories match this filter. Try another category.</div>':''))+'<div class="newsroom-sources"><span>HEADLINES VIA PUBLISHER RSS · OPEN ORIGINAL ARTICLES</span><span><a href="https://www.motorsport.com/rss/f1/news/" target="_blank" rel="noopener">MOTORSPORT.COM</a> · <a href="https://www.autosport.com/rss/feed/f1" target="_blank" rel="noopener">AUTOSPORT</a></span></div></div>';
  root.querySelectorAll("[data-news-filter]").forEach(btn=>btn.addEventListener("click",()=>{newsroomFilter=btn.dataset.newsFilter;renderNewsroom()}));
 }
 async function loadNewsroom(force=false){
