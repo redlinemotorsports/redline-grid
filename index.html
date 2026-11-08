@@ -3624,6 +3624,13 @@ tr:hover td{background:var(--hover)}
  #last .sc-time{font-size:8px!important}
 }
 
+
+/* Home dashboard cleanup: remove duplicate navigation and keep the briefing focused. */
+#v-news .briefing-head{margin-top:24px}
+#v-news .briefing-grid{gap:14px}
+#v-news .briefing-card{min-width:0}
+#v-news .briefing-note{max-width:100%;border-radius:8px}
+#v-news .briefing-disclaimer{display:none!important}
 </style>
 </head>
 <body>
@@ -3782,17 +3789,6 @@ tr:hover td{background:var(--hover)}
   </div>
 
   <div class="weekend-status-strip" aria-label="Selected race weekend status"><span class="weekend-status-label">SELECTED WEEKEND</span><strong id="pulseSession">Weekend overview</strong><small id="pulseSessionNote">Schedule-led status</small></div>
-  <section class="weekend-shortcuts" aria-label="Race weekend quick access">
-   <div class="weekend-shortcuts-head"><span>WEEKEND QUICK ACCESS</span><small>JUMP TO THE DATA YOU NEED</small></div>
-   <div class="weekend-shortcuts-grid">
-    <button type="button" data-weekend-link="cal"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="16" rx="2"/><path d="M7.5 3v4M16.5 3v4M4 10h16M8 14h3M8 17h7"/></svg><span>Schedule</span><small>Session times</small><b aria-hidden="true">↗</b></button>
-    <button type="button" data-weekend-link="result"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/><path d="m15 15 2 2 4-5"/></svg><span>Results</span><small>Classifications</small><b aria-hidden="true">↗</b></button>
-    <button type="button" data-weekend-link="control"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 19H3L12 3Z"/><path d="M12 9v4M12 16h.01"/></svg><span>Race Control</span><small>Flags &amp; messages</small><b aria-hidden="true">↗</b></button>
-    <button type="button" data-weekend-link="weather"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18h10a4 4 0 0 0 .2-8A6 6 0 0 0 6 9.5 4.2 4.2 0 0 0 7 18Z"/><path d="m9 20-1 2m6-2-1 2m5-2-1 2"/></svg><span>Weather</span><small>Track conditions</small><b aria-hidden="true">↗</b></button>
-    <button type="button" data-weekend-link="live"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19h18M5 16l4-5 3 2 6-8"/><path d="M15 5h3v3"/></svg><span>Strategy</span><small>Tyres &amp; pace</small><b aria-hidden="true">↗</b></button>
-    <button type="button" data-weekend-link="radio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-2a8 8 0 0 1 16 0v2M4 13h3v6H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 1-2Zm16 0h-3v6h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-1-2ZM12 21h3"/></svg><span>Team Radio</span><small>Driver messages</small><b aria-hidden="true">↗</b></button>
-   </div>
-  </section>
   <p class="briefing-note" id="briefingNote" role="status" aria-live="polite">Loading the latest available session schedule…</p>
   <div class="briefing-grid">
    <section class="briefing-card briefing-wide"><p class="briefing-kicker">THE SITUATION</p><h3>Live Session Status</h3><div id="briefingSummary" class="briefing-content"><div class="state">Checking the schedule…</div></div><div id="briefingWeather" class="briefing-content briefing-weather-inline"><div class="state">Restoring saved session weather…</div></div></section>
@@ -3801,11 +3797,6 @@ tr:hover td{background:var(--hover)}
     <section class="briefing-card"><p class="briefing-kicker">THE BIG PICTURE</p><h3>Season Storylines</h3><div id="briefingCircuit" class="briefing-content"><div class="state">Reading the championship picture…</div></div></section>
     <section class="briefing-card"><p class="briefing-kicker">BEYOND THE GRID</p><h3>F1 Fact File</h3><div id="briefingFacts" class="briefing-content"><div class="state">Loading a little F1 history…</div></div></section>
   </div>
-  <div class="briefing-footer">
-   <div><b>Want the official details?</b><p>Follow the primary source for published schedules, results and announcements.</p></div>
-   <div class="briefing-links"><a href="https://www.formula1.com/en/racing" target="_blank" rel="noopener noreferrer">F1 schedule ↗</a><a href="https://www.formula1.com/en/results" target="_blank" rel="noopener noreferrer">F1 results ↗</a><a href="https://www.formula1.com/en/timing/f1-live" target="_blank" rel="noopener noreferrer">F1 Live Timing ↗</a><a href="https://www.fia.com/media-center/press_release" target="_blank" rel="noopener noreferrer">FIA announcements ↗</a></div>
-  </div>
-  <p class="briefing-disclaimer">This first version uses session schedule data, not republished news articles. Session times are shown in your device's local timezone; check the official source for final confirmation.</p>
  </section>
  
  <section class="panel pane" id="v-cal" hidden><h2>Race weekends</h2><div id="calList"><div class="state">Loading…</div></div></section>
