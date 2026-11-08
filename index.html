@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0A0A0D">
 <meta name="apple-mobile-web-app-title" content="Redline Grid">
 <meta name="description" content="Independent racing data, driver comparisons, circuit guides and race-weekend insight — all season long.">
-<link rel="icon" type="image/svg+xml" href="./assets/favicon.svg?v=4">
+
 
 <script>document.documentElement.dataset.theme="dark";</script>
 <title>Redline Grid · The Racing Season, Decoded</title>
@@ -3702,10 +3702,132 @@ tr:hover td{background:var(--hover)}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="rl-mark" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0B0B10"/><rect x=".75" y=".75" width="62.5" height="62.5" rx="13.3" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="1.5"/><g transform="translate(6.8 0) skewX(-12)"><path fill="#F4F4F6" fill-rule="evenodd" d="M16 14L38 14L48 19L50 26L50 29L47 35L41 38L24 38L24 50L16 50ZM24 21L36 21L42 24L42 28L36 31L24 31Z"/><path fill="#FF1E00" d="M30 38L40 38L51 50L40.5 50Z"/></g></symbol></svg>
 <div class="kerb"></div>
 <div class="wrap">
- <header>
+ <
+/* =========================================================
+   REDLINE GRID / PITWALL REDESIGN
+   Dark race-control surfaces, signal red, sharp editorial type.
+   Branding and navigation are CSS/text based; no decorative SVG.
+   ========================================================= */
+:root{
+ color-scheme:dark!important;
+ --bg:#07080b!important;--card:#101217!important;--card2:#15181f!important;
+ --sheet:#0c0e12!important;--chip:#20242c!important;--soft:#15181e!important;
+ --hover:rgba(255,255,255,.055)!important;--line:rgba(235,239,246,.105)!important;
+ --red:#f21d24!important;--mute:#9299a5!important;--txt:#f4f5f7!important;
+ --navbg:#090a0d!important;--subbg:#0b0d11!important;--on-bg:#f21d24!important;
+ --on-fg:#fff!important;--glow:rgba(242,29,36,.22)!important;--veil:rgba(0,0,0,.35)!important;
+ --carbon:.5!important;
+}
+:root[data-theme=light]{color-scheme:dark!important;--bg:#07080b!important;--card:#101217!important;--card2:#15181f!important;--sheet:#0c0e12!important;--chip:#20242c!important;--soft:#15181e!important;--hover:rgba(255,255,255,.055)!important;--line:rgba(235,239,246,.105)!important;--red:#f21d24!important;--mute:#9299a5!important;--txt:#f4f5f7!important;--navbg:#090a0d!important;--subbg:#0b0d11!important;--on-bg:#f21d24!important;--on-fg:#fff!important;--glow:rgba(242,29,36,.22)!important;--veil:rgba(0,0,0,.35)!important;--carbon:.5!important}
+html{background:#07080b!important}
+body{background:#07080b!important;color:#f4f5f7!important;font-family:Inter,Arial,sans-serif!important;letter-spacing:.005em}
+body::before{opacity:.32!important;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.022) 0 1px,transparent 1px 7px),linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px)!important;background-size:auto,48px 48px!important}
+body::after{background:radial-gradient(ellipse 800px 420px at 88% 0%,rgba(242,29,36,.15),transparent 72%),linear-gradient(180deg,#08090c 0%,#07080b 100%)!important}
+.kerb{height:4px!important;background:linear-gradient(90deg,#f21d24 0 18%,#a20e15 18% 24%,rgba(242,29,36,.25) 54%,transparent 100%)!important;box-shadow:0 0 22px rgba(242,29,36,.28)!important}
+.wrap{max-width:1500px!important;padding:30px clamp(16px,3vw,42px) 64px!important}
+header{padding:10px 0 22px!important;margin-bottom:22px!important;border-bottom:1px solid rgba(255,255,255,.13)!important;align-items:center!important}
+header::after{width:112px!important;height:4px!important;background:var(--red)!important;box-shadow:0 0 18px rgba(242,29,36,.38)}
+.brand{gap:14px!important}
+.brand::before{content:"RG";display:grid;place-items:center;flex:0 0 54px;height:54px;background:var(--red);color:#fff;font:800 23px/1 "Barlow Condensed",Impact,sans-serif;letter-spacing:-.06em;transform:skew(-10deg);box-shadow:5px 5px 0 rgba(242,29,36,.14)}
+h1.brand-name{font:800 clamp(36px,4vw,52px)/.88 "Barlow Condensed",Impact,sans-serif!important;letter-spacing:.025em!important;color:#fff!important}
+h1.brand-name span{color:var(--red)!important;font:inherit!important;letter-spacing:inherit!important}
+.tag{font:600 9px/1.4 "IBM Plex Mono",monospace!important;letter-spacing:.22em!important;color:#8f96a2!important;margin-top:8px!important}
+#tabs{display:flex!important;gap:3px!important;padding:0 0 1px!important;margin:0 0 16px!important;border:0!important;border-bottom:1px solid rgba(255,255,255,.13)!important;border-radius:0!important;background:transparent!important;overflow-x:auto!important}
+#tabs button{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;flex:1 0 auto!important;min-height:52px!important;padding:12px 18px!important;border:0!important;border-radius:0!important;background:transparent!important;color:#8f96a2!important;font:700 12px/1 "IBM Plex Mono",monospace!important;letter-spacing:.09em!important;text-transform:uppercase!important}
+#tabs button::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:transparent}
+#tabs button[aria-selected=true],#tabs button[aria-selected=true]:hover{background:linear-gradient(180deg,rgba(242,29,36,.12),transparent)!important;color:#fff!important}
+#tabs button[aria-selected=true]::after{background:var(--red)!important;box-shadow:0 0 12px rgba(242,29,36,.5)}
+#tabs button:hover{color:#fff!important;background:rgba(255,255,255,.035)!important}
+.nav-index{display:inline-grid;place-items:center;width:22px;height:22px;border:1px solid rgba(255,255,255,.13);color:#737b87;font:500 9px "IBM Plex Mono",monospace}
+#tabs button[aria-selected=true] .nav-index{background:var(--red);border-color:var(--red);color:#fff}
+#sub{gap:6px!important;margin:0 0 18px!important;padding:0 0 3px!important}
+#sub button{border:1px solid rgba(255,255,255,.11)!important;border-radius:3px!important;background:#11141a!important;color:#9da4ae!important;padding:9px 13px!important;font:600 10px "IBM Plex Mono",monospace!important;letter-spacing:.06em!important;text-transform:uppercase!important}
+#sub button[aria-selected=true]{border-color:var(--red)!important;background:rgba(242,29,36,.14)!important;color:#fff!important;box-shadow:inset 0 -2px 0 var(--red)!important}
+.layout{grid-template-columns:250px minmax(0,1fr)!important;gap:18px!important}
+.panel{background:linear-gradient(145deg,rgba(20,23,29,.98),rgba(12,14,18,.98))!important;border:1px solid rgba(255,255,255,.105)!important;border-radius:5px!important;box-shadow:0 12px 32px rgba(0,0,0,.2)!important;backdrop-filter:none!important}
+.panel h2{color:#aeb4be!important;font:700 10px "IBM Plex Mono",monospace!important;letter-spacing:.16em!important;text-transform:uppercase!important;border-bottom:1px solid rgba(255,255,255,.09)!important}
+#gps{top:12px!important;max-height:calc(100vh - 24px)!important}
+#gps>h2{padding:15px 16px!important;color:#fff!important;background:linear-gradient(90deg,rgba(242,29,36,.18),transparent)!important}
+#gps .yr{padding:12px!important;border-bottom:1px solid rgba(255,255,255,.1)!important}
+#gps select,.panel select,.panel input,.panel textarea{background:#090b0f!important;color:#f4f5f7!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:3px!important}
+.gp{padding:11px 13px!important;border-bottom:1px solid rgba(255,255,255,.055)!important;grid-template-columns:28px minmax(0,1fr) auto!important}
+.gp .n{font:600 11px "IBM Plex Mono",monospace!important;color:#737b87!important}
+.gp b{font:700 14px "Barlow Condensed",Impact,sans-serif!important;letter-spacing:.025em!important;text-transform:uppercase!important}
+.gp small{font:10px "IBM Plex Mono",monospace!important;color:#858d99!important}
+.gp[aria-pressed=true]{background:linear-gradient(90deg,rgba(242,29,36,.2),rgba(242,29,36,.025))!important;box-shadow:inset 3px 0 0 var(--red)!important}
+main{font-family:Inter,Arial,sans-serif!important}
+.panel.pane{border-radius:5px!important}
+.panel.pane>h2,.panel.pane>.briefing-head h2,.panel.pane>.stats-head h2{font-family:"Barlow Condensed",Impact,sans-serif!important;letter-spacing:.015em!important;text-transform:uppercase!important}
+.panel.pane:not(#v-news):not(#v-live):not(#v-stats):not(#v-documents):not(#v-standings)>h2{background:linear-gradient(90deg,rgba(242,29,36,.13),transparent 75%)!important;color:#fff!important;font:800 clamp(27px,3vw,38px)/1 "Barlow Condensed",Impact,sans-serif!important;letter-spacing:.02em!important;padding:22px 24px!important}
+.briefing-head,.stats-head,.home-weekend-head{background:linear-gradient(105deg,rgba(242,29,36,.16),rgba(242,29,36,.025) 42%,transparent 78%)!important;border-bottom:1px solid rgba(255,255,255,.1)!important}
+.briefing-kicker,.stats-kicker,.prediction-kicker{font:600 9px "IBM Plex Mono",monospace!important;letter-spacing:.2em!important;color:#ff4248!important}
+.briefing-head h2,.stats-head h2,.home-weekend-head h2{font:800 clamp(30px,4vw,46px)/.98 "Barlow Condensed",Impact,sans-serif!important;letter-spacing:.015em!important;text-transform:uppercase!important;color:#fff!important}
+.briefing-intro,.stats-intro{color:#9ba2ad!important}
+.briefing-card,.home-weekend-card,.briefing-intel-tile,.briefing-session,.pressure-card,.lab-result,.prediction-panel,.feature-card{border-radius:4px!important;background:#11141a!important;border-color:rgba(255,255,255,.1)!important}
+.briefing-card h3,.briefing-card h4,.home-weekend-race,.home-weekend-session{font-family:"Barlow Condensed",Impact,sans-serif!important;text-transform:uppercase!important;letter-spacing:.02em!important}
+.home-weekend-card{position:relative!important;overflow:hidden!important;border:1px solid rgba(255,255,255,.16)!important;background:linear-gradient(112deg,#171a21 0%,#0d0f14 60%,#171015 100%)!important}
+.home-weekend-card::before{content:"";position:absolute;top:0;right:0;width:36%;height:5px;background:linear-gradient(90deg,transparent,var(--red));transform:skewX(-35deg);transform-origin:right}
+.home-weekend-card-top{font:600 9px "IBM Plex Mono",monospace!important;letter-spacing:.2em!important;color:#aeb5c0!important}
+.home-weekend-status{color:#fff!important;background:rgba(242,29,36,.2)!important;border:1px solid rgba(242,29,36,.55)!important;border-radius:2px!important}
+.home-weekend-race{font:800 clamp(34px,5vw,58px)/.95 "Barlow Condensed",Impact,sans-serif!important;color:#fff!important}
+.home-weekend-session{font:600 15px "Barlow Condensed",Impact,sans-serif!important;color:#b7bec8!important}
+.home-weekend-card-bottom{border-top:1px solid rgba(255,255,255,.1)!important;color:#8d95a1!important;font:9px "IBM Plex Mono",monospace!important;letter-spacing:.1em!important}
+button,.briefing-refresh,.briefing-links a,.briefing-result-link{transition:background .16s,border-color .16s,color .16s,transform .16s!important}
+.briefing-refresh,button:not(#tabs button):not(.gp){border-radius:3px!important}
+.briefing-refresh{background:#181b22!important;border:1px solid rgba(255,255,255,.18)!important;color:#fff!important;font:600 10px "IBM Plex Mono",monospace!important;text-transform:uppercase!important}
+.briefing-refresh:hover{background:var(--red)!important;border-color:var(--red)!important}
+.briefing-grid,.briefing-feature-grid{gap:10px!important}
+.briefing-card,.briefing-feature-grid>.briefing-card{box-shadow:none!important}
+.briefing-card h3{font:700 18px "Barlow Condensed",Impact,sans-serif!important;letter-spacing:.04em!important}
+.briefing-intel-tile{background:#0b0d11!important}
+.briefing-intel-tile>span{color:#858e9b!important;font:600 8px "IBM Plex Mono",monospace!important;letter-spacing:.12em!important}
+.briefing-intel-tile>b{font-family:"IBM Plex Mono",monospace!important;color:#fff!important}
+.briefing-session{background:#0c0e12!important;border:1px solid rgba(255,255,255,.08)!important}
+.briefing-tag,.feature-tag,.prediction-badge{border-radius:2px!important;font:600 9px "IBM Plex Mono",monospace!important;letter-spacing:.08em!important}
+table{border-color:rgba(255,255,255,.09)!important}
+th{background:#1a1d24!important;color:#aeb5c0!important;font:600 9px "IBM Plex Mono",monospace!important;letter-spacing:.12em!important;text-transform:uppercase!important}
+td{border-color:rgba(255,255,255,.07)!important}
+tr:hover td{background:rgba(242,29,36,.055)!important}
+input,select,textarea{accent-color:var(--red)!important}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--red)!important;outline-offset:2px!important}
+.state{color:#9aa2ae!important}
+.badge,.tag,.chip{border-radius:2px!important}
+@media(min-width:821px){
+ .wrap{padding-top:34px!important}
+ #tabs button{min-width:120px!important}
+ .layout{grid-template-columns:250px minmax(0,1fr)!important}
+}
+@media(max-width:820px){
+ .wrap{padding:15px 12px 22px!important}
+ header{padding:7px 0 16px!important;margin-bottom:15px!important}
+ .brand::before{flex-basis:42px;height:42px;font-size:19px}
+ h1.brand-name{font-size:33px!important}
+ .tag{font-size:8px!important;letter-spacing:.14em!important}
+ #tabs{position:fixed!important;left:0!important;right:0!important;bottom:0!important;z-index:100!important;display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:0!important;margin:0!important;padding:7px 4px calc(7px + env(safe-area-inset-bottom))!important;background:rgba(7,8,11,.97)!important;border-top:1px solid rgba(255,255,255,.14)!important;border-bottom:0!important;backdrop-filter:blur(16px)!important;box-shadow:0 -10px 30px rgba(0,0,0,.45)!important}
+ #tabs button{min-width:0!important;min-height:48px!important;flex:none!important;display:flex!important;flex-direction:column!important;gap:4px!important;padding:5px 2px!important;font:600 8px "IBM Plex Mono",monospace!important;letter-spacing:.01em!important}
+ #tabs button::after{left:25%!important;right:25%!important;bottom:-7px!important;height:2px!important}
+ .nav-index{width:19px!important;height:19px!important;font-size:8px!important}
+ #sub{margin-bottom:12px!important;flex-wrap:nowrap!important;overflow-x:auto!important}
+ #sub button{flex:0 0 auto!important;padding:8px 10px!important;font-size:9px!important}
+ .layout{display:block!important}
+ #gps{position:relative!important;top:auto!important;max-height:260px!important;margin-bottom:14px!important}
+ .gp{padding:9px 12px!important}
+ .panel{margin-bottom:12px!important}
+ .briefing-head,.stats-head{padding:17px 15px 14px!important}
+ .home-weekend-card{margin:0 12px 12px!important}
+ .home-weekend-race{font-size:36px!important}
+ .briefing-grid{padding:10px!important;gap:9px!important}
+ body{padding-bottom:calc(82px + env(safe-area-inset-bottom))!important}
+}
+@media(max-width:390px){
+ .brand::before{flex-basis:36px;height:36px;font-size:17px}
+ h1.brand-name{font-size:29px!important}
+ .tag{font-size:7px!important}
+ #tabs button{font-size:7px!important}
+}
+header>
   <div class="brand">
    <div class="brand-text"><h1 class="brand-name">REDLINE <span>GRID</span></h1><p class="tag">Race Data. Rivalries. Every Detail.</p></div>
   </div>
@@ -3713,12 +3835,12 @@ tr:hover td{background:var(--hover)}
  </header>
  <button class="pickbtn" id="pick" aria-haspopup="dialog">Choose Grand Prix</button>
   <nav id="tabs" role="tablist" aria-label="Main sections">
-  <button role="tab" aria-selected="true" data-v="home"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5M5.5 9.5V21h13V9.5M9.5 21v-7h5v7"/></svg><span>Home</span></button>
-  <button role="tab" aria-selected="false" data-v="timing"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/><path d="M7 4v4M14 10v4M19 16v4" stroke="#FF2A18"/></svg><span>Live Timing</span></button>
-  <button role="tab" aria-selected="false" data-v="standings"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h5M8 16h8"/><path d="M16 12h.01"/></svg><span>Standings</span></button>
-  <button role="tab" aria-selected="false" data-v="race"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V5h3l2 3h4l2-3h5v15M7 20l2-4h6l2 4"/><path d="M9 8h6M8 12h8" stroke="#FF2A18"/></svg><span>Race</span></button>
-  <button role="tab" aria-selected="false" data-v="drivers"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3.5 20v-2.5A4.5 4.5 0 0 1 8 13h2a4.5 4.5 0 0 1 4.5 4.5V20M16 5.5a3 3 0 0 1 0 5.8M17 14h.5a3.5 3.5 0 0 1 3.5 3.5V20"/></svg><span>Drivers</span></button>
-  <button role="tab" aria-selected="false" data-v="data"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M5 17V9M10 17V4M15 17v-5M20 17V7"/><path d="m4 6 5-3 5 7 5-4"/></svg><span>Data</span></button>
+  <button role="tab" aria-selected="true" data-v="home"><span class="nav-index" aria-hidden="true">01</span><span>Home</span></button>
+  <button role="tab" aria-selected="false" data-v="timing"><span class="nav-index" aria-hidden="true">02</span><span>Live Timing</span></button>
+  <button role="tab" aria-selected="false" data-v="standings"><span class="nav-index" aria-hidden="true">03</span><span>Standings</span></button>
+  <button role="tab" aria-selected="false" data-v="race"><span class="nav-index" aria-hidden="true">04</span><span>Race</span></button>
+  <button role="tab" aria-selected="false" data-v="drivers"><span class="nav-index" aria-hidden="true">05</span><span>Drivers</span></button>
+  <button role="tab" aria-selected="false" data-v="data"><span class="nav-index" aria-hidden="true">06</span><span>Data</span></button>
  </nav>
  <div id="sub" hidden></div>
  <div class="layout">
