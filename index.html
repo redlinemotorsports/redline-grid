@@ -3772,8 +3772,8 @@ function show(top,sub){
  const pane=(sub==="laps"||sub==="car")?"tele":sub;
  document.querySelectorAll(".pane").forEach(p=>p.hidden=p.id!=="v-"+pane);
  stopLive();
- stopLiveTiming();
- if(pane==="timing")startLiveTiming();
+ if(typeof stopLiveTiming==="function")stopLiveTiming();
+ if(pane==="timing"&&typeof startLiveTiming==="function")startLiveTiming();
  if(pane==="tele"){$("lapList").hidden=sub!=="laps";$("lapEditorial").hidden=sub!=="laps";$("carView").hidden=sub!=="car";$("clap").hidden=sub!=="car";}
  ensure();
 }
