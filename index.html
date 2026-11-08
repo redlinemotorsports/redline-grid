@@ -4008,6 +4008,156 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  #v-stats .newsroom-sources{align-items:flex-start;flex-direction:column;gap:6px}
 }
 
+
+/* =========================================================
+   REDLINE GRID — SHARED PAGE TITLE SYSTEM
+   One display face, scale, kicker, spacing and accent across
+   every primary tab. Section/card headings remain untouched.
+   ========================================================= */
+:root{
+ --page-title-font:"Barlow Condensed",Impact,sans-serif;
+ --page-title-size:clamp(32px,4.2vw,44px);
+ --page-title-leading:.98;
+ --page-title-track:.015em;
+}
+#v-news .home-weekend-head,
+#v-stats .newsroom-head,
+#v-standings .standings-head,
+#v-timing .timing-hero,
+#v-live .strategy-hero,
+#v-result>.race-tab-title,
+#v-control>h2,
+#v-radio>h2,
+#v-weather>h2,
+#v-documents .paddock-hero-copy,
+#v-tele>h2,
+#v-cal>h2{
+ box-sizing:border-box;
+ border-bottom:1px solid var(--line)!important;
+ border-left:3px solid var(--red)!important;
+ border-radius:6px 6px 0 0!important;
+ background:linear-gradient(105deg,rgba(242,29,36,.14),rgba(242,29,36,.025) 43%,transparent 78%)!important;
+}
+#v-news .home-weekend-head,
+#v-stats .newsroom-head,
+#v-standings .standings-head,
+#v-timing .timing-hero,
+#v-live .strategy-hero,
+#v-result>.race-tab-title,
+#v-control>h2,
+#v-radio>h2,
+#v-weather>h2,
+#v-documents .paddock-hero-copy,
+#v-tele>h2,
+#v-cal>h2{
+ padding:20px 22px 17px!important;
+ margin-top:0!important;
+}
+#v-news .home-weekend-head h2,
+#v-stats.panel.pane .newsroom-head h2,
+#v-standings .standings-head h2,
+#v-timing .timing-hero h2,
+#v-live .strategy-hero h2,
+#v-result>.race-tab-title,
+#v-control>h2,
+#v-radio>h2,
+#v-weather>h2,
+#v-documents .paddock-hero-copy h2,
+#v-tele>h2,
+#v-cal>h2{
+ font-family:var(--page-title-font)!important;
+ font-size:var(--page-title-size)!important;
+ font-weight:800!important;
+ line-height:var(--page-title-leading)!important;
+ letter-spacing:var(--page-title-track)!important;
+ text-transform:uppercase!important;
+ color:var(--txt)!important;
+}
+#v-news .home-weekend-head .briefing-kicker,
+#v-stats .newsroom-head .briefing-kicker,
+#v-standings .standings-head .briefing-kicker,
+#v-timing .timing-hero .briefing-kicker,
+#v-live .strategy-hero .briefing-kicker,
+#v-documents .paddock-hero-copy .briefing-kicker{
+ display:block;
+ margin:0 0 6px!important;
+ color:var(--red)!important;
+ font:600 9px/1.3 Inter,sans-serif!important;
+ letter-spacing:.17em!important;
+ text-transform:uppercase!important;
+}
+#v-news .home-weekend-head h2,
+#v-stats.panel.pane .newsroom-head h2,
+#v-standings .standings-head h2,
+#v-timing .timing-hero h2,
+#v-live .strategy-hero h2,
+#v-documents .paddock-hero-copy h2{
+ margin:0!important;padding:0!important;border:0!important;
+}
+#v-news .home-weekend-head .briefing-refresh{flex:none}
+#v-news .home-weekend-head{align-items:center!important;justify-content:space-between!important}
+#v-stats .newsroom-head{align-items:center!important}
+#v-standings .standings-head{align-items:flex-end!important}
+#v-timing .timing-hero{display:block!important}
+#v-live .strategy-hero{align-items:flex-end!important}
+#v-result>.race-tab-title{
+ display:flex!important;flex-direction:column;align-items:flex-start;gap:6px;
+ color:var(--txt)!important;
+}
+#v-result>.race-tab-title:before,
+#v-control>h2:before,
+#v-radio>h2:before,
+#v-weather>h2:before,
+#v-tele>h2:before,
+#v-cal>h2:before{
+ display:block;
+ margin:0 0 1px;
+ color:var(--red);
+ font:600 9px/1.3 Inter,sans-serif;
+ letter-spacing:.17em;
+ text-transform:uppercase;
+}
+#v-result>.race-tab-title:before{content:"REDLINE GRID / RACE"}
+#v-control>h2:before{content:"REDLINE GRID / RACE CENTRE"}
+#v-radio>h2:before{content:"REDLINE GRID / RACE CENTRE"}
+#v-weather>h2:before{content:"REDLINE GRID / RACE CENTRE"}
+#v-tele>h2:before{content:"REDLINE GRID / DATA WORKSPACE"}
+#v-cal>h2:before{content:"REDLINE GRID / SEASON"}
+#v-control>h2,#v-radio>h2,#v-weather>h2,#v-tele>h2,#v-cal>h2{
+ display:flex;flex-direction:column;align-items:flex-start;
+ margin:0 0 16px!important;
+}
+#v-documents .paddock-hero-copy{max-width:none!important}
+#v-documents .paddock-hero-copy .briefing-intro,
+#v-timing .timing-hero .briefing-intro,
+#v-live .strategy-hero .briefing-intro,
+#v-standings .standings-head .briefing-intro,
+#v-stats .newsroom-head .newsroom-intro{
+ margin-top:7px!important;
+ font:400 12px/1.5 Inter,sans-serif!important;
+ color:var(--mute)!important;
+ max-width:640px;
+}
+@media(max-width:600px){
+ :root{--page-title-size:clamp(29px,8vw,36px)}
+ #v-news .home-weekend-head,
+ #v-stats .newsroom-head,
+ #v-standings .standings-head,
+ #v-timing .timing-hero,
+ #v-live .strategy-hero,
+ #v-result>.race-tab-title,
+ #v-control>h2,
+ #v-radio>h2,
+ #v-weather>h2,
+ #v-documents .paddock-hero-copy,
+ #v-tele>h2,
+ #v-cal>h2{padding:16px 14px 13px!important}
+ #v-news .home-weekend-head{gap:10px!important}
+ #v-stats .newsroom-head{gap:10px!important}
+ #v-standings .standings-head{gap:10px!important}
+ #v-live .strategy-hero{gap:10px!important}
+}
+
 </style>
 </head>
 <body>
