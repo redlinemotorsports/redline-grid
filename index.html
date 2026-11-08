@@ -3136,6 +3136,30 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
  #last .sc-unit small{font-size:7px}
 }
 
+
+
+/* Countdown compact pass: reduce unused vertical and internal spacing. */
+#last{gap:6px 10px!important;padding:8px 10px!important}
+#last .session-countdown{padding:8px 9px!important;gap:5px!important;border-radius:8px}
+#last .sc-top{gap:5px}
+#last .sc-session{margin:0;font-size:14px;line-height:1.15}
+#last .sc-gp{margin:0;font-size:9px;line-height:1.25}
+#last .sc-clock{gap:4px}
+#last .sc-unit{padding:5px 2px;border-radius:6px}
+#last .sc-unit b{font-size:17px;line-height:1}
+#last .sc-unit small{margin-top:2px;font-size:7px;line-height:1}
+#last .sc-time{margin:0;font-size:9px;line-height:1.2}
+@media(max-width:820px){
+ #last{gap:6px!important;padding:8px!important}
+ #last .session-countdown{padding:8px!important;gap:5px!important}
+ #last .sc-unit{padding:6px 2px}
+ #last .sc-unit b{font-size:clamp(16px,4.8vw,20px)}
+}
+@media(max-width:360px){
+ #last .sc-unit{padding:5px 1px}
+ #last .sc-unit b{font-size:15px}
+}
+
 </style>
 </head>
 <body>
