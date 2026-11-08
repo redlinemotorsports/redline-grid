@@ -4817,21 +4817,11 @@ async function loadBriefingFeatures(force=false){
   ]);
   const savedMeeting=await archiveRead("circuit-spotlight-meeting-"+nowY).catch(()=>null);
   const archive=await readStaticSeasonArchive(nowY).catch(()=>null),responses=archive?.responses||{};
-  // Prefer a fresh online schedule; the bundled archive and saved meeting remain fallbacks.
-  let liveRaces=null;
-  if(navigator.onLine){
-   try{
-    const liveResponse=await fetchTimed(JOLPICA+"/"+nowY+"/races/?limit=1000",8000);
-    if(liveResponse.ok){
-     const liveData=await liveResponse.json(),rows=liveData.MRData?.RaceTable?.Races||liveData.RaceTable?.Races;
-     if(Array.isArray(rows)&&rows.length)liveRaces=rows;
-    }
-   }catch(e){console.warn("Live circuit schedule unavailable; keeping saved schedule",e)}
-  }
-  // Only let a verified live schedule replace the saved spotlight. If the live request fails,
-  // keep the last saved meeting instead of downgrading it to a possibly stale bundled archive.
-  const archivedRaces=!savedMeeting?(responses["/"+nowY+"/races/"]?.RaceTable?.Races||[]):[];
-  const races=(liveRaces||archivedRaces).slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
+  // Use the bundled season schedule for the first paint. A remote schedule request
+  // here used to block the entire circuit card for up to eight seconds on slow connections.
+  // The archive is refreshed with the app's data bundle; weather remains an independent request.
+  const archivedRaces=responses["/"+nowY+"/races/"]?.RaceTable?.Races||[];
+  const races=(archivedRaces.length?archivedRaces:[]).slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
   const results=(responses["/"+nowY+"/results/"]?.RaceTable?.Races||[]).filter(r=>Array.isArray(r.Results)&&r.Results.length&&r.date&&new Date(r.date+"T23:59:59").getTime()<=Date.now()).sort((a,b)=>new Date(b.date)-new Date(a.date));
   const upcoming=races.find(r=>r.date&&new Date(r.date+"T23:59:59").getTime()>=Date.now());
   const spotlightMeeting=upcoming?{
