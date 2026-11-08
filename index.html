@@ -4310,7 +4310,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-standings .standings-leader-card>div b{font:700 18px/1.1 "Barlow Condensed",Inter,sans-serif;overflow-wrap:anywhere}
 #v-standings .standings-leader-card>div small{font-size:10px;color:var(--mute);overflow-wrap:anywhere}
 #v-standings .standings-leader-card>strong{font:700 16px "IBM Plex Mono",monospace;white-space:nowrap}
-#v-standings>.standings-switch{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:5px;margin:0;background:var(--soft);border:1px solid var(--line);border-radius:10px}
+#v-standings>.standings-switch{display:grid!important;grid-template-columns:1fr 1fr;gap:5px;padding:5px;margin:0;background:var(--soft);border:1px solid var(--line);border-radius:10px}
 #v-standings .standings-switch button{min-height:39px;border:1px solid transparent;border-radius:7px;background:transparent;color:var(--mute);font:600 12px Inter;cursor:pointer}
 #v-standings .standings-switch button[aria-pressed=true]{background:var(--red);border-color:var(--red);color:#fff}
 #v-standings .standings-team-panel{display:none}
@@ -4375,8 +4375,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
    <article class="standings-leader-card"><span>TEAM LEADER</span><div><b id="standingsTeamLeader">Loading…</b><small id="standingsTeamMeta">—</small></div><strong id="standingsTeamPoints">— pts</strong></article>
   </section>
   <div class="standings-switch" role="group" aria-label="Standings category"><button type="button" data-standing-kind="drivers" aria-pressed="true">Drivers</button><button type="button" data-standing-kind="teams" aria-pressed="false">Constructors</button></div>
-  <section class="panel standings-driver-panel"><h2>Drivers’ Championship</h2><div id="drivers"><div class="state">Loading…</div></div></section>
-  <section class="panel standings-team-panel"><h2>Constructors’ Championship</h2><div id="teams"><div class="state">Loading…</div></div></section>
+  <section class="panel standings-driver-panel"><div class="standings-section-head"><div><span>DRIVER CHAMPIONSHIP</span><h2>Drivers’ Championship</h2></div><small>POINTS TABLE</small></div><div id="drivers"><div class="state">Loading…</div></div></section>
+  <section class="panel standings-team-panel"><div class="standings-section-head"><div><span>TEAM CHAMPIONSHIP</span><h2>Constructors’ Championship</h2></div><small>POINTS TABLE</small></div><div id="teams"><div class="state">Loading…</div></div></section>
 
   <section class="panel championship-pressure" id="championshipPressure"><div class="feature-head"><div><p class="briefing-kicker">TITLE FIGHT / LIVE GAP</p><h3>Championship Pressure</h3><p>Points gaps calculated from the standings loaded above.</p></div><span class="feature-tag">LIVE STANDINGS</span></div><div class="pressure-grid"><div class="pressure-card"><small>DRIVERS’ TITLE GAP</small><strong id="pressureDriverGap">Waiting for data</strong><span id="pressureDriverDetail">Requires current driver standings</span></div><div class="pressure-card"><small>CONSTRUCTORS’ TITLE GAP</small><strong id="pressureTeamGap">Waiting for data</strong><span id="pressureTeamDetail">Requires current team standings</span></div></div><p class="feature-footnote">Gaps reflect the points currently shown in Redline Grid; this does not predict future results.</p></section>
 
