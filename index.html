@@ -3766,6 +3766,33 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .strategy-pane .strategy-stint-analysis-grid{gap:6px}
 .strategy-pane .strategy-stint-metric{padding:8px;gap:3px}
 @media(max-width:620px){.strategy-pane .strategy-stint-track{height:9px}.strategy-pane .strategy-driver{padding:9px}.strategy-pane .strategy-stint-analysis-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Strategy methodology: turn the dense disclaimer into a readable data-notes card. */
+#v-live .strategy-note{
+  display:block;margin:0 18px 18px;padding:13px 15px;
+  border:1px solid var(--line);border-left:2px solid var(--red);
+  border-radius:9px;background:linear-gradient(120deg,rgba(227,38,54,.045),rgba(255,255,255,.012));
+  color:var(--mute);font-size:10px;line-height:1.55
+}
+#v-live .strategy-note-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+#v-live .strategy-note-head>span:first-child{color:var(--red);font-size:9px;font-weight:800;letter-spacing:.16em;white-space:nowrap}
+#v-live .strategy-note-rule{height:1px;flex:1;background:var(--line)}
+#v-live .strategy-pit-count{padding:5px 7px;border:1px solid var(--line);border-radius:5px;color:var(--txt);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.04em;white-space:nowrap}
+#v-live .strategy-note-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+#v-live .strategy-note-grid>div{min-width:0}
+#v-live .strategy-note-grid>div+div{padding-left:14px;border-left:1px solid var(--line)}
+#v-live .strategy-note-grid b{display:block;margin-bottom:5px;color:var(--txt);font-size:9px;letter-spacing:.1em}
+#v-live .strategy-note-grid p{margin:0;color:var(--mute);font-size:10px;line-height:1.6}
+@media(max-width:899px){
+ #v-live .strategy-note{margin:0 14px 14px}
+ #v-live .strategy-note-grid{grid-template-columns:1fr;gap:10px}
+ #v-live .strategy-note-grid>div+div{padding:10px 0 0;border-left:0;border-top:1px solid var(--line)}
+}
+@media(max-width:420px){
+ #v-live .strategy-note{padding:11px}
+ #v-live .strategy-pit-count{font-size:8px;padding:4px 5px}
+}
+
 </style>
 </head>
 <body>
@@ -4324,7 +4351,7 @@ async function loadStrategy(){
  $("strategyInsights").innerHTML='<div class="strategy-insight-grid">'+insightCards.map(c=>'<article class="strategy-insight-card"><span>'+esc(c.tag)+'</span><h4>'+esc(c.title)+'</h4><p>'+esc(c.body)+'</p></article>').join("")+'</div>';
  if(comparisonRows.length){$("strategyCompare").innerHTML='<div class="strategy-compare-wrap"><table class="strategy-compare-table"><thead><tr><th>Driver</th><th>Compound</th><th>Stint</th><th>Length</th><th>Median pace</th><th>Early → late</th><th>Clean laps</th></tr></thead><tbody>'+comparisonRows.map(r=>'<tr><td><strong>'+esc(r.name)+'</strong><small>'+esc(r.team)+'</small></td><td><span class="strategy-compare-compound '+esc(r.compound)+'">'+esc(r.compound)+'</span></td><td>'+r.start+'–'+r.end+'</td><td>'+r.length+' laps</td><td>'+strategyTime(r.median)+'</td><td>'+(r.delta===null?'—':(r.delta>0.0005?'<span class="strategy-delta-slower">+'+r.delta.toFixed(3)+'s</span>':r.delta< -0.0005?'<span class="strategy-delta-faster">−'+Math.abs(r.delta).toFixed(3)+'s</span>':'≈ 0.000s'))+'</td><td>'+r.count+'</td></tr>').join("")+'</tbody></table></div><p class="strategy-compare-note">Median pace is calculated from available clean laps inside each stint. The early-to-late delta compares the first and final two or three samples; positive means slower late in the stint. Compound and stint-length comparisons are descriptive, not proof that one tyre or strategy was intrinsically faster.</p>'}else{$("strategyCompare").innerHTML='<div class="state">No stint records are available to compare for this session.</div>'}
  if(paceRows.length){$("strategyPace").innerHTML='<div class="strategy-pace-wrap"><table class="strategy-pace"><thead><tr><th>Driver</th><th>Opening median</th><th>Middle median</th><th>Final median</th><th>Overall median</th><th>Valid laps</th></tr></thead><tbody>'+paceRows.map((r,i)=>'<tr><td>'+(i+1)+'. '+esc(r.d&&(r.d.name||r.d.full_name)||("Driver #"+r.n))+'</td><td>'+strategyTime(strategyMedian(r.p.Opening))+'</td><td>'+strategyTime(strategyMedian(r.p.Middle))+'</td><td>'+strategyTime(strategyMedian(r.p.Final))+'</td><td class="'+(i===0?"pace-best":"")+'">'+strategyTime(r.all)+'</td><td>'+r.p.all.length+'</td></tr>').join("")+'</tbody></table></div>'}else{$("strategyPace").innerHTML='<div class="state">No usable lap times were returned for this session.</div>'}
- $("strategyNote").textContent="Pace uses median lap times by session third; out-laps and times outside 40–240 seconds are excluded. Stint pace check and compound comparison use available clean lap times within recorded stints; positive early-to-late deltas mean the late sample was slower. These are pace-fade indicators, not direct tyre-wear measurements or controlled compound tests. Fuel load, traffic, weather, damage, track evolution and tyre age affect pace, so it does not prove strategy quality."+(pits.length?" Pit-stop records found: "+pits.length+".":"");
+ $("strategyNote").innerHTML='<div class="strategy-note-head"><span>DATA NOTES</span><span class="strategy-note-rule"></span>'+(pits.length?'<b class="strategy-pit-count">'+pits.length+' PIT STOPS RECORDED</b>':'')+'</div><div class="strategy-note-grid"><div><b>PACE METHOD</b><p>Median lap times by session third. Out-laps and laps under 40s or over 240s are excluded. Stint and compound checks use available clean laps within recorded stints.</p></div><div><b>HOW TO READ IT</b><p>A positive early-to-late delta means the late sample was slower. These figures indicate pace fade — not measured tyre wear or a controlled compound test.</p></div><div><b>IMPORTANT CONTEXT</b><p>Fuel load, traffic, weather, damage, track evolution and tyre age all affect pace. This data alone cannot prove which strategy was best.</p></div></div>';
  }catch(e){if(req!==strategyRequest)return;$("strategySummary").innerHTML='<div class="state">Strategy data could not be loaded for this Grand Prix. The selected event may not have OpenF1 tyre or lap records.</div>';$("strategyStints").innerHTML="";$("strategyCompare").innerHTML="";$("strategyInsights").innerHTML="";$("strategyPace").innerHTML="";$("strategyNote").textContent=String(e&&e.message||"Data request failed")}
 }
 $("strategySession").onchange=loadStrategy;$("strategyRefresh").onclick=loadStrategy
