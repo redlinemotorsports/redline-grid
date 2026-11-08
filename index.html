@@ -4296,6 +4296,42 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 }
 
 
+
+/* CHAMPIONSHIP ARCHIVE — reference desk */
+#v-standings>.championship-archive{grid-column:1/-1;min-width:0;margin:2px 0 0;padding:18px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(135deg,rgba(255,35,24,.045),transparent 52%),var(--card)}
+#v-standings .archive-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:15px}
+#v-standings .archive-head h3{margin:2px 0 0;color:var(--txt);font:800 clamp(20px,2.4vw,27px)/1.1 Inter,sans-serif;letter-spacing:-.035em}
+#v-standings .archive-head p:not(.briefing-kicker){margin:7px 0 0;color:var(--mute);font-size:12px;line-height:1.5}
+#v-standings .archive-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:start}
+#v-standings .archive-card{min-width:0;border:1px solid var(--line);border-radius:11px;background:var(--card2);overflow:hidden}
+#v-standings .archive-card>summary{display:grid;grid-template-columns:34px minmax(0,1fr) 16px;align-items:center;gap:10px;min-height:76px;padding:12px;cursor:pointer;list-style:none}
+#v-standings .archive-card>summary::-webkit-details-marker{display:none}
+#v-standings .archive-card-icon{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--line);border-radius:8px;color:var(--red);font:600 10px "IBM Plex Mono",monospace}
+#v-standings .archive-card>summary>span:nth-child(2){display:grid;gap:4px;min-width:0}
+#v-standings .archive-card>summary b{color:var(--txt);font-size:12px;font-weight:700}
+#v-standings .archive-card>summary small{color:var(--mute);font-size:9px;line-height:1.4}
+#v-standings .archive-card>summary i{color:var(--mute);font:normal 16px Inter,sans-serif;transition:transform .2s}
+#v-standings .archive-card[open]>summary i{transform:rotate(45deg)}
+#v-standings .archive-card-body{padding:0 12px 13px;border-top:1px solid var(--line)}
+#v-standings .archive-round{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid var(--line)}
+#v-standings .archive-round:last-child{border-bottom:0}
+#v-standings .archive-round>span:first-child{color:var(--mute);font:600 9px "IBM Plex Mono",monospace}
+#v-standings .archive-round>div{display:grid;gap:3px;min-width:0}
+#v-standings .archive-round b{color:var(--txt);font-size:11px;overflow-wrap:anywhere}
+#v-standings .archive-round small{color:var(--mute);font-size:9px}
+#v-standings .archive-round em{color:var(--mute);font:600 8px "IBM Plex Mono",monospace;font-style:normal;letter-spacing:.04em;text-align:right}
+#v-standings .archive-round em.done{color:var(--red)}
+#v-standings .archive-team{display:grid;gap:4px;padding:10px 0;border-bottom:1px solid var(--line)}
+#v-standings .archive-team:last-child{border-bottom:0}
+#v-standings .archive-team b{color:var(--txt);font-size:11px}
+#v-standings .archive-team small{color:var(--mute);font-size:10px;line-height:1.45}
+#v-standings .archive-reg-group{display:grid;gap:5px;padding:11px 0;border-bottom:1px solid var(--line)}
+#v-standings .archive-reg-group>span{color:var(--mute);font:600 8px "IBM Plex Mono",monospace;letter-spacing:.09em}
+#v-standings .archive-reg-group>b{color:var(--txt);font:700 11px/1.5 "IBM Plex Mono",monospace;overflow-wrap:anywhere}
+#v-standings .archive-reg-group>small,.archive-reg-note{color:var(--mute);font-size:9px;line-height:1.5}
+#v-standings .archive-reg-note{margin:10px 0 0}
+@media(max-width:900px){#v-standings .archive-grid{grid-template-columns:1fr}#v-standings .archive-card>summary{min-height:66px}}
+
 /* STANDINGS REVAMP — scoped layout; retain existing data rows and renderers */
 #v-standings.pane.grid{grid-template-columns:minmax(0,1fr)!important;gap:14px}
 #v-standings>.standings-head,#v-standings>.standings-leaders,
@@ -4378,62 +4414,28 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   <section class="panel standings-driver-panel"><div class="standings-section-head"><div><span>DRIVER CHAMPIONSHIP</span><h2>Drivers’ Championship</h2></div><small>POINTS TABLE</small></div><div id="drivers"><div class="state">Loading…</div></div></section>
   <section class="panel standings-team-panel"><div class="standings-section-head"><div><span>TEAM CHAMPIONSHIP</span><h2>Constructors’ Championship</h2></div><small>POINTS TABLE</small></div><div id="teams"><div class="state">Loading…</div></div></section>
 
-  <section class="panel championship-pressure" id="championshipPressure"><div class="feature-head"><div><p class="briefing-kicker">TITLE FIGHT / LIVE GAP</p><h3>Championship Pressure</h3><p>Points gaps calculated from the standings loaded above.</p></div><span class="feature-tag">LIVE STANDINGS</span></div><div class="pressure-grid"><div class="pressure-card"><small>DRIVERS’ TITLE GAP</small><strong id="pressureDriverGap">Waiting for data</strong><span id="pressureDriverDetail">Requires current driver standings</span></div><div class="pressure-card"><small>CONSTRUCTORS’ TITLE GAP</small><strong id="pressureTeamGap">Waiting for data</strong><span id="pressureTeamDetail">Requires current team standings</span></div></div><p class="feature-footnote">Gaps reflect the points currently shown in Redline Grid; this does not predict future results.</p></section>
-
-  <details class="standings-advanced"><summary><span><b>Championship tools</b><small>Points calculator · Title scenarios · Forecasts</small></span><span class="standings-advanced-toggle">EXPLORE <i>＋</i></span></summary><div class="standings-advanced-body">
-   <div class="strategy-lab-head"><div><p class="prediction-kicker">REDLINE GRID / INTERACTIVE TOOLS</p><h2>Strategy Lab</h2><p>Test championship scenarios, calculate points and compare drivers using the selected season’s standings.</p></div><span class="prediction-badge">LIVE DATA</span></div>
-   <div class="lab-tabs" role="tablist" aria-label="Strategy Lab tools">
-    <button type="button" class="lab-tab active" data-lab-tool="calculator" aria-selected="true">Points Calculator</button>
-    <button type="button" class="lab-tab" data-lab-tool="scenarios" aria-selected="false">Title Scenarios</button>
-    <button type="button" class="lab-tab" data-lab-tool="compare" aria-selected="false">Driver vs Driver</button>
-   </div>
-   <div class="lab-tool" data-lab-panel="calculator">
-    <div class="lab-tool-intro"><h3>Race points calculator</h3><p>Choose a driver or constructor, then test a finishing result across multiple upcoming rounds.</p></div>
-    <div class="lab-fields">
-     <label>Championship<select id="labCalcKind"><option value="drivers">Drivers</option><option value="teams">Constructors</option></select></label>
-     <label>Competitor<select id="labCalcCompetitor"><option value="">Loading standings…</option></select></label>
-     <label>Points earned per round<select id="labCalcPosition"><option value="25">25 pts · Win</option><option value="18">18 pts · P2</option><option value="15">15 pts · P3</option><option value="12">12 pts · P4</option><option value="10">10 pts · P5</option><option value="8">8 pts · P6</option><option value="6">6 pts · P7</option><option value="4">4 pts · P8</option><option value="2">2 pts · P9</option><option value="1">1 pt · P10</option><option value="0">0 pts</option><option value="30">30 pts · Team scenario</option><option value="35">35 pts · Team scenario</option><option value="40">40 pts · Team scenario</option><option value="43">43 pts · Team maximum (no sprint)</option></select></label>
-     <label>Number of rounds<input id="labCalcRounds" type="number" min="1" max="24" value="3" inputmode="numeric"></label>
-    </div>
-    <div class="lab-result" id="labCalcResult" aria-live="polite"><span>PROJECTED POINTS ADDED</span><strong>—</strong><small>Select a competitor to calculate a scenario.</small></div>
-   </div>
-   <div class="lab-tool" data-lab-panel="scenarios" hidden>
-    <div class="lab-tool-intro"><h3>What does a title run look like?</h3><p>Model a contender’s points haul over the remaining rounds and compare it with a rival’s current total.</p></div>
-    <div class="lab-fields">
-     <label>Championship<select id="labTitleKind"><option value="drivers">Drivers</option><option value="teams">Constructors</option></select></label>
-     <label>Contender<select id="labTitleTarget"><option value="">Loading standings…</option></select></label>
-     <label>Closest rival<select id="labTitleRival"><option value="">Loading standings…</option></select></label>
-     <label>Contender wins in next rounds<input id="labTitleWins" type="number" min="0" max="24" value="3" inputmode="numeric"></label>
-     <label>Rounds to simulate<input id="labTitleRounds" type="number" min="1" max="24" value="5" inputmode="numeric"></label>
-    </div>
-    <div class="lab-result" id="labTitleResult" aria-live="polite"><span>PROJECTED TITLE GAP</span><strong>—</strong><small>Choose two competitors to simulate the run-in.</small></div>
-    <p class="lab-footnote">Scenario estimate only: assumes 25 points for each contender win and uses the rival’s current points-per-round average. Sprint points and fastest-lap points are excluded.</p>
-   </div>
-   <div class="lab-tool" data-lab-panel="compare" hidden>
-    <div class="lab-tool-intro"><h3>Head-to-head comparison</h3><p>Compare current championship position, points total and points gap between any two drivers.</p></div>
-    <div class="lab-fields lab-compare-fields">
-     <label>Driver A<select id="labDriverA"><option value="">Loading drivers…</option></select></label>
-     <label>Driver B<select id="labDriverB"><option value="">Loading drivers…</option></select></label>
-    </div>
-    <div class="lab-compare-result" id="labCompareResult" aria-live="polite"><div class="state">Waiting for driver standings…</div></div>
+  <section class="panel championship-archive" id="championshipArchive">
+   <div class="archive-head"><div><p class="briefing-kicker">CHAMPIONSHIP / REFERENCE</p><h3>Championship Archive</h3><p>Season records, team entries and the points framework in one place.</p></div><span class="feature-tag">SEASON REFERENCE</span></div>
+   <div class="archive-grid">
+    <details class="archive-card" open>
+     <summary><span class="archive-card-icon">01</span><span><b>Season calendar</b><small>Race schedule · Circuit locations · Event status</small></span><i>＋</i></summary>
+     <div class="archive-card-body" id="archiveCalendar"><div class="state">Loading season schedule…</div></div>
+    </details>
+    <details class="archive-card">
+     <summary><span class="archive-card-icon">02</span><span><b>Constructor registry</b><small>Teams · Championship entries · Driver line-up</small></span><i>＋</i></summary>
+     <div class="archive-card-body" id="archiveTeams"><div class="state">Waiting for championship entries…</div></div>
+    </details>
+    <details class="archive-card">
+     <summary><span class="archive-card-icon">03</span><span><b>Sporting regulations</b><small>Points allocation · Sprint format · Classification</small></span><i>＋</i></summary>
+     <div class="archive-card-body">
+      <div class="archive-reg-group"><span>GRAND PRIX POINTS</span><b>25 · 18 · 15 · 12 · 10 · 8 · 6 · 4 · 2 · 1</b><small>Points are awarded to the top ten classified drivers.</small></div>
+      <div class="archive-reg-group"><span>SPRINT POINTS</span><b>8 · 7 · 6 · 5 · 4 · 3 · 2 · 1</b><small>Points are awarded to the top eight classified drivers.</small></div>
+      <div class="archive-reg-group"><span>CHAMPIONSHIP TIE-BREAK</span><b>Race wins, then second places, third places and so on.</b><small>If records remain equal, the FIA determines the outcome under the applicable regulations.</small></div>
+      <p class="archive-reg-note">Reference summary only. The FIA Formula One Sporting Regulations take precedence where a detailed rule or exception applies.</p>
+     </div>
+    </details>
    </div>
   </section>
-
-  <section class="panel prediction-panel" id="championPredictions">
-   <div class="prediction-hero"><div><p class="prediction-kicker">Redline Grid / Data forecast</p><h2>Championship Forecast</h2><p>Projected title outcomes calculated from the selected season’s current points, completed race results and remaining scoring opportunities.</p></div><span class="prediction-badge">MODEL ESTIMATE</span></div>
-   <div class="prediction-body">
-    <div id="predictionStatus" class="prediction-status" role="status" aria-live="polite">Analysing championship data…</div>
-    <div class="prediction-grid prediction-results-grid">
-     <article class="prediction-result-card"><span class="prediction-result-label">PREDICTED DRIVERS’ CHAMPION</span><h3 id="forecastDriverName">Calculating…</h3><p id="forecastDriverMeta">Waiting for standings data</p><div class="prediction-meter"><span id="forecastDriverMeter"></span></div><small id="forecastDriverConfidence">Forecast confidence unavailable</small></article>
-     <article class="prediction-result-card"><span class="prediction-result-label">PREDICTED CONSTRUCTORS’ CHAMPION</span><h3 id="forecastTeamName">Calculating…</h3><p id="forecastTeamMeta">Waiting for standings data</p><div class="prediction-meter"><span id="forecastTeamMeter"></span></div><small id="forecastTeamConfidence">Forecast confidence unavailable</small></article>
-    </div>
-    <details class="prediction-details"><summary>View projected drivers’ finishing order</summary><div id="forecastDriverTable" class="prediction-forecast-list"><div class="state">Loading driver projections…</div></div></details>
-    <details class="prediction-details"><summary>View projected constructors’ finishing order</summary><div id="forecastTeamTable" class="prediction-forecast-list"><div class="state">Loading constructor projections…</div></div></details>
-    <p class="prediction-note">Forecasts are estimates, not guarantees. The projection extends current championship performance across remaining rounds; uncertainty rises when only a small amount of season data is available.</p>
-   </div>
-  </section>
-
-  </div></details>
 
 
 
@@ -4674,6 +4676,29 @@ function setStandingsView(teams){
  document.querySelectorAll("[data-standing-kind]").forEach(b=>b.setAttribute("aria-pressed",String((b.dataset.standingKind==="teams")===teams)));
 }
 document.querySelectorAll("[data-standing-kind]").forEach(btn=>btn.addEventListener("click",()=>setStandingsView(btn.dataset.standingKind==="teams")));
+function renderChampionshipArchive(){
+ const calendar=$("archiveCalendar");
+ if(calendar){
+  if(!rounds.length)calendar.innerHTML='<div class="state">Season schedule is unavailable.</div>';
+  else calendar.innerHTML=rounds.map((r,i)=>{
+   const start=new Date(r.date_start),end=new Date(r.date_end),done=end.getTime()<Date.now();
+   const date=Number.isNaN(start.getTime())?"Date TBC":start.toLocaleDateString(undefined,{day:"numeric",month:"short"});
+   const place=[r.location,r.country_name].filter(Boolean).join(" · ")||"Location TBC";
+   return '<div class="archive-round"><span>R'+String(i+1).padStart(2,"0")+'</span><div><b>'+esc(r.location||r.country_name||"Grand Prix")+'</b><small>'+esc(place)+' · '+date+'</small></div><em class="'+(done?"done":"")+'">'+(done?"COMPLETED":"SCHEDULED")+'</em></div>';
+  }).join("");
+ }
+ const registry=$("archiveTeams");
+ if(registry){
+  const teamRows=[...($("teams")?.querySelectorAll(".row")||[])].filter(row=>row.querySelector(".who b"));
+  const driverRows=[...($("drivers")?.querySelectorAll(".row")||[])].filter(row=>row.querySelector(".who b"));
+  const entries=teamRows.map(row=>{
+   const name=row.querySelector(".who b")?.textContent?.trim()||"";
+   const drivers=driverRows.filter(d=>d.querySelector(".who small")?.textContent?.trim()===name).map(d=>d.querySelector(".who b")?.textContent?.trim()).filter(Boolean);
+   return {name,drivers};
+  }).filter(x=>x.name);
+  registry.innerHTML=entries.length?entries.map(x=>'<div class="archive-team"><b>'+esc(x.name)+'</b><small>'+esc(x.drivers.length?x.drivers.join(" · "):"Driver line-up not available")+'</small></div>').join(""):'<div class="state">Constructor entries will appear when standings data is available.</div>';
+ }
+}
 function updateStandingsLeader(type){
  const root=$(type==="teams"?"teams":"drivers"),first=root?.querySelector(".row");
  if(!first)return;
@@ -4685,6 +4710,7 @@ function updateStandingsLeader(type){
  if(nameEl)nameEl.textContent=name;
  if(metaEl)metaEl.textContent=sub;
  if(pointsEl)pointsEl.textContent=pts+" pts";
+ renderChampionshipArchive();
 }
 ["drivers","teams"].forEach(type=>{
  const root=$(type);
@@ -4818,6 +4844,7 @@ async function loadYear(y){
 
  if(!rounds.length){$("last").innerHTML="<small>No races found for this season.</small>";return}
  const done=rounds.filter(r=>new Date(r.date_end)<Date.now());
+ renderChampionshipArchive();
  if(!done.length&&y===nowY&&y>2023)return loadYear(y-1);
  const nxt=rounds.findIndex(r=>new Date(r.date_start)>Date.now());
  $("rounds").innerHTML=rounds.map((r,i)=>`<button class="gp" data-i="${i}" ${new Date(r.date_end).getTime()>Date.now()?"disabled":""} aria-pressed="false"><span class="n">${String(i+1).padStart(2,"0")}</span><span><b>${esc(r.location||r.country_name)}</b><small>${esc(r.country_name)} · ${new Date(r.date_start).toLocaleDateString(undefined,{day:"numeric",month:"short"})}</small></span>${i===nxt?'<span class="badge">Next</span>':""}</button>`).join("");
