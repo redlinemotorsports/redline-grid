@@ -3523,8 +3523,8 @@ tr:hover td{background:var(--hover)}
      <article class="prediction-result-card"><span class="prediction-result-label">PREDICTED DRIVERS’ CHAMPION</span><h3 id="forecastDriverName">Calculating…</h3><p id="forecastDriverMeta">Waiting for standings data</p><div class="prediction-meter"><span id="forecastDriverMeter"></span></div><small id="forecastDriverConfidence">Forecast confidence unavailable</small></article>
      <article class="prediction-result-card"><span class="prediction-result-label">PREDICTED CONSTRUCTORS’ CHAMPION</span><h3 id="forecastTeamName">Calculating…</h3><p id="forecastTeamMeta">Waiting for standings data</p><div class="prediction-meter"><span id="forecastTeamMeter"></span></div><small id="forecastTeamConfidence">Forecast confidence unavailable</small></article>
     </div>
-    <div class="prediction-top-three"><span class="prediction-top-three-label">PROJECTED DRIVERS’ FINISH</span><div id="forecastDriverTable" class="prediction-forecast-list"><div class="state">Loading driver projections…</div></div></div>
-    <div class="prediction-top-three"><span class="prediction-top-three-label">PROJECTED CONSTRUCTORS’ FINISH</span><div id="forecastTeamTable" class="prediction-forecast-list"><div class="state">Loading constructor projections…</div></div></div>
+    <details class="prediction-details"><summary>View projected drivers’ finishing order</summary><div id="forecastDriverTable" class="prediction-forecast-list"><div class="state">Loading driver projections…</div></div></details>
+    <details class="prediction-details"><summary>View projected constructors’ finishing order</summary><div id="forecastTeamTable" class="prediction-forecast-list"><div class="state">Loading constructor projections…</div></div></details>
     <p class="prediction-note">Forecasts are estimates, not guarantees. The projection extends current championship performance across remaining rounds; uncertainty rises when only a small amount of season data is available.</p>
    </div>
   </section>
@@ -3600,14 +3600,7 @@ tr:hover td{background:var(--hover)}
    <button type="button" class="briefing-refresh" id="briefingRefresh">Refresh schedule ↻</button>
   </div>
 
-  <section class="race-pulse" aria-label="Live Race Pulse">
-   <div class="race-pulse-head"><div><p class="briefing-kicker">REDLINE GRID / LIVE RACE PULSE</p><h3>Trackside at a glance</h3><p class="race-pulse-sub">A fast read on the weekend's competitive picture.</p></div><span class="pulse-status"><i></i> PULSE MONITOR</span></div>
-   <div class="race-pulse-grid">
-    <article class="pulse-stat"><span class="pulse-label">SESSION</span><b id="pulseSession">Weekend overview</b><small id="pulseSessionNote">Schedule-led status</small></article>
-    <article class="pulse-stat pulse-integrity"><span class="pulse-label">DATA STATUS</span><b>Schedule-linked</b><small>Live timing / telemetry feed not connected</small></article>
-   </div>
-   <div class="pulse-foot"><span>BUILT FOR THE RACE WEEKEND</span><span>Use the linked panels for the latest available data.</span></div>
-  </section>
+  <div class="weekend-status-strip" aria-label="Selected race weekend status"><span class="weekend-status-label">SELECTED WEEKEND</span><strong id="pulseSession">Weekend overview</strong><small id="pulseSessionNote">Schedule-led status</small></div>
   <section class="weekend-shortcuts" aria-label="Race weekend quick access">
    <div class="weekend-shortcuts-head"><span>WEEKEND QUICK ACCESS</span><small>JUMP TO THE DATA YOU NEED</small></div>
    <div class="weekend-shortcuts-grid">
@@ -5680,3 +5673,27 @@ rt$("rtRefresh")?.addEventListener("click",startLiveTiming);
  #tabs button[aria-selected="true"]{background:var(--soft)!important;color:var(--txt)!important}
  #tabs button[aria-selected="true"]::before{color:var(--red)!important}
 }
+
+/* Feature consolidation: compact summaries, with detailed analysis available on demand. */
+.weekend-status-strip{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}
+.weekend-status-label{font-size:9px;letter-spacing:.14em;font-weight:800;color:var(--mute)}
+.weekend-status-strip strong{font-size:13px;font-weight:750}
+.weekend-status-strip small{font-size:11px;color:var(--mute)}
+.championship-pressure{margin-top:12px;padding:14px 16px!important}
+.championship-pressure .feature-head{align-items:center;margin-bottom:10px}
+.championship-pressure .feature-head h3{font-size:15px}
+.championship-pressure .feature-head p:not(.briefing-kicker){font-size:11px;margin-top:3px}
+.championship-pressure .pressure-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.championship-pressure .pressure-card{padding:10px 12px}
+.championship-pressure .feature-footnote{margin-top:8px;font-size:10px}
+.prediction-panel{margin-top:14px}
+.prediction-panel .prediction-hero{padding-bottom:12px}
+.prediction-panel .prediction-hero h2{font-size:19px}
+.prediction-panel .prediction-hero p:not(.prediction-kicker){font-size:11px;max-width:620px}
+.prediction-panel .prediction-body{padding-top:10px}
+.prediction-panel .prediction-grid{gap:9px}
+.prediction-panel .prediction-result-card{padding:12px}
+.prediction-details{margin-top:9px;border-top:1px solid var(--line);padding-top:8px}
+.prediction-details summary{cursor:pointer;color:var(--mute);font-size:11px;font-weight:700;padding:5px 0}
+.prediction-details[open] .prediction-forecast-list{margin-top:8px}
+@media(max-width:600px){.weekend-status-strip{gap:7px 10px;padding:10px 11px}.weekend-status-strip strong{flex-basis:100%;order:2}.weekend-status-strip small{order:3}.championship-pressure .pressure-grid{grid-template-columns:1fr}.prediction-panel .prediction-grid{grid-template-columns:1fr}}
