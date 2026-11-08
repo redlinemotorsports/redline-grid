@@ -2662,6 +2662,22 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
 
 
 
+/* Strategy: keep the core tyre plan visible; tuck supporting analysis away. */
+#v-live .strategy-advanced{margin:18px 18px 0;border:1px solid var(--line);border-radius:9px;background:var(--card);overflow:hidden}
+#v-live .strategy-advanced>summary{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 17px;cursor:pointer;list-style:none;background:linear-gradient(100deg,rgba(227,38,54,.055),transparent 72%)}
+#v-live .strategy-advanced>summary::-webkit-details-marker{display:none}
+#v-live .strategy-advanced>summary>span:first-child{display:grid;gap:3px}
+#v-live .strategy-advanced>summary b{font-family:"Barlow Condensed",Manrope,sans-serif;font-size:18px;letter-spacing:.01em}
+#v-live .strategy-advanced>summary small{color:var(--mute);font-size:10px}
+#v-live .strategy-advanced-toggle{display:flex;align-items:center;gap:9px;color:var(--mute);font:10px "IBM Plex Mono",monospace;letter-spacing:.08em;white-space:nowrap}
+#v-live .strategy-advanced-toggle i{font-style:normal;color:var(--red);font-size:16px}
+#v-live .strategy-advanced[open] .strategy-advanced-toggle i{transform:rotate(45deg)}
+#v-live .strategy-advanced-body .strategy-section{border-top:1px solid var(--line)}
+#v-live .strategy-advanced-body .strategy-section:first-child{border-top:0}
+#v-live .strategy-note{margin-top:16px}
+@media(max-width:899px){#v-live .strategy-advanced{margin:16px 14px 0}#v-live .strategy-advanced>summary{padding:13px}#v-live .strategy-advanced>summary b{font-size:17px}}
+@media(max-width:430px){#v-live .strategy-advanced>summary{align-items:flex-start}#v-live .strategy-advanced-toggle{font-size:9px}}
+
 /* DATA WORKSPACE — aligned with the Home visual system */
 #v-live.strategy-pane,
 #v-tele{
@@ -2802,15 +2818,8 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
 #v-tele .qual-gap-list{padding:10px}
 #v-tele .scroll{margin:0 18px 18px;border:1px solid var(--line);border-radius:8px;overflow:auto}
 @media(min-width:900px){
-  #v-live.strategy-pane{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:0}
-  #v-live>.strategy-hero,
-  #v-live>.strategy-summary,
-  #v-live>.strategy-section:nth-child(3),
-  #v-live>.strategy-section:nth-child(6),
-  #v-live>.strategy-note{grid-column:1/-1}
+  #v-live.strategy-pane{display:block}
   #v-live>.strategy-hero{background:linear-gradient(110deg,rgba(227,38,54,.085),transparent 72%)}
-  #v-live .strategy-section{border-right:1px solid var(--line)}
-  #v-live>.strategy-section:nth-child(4){border-right:0}
   #v-live .strategy-section-head{padding-bottom:9px;border-bottom:1px solid var(--line)}
 }
 @media(max-width:899px){
@@ -2829,8 +2838,6 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
   #v-tele .scroll{margin:0 12px 12px}
 }
 @media(max-width:600px){
-  #v-live .strategy-section:nth-child(4),
-  #v-live .strategy-section:nth-child(6){display:none}
   #v-live .strategy-section-head>p{display:none}
   #v-live .strategy-summary{gap:8px;padding-top:7px;padding-bottom:12px}
   #v-live .strategy-stat{padding:10px}
@@ -3903,7 +3910,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  <section class="panel pane strategy-pane" id="v-live" hidden>
   
 <div class="briefing-head strategy-hero">
-<div><p class="briefing-kicker">REDLINE GRID / RACE STRATEGY</p><h2>Race Strategy</h2><p class="briefing-intro">Tyres, stints and race pace from recorded session data.</p></div><div class="strategy-controls"><label for="strategySession">Session</label><select id="strategySession" aria-label="Strategy session"><option value="">Selected Grand Prix</option></select><button type="button" id="strategyRefresh">Refresh data</button></div></div><div id="strategySummary" class="strategy-summary"><div class="state">Select a Grand Prix to explore its strategy.</div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>01 / TYRE PLAN</span><h3>Stints &amp; pit stops</h3></div><p>Recorded tyre stints and pit stops.</p></div><div id="strategyPirelli" class="strategy-pirelli"></div><div id="strategyStints"><div class="state">Strategy data will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>02 / STRATEGY COMPARISON</span><h3>Stint comparison</h3></div><p>Compare stint lengths and recorded pace across drivers. Conditions are not normalized.</p></div><div id="strategyCompare"><div class="state">Strategy comparison will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>03 / AUTOMATED READOUT</span><h3>Strategy insights</h3></div><p>Observations based on the available session data.</p></div><div id="strategyInsights"><div class="state">Strategy insights will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>04 / PACE EVOLUTION</span><h3>Race pace</h3></div><p>Median lap pace across race phases.</p></div><div id="strategyPace"><div class="state">Strategy data will appear here.</div></div></div><div class="strategy-note" id="strategyNote">Data coverage varies by season and session. Tyre compounds and stint boundaries are shown only when the source provides them.</div></section>
+<div><p class="briefing-kicker">REDLINE GRID / RACE STRATEGY</p><h2>Race Strategy</h2><p class="briefing-intro">Tyres, stints and race pace from recorded session data.</p></div><div class="strategy-controls"><label for="strategySession">Session</label><select id="strategySession" aria-label="Strategy session"><option value="">Selected Grand Prix</option></select><button type="button" id="strategyRefresh">Refresh data</button></div></div><div id="strategySummary" class="strategy-summary"><div class="state">Select a Grand Prix to explore its strategy.</div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>01 / TYRE PLAN</span><h3>Stints &amp; pit stops</h3></div><p>Recorded tyre stints and pit stops.</p></div><div id="strategyPirelli" class="strategy-pirelli"></div><div id="strategyStints"><div class="state">Strategy data will appear here.</div></div></div><details class="strategy-advanced"><summary><span><b>Advanced analysis</b><small>Stint comparison · Strategy insights · Race pace</small></span><span class="strategy-advanced-toggle">VIEW ANALYSIS <i>＋</i></span></summary><div class="strategy-advanced-body"><div class="strategy-section"><div class="strategy-section-head"><div><span>02 / STRATEGY COMPARISON</span><h3>Stint comparison</h3></div><p>Compare stint lengths and recorded pace across drivers. Conditions are not normalized.</p></div><div id="strategyCompare"><div class="state">Strategy comparison will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>03 / AUTOMATED READOUT</span><h3>Strategy insights</h3></div><p>Observations based on the available session data.</p></div><div id="strategyInsights"><div class="state">Strategy insights will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>04 / PACE EVOLUTION</span><h3>Race pace</h3></div><p>Median lap pace across race phases.</p></div><div id="strategyPace"><div class="state">Strategy data will appear here.</div></div></div></div></details><div class="strategy-note" id="strategyNote">Data coverage varies by season and session. Tyre compounds and stint boundaries are shown only when the source provides them.</div></section>
  <section class="panel pane" id="v-result" hidden><h2 class="race-tab-title">Race</h2>
   <div class="last" id="last" aria-label="Next race session countdown"><small>Loading session countdown…</small></div><h2 id="resTitle">Race result</h2><div class="result-tools"><label for="resultSearch">Find driver or team</label><input id="resultSearch" type="search" placeholder="Search results…" autocomplete="off"><span id="resultMatchCount" aria-live="polite">All results</span></div><div class="scroll" id="result"><div class="state">Loading…</div></div></section>
  <section class="panel pane" id="v-control" hidden><h2>Race control</h2><div id="controlInsights" class="control-insights" aria-live="polite"><div class="state">Building race-control summary…</div></div><div class="control-tools" id="controlTools" aria-label="Filter race control messages"><div class="control-filters" role="group" aria-label="Message category"><button type="button" data-control-filter="all" aria-pressed="true">All</button><button type="button" data-control-filter="flags" aria-pressed="false">Flags</button><button type="button" data-control-filter="safety" aria-pressed="false">Safety Car</button><button type="button" data-control-filter="incidents" aria-pressed="false">Incidents</button><button type="button" data-control-filter="other" aria-pressed="false">Other</button></div><button type="button" class="control-order" id="controlOrder" aria-label="Change message order">Newest first ↓</button></div><div class="feature-search"><label for="controlSearch">Search race-control messages</label><input id="controlSearch" type="search" placeholder="e.g. driver, turn, penalty…" autocomplete="off"></div><div class="scroll" id="control"><div class="state">Loading…</div></div></section>
