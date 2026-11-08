@@ -4492,6 +4492,22 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #newsRefresh:disabled,#briefingRefresh:disabled,#rtRefresh:disabled,#strategyRefresh:disabled{opacity:.55!important;cursor:wait!important}
 #briefingRefresh{width:34px!important;min-width:34px!important;padding:0!important;font-size:17px!important;letter-spacing:0!important}
 #newsRefresh{white-space:nowrap!important}
+
+/* Home track weather: align the compact forecast card with the Redline title-card language. */
+#v-news .home-weather-card{position:relative;padding:15px 15px 13px 17px;border-color:color-mix(in srgb,var(--red) 28%,var(--line));background:linear-gradient(112deg,rgba(242,29,36,.075),var(--card) 58%);overflow:hidden}
+#v-news .home-weather-card:before{content:"";position:absolute;inset:0 auto 0 0;width:2px;background:var(--red)}
+#v-news .home-weather-card .home-support-heading{margin:0 0 11px;color:var(--red);font-size:9px;font-weight:750;letter-spacing:.16em}
+#v-news .home-weather-card #briefingWeather{font-size:12px;line-height:1.5}
+#v-news .home-weather-card .briefing-lead{margin:0 0 7px;color:var(--txt);font-size:16px;font-weight:700;letter-spacing:-.025em;line-height:1.2}
+#v-news .home-weather-card .briefing-session{padding:9px 0;gap:8px}
+#v-news .home-weather-card .briefing-session b{font-size:12px}
+#v-news .home-weather-card .briefing-session small{font-size:10px}
+#v-news .home-weather-card .briefing-tag{border-color:color-mix(in srgb,var(--red) 35%,var(--line));color:var(--txt);background:rgba(242,29,36,.07);font-size:8px}
+#v-news .home-weather-card .briefing-weather-detail{color:var(--mute);font-size:9px;white-space:nowrap}
+#v-news .home-weather-card .briefing-weather-foot{margin:9px 0 0;padding-top:8px;border-top:1px solid var(--line);color:var(--mute);font-size:9px;line-height:1.45}
+#v-news .home-weather-card .briefing-weather-foot a{color:var(--mute);text-decoration-color:var(--line)}
+@media(max-width:600px){#v-news .home-weather-card{padding:13px 13px 12px 15px}#v-news .home-weather-card .briefing-lead{font-size:15px}#v-news #briefingWeather{display:block!important}}
+
 </style>
 </head>
 <body>
@@ -4612,7 +4628,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   </section>
   <p class="briefing-note" id="briefingNote" role="status" aria-live="polite"></p>
   <div class="home-support-grid" aria-label="Race weekend details">
-   <section class="home-support-card"><div class="home-support-heading">TRACK WEATHER</div><div id="briefingWeather"><div class="state">Weather will appear when a circuit is selected.</div></div></section>
+   <section class="home-support-card home-weather-card"><div class="home-support-heading">TRACK WEATHER</div><div id="briefingWeather"><div class="state">Weather will appear when a circuit is selected.</div></div></section>
    <section class="home-support-card"><div class="home-support-heading">LATEST RACE RESULT</div><div id="briefingRecap"><div class="state">Checking the latest completed Grand Prix…</div></div></section>
    <section class="home-support-card home-circuit-card"><div class="home-support-heading">CIRCUIT DETAILS</div><div id="briefingSpotlight"><div class="state">Circuit details are loading…</div></div></section>
   </div>
