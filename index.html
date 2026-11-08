@@ -3791,10 +3791,9 @@ tr:hover td{background:var(--hover)}
   <p class="briefing-note" id="briefingNote" role="status" aria-live="polite">Loading the latest available session schedule…</p>
   <div class="briefing-grid">
    <section class="briefing-card briefing-wide"><p class="briefing-kicker">THE SITUATION</p><h3>Live Session Status</h3><div id="briefingSummary" class="briefing-content"><div class="state">Checking the schedule…</div></div><div id="briefingWeather" class="briefing-content briefing-weather-inline"><div class="state">Restoring saved session weather…</div></div></section>
-   <section class="briefing-card briefing-wide briefing-priority"><p class="briefing-kicker">RACE REPORT</p><h3>Latest Race Recap</h3><div id="briefingRecap" class="briefing-content"><div class="state">Loading the latest verified race result…</div></div></section>
+   <section class="briefing-card briefing-priority"><p class="briefing-kicker">RACE REPORT</p><h3>Latest Race Recap</h3><div id="briefingRecap" class="briefing-content"><div class="state">Loading the latest verified race result…</div></div></section>
     <section class="briefing-card"><p class="briefing-kicker">CIRCUIT SPOTLIGHT</p><h3>Know the track</h3><div id="briefingSpotlight" class="briefing-content"><div class="state">Restoring the saved circuit spotlight…</div></div></section>
-    <section class="briefing-card"><p class="briefing-kicker">THE BIG PICTURE</p><h3>Season Storylines</h3><div id="briefingCircuit" class="briefing-content"><div class="state">Reading the championship picture…</div></div></section>
-    <section class="briefing-card"><p class="briefing-kicker">BEYOND THE GRID</p><h3>F1 Fact File</h3><div id="briefingFacts" class="briefing-content"><div class="state">Loading a little F1 history…</div></div></section>
+    <section class="briefing-card"><p class="briefing-kicker">CHAMPIONSHIP WATCH</p><h3>Championship Snapshot</h3><div id="briefingCircuit" class="briefing-content"><div class="state">Reading the championship picture…</div></div></section>
   </div>
  </section>
  
@@ -4775,8 +4774,8 @@ async function archivedCircuitMeetings(y){
  });
 }
 async function loadBriefingFeatures(force=false){
- const briefing=$("briefingSpotlight"),storylines=$("briefingCircuit"),facts=$("briefingFacts");
- if(!briefing||!storylines||!facts||briefingFeaturesBusy)return;
+ const briefing=$("briefingSpotlight"),storylines=$("briefingCircuit");
+ if(!briefing||!storylines||briefingFeaturesBusy)return;
  const key=String(nowY);
  if(!force&&briefingFeaturesLoaded===key&&briefing.dataset.loaded==="true")return;
  briefingFeaturesBusy=true;
@@ -4784,8 +4783,7 @@ async function loadBriefingFeatures(force=false){
   // Restore the last successful Home cards first; refresh the season archive afterwards.
   await Promise.all([
    restoreHomeCard("race-intel-v2-"+nowY,briefing,"circuit spotlight"),
-   restoreHomeCard("circuit-"+nowY,storylines,"season storylines"),
-   restoreHomeCard("fact-file-"+nowY,facts,"F1 fact file")
+   restoreHomeCard("circuit-"+nowY,storylines,"championship snapshot")
   ]);
   const savedMeeting=await archiveRead("circuit-spotlight-meeting-"+nowY).catch(()=>null);
   const archive=await readStaticSeasonArchive(nowY).catch(()=>null),responses=archive?.responses||{};
@@ -4858,20 +4856,13 @@ async function loadBriefingFeatures(force=false){
    storylines.insertAdjacentHTML("beforeend",'<div class="briefing-desktop-deepdive"><div class="briefing-season-block"><p class="briefing-mini-heading">DRIVERS’ CHAMPIONSHIP</p>'+topFive+'</div><div class="briefing-season-block"><p class="briefing-mini-heading">RECENT RACE WINNERS</p>'+(recentWinners||'<p class="briefing-season-empty">No classified results in the archive yet.</p>')+'</div>'+(constructorRows?'<div class="briefing-season-block briefing-season-constructors"><p class="briefing-mini-heading">CONSTRUCTORS’ TOP THREE</p>'+constructorRows+'</div>':'')+'<p class="briefing-season-source">Season context uses Redline Grid’s bundled results archive. Standings update when the season data is refreshed.</p></div>');
   }
   storylines.dataset.loaded="true";await saveHomeCard("circuit-"+nowY,storylines);
-  const list=[
-   ["THE FIRST WORLD CHAMPION","Giuseppe Farina","He won the inaugural Formula 1 World Drivers’ Championship in 1950.","https://www.formula1.com/en/information/drivers-hall-of-fame-nino-farina.42vZMEuSei8avz76yMDHpf","Read Farina’s F1 profile ↗"],
-   ["A RACE BEFORE THE WORLD CHAMPIONSHIP","Monaco Grand Prix","The Monaco Grand Prix was first held in 1929, before the Formula 1 World Championship began.","https://www.formula1.com/en/information/monaco-circuit-de-monaco-monte-carlo.2ZWRtIcSI6ZzVGX1uGRpkJ","Read the Monaco circuit history ↗"],
-   ["THE SPORT’S FIRST SEASON","1950","The first World Championship season featured seven events, including the Indianapolis 500.","https://www.formula1.com/en/latest/article/drivers-teams-cars-circuits-and-more-everything-you-need-to-know-about.7iQfL3Rivf1comzdqV5jwc","Read how F1 began ↗"],
-   ["FERRARI’S F1 DEBUT","Monaco, 1950","Scuderia Ferrari made its Formula 1 World Championship debut at the Monaco Grand Prix in May 1950.","https://www.ferrari.com/en-GW/history/moments/1950/debut-in-f1/more","Read Ferrari’s official history ↗"]
-  ];
-  const fact=list[(new Date().getUTCDate()+new Date().getUTCMonth())%list.length];
-  facts.innerHTML='<div class="briefing-statusline"><span class="briefing-live-dot upcoming"></span><span>F1 HISTORY · DAILY PICK</span></div><p class="briefing-verdict-kicker">'+esc(fact[0])+'</p><p class="briefing-lead">'+esc(fact[1])+'</p><p class="briefing-intel-sub">'+esc(fact[2])+'</p><p class="briefing-recap-foot">Fact source: '+esc(fact[4].replace(/ ↗$/,""))+'.</p><a class="briefing-result-link" href="'+fact[3]+'" target="_blank" rel="noopener noreferrer">'+esc(fact[4])+'</a>';facts.dataset.loaded="true";await saveHomeCard("fact-file-"+nowY,facts);
+
   document.querySelectorAll("[data-hub-tab]").forEach(b=>b.onclick=()=>show(b.dataset.hubTab));briefingFeaturesLoaded=key;
  }catch(e){
   console.warn("Home features archive unavailable",e);
   if(!briefing.dataset.loaded)briefing.innerHTML='<p class="briefing-lead">Race weekend data unavailable</p><p>The bundled schedule could not be read. The rest of Redline Grid remains available.</p>';
   if(!storylines.dataset.loaded)storylines.innerHTML='<p class="briefing-lead">Season storylines unavailable</p><p>Refresh after the season archive is available.</p>';
-  if(!facts.dataset.loaded)facts.innerHTML='<p class="briefing-lead">F1 Fact File</p><p>Formula 1’s World Drivers’ Championship began in 1950.</p>';
+
  }finally{briefingFeaturesBusy=false}
 }
 let briefingRecapKey="",briefingRecapBusy=false,briefingRecapBaseHtml="";
