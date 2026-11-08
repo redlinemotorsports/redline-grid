@@ -4018,13 +4018,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-standings .standings-head,
 #v-timing .timing-hero,
 #v-live .strategy-hero,
-#v-result>.race-tab-title,
-#v-control>h2,
-#v-radio>h2,
-#v-weather>h2,
+#v-result>.simple-title-head,
+#v-control>.simple-title-head,
+#v-radio>.simple-title-head,
+#v-weather>.simple-title-head,
 #v-documents .paddock-hero-copy,
-#v-tele>h2,
-#v-cal>h2{
+#v-tele>.simple-title-head,
+#v-cal>.simple-title-head{
  box-sizing:border-box;
  border-bottom:1px solid var(--line)!important;
  border-left:3px solid var(--red)!important;
@@ -4036,13 +4036,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-standings .standings-head,
 #v-timing .timing-hero,
 #v-live .strategy-hero,
-#v-result>.race-tab-title,
-#v-control>h2,
-#v-radio>h2,
-#v-weather>h2,
+#v-result>.simple-title-head,
+#v-control>.simple-title-head,
+#v-radio>.simple-title-head,
+#v-weather>.simple-title-head,
 #v-documents .paddock-hero-copy,
-#v-tele>h2,
-#v-cal>h2{
+#v-tele>.simple-title-head,
+#v-cal>.simple-title-head{
  padding:20px 22px 17px!important;
  margin-top:0!important;
 }
@@ -4158,13 +4158,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-standings .standings-head,
 #v-timing .timing-hero,
 #v-live .strategy-hero,
-#v-result>.race-tab-title,
-#v-control>h2,
-#v-radio>h2,
-#v-weather>h2,
+#v-result>.simple-title-head,
+#v-control>.simple-title-head,
+#v-radio>.simple-title-head,
+#v-weather>.simple-title-head,
 #v-documents .paddock-hero-copy,
-#v-tele>h2,
-#v-cal>h2{
+#v-tele>.simple-title-head,
+#v-cal>.simple-title-head{
  position:relative!important;
  isolation:isolate;
  overflow:hidden;
@@ -4212,6 +4212,41 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  #v-cal>h2::after{
   width:38%;opacity:.34;background-size:12px 12px;
  }
+}
+
+
+/* Simple page-title cards: keep the subtitle inside the same title surface. */
+#v-result>.simple-title-head,#v-control>.simple-title-head,#v-radio>.simple-title-head,
+#v-weather>.simple-title-head,#v-tele>.simple-title-head,#v-cal>.simple-title-head{
+ box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;gap:0;
+ padding:20px 22px 17px!important;margin:0 0 16px!important;
+ border-bottom:1px solid var(--line)!important;border-left:3px solid var(--red)!important;
+ border-radius:6px 6px 0 0!important;
+ background:linear-gradient(105deg,rgba(242,29,36,.14),rgba(242,29,36,.025) 43%,transparent 78%)!important;
+ position:relative;isolation:isolate;overflow:hidden;
+}
+#v-result>.simple-title-head:after,#v-control>.simple-title-head:after,#v-radio>.simple-title-head:after,
+#v-weather>.simple-title-head:after,#v-tele>.simple-title-head:after,#v-cal>.simple-title-head:after{
+ content:"";position:absolute;z-index:-1;top:0;right:0;bottom:0;width:27%;pointer-events:none;
+ background-image:repeating-conic-gradient(from 0deg,rgba(235,240,245,.16) 0% 25%,transparent 0% 50%);
+ background-size:14px 14px;
+ -webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.28) 24%,#000 100%);
+ mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.28) 24%,#000 100%);opacity:.48;
+}
+.simple-title-head h2{
+ display:flex!important;flex-direction:column;align-items:flex-start;
+ margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:none!important;
+ font-family:var(--page-title-font)!important;font-size:var(--page-title-size)!important;
+ font-weight:800!important;line-height:var(--page-title-leading)!important;
+ letter-spacing:var(--page-title-track)!important;text-transform:uppercase!important;color:var(--txt)!important;
+}
+.simple-title-head .briefing-intro{
+ margin:7px 0 0!important;font:400 12px/1.5 Inter,sans-serif!important;
+ color:var(--mute)!important;max-width:640px;
+}
+@media(max-width:600px){
+ #v-result>.simple-title-head,#v-control>.simple-title-head,#v-radio>.simple-title-head,
+ #v-weather>.simple-title-head,#v-tele>.simple-title-head{padding:16px 14px 13px!important}
 }
 
 </style>
@@ -4324,11 +4359,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   
 <div class="briefing-head strategy-hero">
 <div><p class="briefing-kicker">REDLINE GRID / RACE STRATEGY</p><h2>Race Strategy</h2><p class="briefing-intro">Tyres, stints and race pace from recorded session data.</p></div><div class="strategy-controls"><label for="strategySession">Session</label><select id="strategySession" aria-label="Strategy session"><option value="">Selected Grand Prix</option></select><button type="button" id="strategyRefresh">Refresh data</button></div></div><div id="strategySummary" class="strategy-summary"><div class="state">Select a Grand Prix to explore its strategy.</div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>01 / TYRE PLAN</span><h3>Stints &amp; pit stops</h3></div><p>Recorded tyre stints and pit stops.</p></div><div id="strategyPirelli" class="strategy-pirelli"></div><div id="strategyStints"><div class="state">Strategy data will appear here.</div></div></div><details class="strategy-advanced"><summary><span><b>Advanced analysis</b><small>Stint comparison · Strategy insights · Race pace</small></span><span class="strategy-advanced-toggle">VIEW ANALYSIS <i>＋</i></span></summary><div class="strategy-advanced-body"><div class="strategy-section"><div class="strategy-section-head"><div><span>02 / STRATEGY COMPARISON</span><h3>Stint comparison</h3></div><p>Compare stint lengths and recorded pace across drivers. Conditions are not normalized.</p></div><div id="strategyCompare"><div class="state">Strategy comparison will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>03 / AUTOMATED READOUT</span><h3>Strategy insights</h3></div><p>Observations based on the available session data.</p></div><div id="strategyInsights"><div class="state">Strategy insights will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>04 / PACE EVOLUTION</span><h3>Race pace</h3></div><p>Median lap pace across race phases.</p></div><div id="strategyPace"><div class="state">Strategy data will appear here.</div></div></div></div></details><div class="strategy-note" id="strategyNote">Data coverage varies by season and session. Tyre compounds and stint boundaries are shown only when the source provides them.</div></section>
- <section class="panel pane" id="v-result" hidden><h2 class="race-tab-title">Race</h2><p class="briefing-intro">Results, race control and team communications from the Grand Prix.</p>
+ <section class="panel pane" id="v-result" hidden><div class="simple-title-head"><h2 class="race-tab-title">Race</h2><p class="briefing-intro">Results, race control and team communications from the Grand Prix.</p></div>
   <div class="last" id="last" aria-label="Next race session countdown"><small>Loading session countdown…</small></div><h2 id="resTitle">Race result</h2><div class="result-tools"><label for="resultSearch">Find driver or team</label><input id="resultSearch" type="search" placeholder="Search results…" autocomplete="off"><span id="resultMatchCount" aria-live="polite">All results</span></div><div class="scroll" id="result"><div class="state">Loading…</div></div></section>
- <section class="panel pane" id="v-control" hidden><h2>Race control</h2><p class="briefing-intro">Flags, incidents and official decisions from the session.</p><div id="controlInsights" class="control-insights" aria-live="polite"><div class="state">Building race-control summary…</div></div><div class="control-tools" id="controlTools" aria-label="Filter race control messages"><div class="control-filters" role="group" aria-label="Message category"><button type="button" data-control-filter="all" aria-pressed="true">All</button><button type="button" data-control-filter="flags" aria-pressed="false">Flags</button><button type="button" data-control-filter="safety" aria-pressed="false">Safety Car</button><button type="button" data-control-filter="incidents" aria-pressed="false">Incidents</button><button type="button" data-control-filter="other" aria-pressed="false">Other</button></div><button type="button" class="control-order" id="controlOrder" aria-label="Change message order">Newest first ↓</button></div><div class="feature-search"><label for="controlSearch">Search race-control messages</label><input id="controlSearch" type="search" placeholder="e.g. driver, turn, penalty…" autocomplete="off"></div><div class="scroll" id="control"><div class="state">Loading…</div></div></section>
- <section class="panel pane" id="v-radio" hidden><h2>Team radio</h2><p class="briefing-intro">Driver messages and team communications from the track.</p><div class="tools"><select id="rsess" aria-label="Session"></select></div><div class="feature-search"><label for="radioSearch">Search available radio context</label><input id="radioSearch" type="search" placeholder="Search driver, message or context…" autocomplete="off"></div><div class="scroll" id="radioList"><div class="state">Loading…</div></div></section>
- <section class="panel pane" id="v-weather" hidden><h2>Weather</h2><p class="briefing-intro">Track conditions and session forecasts for the race weekend.</p><div class="tools"><select id="wsess" aria-label="Session"></select></div><div id="weatherView"><div class="state">Loading…</div></div><section class="weather-strategy" id="weatherStrategy"><div class="feature-head"><div><p class="briefing-kicker">WEATHER / STRATEGY DESK</p><h3>What the conditions can mean</h3><p>Guidance based on the weather readings available for the selected session.</p></div><span class="feature-tag">CONTEXT, NOT PREDICTION</span></div><div class="weather-guides"><article><b>Rain readings</b><p>Recorded rain can reduce grip and increase the relevance of intermediate or wet tyres. A dry sample does not guarantee a dry track throughout the session.</p></article><article><b>Track vs air temperature</b><p>A warmer track can increase tyre-energy demands, but compound, setup, traffic and stint length also matter.</p></article><article><b>Wind and humidity</b><p>Wind can affect balance and braking references; humidity alone is not a reliable rain forecast.</p></article></div><p class="feature-footnote">These are general interpretation notes, not a tyre recommendation. If session weather data is missing, no conditions are inferred.</p></section></section>
+ <section class="panel pane" id="v-control" hidden><div class="simple-title-head"><h2>Race control</h2><p class="briefing-intro">Flags, incidents and official decisions from the session.</p></div><div id="controlInsights" class="control-insights" aria-live="polite"><div class="state">Building race-control summary…</div></div><div class="control-tools" id="controlTools" aria-label="Filter race control messages"><div class="control-filters" role="group" aria-label="Message category"><button type="button" data-control-filter="all" aria-pressed="true">All</button><button type="button" data-control-filter="flags" aria-pressed="false">Flags</button><button type="button" data-control-filter="safety" aria-pressed="false">Safety Car</button><button type="button" data-control-filter="incidents" aria-pressed="false">Incidents</button><button type="button" data-control-filter="other" aria-pressed="false">Other</button></div><button type="button" class="control-order" id="controlOrder" aria-label="Change message order">Newest first ↓</button></div><div class="feature-search"><label for="controlSearch">Search race-control messages</label><input id="controlSearch" type="search" placeholder="e.g. driver, turn, penalty…" autocomplete="off"></div><div class="scroll" id="control"><div class="state">Loading…</div></div></section>
+ <section class="panel pane" id="v-radio" hidden><div class="simple-title-head"><h2>Team radio</h2><p class="briefing-intro">Driver messages and team communications from the track.</p></div><div class="tools"><select id="rsess" aria-label="Session"></select></div><div class="feature-search"><label for="radioSearch">Search available radio context</label><input id="radioSearch" type="search" placeholder="Search driver, message or context…" autocomplete="off"></div><div class="scroll" id="radioList"><div class="state">Loading…</div></div></section>
+ <section class="panel pane" id="v-weather" hidden><div class="simple-title-head"><h2>Weather</h2><p class="briefing-intro">Track conditions and session forecasts for the race weekend.</p></div><div class="tools"><select id="wsess" aria-label="Session"></select></div><div id="weatherView"><div class="state">Loading…</div></div><section class="weather-strategy" id="weatherStrategy"><div class="feature-head"><div><p class="briefing-kicker">WEATHER / STRATEGY DESK</p><h3>What the conditions can mean</h3><p>Guidance based on the weather readings available for the selected session.</p></div><span class="feature-tag">CONTEXT, NOT PREDICTION</span></div><div class="weather-guides"><article><b>Rain readings</b><p>Recorded rain can reduce grip and increase the relevance of intermediate or wet tyres. A dry sample does not guarantee a dry track throughout the session.</p></article><article><b>Track vs air temperature</b><p>A warmer track can increase tyre-energy demands, but compound, setup, traffic and stint length also matter.</p></article><article><b>Wind and humidity</b><p>Wind can affect balance and braking references; humidity alone is not a reliable rain forecast.</p></article></div><p class="feature-footnote">These are general interpretation notes, not a tyre recommendation. If session weather data is missing, no conditions are inferred.</p></section></section>
  <section class="panel pane paddock-archive" id="v-documents" hidden>
   <header class="paddock-hero">
    <div class="paddock-hero-top"><span class="paddock-mark">RG<span> / </span>ARCHIVE</span><span class="paddock-live"><i></i> OFFICIAL SOURCES</span></div>
@@ -4349,7 +4384,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
    <div class="paddock-footer"><span class="paddock-footer-icon">↗</span><p><strong>Primary sources, always.</strong> Redline Grid links to the FIA's original publications. Document summaries are brief orientation notes, not substitutes for the official ruling or report.</p><a href="https://www.fia.com/documents/championships/fia-formula-one-world-championship-14/season" target="_blank" rel="noopener noreferrer">Browse full FIA archive ↗</a></div>
   </div>
  </section>
- <section class="panel pane" id="v-tele" hidden><h2>Telemetry</h2><p class="briefing-intro">Lap times, sector performance and driver comparisons.</p>
+ <section class="panel pane" id="v-tele" hidden><div class="simple-title-head"><h2>Telemetry</h2><p class="briefing-intro">Lap times, sector performance and driver comparisons.</p></div>
   <div class="tools"><select id="lsess" aria-label="Session"></select><select id="ldrv" aria-label="Driver"></select><select id="clap" aria-label="Lap" hidden></select></div>
   <section class="panel lap-delta-tool" id="lapDeltaTool"><div class="feature-head"><div><p class="briefing-kicker">TELEMETRY / COMPARISON</p><h3>Lap Delta Explorer</h3><p>Compare the fastest recorded lap for two drivers in the selected session.</p></div><span class="feature-tag">SESSION DATA</span></div><div class="delta-controls"><label>Driver A<select id="deltaDriverA" aria-label="First driver for lap delta"></select></label><label>Driver B<select id="deltaDriverB" aria-label="Second driver for lap delta"></select></label></div><div class="delta-result" id="lapDeltaResult" aria-live="polite">Waiting for timed lap data…</div><p class="feature-footnote">Uses recorded lap durations only. Different tyre, fuel, traffic and track conditions are not normalized.</p></section>
   <div id="lapEditorial" class="lap-editorial-wrap" aria-live="polite"></div><div id="paceCompare" class="pace-compare-wrap" aria-live="polite"></div><div id="sessionCompare" class="pace-compare-wrap" aria-live="polite"></div><div id="qualifyingGap" class="pace-compare-wrap" aria-live="polite"></div><div class="scroll" id="lapList"><div class="state">Loading…</div></div><div id="carView" hidden></div></section>
@@ -4372,7 +4407,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   <div hidden><div id="briefingCircuit"></div></div>
  </section>
  
- <section class="panel pane" id="v-cal" hidden><h2>Race weekends</h2><p class="briefing-intro">Race dates, circuits and session schedules across the season.</p><div id="calList"><div class="state">Loading…</div></div></section>
+ <section class="panel pane" id="v-cal" hidden><div class="simple-title-head"><h2>Race weekends</h2><p class="briefing-intro">Race dates, circuits and session schedules across the season.</p></div><div id="calList"><div class="state">Loading…</div></div></section>
  </main></div>
  <div id="scrim"></div>
  
