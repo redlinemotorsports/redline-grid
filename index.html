@@ -3898,6 +3898,24 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 
 
 /* NEWSROOM — Home visual language, original editorial structure retained. */
+
+/* NEWSROOM TITLE — override legacy global panel heading rules. */
+#v-stats.panel.pane .newsroom-head h2{
+ font-family:Inter,sans-serif!important;
+ font-size:clamp(30px,4.5vw,40px)!important;
+ font-weight:800!important;
+ line-height:1.08!important;
+ letter-spacing:-.045em!important;
+ text-transform:none!important;
+ color:var(--txt)!important;
+ border:0!important;
+ padding:0!important;
+ margin:0!important;
+}
+@media(max-width:520px){
+ #v-stats.panel.pane .newsroom-head h2{font-size:clamp(27px,8vw,32px)!important}
+}
+
 #v-stats{overflow:hidden}
 #v-stats .newsroom-head{
  display:flex;align-items:flex-end;justify-content:space-between;gap:18px;
