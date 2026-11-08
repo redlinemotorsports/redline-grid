@@ -4249,6 +4249,52 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  #v-weather>.simple-title-head,#v-tele>.simple-title-head{padding:16px 14px 13px!important}
 }
 
+
+/* LIVE TIMING TITLE CARD — restore a balanced title/actions composition */
+#v-timing .timing-hero{
+ display:flex!important;
+ align-items:flex-end!important;
+ justify-content:space-between!important;
+ gap:24px!important;
+ min-height:142px;
+}
+#v-timing .timing-hero>div:first-child{flex:1 1 auto;min-width:0}
+#v-timing .timing-hero .briefing-kicker{
+ margin:0 0 8px!important;
+ font:600 9px/1.3 "IBM Plex Mono",monospace!important;
+ letter-spacing:.14em!important;
+}
+#v-timing .timing-hero h2{margin:0!important}
+#v-timing .timing-hero .briefing-intro{margin-top:8px!important;max-width:590px}
+#v-timing .timing-actions{
+ flex:0 0 auto;
+ display:flex!important;
+ align-items:center!important;
+ justify-content:flex-end;
+ gap:8px!important;
+ margin:0 0 2px!important;
+}
+#v-timing .timing-actions .feature-tag{
+ padding:7px 9px;
+ font-size:8px;
+ letter-spacing:.1em;
+ white-space:nowrap;
+}
+#v-timing .timing-actions button{white-space:nowrap}
+@media(max-width:680px){
+ #v-timing .timing-hero{
+  display:block!important;
+  min-height:0;
+  padding:17px 15px 14px!important;
+ }
+ #v-timing .timing-hero .briefing-kicker{margin-bottom:6px!important}
+ #v-timing .timing-hero .briefing-intro{margin-top:7px!important}
+ #v-timing .timing-actions{
+  justify-content:flex-start;
+  margin:12px 0 0!important;
+ }
+}
+
 </style>
 </head>
 <body>
@@ -4342,7 +4388,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   <div id="newsroomContent" aria-live="polite"><div class="state">Loading the latest paddock stories…</div></div>
 </section>
 <section class="panel pane" id="v-timing" hidden>
-<div class="briefing-head timing-hero"><div><p class="briefing-kicker">LIVE TIMING</p><h2>Live Timing</h2><p class="briefing-intro">A race-engineer view of the timing tower, sector performance, tyre state, telemetry and race control.</p></div><div class="timing-actions"><span class="feature-tag" id="rtSource">F1 LIVE FEED</span><button type="button" id="rtRefresh">Refresh data</button></div></div>
+<div class="briefing-head timing-hero"><div><p class="briefing-kicker">SESSION DATA / TIMING</p><h2>Live Timing</h2><p class="briefing-intro">A race-engineer view of the timing tower, sector performance, tyre state, telemetry and race control.</p></div><div class="timing-actions"><span class="feature-tag" id="rtSource">F1 LIVE FEED</span><button type="button" id="rtRefresh">Refresh data</button></div></div>
 <div class="timing-statusbar" id="rtStatus"><span class="timing-state-dot"></span><b>CONNECTING</b><span>Waiting for timing feed…</span><time id="rtUpdated">—</time></div>
 <div class="timing-metrics"><div><small>SESSION</small><b id="rtSession">—</b></div><div><small>LAP</small><b id="rtLap">—</b></div><div><small>FLAG / TRACK</small><b id="rtFlag">—</b></div><div><small>CONDITIONS</small><b id="rtConditions">—</b></div></div>
 <div class="timing-workspace">
