@@ -4753,13 +4753,16 @@ const timingHelp=(title,detail="Live timing and telemetry aren't available from 
 const noJolpicaLive=timingHelp("Live data isn't available here","Jolpica-F1 can provide historical schedules, results and standings, but not live timing, telemetry, team radio or race-control messages.");
 const fail=(id,e)=>{const titles={liveList:"Live timing is temporarily unavailable",calList:"The calendar couldn't be loaded",drivers:"Driver standings are temporarily unavailable",teams:"Constructor standings are temporarily unavailable",result:"Race results are temporarily unavailable",control:"Race control data is unavailable",radioList:"Team radio data is unavailable",lapList:"Lap data is unavailable",weatherView:"Weather data is unavailable"};$(id).innerHTML=timingHelp(titles[id]||"We couldn't load this data","Redline couldn't get a response from its data providers. The data may return once the provider is available again.")};
 
-// Avatars: image sits over initials, so if the image fails the initials stay visible.
+// Constructor identifiers use compact text marks rather than external logo assets.
+function teamAbbr(team){
+ const n=(team||"").toLowerCase();
+ const marks=[["mercedes","AMG"],["red bull","RB"],["racing bulls","VCARB"],["mclaren","MCL"],["ferrari","FER"],["aston martin","AMR"],["williams","WIL"],["alpine","ALP"],["haas","HAA"],["audi","AUDI"],["cadillac","CAD"],["sauber","SAU"]];
+ return marks.find(([key])=>n.includes(key))?.[1]||initials(team||"TEAM");
+}
 const initials=n=>(n||"?").split(/\s+/).map(w=>w[0]).join("").slice(0,3).toUpperCase();
-function logoUrl(team){const n=(team||"").toLowerCase();const ids=[["mclaren","mclaren"],["mercedes","mercedes"],["red bull","redbullracing"],["ferrari","ferrari"],["aston martin","astonmartin"],["williams","williams"],["alpine","alpine"],["haas","haasf1team"],["racing bulls","racingbulls"],["audi","audi"],["cadillac","cadillac"]];const hit=ids.find(([key])=>n.includes(key));return hit?`assets/teams/${hit[1]}.svg`:""}
-const av=(src,name,col,logo)=>!logo?`<span class="tick" style="background:#${esc(col||"fff")}"></span>`:`<span class="av logo" style="--tc:#${esc(col||"8B8B98")}">${src?`<img src="${esc(src)}" alt="${esc(name)} logo" loading="lazy" decoding="async" onerror="this.style.display='none'">`:""}</span>`;
+const av=(src,name,col,logo)=>!logo?`<span class="tick" style="background:#${esc(col||"fff")}"></span>`:`<span class="av logo" style="--tc:#${esc(col||"8B8B98")}" role="img" aria-label="${esc(name)}"><span class="team-mark${teamAbbr(name).length>3?" long":""}">${esc(teamAbbr(name))}</span></span>`;
 function driverNoBadge(number,col){const n=String(number??"").trim();return `<span class="av driver-no" style="--tc:#${esc(col||"8B8B98")}" aria-label="Driver number ${esc(n)}"><span class="driver-no-text" style="font-size:${n.length>2?14:20}px">${esc(n||"—")}</span></span>`}
 function teamIconColor(team,col){if(col)return col;const n=(team||"").toLowerCase();const m=[["ferrari","E8002D"],["mclaren","FF8000"],["red bull","3671C6"],["mercedes","00D2BE"],["aston","229971"],["williams","00A3E0"],["alpine","0093CC"],["haas","B6BABD"],["racing bulls","6692FF"],["rb","6692FF"],["sauber","52E252"],["audi","F50537"],["cadillac","FFFFFF"]].find(x=>n.includes(x[0]));return m?m[1]:"8B8B98"}
-function logoUrl(){return ""} // Do not embed official team logos; use text initials instead.
  function row(pos,pic,name,sub,val,hot,unit="pts"){return `<div class="row${hot?" hot":""}"><div class="pos">${pos}</div>${pic}
  <div class="who"><b>${esc(name)}</b><small>${esc(sub)}</small></div><div class="pts">${esc(val)}<small>${unit}</small></div></div>`}
 const fmtTime=t=>{if(typeof t!=="number")return"";const m=Math.floor(t/60);return m+":"+(t-m*60).toFixed(3).padStart(6,"0")};
@@ -5200,7 +5203,7 @@ async function loadStandings(){
   const st=(await get(`/championship_teams?session_key=${key}`)).sort((a,b)=>a.position_current-b.position_current);if(!ok(t))return;
   const col=Object.fromEntries(drv.map(d=>[d.team_name,d.team_colour]));
   if(st.length){
-   $("teams").innerHTML=st.map(s=>{const tc=teamIconColor(s.team_name,col[s.team_name]);return row(s.position_current,av(logoUrl(s.team_name,year),s.team_name,tc,true).replace('class="av logo"','class="av logo team-icon"'),s.team_name,"",s.points_current,isFavT(s.team_name))}).join("");
+   $("teams").innerHTML=st.map(s=>{const tc=teamIconColor(s.team_name,col[s.team_name]);return row(s.position_current,av("",s.team_name,tc,true).replace('class="av logo"','class="av logo team-icon"'),s.team_name,"",s.points_current,isFavT(s.team_name))}).join("");
    teamsLoaded=true;
   }
  }catch(e){}
@@ -5222,7 +5225,7 @@ async function loadJolpicaStandings(){
  const t=tok,y=year,r=cur.jolpicaRound;
  try{const [a,b,numbers]=await Promise.all([jget(`/${y}/${r}/driverstandings/`),jget(`/${y}/${r}/constructorstandings/`),jolpicaSeasonNumbers(y)]);if(!ok(t))return;const ds=a.StandingsTable?.StandingsLists?.[0]?.DriverStandings||[],ts=b.StandingsTable?.StandingsLists?.[0]?.ConstructorStandings||[];
  $("drivers").innerHTML=ds.map(v=>{const d=v.Driver||{},team=v.Constructors?.[0]?.name||"",number=d.permanentNumber||numbers[d.driverId]||"—";return row(v.position,driverNoBadge(number,teamIconColor(team)),[d.givenName,d.familyName].filter(Boolean).join(" ")||d.driverId||"Driver",team,v.points,isFavD(d))}).join("")||'<div class="state">No historical driver standings for this round.</div>';
- $("teams").innerHTML=ts.map(v=>{const c=v.Constructor||{},col=teamIconColor(c.name);return row(v.position,av(logoUrl(c.name,y),c.name,col,true).replace('class="av logo"','class="av logo team-icon"'),c.name||"Team","",v.points,isFavT(c.name))}).join("")||'<div class="state">No historical constructor standings for this round.</div>';
+ $("teams").innerHTML=ts.map(v=>{const c=v.Constructor||{},col=teamIconColor(c.name);return row(v.position,av("",c.name,col,true).replace('class="av logo"','class="av logo team-icon"'),c.name||"Team","",v.points,isFavT(c.name))}).join("")||'<div class="state">No historical constructor standings for this round.</div>';
  }catch(e){if(ok(t)){fail("drivers",e);fail("teams",e)}}
 }
 async function loadJolpicaResult(){
