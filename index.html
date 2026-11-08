@@ -4470,6 +4470,27 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-stats .newsroom-briefing-row:hover .newsroom-briefing-copy b,#v-stats .newsroom-briefing-row:hover .newsroom-briefing-arrow{color:var(--red)}
 @media(max-width:899px){#v-stats .newsroom-briefing-list{grid-template-columns:1fr}#v-stats .newsroom-briefing-row{padding:10px 0}#v-stats .newsroom-briefing-row+.newsroom-briefing-row{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
 @media(max-width:520px){#v-stats .newsroom-briefing{padding:12px 12px 7px}#v-stats .newsroom-briefing-head h3{font-size:18px}#v-stats .newsroom-briefing-copy b{font-size:14px}}
+
+/* Unified compact refresh controls */
+#newsRefresh,#briefingRefresh,#rtRefresh,#strategyRefresh{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ gap:7px!important;min-height:34px!important;padding:0 11px!important;
+ border:1px solid rgba(190,202,218,.18)!important;border-radius:4px!important;
+ background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015))!important;
+ color:var(--mute,#9aa4b2)!important;font:600 9px 'IBM Plex Mono',monospace!important;
+ letter-spacing:.12em!important;text-transform:uppercase!important;
+ box-shadow:inset 0 1px rgba(255,255,255,.035)!important;cursor:pointer!important;
+ transition:border-color .18s,background .18s,color .18s!important;
+}
+#newsRefresh:hover,#briefingRefresh:hover,#rtRefresh:hover,#strategyRefresh:hover{
+ border-color:var(--red,#e32636)!important;background:rgba(227,38,54,.10)!important;color:#fff!important;
+}
+#newsRefresh:focus-visible,#briefingRefresh:focus-visible,#rtRefresh:focus-visible,#strategyRefresh:focus-visible{
+ outline:2px solid var(--red,#e32636)!important;outline-offset:3px!important;
+}
+#newsRefresh:disabled,#briefingRefresh:disabled,#rtRefresh:disabled,#strategyRefresh:disabled{opacity:.55!important;cursor:wait!important}
+#briefingRefresh{width:34px!important;min-width:34px!important;padding:0!important;font-size:17px!important;letter-spacing:0!important}
+#newsRefresh{white-space:nowrap!important}
 </style>
 </head>
 <body>
