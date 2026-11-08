@@ -3519,6 +3519,71 @@ tr:hover td{background:var(--hover)}
 :root[data-theme=light] #last .sc-unit{background:rgba(23,32,46,.035)}
 :root[data-theme=light] #last .sc-unit:first-child{background:rgba(215,25,18,.06)}
 
+
+/* ===== HOME / full-width race weekend countdown ===== */
+#last{
+ display:block!important;width:100%;max-width:none!important;min-width:0;
+ margin:0 0 26px!important;padding:0!important;overflow:visible;
+ border:0!important;border-radius:0!important;background:transparent!important;
+ box-shadow:none!important;backdrop-filter:none!important;
+}
+#last:before,#last:after{display:none!important}
+#last .session-countdown,#last .session-countdown.sc-singapore{
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,1.12fr);
+ grid-template-rows:auto auto auto auto;align-items:center;align-content:center;
+ gap:7px 24px!important;width:100%;min-width:0;min-height:154px;
+ margin:0;padding:20px 24px!important;border:1px solid var(--line)!important;
+ border-left:3px solid var(--red)!important;border-radius:12px!important;
+ background:linear-gradient(115deg,rgba(255,42,24,.07),transparent 48%),var(--card)!important;
+ box-shadow:0 12px 30px rgba(0,0,0,.12)!important;
+}
+#last .session-countdown:before,#last .session-countdown:after{display:none!important;content:none!important}
+#last .sc-night-mark{grid-column:1/-1;grid-row:1;margin:0;font:600 9px/1.3 'IBM Plex Mono',monospace;letter-spacing:.14em;color:var(--mute)}
+#last .sc-top{grid-column:1/-1;grid-row:1;display:flex;align-items:center;justify-content:flex-start;gap:10px;min-width:0}
+#last .sc-night-mark+.sc-top{grid-row:2}
+#last .sc-kicker{font:700 9px/1.3 'IBM Plex Mono',monospace;letter-spacing:.16em;color:var(--red)}
+#last .sc-status{margin-left:auto;font:600 8px/1.2 'IBM Plex Mono',monospace;letter-spacing:.08em;padding:5px 8px;border-radius:4px}
+#last .sc-session{grid-column:1;grid-row:2;font:700 clamp(22px,2.7vw,31px)/1.05 'Barlow Condensed',sans-serif;letter-spacing:.025em;text-transform:uppercase;overflow-wrap:anywhere}
+#last .sc-gp{grid-column:1;grid-row:3;font:10px/1.5 'IBM Plex Mono',monospace;letter-spacing:.035em;color:var(--mute)}
+#last .sc-clock{grid-column:2;grid-row:2/5;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:100%;max-width:none;align-self:center}
+#last .sc-unit{min-width:0;padding:15px 5px 13px;border:1px solid var(--line);border-radius:7px;background:rgba(127,127,127,.055);text-align:center}
+#last .sc-unit:first-child{border-color:rgba(255,42,24,.38);background:rgba(255,42,24,.07)}
+#last .sc-unit b{display:block;font:600 clamp(22px,2.6vw,30px)/1 'IBM Plex Mono',monospace;letter-spacing:-.055em;color:var(--txt)}
+#last .sc-unit small{display:block;margin-top:7px;font:500 8px/1.2 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+#last .sc-time{grid-column:1;grid-row:4;align-self:end;padding-top:7px;border-top:1px solid var(--line);font:9px/1.45 'IBM Plex Mono',monospace;color:var(--mute)}
+#last .sc-time strong{font-weight:600;color:var(--txt)}
+#last .session-countdown:not(:has(.sc-clock)){grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto}
+#last .session-countdown:not(:has(.sc-clock)) .sc-session,
+#last .session-countdown:not(:has(.sc-clock)) .sc-gp,
+#last .session-countdown:not(:has(.sc-clock)) .sc-time{grid-column:1;grid-row:auto}
+@media(max-width:820px){
+ #last{margin-bottom:20px!important}
+ #last .session-countdown,#last .session-countdown.sc-singapore{
+  grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto auto;
+  gap:8px!important;min-height:0;padding:16px!important
+ }
+ #last .sc-night-mark,#last .sc-top,#last .sc-session,#last .sc-gp,#last .sc-clock,#last .sc-time{grid-column:1;grid-row:auto}
+ #last .sc-top{justify-content:space-between}
+ #last .sc-session{font-size:clamp(23px,6vw,29px)}
+ #last .sc-clock{gap:6px}
+ #last .sc-unit{padding:12px 3px 10px}
+ #last .sc-unit b{font-size:clamp(19px,5.5vw,25px)}
+ #last .sc-unit small{font-size:7px}
+}
+@media(max-width:360px){
+ #last .session-countdown{padding:12px!important}
+ #last .sc-clock{gap:4px}
+ #last .sc-unit{padding:9px 1px}
+ #last .sc-unit b{font-size:17px}
+ #last .sc-unit small{font-size:6px}
+}
+:root[data-theme=light] #last .session-countdown{
+ background:linear-gradient(115deg,rgba(215,25,18,.045),transparent 48%),var(--card)!important;
+ box-shadow:0 8px 22px rgba(20,30,45,.07)!important
+}
+:root[data-theme=light] #last .sc-unit{background:rgba(23,32,46,.035)}
+:root[data-theme=light] #last .sc-unit:first-child{background:rgba(215,25,18,.06)}
+
 </style>
 </head>
 <body>
@@ -3529,7 +3594,6 @@ tr:hover td{background:var(--hover)}
   <div class="brand">
    <div class="brand-text"><h1 class="brand-name">REDLINE <span>GRID</span></h1><p class="tag">Race Data. Rivalries. Every Detail.</p></div>
   </div>
-  <div class="last" id="last"><small>Loading season…</small></div>
   
  </header>
  <button class="pickbtn" id="pick" aria-haspopup="dialog">Choose Grand Prix</button>
@@ -3671,6 +3735,7 @@ tr:hover td{background:var(--hover)}
    </div>
    <div class="cinema-hero-index"><span>RG</span><b>01</b><small>RACE INTELLIGENCE</small></div>
   </section>
+  <div class="last" id="last" aria-label="Race weekend countdown"><small>Loading race weekend countdown…</small></div>
   <div class="briefing-head">
    <div><p class="briefing-kicker">REDLINE GRID / WEEKEND INTELLIGENCE</p><h2>Weekend Overview</h2><p class="briefing-intro">The key updates and tools for the selected Grand Prix.</p></div>
    <button type="button" class="briefing-refresh" id="briefingRefresh">Refresh schedule ↻</button>
@@ -3986,9 +4051,8 @@ function countdownHTML(){
 }
 
 function renderCountdown(){const old=$("sessionCountdown");if(old){const box=document.createElement("div");box.innerHTML=countdownHTML();old.replaceWith(box.firstElementChild)}}
-function renderLast(raceHTML){
- const selected=raceHTML!==undefined?raceHTML:(cur?`<div class="lr"><span class="rnd">R${Math.max(1,rounds.indexOf(cur)+1)}</span><div class="lt"><b>${esc(cur.country_name||"Grand Prix")} Grand Prix</b><small>${esc(cur.circuit_short_name||"")} · ${new Date(cur.date_start).toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"})}</small></div></div>`:"");
- $("last").innerHTML=selected+countdownHTML();
+function renderLast(){
+ const mount=$("last");if(mount)mount.innerHTML=countdownHTML();
 }
 async function loadYear(y){
  year=y;$("year").value=y;$("rounds").innerHTML="";
