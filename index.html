@@ -3670,6 +3670,25 @@ tr:hover td{background:var(--hover)}
 .prediction-details summary{cursor:pointer;color:var(--mute);font-size:11px;font-weight:700;padding:5px 0}
 .prediction-details[open] .prediction-forecast-list{margin-top:8px}
 @media(max-width:600px){.weekend-status-strip{gap:7px 10px;padding:10px 11px}.weekend-status-strip strong{flex-basis:100%;order:2}.weekend-status-strip small{order:3}.championship-pressure .pressure-grid{grid-template-columns:1fr}.prediction-panel .prediction-grid{grid-template-columns:1fr}}
+
+/* Minimal Home weekend overview */
+#v-news .cinema-hero,#v-news .briefing-grid{display:none!important}
+#v-news .home-weekend-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:4px 0 18px}
+#v-news .home-weekend-head .briefing-kicker{margin:0 0 5px;font-size:9px;letter-spacing:.16em;color:var(--muted)}
+#v-news .home-weekend-head h2{margin:0;font-size:clamp(22px,3vw,30px);letter-spacing:-.035em}
+#v-news .home-weekend-head .briefing-refresh{min-width:36px;width:36px;height:36px;padding:0;font-size:18px;border-radius:50%}
+#v-news .home-weekend-card{padding:clamp(16px,3vw,26px);border:1px solid var(--line);border-radius:12px;background:var(--panel,rgba(127,127,127,.035));}
+#v-news .home-weekend-card-top,#v-news .home-weekend-card-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#v-news .home-weekend-card-top{font-size:9px;letter-spacing:.14em;color:var(--muted);font-weight:700}
+#v-news .home-weekend-status{color:var(--accent,#ff3024)}
+#v-news .home-weekend-summary{padding:clamp(24px,5vw,48px) 0 28px}
+#v-news .home-weekend-race{margin:0;font-size:clamp(28px,5vw,48px);font-weight:750;letter-spacing:-.045em;line-height:1.08}
+#v-news .home-weekend-session{margin:10px 0 0;color:var(--muted);font-size:clamp(12px,1.5vw,14px);line-height:1.5}
+#v-news .home-weekend-card-bottom{padding-top:14px;border-top:1px solid var(--line);font-size:9px;letter-spacing:.08em;color:var(--muted)}
+#v-news .home-weekend-card-bottom button{border:0;background:none;color:var(--text);font:inherit;letter-spacing:0;cursor:pointer;padding:5px 0}
+#v-news .home-weekend-card-bottom button span{color:var(--accent,#ff3024);margin-left:5px}
+#v-news .briefing-note{margin:9px 2px 0;font-size:10px;color:var(--muted)}
+@media(max-width:600px){#v-news .home-weekend-head{margin-bottom:12px}#v-news .home-weekend-card{padding:16px;border-radius:10px}#v-news .home-weekend-summary{padding:28px 0 24px}#v-news .home-weekend-race{font-size:29px}#v-news .home-weekend-card-bottom{font-size:8px}}
 </style>
 </head>
 <body>
@@ -3812,27 +3831,21 @@ tr:hover td{background:var(--hover)}
   <section class="panel lap-delta-tool" id="lapDeltaTool"><div class="feature-head"><div><p class="briefing-kicker">TELEMETRY / COMPARISON</p><h3>Lap Delta Explorer</h3><p>Compare the fastest recorded lap for two drivers in the selected session.</p></div><span class="feature-tag">SESSION DATA</span></div><div class="delta-controls"><label>Driver A<select id="deltaDriverA" aria-label="First driver for lap delta"></select></label><label>Driver B<select id="deltaDriverB" aria-label="Second driver for lap delta"></select></label></div><div class="delta-result" id="lapDeltaResult" aria-live="polite">Waiting for timed lap data…</div><p class="feature-footnote">Uses recorded lap durations only. Different tyre, fuel, traffic and track conditions are not normalized.</p></section>
   <div id="lapEditorial" class="lap-editorial-wrap" aria-live="polite"></div><div id="paceCompare" class="pace-compare-wrap" aria-live="polite"></div><div id="sessionCompare" class="pace-compare-wrap" aria-live="polite"></div><div id="qualifyingGap" class="pace-compare-wrap" aria-live="polite"></div><div class="scroll" id="lapList"><div class="state">Loading…</div></div><div id="carView" hidden></div></section>
  <section class="panel pane" id="v-news">
-  <section class="cinema-hero" aria-label="Redline Grid introduction">
-   <div class="cinema-hero-copy">
-    <p class="cinema-kicker"><span></span> REDLINE GRID <i>/</i> MOTORSPORT INTELLIGENCE</p>
-    <h2>RACE WEEKEND<br><em>HUB.</em></h2>
-    <p class="cinema-deck">Your race weekend, in one place. Jump straight to results, schedule, race control, weather and strategy.</p>
-    <div class="cinema-actions"><button type="button" class="cinema-primary" id="heroRaceLink">View race results <span class="cinema-action-mark" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 15.5 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg></span></button><button type="button" class="cinema-secondary" id="heroDataLink">Explore the data <span>→</span></button></div>
-    <div class="cinema-signature"><span>RACE WEEKEND HUB</span><span class="cinema-signature-line"></span><span>ALL THE KEY DATA</span></div>
-   </div>
-   <div class="cinema-hero-index"><span>RG</span><b>01</b><small>RACE INTELLIGENCE</small></div>
-  </section>
-  <div class="briefing-head">
-   <div><p class="briefing-kicker">REDLINE GRID / WEEKEND INTELLIGENCE</p><h2>Weekend Overview</h2><p class="briefing-intro">The key updates and tools for the selected Grand Prix.</p></div>
-   <button type="button" class="briefing-refresh" id="briefingRefresh">Refresh schedule ↻</button>
+  <div class="home-weekend-head">
+   <div><p class="briefing-kicker">REDLINE GRID</p><h2>Weekend Overview</h2></div>
+   <button type="button" class="briefing-refresh" id="briefingRefresh" aria-label="Refresh weekend schedule">↻</button>
   </div>
-
-  <p class="briefing-note" id="briefingNote" role="status" aria-live="polite">Loading the latest available session schedule…</p>
-  <div class="briefing-grid">
-   <section class="briefing-card briefing-wide"><p class="briefing-kicker">THE SITUATION</p><h3>Live Session Status</h3><div id="briefingSummary" class="briefing-content"><div class="state">Checking the schedule…</div></div><div id="briefingWeather" class="briefing-content briefing-weather-inline"><div class="state">Restoring saved session weather…</div></div></section>
-   <section class="briefing-card briefing-priority"><p class="briefing-kicker">RACE REPORT</p><h3>Latest Race Recap</h3><div id="briefingRecap" class="briefing-content"><div class="state">Loading the latest verified race result…</div></div></section>
-    <section class="briefing-card"><p class="briefing-kicker">CIRCUIT SPOTLIGHT</p><h3>Know the track</h3><div id="briefingSpotlight" class="briefing-content"><div class="state">Restoring the saved circuit spotlight…</div></div></section>
-    <section class="briefing-card"><p class="briefing-kicker">CHAMPIONSHIP WATCH</p><h3>Championship Snapshot</h3><div id="briefingCircuit" class="briefing-content"><div class="state">Reading the championship picture…</div></div></section>
+  <section class="home-weekend-card" aria-label="Current Formula 1 race weekend">
+   <div class="home-weekend-card-top"><span>RACE WEEKEND</span><span id="weekendStatus" class="home-weekend-status">LOADING</span></div>
+   <div id="briefingSummary" class="home-weekend-summary" aria-live="polite"><div class="state">Checking the schedule…</div></div>
+   <div class="home-weekend-card-bottom"><span id="weekendSessionMeta">SESSION INFORMATION</span><button type="button" data-weekend-link="cal">Full schedule <span aria-hidden="true">→</span></button></div>
+  </section>
+  <p class="briefing-note" id="briefingNote" role="status" aria-live="polite"></p>
+  <div hidden>
+   <div id="briefingWeather"></div>
+   <div id="briefingRecap"></div>
+   <div id="briefingSpotlight"></div>
+   <div id="briefingCircuit"></div>
   </div>
  </section>
  
@@ -4618,20 +4631,29 @@ function renderBriefing(){
  renderBriefingRecapSessionStatus();
  const upcoming=sessions.filter(s=>s.start>now);
  const completed=sessions.filter(s=>s.end<=now).sort((a,b)=>b.end-a.end);
+ const status=$("weekendStatus"),meta=$("weekendSessionMeta");
  if(!sessions.length){
-  summary.innerHTML='<p class="briefing-lead">No verified session schedule is available right now.</p><p>Try refreshing in a moment, or use the official schedule links below.</p>';
-  note.textContent="Schedule unavailable · no third-party news feeds are used in this tab.";
+  if(status)status.textContent="SCHEDULE UNAVAILABLE";
+  if(meta)meta.textContent="SESSION INFORMATION UNAVAILABLE";
+  summary.innerHTML='<p class="home-weekend-race">Schedule unavailable</p><p class="home-weekend-session">No verified session information is available right now.</p>';
+  note.textContent="Try refreshing the schedule in a moment.";
  }else{
-  const next=upcoming[0];
+  const next=upcoming[0],last=completed[0],focus=active||next||last;
+  const race=focus?.race||"Grand Prix";
   if(active){
-   summary.innerHTML=`<div class="briefing-statusline"><span class="briefing-live-dot"></span><span>SESSION IN PROGRESS</span></div><p class="briefing-lead">${esc(sessionLabel(active))}</p><p>${esc(active.race||"Grand Prix")} is currently scheduled to be on track. ${next?"Next up is "+esc(sessionLabel(next))+".":"No later session appears in the loaded schedule."}</p>`;
+   if(status)status.textContent="LIVE";
+   summary.innerHTML=`<p class="home-weekend-race">${esc(race)}</p><p class="home-weekend-session">Now on track · ${esc(sessionLabel(active))}</p>`;
+   if(meta)meta.textContent=next?"NEXT · "+sessionLabel(next)+" · "+briefingDate(next.start):"SESSION IN PROGRESS";
   }else if(next){
-   summary.innerHTML=`<div class="briefing-statusline"><span class="briefing-live-dot upcoming"></span><span>BETWEEN SESSIONS</span></div><p class="briefing-lead">Next up: ${esc(sessionLabel(next))}</p><p>${esc(next.race||"Grand Prix")} · ${esc(briefingDate(next.start))}.</p><p>Times are displayed in your device's local timezone.</p>`;
+   if(status)status.textContent="UPCOMING";
+   summary.innerHTML=`<p class="home-weekend-race">${esc(race)}</p><p class="home-weekend-session">Next session · ${esc(sessionLabel(next))}</p>`;
+   if(meta)meta.textContent=briefingDate(next.start)+" · LOCAL TIME";
   }else{
-   const last=completed[0];
-   summary.innerHTML=`<div class="briefing-statusline"><span class="briefing-live-dot upcoming"></span><span>WEEKEND RECAP</span></div><p class="briefing-lead">No upcoming sessions found</p><p>${last?"The latest session in the loaded schedule was "+esc(sessionLabel(last))+" at "+esc(briefingDate(last.start))+".":"The current schedule has no upcoming session."} Check the official schedule for changes.</p>`;
+   if(status)status.textContent="COMPLETED";
+   summary.innerHTML=`<p class="home-weekend-race">${esc(race)}</p><p class="home-weekend-session">Weekend complete · ${last?esc(sessionLabel(last)):"No session details"}</p>`;
+   if(meta)meta.textContent=last?briefingDate(last.start):"LATEST AVAILABLE WEEKEND";
   }
-  note.textContent="Race intelligence · Updated "+new Date().toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"})+" · Session times use your local timezone.";
+  note.textContent="Updated "+new Date().toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"})+" · Session times use your device's local timezone.";
  }
  loadBriefingFeatures();
 }
