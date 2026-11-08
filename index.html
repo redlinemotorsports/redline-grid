@@ -3688,6 +3688,16 @@ tr:hover td{background:var(--hover)}
 #v-news .home-weekend-card-bottom button{border:0;background:none;color:var(--text);font:inherit;letter-spacing:0;cursor:pointer;padding:5px 0}
 #v-news .home-weekend-card-bottom button span{color:var(--accent,#ff3024);margin-left:5px}
 #v-news .briefing-note{margin:9px 2px 0;font-size:10px;color:var(--muted)}
+#v-news .home-support-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+#v-news .home-support-card{min-width:0;padding:15px;border:1px solid var(--line);border-radius:10px;background:var(--panel,rgba(127,127,127,.025));overflow:hidden}
+#v-news .home-support-heading{margin:0 0 12px;color:var(--muted);font-size:9px;font-weight:750;letter-spacing:.14em}
+#v-news .home-support-card #briefingWeather,#v-vnews .home-support-card #briefingRecap,#v-news .home-support-card #briefingSpotlight{font-size:12px;line-height:1.5}
+#v-news .home-support-card .briefing-lead{font-size:17px;line-height:1.25;margin:4px 0 7px}
+#v-news .home-support-card .briefing-recap-foot,#v-news .home-support-card .briefing-intel-sub{font-size:10px;color:var(--muted)}
+#v-news .home-support-card .briefing-desktop-deepdive{display:none!important}
+#v-news .home-support-card .briefing-result-link{margin-top:9px}
+#v-news .home-support-card .briefing-statusline{font-size:9px}
+@media(max-width:600px){#v-news .home-support-grid{grid-template-columns:1fr;gap:9px;margin-top:14px}#v-news .home-support-card{padding:13px}#v-news .home-support-card .briefing-lead{font-size:16px}}
 @media(max-width:600px){#v-news .home-weekend-head{margin-bottom:12px}#v-news .home-weekend-card{padding:16px;border-radius:10px}#v-news .home-weekend-summary{padding:28px 0 24px}#v-news .home-weekend-race{font-size:29px}#v-news .home-weekend-card-bottom{font-size:8px}}
 </style>
 </head>
@@ -3841,12 +3851,12 @@ tr:hover td{background:var(--hover)}
    <div class="home-weekend-card-bottom"><span id="weekendSessionMeta">SESSION INFORMATION</span><button type="button" data-weekend-link="cal">Full schedule <span aria-hidden="true">→</span></button></div>
   </section>
   <p class="briefing-note" id="briefingNote" role="status" aria-live="polite"></p>
-  <div hidden>
-   <div id="briefingWeather"></div>
-   <div id="briefingRecap"></div>
-   <div id="briefingSpotlight"></div>
-   <div id="briefingCircuit"></div>
+  <div class="home-support-grid" aria-label="Race weekend details">
+   <section class="home-support-card"><div class="home-support-heading">TRACK WEATHER</div><div id="briefingWeather"><div class="state">Weather will appear when a circuit is selected.</div></div></section>
+   <section class="home-support-card"><div class="home-support-heading">LATEST RACE RESULT</div><div id="briefingRecap"><div class="state">Checking the latest completed Grand Prix…</div></div></section>
+   <section class="home-support-card home-circuit-card"><div class="home-support-heading">CIRCUIT DETAILS</div><div id="briefingSpotlight"><div class="state">Circuit details are loading…</div></div></section>
   </div>
+  <div hidden><div id="briefingCircuit"></div></div>
  </section>
  
  <section class="panel pane" id="v-cal" hidden><h2>Race weekends</h2><div id="calList"><div class="state">Loading…</div></div></section>
@@ -4755,52 +4765,11 @@ async function loadWeekendForecast(meeting){
   // If the meeting-key query is incomplete, retry the season schedule and then
   // use the already-loaded countdown schedule as a final fallback.
   if(!sessions.length){
-   try{
-    const seasonSessions=await get("/sessions?year="+nowY);
-    sessions=(seasonSessions||[]).filter(s=>String(s.meeting_key)===String(meeting.meeting_key)&&s.date_start&&s.session_name&&!s.is_cancelled);
-   }catch(e){}
-  }
-  if(!sessions.length){
-   const start=meeting.date_start?new Date(meeting.date_start).getTime():NaN;
-   const end=meeting.date_end?new Date(meeting.date_end).getTime():NaN;
-   sessions=(countdownSessions||[]).filter(s=>s.start&&s.name&&Number.isFinite(start)&&Number.isFinite(end)&&s.start>=start-12*60*60*1000&&s.start<=end+12*60*60*1000)
-    .map(s=>({session_name:s.name,date_start:new Date(s.start).toISOString(),date_end:new Date(s.end).toISOString(),meeting_name:s.race}));
-  }
-  sessions=sessions.sort((a,b)=>new Date(a.date_start)-new Date(b.date_start));
-  let hourly={},provider="Open-Meteo",forecastDays=16,times=[];
-  try{
-   const url="https://api.open-meteo.com/v1/forecast?latitude="+encodeURIComponent(place.latitude)+"&longitude="+encodeURIComponent(place.longitude)+"&hourly=temperature_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m,wind_gusts_10m&temperature_unit=celsius&wind_speed_unit=kmh&precipitation_unit=mm&timezone=UTC&forecast_days=16";
-   const response=await fetchWeatherRetry(url);
-   if(!response.ok)throw new Error("Open-Meteo returned HTTP "+response.status);
-   const forecast=await response.json();hourly=forecast.hourly||{};times=hourly.time||[];
-   if(!times.length)throw new Error("Open-Meteo returned no hourly forecast data");
-  }catch(openMeteoError){
-   // MET Norway blocks direct browser clients under its CORS / identification policy.
-   // Fall through to the saved-forecast path rather than calling a backup the browser cannot reliably access.
-   console.warn("Open-Meteo forecast failed; using saved forecast if available:",openMeteoError);
-   throw openMeteoError;
-  }
-  if(!times.length)throw new Error("No hourly forecast data returned");
-  const now=Date.now(),end=now+forecastDays*24*60*60*1000;
-  const upcoming=sessions.filter(s=>new Date(s.date_start).getTime()>=now-60*60*1000&&new Date(s.date_start).getTime()<=end);
-  const nextStart=upcoming.reduce((min,s)=>Math.min(min,new Date(s.date_start).getTime()),Infinity);
-  const rows=upcoming.map(s=>{
-   const start=new Date(s.date_start).getTime();
-   let idx=-1,best=Infinity;
-   times.forEach((t,i)=>{const tm=new Date(t+"Z").getTime(),d=Math.abs(tm-start);if(d<best){best=d;idx=i}});
-   if(idx<0||best>90*60*1000)return "";
-   const val=k=>hourly[k]?.[idx];
-   const [icon,condition]=provider==="MET Norway"?briefingMetCode(val("weather_code")):briefingWeatherCode(val("weather_code"));
-   const temp=Number(val("temperature_2m")),rain=Number(val("precipitation_probability")),mm=Number(val("precipitation")),wind=Number(val("wind_speed_10m")),gust=Number(val("wind_gusts_10m"));
-   const isNext=Math.abs(start-nextStart)<1000;
-   return '<article class="briefing-weather-session '+(isNext?'next':'')+'"><h4>'+esc(s.session_name)+'</h4><p class="bws-time">'+esc(briefingWeatherTime(start))+'</p><div class="briefing-weather-main"><span class="briefing-weather-icon">'+icon+'</span><div><div class="briefing-weather-temp">'+(Number.isFinite(temp)?Math.round(temp)+'°':'—')+'</div><p class="briefing-weather-condition">'+esc(condition)+'</p></div></div><div class="briefing-weather-stats"><span>Rain chance <b>'+(Number.isFinite(rain)?Math.round(rain)+'%':'—')+'</b></span><span>Rainfall <b>'+(Number.isFinite(mm)?mm.toFixed(1)+' mm':'—')+'</b></span><span>Wind <b>'+(Number.isFinite(wind)?Math.round(wind)+' km/h':'—')+'</b></span><span>Gusts <b>'+(Number.isFinite(gust)?Math.round(gust)+' km/h':'—')+'</b></span></div></article>';
-  }).filter(Boolean);
-  let html='<div class="briefing-weather-head"><div><p class="briefing-lead">'+esc(meeting.meeting_name||"Grand Prix")+'</p><p class="briefing-weather-track">'+esc(place.name||meeting.location||"Circuit")+', '+esc(place.country||meeting.country_name||"")+'</p></div><div class="briefing-weather-updated">Checked '+esc(new Date().toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"}))+'</div></div>';
-  if(rows.length){
-   html+='<div class="briefing-weather-grid">'+rows.join("")+'</div><p class="briefing-weather-foot">Forecast sampled at each session start; conditions can change. Forecasts are limited to the next '+forecastDays+' days and may not be available for every session. <a href="'+(provider==="MET Norway"?"https://api.met.no/":"https://open-meteo.com/")+'" target="_blank" rel="noopener noreferrer">Weather data by '+esc(provider)+'</a>.</p>';
-  }else if(!sessions.length){
-   html+='<p>Weather data is available, but session times could not be matched for this venue. Check the forecast again closer to the weekend.</p><p class="briefing-weather-foot">Forecasts are limited to the next '+forecastDays+' days. <a href="'+(provider==="MET Norway"?"https://api.met.no/":"https://open-meteo.com/")+'" target="_blank" rel="noopener noreferrer">Weather data by '+esc(provider)+'</a>.</p>';
-  }else{
+   if(status)status.textContent="UPDATING";
+   if(meta)meta.textContent="SCHEDULE CHECK IN PROGRESS";
+   summary.innerHTML='<p class="home-weekend-race">Weekend schedule</p><p class="home-weekend-session">Race information is being refreshed. Your saved race briefing remains available below.</p>';
+   note.textContent=navigator.onLine?"Waiting for the season schedule…":"Offline · showing saved race information where available.";
+  }  }else{
    html+='<p>No upcoming session falls within the current forecast window. Check back when the weekend is closer.</p><p class="briefing-weather-foot"><a href="'+(provider==="MET Norway"?"https://api.met.no/":"https://open-meteo.com/")+'" target="_blank" rel="noopener noreferrer">Weather data by '+esc(provider)+'</a>.</p>';
   }
   clearTimeout(weatherFailSafe);briefingWeatherCache.set(key,html);box.innerHTML=html;await archiveWrite("weather:"+key,{html,savedAt:Date.now(),provider});await archiveWrite("weather:last",{html,key,savedAt:Date.now(),provider});
