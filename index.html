@@ -4321,6 +4321,23 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-standings .archive-round small{color:var(--mute);font-size:9px}
 #v-standings .archive-round em{color:var(--mute);font:600 8px "IBM Plex Mono",monospace;font-style:normal;letter-spacing:.04em;text-align:right}
 #v-standings .archive-round em.done{color:var(--red)}
+#v-standings .honour-round{padding:11px 0;border-bottom:1px solid var(--line)}
+#v-standings .honour-round:last-child{border-bottom:0}
+#v-standings .honour-round>header{display:flex;align-items:center;gap:8px;margin:0 0 10px;padding:0;border:0}
+#v-standings .honour-round>header>span{flex:none;color:var(--red);font:600 8px "IBM Plex Mono",monospace;letter-spacing:.08em}
+#v-standings .honour-round>header>b{min-width:0;color:var(--txt);font-size:10px;line-height:1.35}
+#v-standings .honour-round>header>time{margin-left:auto;flex:none;color:var(--mute);font:500 8px "IBM Plex Mono",monospace}
+#v-standings .honour-winner{display:grid;gap:3px;padding:10px 11px;border:1px solid var(--line);border-radius:8px;background:linear-gradient(100deg,rgba(255,35,24,.08),transparent 75%),var(--card)}
+#v-standings .honour-winner>small,#v-standings .honour-details small{color:var(--mute);font:600 8px "IBM Plex Mono",monospace;letter-spacing:.08em}
+#v-standings .honour-winner>strong{color:var(--txt);font:700 17px "Barlow Condensed",Inter,sans-serif}
+#v-standings .honour-podium{display:flex;flex-wrap:wrap;gap:7px 12px;padding:9px 2px}
+#v-standings .honour-podium-item{display:flex;align-items:center;gap:5px;color:var(--mute);font-size:9px}
+#v-standings .honour-podium-item>b{color:var(--red);font:600 9px "IBM Plex Mono",monospace}
+#v-standings .honour-details{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#v-standings .honour-details>div{display:grid;gap:4px;min-width:0;padding:8px 9px;border:1px solid var(--line);border-radius:7px}
+#v-standings .honour-details b{color:var(--txt);font-size:9px;line-height:1.35;overflow-wrap:anywhere}
+#v-standings .honour-details em{color:var(--mute);font:normal 8px "IBM Plex Mono",monospace}
+#v-standings .honour-muted{color:var(--mute);font-size:9px}
 #v-standings .archive-team{display:grid;gap:4px;padding:10px 0;border-bottom:1px solid var(--line)}
 #v-standings .archive-team:last-child{border-bottom:0}
 #v-standings .archive-team b{color:var(--txt);font-size:11px}
@@ -4418,8 +4435,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
    <div class="archive-head"><div><p class="briefing-kicker">CHAMPIONSHIP / REFERENCE</p><h3>Championship Archive</h3><p>Season records, team entries and the points framework in one place.</p></div><span class="feature-tag">SEASON REFERENCE</span></div>
    <div class="archive-grid">
     <details class="archive-card" open>
-     <summary><span class="archive-card-icon">01</span><span><b>Season calendar</b><small>Race schedule · Circuit locations · Event status</small></span><i>＋</i></summary>
-     <div class="archive-card-body" id="archiveCalendar"><div class="state">Loading season schedule…</div></div>
+     <summary><span class="archive-card-icon">01</span><span><b>Season honours</b><small>Race winners · Pole positions · Podium finishers · Fastest laps</small></span><i>＋</i></summary>
+     <div class="archive-card-body" id="archiveHonours"><div class="state">Loading season records…</div></div>
     </details>
     <details class="archive-card">
      <summary><span class="archive-card-icon">02</span><span><b>Constructor registry</b><small>Teams · Championship entries · Driver line-up</small></span><i>＋</i></summary>
@@ -4676,17 +4693,47 @@ function setStandingsView(teams){
  document.querySelectorAll("[data-standing-kind]").forEach(b=>b.setAttribute("aria-pressed",String((b.dataset.standingKind==="teams")===teams)));
 }
 document.querySelectorAll("[data-standing-kind]").forEach(btn=>btn.addEventListener("click",()=>setStandingsView(btn.dataset.standingKind==="teams")));
+let archiveHonoursYear=null,archiveHonoursTask=null;
+async function renderSeasonHonours(){
+ const root=$("archiveHonours");if(!root)return;
+ const selectedYear=Number(year);if(!selectedYear)return;
+ if(archiveHonoursYear===selectedYear&&archiveHonoursTask)return archiveHonoursTask;
+ archiveHonoursYear=selectedYear;
+ root.innerHTML='<div class="state">Loading recorded race honours…</div>';
+ archiveHonoursTask=(async()=>{
+  try{
+   const [resultsData,qualifyingData,fastestData]=await Promise.all([
+    jget('/'+selectedYear+'/results/'),
+    jget('/'+selectedYear+'/qualifying/1/').catch(()=>null),
+    jget('/'+selectedYear+'/fastest/1/').catch(()=>null)
+   ]);
+   if(Number(year)!==selectedYear)return;
+   const results=resultsData.RaceTable?.Races||[];
+   const qualifying=qualifyingData?.RaceTable?.Races||[];
+   const fastest=fastestData?.RaceTable?.Races||[];
+   const qByRound=new Map(qualifying.map(r=>[Number(r.round),r]));
+   const fByRound=new Map(fastest.map(r=>[Number(r.round),r]));
+   const records=results.map(r=>{
+    const entries=[...(r.Results||[])].sort((a,b)=>Number(a.position)-Number(b.position));
+    if(!entries.length)return null;
+    const q=qByRound.get(Number(r.round));
+    const pole=q?.QualifyingResults?.find(v=>Number(v.position)===1);
+    const fRace=fByRound.get(Number(r.round));
+    const fastestEntry=fRace?.Results?.[0]||entries.find(v=>Number(v.FastestLap?.rank)===1);
+    const driverName=v=>[v?.Driver?.givenName,v?.Driver?.familyName].filter(Boolean).join(" ")||v?.Driver?.driverId||"—";
+    return {round:Number(r.round),name:r.raceName||"Round "+r.round,date:r.date,winner:driverName(entries.find(v=>Number(v.position)===1)),podium:entries.filter(v=>[1,2,3].includes(Number(v.position))).map(driverName),pole:pole?driverName(pole):"—",fastest:fastestEntry?driverName(fastestEntry):"—",fastestTime:fastestEntry?.FastestLap?.Time?.time||""};
+   }).filter(Boolean);
+   if(!records.length){root.innerHTML='<div class="state">No completed race honours are available for '+selectedYear+'.</div>';return}
+   root.innerHTML=records.map(r=>{
+    const podium=r.podium.length?r.podium.map((n,i)=>'<span class="honour-podium-item"><b>'+(i+1)+'</b>'+esc(n)+'</span>').join(""):'<span class="honour-muted">Podium unavailable</span>';
+    return '<article class="honour-round"><header><span>ROUND '+String(r.round).padStart(2,"0")+'</span><b>'+esc(r.name)+'</b><time>'+esc(r.date||"")+'</time></header><div class="honour-winner"><small>RACE WINNER</small><strong>'+esc(r.winner)+'</strong></div><div class="honour-podium">'+podium+'</div><div class="honour-details"><div><small>POLE POSITION</small><b>'+esc(r.pole)+'</b></div><div><small>FASTEST LAP</small><b>'+esc(r.fastest)+'</b>'+(r.fastestTime?'<em>'+esc(r.fastestTime)+'</em>':'')+'</div></div></article>';
+   }).join("");
+  }catch(e){if(Number(year)===selectedYear)root.innerHTML='<div class="state">Season honours are temporarily unavailable. Please try again later.</div>'}
+ })();
+ return archiveHonoursTask;
+}
 function renderChampionshipArchive(){
- const calendar=$("archiveCalendar");
- if(calendar){
-  if(!rounds.length)calendar.innerHTML='<div class="state">Season schedule is unavailable.</div>';
-  else calendar.innerHTML=rounds.map((r,i)=>{
-   const start=new Date(r.date_start),end=new Date(r.date_end),done=end.getTime()<Date.now();
-   const date=Number.isNaN(start.getTime())?"Date TBC":start.toLocaleDateString(undefined,{day:"numeric",month:"short"});
-   const place=[r.location,r.country_name].filter(Boolean).join(" · ")||"Location TBC";
-   return '<div class="archive-round"><span>R'+String(i+1).padStart(2,"0")+'</span><div><b>'+esc(r.location||r.country_name||"Grand Prix")+'</b><small>'+esc(place)+' · '+date+'</small></div><em class="'+(done?"done":"")+'">'+(done?"COMPLETED":"SCHEDULED")+'</em></div>';
-  }).join("");
- }
+ renderSeasonHonours();
  const registry=$("archiveTeams");
  if(registry){
   const teamRows=[...($("teams")?.querySelectorAll(".row")||[])].filter(row=>row.querySelector(".who b"));
