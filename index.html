@@ -3842,6 +3842,44 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  #v-live .strategy-data-foot{font-size:8px}
 }
 
+
+/* NEWSROOM — editorial replacement for the former Drivers Hub. */
+#v-stats{overflow:hidden}
+#v-stats .newsroom-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;padding:22px 22px 18px;background:linear-gradient(110deg,rgba(227,38,54,.085),transparent 72%);border-bottom:1px solid var(--line)}
+#v-stats .newsroom-head h2{margin:3px 0 0;font:700 clamp(30px,4vw,42px)/1 "Barlow Condensed",Manrope,sans-serif;letter-spacing:-.035em}
+#v-stats .newsroom-intro{margin:8px 0 0;color:var(--mute);font-size:12px;line-height:1.5}
+#v-stats .newsroom-refresh{display:inline-flex;align-items:center;gap:7px;flex:none;padding:9px 11px;border:1px solid var(--line);border-radius:7px;background:var(--card2);color:var(--txt);font:600 10px "IBM Plex Mono",monospace;letter-spacing:.08em;cursor:pointer}
+#v-stats .newsroom-refresh:hover{border-color:var(--red);color:var(--red)}
+#v-stats .newsroom-body{padding:18px 20px 22px}
+#v-stats .newsroom-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+#v-stats .newsroom-filters{display:flex;flex-wrap:wrap;gap:6px}
+#v-stats .newsroom-filter{padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--mute);font-size:10px;font-weight:700;cursor:pointer}
+#v-stats .newsroom-filter[aria-pressed="true"]{border-color:var(--red);background:rgba(227,38,54,.1);color:var(--txt)}
+#v-stats .newsroom-updated{color:var(--mute);font:9px "IBM Plex Mono",monospace;white-space:nowrap}
+#v-stats .newsroom-feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr);min-height:250px;margin-bottom:14px;overflow:hidden;border:1px solid var(--line);border-radius:9px;background:var(--card2);color:var(--txt);text-decoration:none}
+#v-stats .newsroom-feature-media{position:relative;min-height:250px;background:linear-gradient(135deg,#252a31,#11151a)}
+#v-stats .newsroom-feature-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#v-stats .newsroom-feature-media:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 55%,rgba(10,13,17,.35))}
+#v-stats .newsroom-feature-copy{display:flex;flex-direction:column;justify-content:center;gap:12px;padding:22px}
+#v-stats .newsroom-kicker{color:var(--red);font:800 9px "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase}
+#v-stats .newsroom-feature h3{margin:0;font:700 clamp(22px,2.8vw,32px)/1.12 "Barlow Condensed",Manrope,sans-serif}
+#v-stats .newsroom-meta{display:flex;flex-wrap:wrap;gap:8px;color:var(--mute);font:9px "IBM Plex Mono",monospace;text-transform:uppercase}
+#v-stats .newsroom-open{color:var(--txt);font-size:10px;font-weight:800;letter-spacing:.08em}
+#v-stats .newsroom-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#v-stats .newsroom-card{display:flex;min-width:0;flex-direction:column;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--txt);text-decoration:none;transition:border-color .18s,transform .18s}
+#v-stats .newsroom-card:hover{border-color:var(--red);transform:translateY(-2px)}
+#v-stats .newsroom-card-media{height:118px;overflow:hidden;background:linear-gradient(135deg,#252a31,#11151a)}
+#v-stats .newsroom-card-media img{width:100%;height:100%;object-fit:cover;display:block}
+#v-stats .newsroom-card-copy{display:flex;flex:1;flex-direction:column;gap:8px;padding:12px}
+#v-stats .newsroom-card h3{margin:0;font:650 16px/1.2 "Barlow Condensed",Manrope,sans-serif}
+#v-stats .newsroom-card .newsroom-meta{margin-top:auto;padding-top:3px;font-size:8px}
+#v-stats .newsroom-empty{padding:22px 14px;border:1px solid var(--line);border-radius:8px;color:var(--mute);font-size:12px;line-height:1.6}
+#v-stats .newsroom-sources{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding-top:10px;border-top:1px solid var(--line);color:var(--mute);font-size:9px}
+#v-stats .newsroom-sources a{color:var(--mute);text-decoration:none}
+#v-stats .newsroom-sources a:hover{color:var(--red)}
+@media(max-width:899px){#v-stats .newsroom-head{padding:18px 16px 14px}#v-stats .newsroom-body{padding:14px}#v-stats .newsroom-feature{grid-template-columns:1fr;min-height:0}#v-stats .newsroom-feature-media{min-height:185px;height:185px}#v-stats .newsroom-feature-copy{padding:16px}#v-stats .newsroom-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){#v-stats .newsroom-toolbar{display:block}#v-stats .newsroom-updated{display:block;margin-top:9px}#v-stats .newsroom-grid{grid-template-columns:1fr}#v-stats .newsroom-card{display:grid;grid-template-columns:108px minmax(0,1fr);min-height:100px}#v-stats .newsroom-card-media{height:100%;min-height:100px}#v-stats .newsroom-card-copy{padding:10px}#v-stats .newsroom-card h3{font-size:15px}#v-stats .newsroom-feature-media{height:160px;min-height:160px}#v-stats .newsroom-feature-copy{gap:8px;padding:13px}#v-stats .newsroom-feature h3{font-size:24px}}
+
 </style>
 </head>
 <body>
@@ -3859,7 +3897,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   <button role="tab" aria-selected="false" data-v="timing"><span class="nav-index" aria-hidden="true">02</span><span>Live Timing</span></button>
   <button role="tab" aria-selected="false" data-v="standings"><span class="nav-index" aria-hidden="true">03</span><span>Standings</span></button>
   <button role="tab" aria-selected="false" data-v="race"><span class="nav-index" aria-hidden="true">04</span><span>Race</span></button>
-  <button role="tab" aria-selected="false" data-v="drivers"><span class="nav-index" aria-hidden="true">05</span><span>Drivers</span></button>
+  <button role="tab" aria-selected="false" data-v="drivers"><span class="nav-index" aria-hidden="true">05</span><span>News</span></button>
   <button role="tab" aria-selected="false" data-v="data"><span class="nav-index" aria-hidden="true">06</span><span>Data</span></button>
  </nav>
  <div id="sub" hidden></div>
@@ -3931,9 +3969,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 
  </div>
  <section class="panel pane" id="v-stats" hidden>
-  <div class="stats-head"><div><p class="stats-kicker">REDLINE GRID / DRIVER DATABASE</p><h2>Drivers Hub</h2><p class="stats-intro">Explore the grid, open driver profiles, and compare season performance.</p></div><label class="stats-season">Season <select id="statsYear" aria-label="Driver statistics season"></select></label></div>
-  <div class="stats-subnav" role="tablist" aria-label="Drivers hub sections"><button type="button" data-stats-view="directory" aria-selected="true">Directory</button><button type="button" data-stats-view="profile" aria-selected="false">Profile</button><button type="button" data-stats-view="overview" aria-selected="false">Records</button><button type="button" data-stats-view="head" aria-selected="false">Head-to-Head</button><button type="button" data-stats-view="trends" aria-selected="false">Trends</button></div>
-  <div id="statsContent"><div class="state">Loading driver statistics…</div></div>
+  <div class="newsroom-head"><div><p class="briefing-kicker">REDLINE GRID / PADDOCK REPORT</p><h2>Latest F1 News</h2><p class="newsroom-intro">The latest stories from across the Formula 1 paddock.</p></div><button type="button" class="newsroom-refresh" id="newsRefresh" aria-label="Refresh latest news">↻ <span>REFRESH</span></button></div>
+  <div id="newsroomContent" aria-live="polite"><div class="state">Loading the latest paddock stories…</div></div>
 </section>
 <section class="panel pane" id="v-timing" hidden>
 <div class="briefing-head timing-hero"><div><p class="briefing-kicker">REDLINE GRID / LIVE RACE CENTRE</p><h2>Live Timing</h2><p class="briefing-intro">A race-engineer view of the timing tower, sector performance, tyre state, telemetry and race control.</p></div><div class="timing-actions"><span class="feature-tag" id="rtSource">F1 LIVE FEED</span><button type="button" id="rtRefresh">Refresh data</button></div></div>
@@ -4406,7 +4443,7 @@ async function loadStrategy(){
 }
 $("strategySession").onchange=loadStrategy;$("strategyRefresh").onclick=loadStrategy
 function ensure(){
- const sub=curSub;if(sub==="stats"){loadDriverStats();return;}if(sub==="live"){loadStrategy();return;}if(!cur)return;
+ const sub=curSub;if(sub==="stats"){loadNewsroom();return;}if(sub==="live"){loadStrategy();return;}if(!cur)return;
  if(sub==="standings"&&!loaded.st){loaded.st=1;loadStandings()}
  if(sub==="result"&&!loaded.res){loaded.res=1;loadResult()}
  if(sub==="control"&&!loaded.ctl){loaded.ctl=1;loadControl()}
@@ -5724,13 +5761,55 @@ async function loadDriverStats(force=false){
   if(!cached&&!statsState.data)$("statsContent").innerHTML='<div class="stats-empty">The F1 data APIs are unavailable and no saved driver stats exist for this season yet. Try again when online; Redline will cache successful data for later outages.</div>';
  }finally{statsState.loading=false}
 }
+
+/* Newsroom: publisher RSS headlines with direct links to original articles. */
+const NEWS_FEEDS=[{name:"Motorsport.com",url:"https://www.motorsport.com/rss/f1/news/"},{name:"Autosport",url:"https://www.autosport.com/rss/feed/f1"}];
+let newsroomItems=[],newsroomFilter="ALL",newsroomLoading=false;
+const newsText=value=>{const doc=new DOMParser().parseFromString(String(value||""),"text/html");return(doc.body.textContent||"").replace(/\\s+/g," ").trim()};
+const newsSafeUrl=value=>{try{const u=new URL(value);return u.protocol==="https:"?u.href:""}catch(e){return""}};
+const newsCategory=item=>{const t=(item.title+" "+item.description).toLowerCase();if(/upgrade|technical|floor|wing|power unit|engine|regulation|chassis|aero/.test(t))return"TECH";if(/driver|verstappen|hamilton|leclerc|norris|piastri|russell|alonso|sainz|antonelli|hadjar|bearman|bottas|lawson|gasly|ocon|hulkenberg|tsunoda|albon/.test(t))return"DRIVERS";if(/team|ferrari|mercedes|mclaren|red bull|williams|haas|alpine|audi|cadillac|racing bulls/.test(t))return"TEAMS";return"RACE"};
+function newsCard(item,featured=false){
+ const image=newsSafeUrl(item.image),url=newsSafeUrl(item.link),media=image?'<img src="'+esc(image)+'" alt="" loading="lazy">':"";
+ const meta='<div class="newsroom-meta"><span>'+esc(item.source)+'</span><span>·</span><span>'+esc(item.dateLabel)+'</span></div>';
+ if(featured)return '<a class="newsroom-feature" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer"><div class="newsroom-feature-media">'+media+'</div><div class="newsroom-feature-copy"><span class="newsroom-kicker">FEATURED STORY · '+esc(item.category)+'</span><h3>'+esc(item.title)+'</h3>'+meta+'<span class="newsroom-open">READ ORIGINAL STORY ↗</span></div></a>';
+ return '<a class="newsroom-card" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer"><div class="newsroom-card-media">'+media+'</div><div class="newsroom-card-copy"><span class="newsroom-kicker">'+esc(item.category)+'</span><h3>'+esc(item.title)+'</h3>'+meta+'</div></a>';
+}
+function renderNewsroom(){
+ const root=$("newsroomContent");if(!root)return;
+ const filters=["ALL","RACE","DRIVERS","TEAMS","TECH"],visible=newsroomFilter==="ALL"?newsroomItems:newsroomItems.filter(x=>x.category===newsroomFilter);
+ const stamp=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+ const filterHtml=filters.map(f=>'<button type="button" class="newsroom-filter" data-news-filter="'+f+'" aria-pressed="'+(f===newsroomFilter)+'">'+(f==="TECH"?"TECHNICAL":f)+'</button>').join("");
+ root.innerHTML='<div class="newsroom-body"><div class="newsroom-toolbar"><div class="newsroom-filters" role="group" aria-label="Filter news">'+filterHtml+'</div><span class="newsroom-updated">'+newsroomItems.length+' STORIES · UPDATED '+stamp+'</span></div>'+(visible.length?newsCard(visible[0],true)+'<div class="newsroom-grid">'+visible.slice(1,10).map(x=>newsCard(x)).join("")+'</div>':'<div class="newsroom-empty">No stories match this filter. Try another category.</div>')+'<div class="newsroom-sources"><span>HEADLINES VIA PUBLISHER RSS · OPEN ORIGINAL ARTICLES</span><span><a href="https://www.motorsport.com/rss/f1/news/" target="_blank" rel="noopener">MOTORSPORT.COM</a> · <a href="https://www.autosport.com/rss/feed/f1" target="_blank" rel="noopener">AUTOSPORT</a></span></div></div>';
+ root.querySelectorAll("[data-news-filter]").forEach(btn=>btn.addEventListener("click",()=>{newsroomFilter=btn.dataset.newsFilter;renderNewsroom()}));
+}
+async function loadNewsroom(force=false){
+ const root=$("newsroomContent");if(!root||newsroomLoading)return;
+ newsroomLoading=true;
+ if(!force&&!newsroomItems.length){try{const cached=JSON.parse(localStorage.getItem("redline-news-cache-v1")||"null");if(cached?.items?.length){newsroomItems=cached.items;renderNewsroom()}}catch(e){}}
+ if(newsroomItems.length&&!force)renderNewsroom();else root.innerHTML='<div class="state">Loading the latest paddock stories…</div>';
+ try{
+  const results=await Promise.allSettled(NEWS_FEEDS.map(async feed=>{
+   const endpoint="https://api.rss2json.com/v1/api.json?rss_url="+encodeURIComponent(feed.url),response=await fetchTimed(endpoint,10000);
+   if(!response.ok)throw new Error(feed.name+" feed unavailable");
+   const payload=await response.json();if(payload.status!=="ok"||!Array.isArray(payload.items))throw new Error(feed.name+" feed returned no stories");
+   return payload.items.map(item=>({title:newsText(item.title),description:newsText(item.description),link:newsSafeUrl(item.link),image:newsSafeUrl(item.thumbnail||item.enclosure?.link||""),source:feed.name,published:item.pubDate||""})).filter(x=>x.title&&x.link);
+  }));
+  const all=results.flatMap(x=>x.status==="fulfilled"?x.value:[]);all.sort((a,b)=>new Date(b.published)-new Date(a.published));
+  const unique=new Map();all.forEach(item=>{const key=item.title.toLowerCase().replace(/[^a-z0-9]+/g," ").trim();if(!unique.has(key)){const d=new Date(item.published);item.dateLabel=Number.isNaN(d.getTime())?"LATEST":d.toLocaleString([],{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});item.category=newsCategory(item);unique.set(key,item)}});
+  const fresh=[...unique.values()].slice(0,24);if(fresh.length){newsroomItems=fresh;try{localStorage.setItem("redline-news-cache-v1",JSON.stringify({savedAt:Date.now(),items:fresh}))}catch(e){}renderNewsroom()}
+  else if(!newsroomItems.length)root.innerHTML='<div class="newsroom-empty">Live news feeds could not be reached. You can still open a publisher feed directly below.</div><div class="newsroom-sources"><span>NEWS SOURCES</span><span><a href="https://www.motorsport.com/rss/f1/news/" target="_blank" rel="noopener">MOTORSPORT.COM</a> · <a href="https://www.autosport.com/rss/feed/f1" target="_blank" rel="noopener">AUTOSPORT</a></span></div>';
+ }catch(e){if(!newsroomItems.length)root.innerHTML='<div class="newsroom-empty">The live news feed is temporarily unavailable. Please try again shortly.</div>'}
+ finally{newsroomLoading=false}
+}
+function initNewsroom(){const refresh=$("newsRefresh");if(refresh)refresh.onclick=()=>loadNewsroom(true)}
+
 function initDriverStats(){
  const sel=$("statsYear");if(!sel)return;
  if(!sel.options.length){for(let y=nowY;y>=1950;y--)sel.insertAdjacentHTML("beforeend",`<option value="${y}">${y}</option>`)}
  sel.value=String(statsState.year);sel.onchange=()=>{statsState.a=null;statsState.b=null;statsState.data=null;statsState.offline=false;loadDriverStats(true)};
  document.querySelectorAll("[data-stats-view]").forEach(btn=>btn.onclick=()=>{statsState.view=btn.dataset.statsView;document.querySelectorAll("[data-stats-view]").forEach(x=>x.setAttribute("aria-selected",String(x===btn)));renderDriverStats()});
 }
-initDriverStats();
+initNewsroom();
 
 function drawLive(){
  const s=L.s||{};$("liveTitle").textContent=`${s.country_name||"Formula 1"} · ${s.session_name||"Live positions"}`;
