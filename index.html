@@ -800,7 +800,7 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
 .panel.pane:not(#v-news):not(#v-live):not(#v-stats):not(#v-documents):not(#v-standings)>h2:before{content:"REDLINE GRID / RACE WEEKEND";font:600 10px Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
 #v-cal>h2:before{content:"REDLINE GRID / SEASON CALENDAR"!important}
 #v-tele>h2:before{content:"REDLINE GRID / TELEMETRY"!important}
-#v-result>h2:not(.race-tab-title):before,#v-control>h2:before,#v-radio>h2:before,#v-weather>h2:before{content:"REDLINE GRID / RACE CENTRE"!important}
+#v-result>h2:not(.race-tab-title):before,#v-control>h2:before,#v-radio>h2:before,#v-weather>h2:before{content:"RACE CONTROL"!important}
 .pane.grid#v-standings>section.panel h2{font:600 13px Inter;letter-spacing:.14em;text-transform:uppercase;padding:14px 18px;background:transparent;color:var(--mute)}
 @media(max-width:820px){.strategy-hero>div:first-child{flex:0 0 auto}.strategy-hero{gap:6px}}@media(max-width:640px){.strategy-pane .briefing-head{padding:18px 16px 8px}.strategy-summary{padding-top:8px}.pane.grid#v-standings{grid-template-columns:minmax(0,1fr)}.pane.grid#v-standings>.standings-head{grid-column:1}.panel.pane>.stats-head{padding:20px 16px 16px;gap:12px;flex-wrap:wrap}.panel.pane:not(#v-news):not(#v-live):not(#v-stats):not(#v-documents):not(#v-standings)>h2{padding:20px 16px 16px}}
 .lap-editorial-wrap{padding:0 18px 18px}.lap-editorial{margin:0;padding:18px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(135deg,var(--soft),var(--card));position:relative;overflow:hidden}.lap-editorial:before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--red)}.lap-editorial-kicker{margin:0 0 7px;color:var(--red);font:700 10px Inter;letter-spacing:.16em;text-transform:uppercase}.lap-editorial h3{margin:0 0 8px;font:700 20px/1.2 Inter;letter-spacing:-.025em}.lap-editorial p{margin:0 0 10px;color:var(--mute);line-height:1.6}.lap-editorial p:last-child{margin-bottom:0}.lap-editorial strong{color:var(--txt)}.lap-editorial-note{font-size:12px;opacity:.9}.lap-editorial-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:13px 0}.lap-editorial-metric{min-width:0;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:10px 12px}.lap-editorial-metric span{display:block;color:var(--mute);font-size:10px;letter-spacing:.08em;text-transform:uppercase}.lap-editorial-metric b{display:block;margin-top:3px;font:600 20px "IBM Plex Mono",monospace}.lap-editorial-list{display:grid;gap:7px;margin:12px 0}.lap-editorial-row{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:13px}.lap-editorial-row span{color:var(--mute);min-width:0}.lap-editorial-row b{font-family:"IBM Plex Mono",monospace;white-space:nowrap}@media(max-width:640px){.lap-editorial-wrap{padding:0 12px 14px}.lap-editorial{padding:15px}.lap-editorial h3{font-size:18px}.lap-editorial-metric b{font-size:18px}}
@@ -1560,7 +1560,7 @@ select{border-radius:6px}
   color:var(--txt);
 }
 #v-result > .race-tab-title:before{
-  content:"REDLINE GRID / RACE";
+  content:"RACE / CLASSIFICATION";
   font:600 10px Inter,sans-serif;
   letter-spacing:.16em;
   text-transform:uppercase;
@@ -4075,8 +4075,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  display:block;
  margin:0 0 6px!important;
  color:var(--red)!important;
- font:600 9px/1.3 Inter,sans-serif!important;
- letter-spacing:.17em!important;
+ font:600 9px/1.3 "IBM Plex Mono",monospace!important;
+ letter-spacing:.14em!important;
  text-transform:uppercase!important;
 }
 #v-news .home-weekend-head h2,
@@ -4106,16 +4106,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  display:block;
  margin:0 0 1px;
  color:var(--red);
- font:600 9px/1.3 Inter,sans-serif;
- letter-spacing:.17em;
+ font:600 9px/1.3 "IBM Plex Mono",monospace;
+ letter-spacing:.14em;
  text-transform:uppercase;
 }
-#v-result>.race-tab-title:before{content:"REDLINE GRID / RACE"}
-#v-control>h2:before{content:"REDLINE GRID / RACE CENTRE"}
-#v-radio>h2:before{content:"REDLINE GRID / RACE CENTRE"}
-#v-weather>h2:before{content:"REDLINE GRID / RACE CENTRE"}
-#v-tele>h2:before{content:"REDLINE GRID / DATA WORKSPACE"}
-#v-cal>h2:before{content:"REDLINE GRID / SEASON"}
+#v-result>.race-tab-title:before{content:"RACE / CLASSIFICATION"}
+#v-control>h2:before{content:"RACE CONTROL"}
+#v-radio>h2:before{content:"RACE CONTROL"}
+#v-weather>h2:before{content:"RACE CONTROL"}
+#v-tele>h2:before{content:"PERFORMANCE DATA"}
+#v-cal>h2:before{content:"SEASON CALENDAR"}
 #v-control>h2,#v-radio>h2,#v-weather>h2,#v-tele>h2,#v-cal>h2{
  display:flex;flex-direction:column;align-items:flex-start;
  margin:0 0 16px!important;
@@ -4274,7 +4274,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  <aside class="panel" id="gps" aria-label="Grand Prix list"><h2>Season</h2><div class="yr"><select id="year" aria-label="Season"></select></div><div class="gplist" id="rounds"></div></aside>
  <main>
  <div class="pane grid" id="v-standings" hidden>
-  <div class="briefing-head standings-head"><div><p class="briefing-kicker">REDLINE GRID / CHAMPIONSHIP</p><h2>Standings</h2><p class="briefing-intro">Follow the drivers’ and constructors’ title fights across the season.</p></div></div>
+  <div class="briefing-head standings-head"><div><p class="briefing-kicker">CHAMPIONSHIP</p><h2>Standings</h2><p class="briefing-intro">Follow the drivers’ and constructors’ title fights across the season.</p></div></div>
   <div class="standings-switch" role="group" aria-label="Standings category"><button type="button" data-standing-kind="drivers" aria-pressed="true">Drivers</button><button type="button" data-standing-kind="teams" aria-pressed="false">Constructors</button></div>
   <section class="panel standings-driver-panel"><h2>Drivers’ Championship</h2><div id="drivers"><div class="state">Loading…</div></div></section>
   <section class="panel standings-team-panel"><h2>Constructors’ Championship</h2><div id="teams"><div class="state">Loading…</div></div></section>
@@ -4338,11 +4338,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 
  </div>
  <section class="panel pane" id="v-stats" hidden>
-  <div class="newsroom-head"><div><p class="briefing-kicker">REDLINE GRID / PADDOCK REPORT</p><h2>Newsroom</h2><p class="newsroom-intro">F1 headlines, paddock developments and race-weekend reporting.</p></div><button type="button" class="newsroom-refresh" id="newsRefresh" aria-label="Refresh latest news">↻ <span>REFRESH</span></button></div>
+  <div class="newsroom-head"><div><p class="briefing-kicker">PADDOCK REPORT</p><h2>Newsroom</h2><p class="newsroom-intro">F1 headlines, paddock developments and race-weekend reporting.</p></div><button type="button" class="newsroom-refresh" id="newsRefresh" aria-label="Refresh latest news">↻ <span>REFRESH</span></button></div>
   <div id="newsroomContent" aria-live="polite"><div class="state">Loading the latest paddock stories…</div></div>
 </section>
 <section class="panel pane" id="v-timing" hidden>
-<div class="briefing-head timing-hero"><div><p class="briefing-kicker">REDLINE GRID / LIVE RACE CENTRE</p><h2>Live Timing</h2><p class="briefing-intro">A race-engineer view of the timing tower, sector performance, tyre state, telemetry and race control.</p></div><div class="timing-actions"><span class="feature-tag" id="rtSource">F1 LIVE FEED</span><button type="button" id="rtRefresh">Refresh data</button></div></div>
+<div class="briefing-head timing-hero"><div><p class="briefing-kicker">LIVE TIMING</p><h2>Live Timing</h2><p class="briefing-intro">A race-engineer view of the timing tower, sector performance, tyre state, telemetry and race control.</p></div><div class="timing-actions"><span class="feature-tag" id="rtSource">F1 LIVE FEED</span><button type="button" id="rtRefresh">Refresh data</button></div></div>
 <div class="timing-statusbar" id="rtStatus"><span class="timing-state-dot"></span><b>CONNECTING</b><span>Waiting for timing feed…</span><time id="rtUpdated">—</time></div>
 <div class="timing-metrics"><div><small>SESSION</small><b id="rtSession">—</b></div><div><small>LAP</small><b id="rtLap">—</b></div><div><small>FLAG / TRACK</small><b id="rtFlag">—</b></div><div><small>CONDITIONS</small><b id="rtConditions">—</b></div></div>
 <div class="timing-workspace">
@@ -4358,7 +4358,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  <section class="panel pane strategy-pane" id="v-live" hidden>
   
 <div class="briefing-head strategy-hero">
-<div><p class="briefing-kicker">REDLINE GRID / RACE STRATEGY</p><h2>Race Strategy</h2><p class="briefing-intro">Tyres, stints and race pace from recorded session data.</p></div><div class="strategy-controls"><label for="strategySession">Session</label><select id="strategySession" aria-label="Strategy session"><option value="">Selected Grand Prix</option></select><button type="button" id="strategyRefresh">Refresh data</button></div></div><div id="strategySummary" class="strategy-summary"><div class="state">Select a Grand Prix to explore its strategy.</div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>01 / TYRE PLAN</span><h3>Stints &amp; pit stops</h3></div><p>Recorded tyre stints and pit stops.</p></div><div id="strategyPirelli" class="strategy-pirelli"></div><div id="strategyStints"><div class="state">Strategy data will appear here.</div></div></div><details class="strategy-advanced"><summary><span><b>Advanced analysis</b><small>Stint comparison · Strategy insights · Race pace</small></span><span class="strategy-advanced-toggle">VIEW ANALYSIS <i>＋</i></span></summary><div class="strategy-advanced-body"><div class="strategy-section"><div class="strategy-section-head"><div><span>02 / STRATEGY COMPARISON</span><h3>Stint comparison</h3></div><p>Compare stint lengths and recorded pace across drivers. Conditions are not normalized.</p></div><div id="strategyCompare"><div class="state">Strategy comparison will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>03 / AUTOMATED READOUT</span><h3>Strategy insights</h3></div><p>Observations based on the available session data.</p></div><div id="strategyInsights"><div class="state">Strategy insights will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>04 / PACE EVOLUTION</span><h3>Race pace</h3></div><p>Median lap pace across race phases.</p></div><div id="strategyPace"><div class="state">Strategy data will appear here.</div></div></div></div></details><div class="strategy-note" id="strategyNote">Data coverage varies by season and session. Tyre compounds and stint boundaries are shown only when the source provides them.</div></section>
+<div><p class="briefing-kicker">TYRE & PACE ANALYSIS</p><h2>Race Strategy</h2><p class="briefing-intro">Tyres, stints and race pace from recorded session data.</p></div><div class="strategy-controls"><label for="strategySession">Session</label><select id="strategySession" aria-label="Strategy session"><option value="">Selected Grand Prix</option></select><button type="button" id="strategyRefresh">Refresh data</button></div></div><div id="strategySummary" class="strategy-summary"><div class="state">Select a Grand Prix to explore its strategy.</div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>01 / TYRE PLAN</span><h3>Stints &amp; pit stops</h3></div><p>Recorded tyre stints and pit stops.</p></div><div id="strategyPirelli" class="strategy-pirelli"></div><div id="strategyStints"><div class="state">Strategy data will appear here.</div></div></div><details class="strategy-advanced"><summary><span><b>Advanced analysis</b><small>Stint comparison · Strategy insights · Race pace</small></span><span class="strategy-advanced-toggle">VIEW ANALYSIS <i>＋</i></span></summary><div class="strategy-advanced-body"><div class="strategy-section"><div class="strategy-section-head"><div><span>02 / STRATEGY COMPARISON</span><h3>Stint comparison</h3></div><p>Compare stint lengths and recorded pace across drivers. Conditions are not normalized.</p></div><div id="strategyCompare"><div class="state">Strategy comparison will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>03 / AUTOMATED READOUT</span><h3>Strategy insights</h3></div><p>Observations based on the available session data.</p></div><div id="strategyInsights"><div class="state">Strategy insights will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>04 / PACE EVOLUTION</span><h3>Race pace</h3></div><p>Median lap pace across race phases.</p></div><div id="strategyPace"><div class="state">Strategy data will appear here.</div></div></div></div></details><div class="strategy-note" id="strategyNote">Data coverage varies by season and session. Tyre compounds and stint boundaries are shown only when the source provides them.</div></section>
  <section class="panel pane" id="v-result" hidden><div class="simple-title-head"><h2 class="race-tab-title">Race</h2><p class="briefing-intro">Results, race control and team communications from the Grand Prix.</p></div>
   <div class="last" id="last" aria-label="Next race session countdown"><small>Loading session countdown…</small></div><h2 id="resTitle">Race result</h2><div class="result-tools"><label for="resultSearch">Find driver or team</label><input id="resultSearch" type="search" placeholder="Search results…" autocomplete="off"><span id="resultMatchCount" aria-live="polite">All results</span></div><div class="scroll" id="result"><div class="state">Loading…</div></div></section>
  <section class="panel pane" id="v-control" hidden><div class="simple-title-head"><h2>Race control</h2><p class="briefing-intro">Flags, incidents and official decisions from the session.</p></div><div id="controlInsights" class="control-insights" aria-live="polite"><div class="state">Building race-control summary…</div></div><div class="control-tools" id="controlTools" aria-label="Filter race control messages"><div class="control-filters" role="group" aria-label="Message category"><button type="button" data-control-filter="all" aria-pressed="true">All</button><button type="button" data-control-filter="flags" aria-pressed="false">Flags</button><button type="button" data-control-filter="safety" aria-pressed="false">Safety Car</button><button type="button" data-control-filter="incidents" aria-pressed="false">Incidents</button><button type="button" data-control-filter="other" aria-pressed="false">Other</button></div><button type="button" class="control-order" id="controlOrder" aria-label="Change message order">Newest first ↓</button></div><div class="feature-search"><label for="controlSearch">Search race-control messages</label><input id="controlSearch" type="search" placeholder="e.g. driver, turn, penalty…" autocomplete="off"></div><div class="scroll" id="control"><div class="state">Loading…</div></div></section>
@@ -4367,7 +4367,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  <section class="panel pane paddock-archive" id="v-documents" hidden>
   <header class="paddock-hero">
    <div class="paddock-hero-top"><span class="paddock-mark">RG<span> / </span>ARCHIVE</span><span class="paddock-live"><i></i> OFFICIAL SOURCES</span></div>
-   <div class="paddock-hero-copy"><p class="briefing-kicker">REDLINE GRID / RACE DOCUMENTS</p><h2>Paddock Archive</h2><p class="briefing-intro">Official decisions, technical checks and race-weekend records — all in one place.</p></div>
+   <div class="paddock-hero-copy"><p class="briefing-kicker">OFFICIAL RECORDS</p><h2>Paddock Archive</h2><p class="briefing-intro">Official decisions, technical checks and race-weekend records — all in one place.</p></div>
    <div class="paddock-hero-bottom"><div><span class="paddock-meta-label">RACE DESK CONTEXT</span><strong id="documentsRace">Selected Grand Prix</strong></div><a href="https://www.fia.com/documents/championships/fia-formula-one-world-championship-14/season" target="_blank" rel="noopener noreferrer" class="paddock-primary-link">OPEN FIA ARCHIVE <span>↗</span></a></div>
   </header>
   <div class="paddock-body">
@@ -4390,7 +4390,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   <div id="lapEditorial" class="lap-editorial-wrap" aria-live="polite"></div><div id="paceCompare" class="pace-compare-wrap" aria-live="polite"></div><div id="sessionCompare" class="pace-compare-wrap" aria-live="polite"></div><div id="qualifyingGap" class="pace-compare-wrap" aria-live="polite"></div><div class="scroll" id="lapList"><div class="state">Loading…</div></div><div id="carView" hidden></div></section>
  <section class="panel pane" id="v-news">
   <div class="home-weekend-head">
-   <div><p class="briefing-kicker">REDLINE GRID</p><h2>Weekend Overview</h2><p class="briefing-intro">The latest Grand Prix, session schedule and weekend essentials.</p></div>
+   <div><p class="briefing-kicker">WEEKEND BRIEF</p><h2>Weekend Overview</h2><p class="briefing-intro">The latest Grand Prix, session schedule and weekend essentials.</p></div>
    <button type="button" class="briefing-refresh" id="briefingRefresh" aria-label="Refresh weekend schedule">↻</button>
   </div>
   <section class="home-weekend-card" aria-label="Current Formula 1 race weekend">
