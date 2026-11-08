@@ -4434,6 +4434,24 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-standings .archive-shell-content{padding:0 19px 18px}
 #v-standings .archive-shell-content .archive-grid{margin:0}
 @media(max-width:600px){#v-standings .archive-shell>.archive-head{padding:14px;gap:10px}#v-standings .archive-shell-side{gap:8px}#v-standings .archive-shell-side .feature-tag{display:none}#v-standings .archive-shell-content{padding:0 12px 13px}}
+
+/* DRIVER FORM GUIDE */
+#v-standings .archive-form-table{display:grid;gap:0}
+#v-standings .archive-form-head,#v-standings .archive-form-row{display:grid;grid-template-columns:minmax(82px,1fr) minmax(120px,1.5fr) 48px;gap:8px;align-items:center}
+#v-standings .archive-form-head{padding:0 7px 7px;color:var(--mute);font:600 7px "IBM Plex Mono",monospace;letter-spacing:.07em}
+#v-standings .archive-form-row{padding:9px 7px;border-top:1px solid var(--line);font-size:9px}
+#v-standings .archive-form-row>b{min-width:0;overflow-wrap:anywhere}
+#v-standings .archive-form-row>strong{color:var(--txt);font:700 12px "IBM Plex Mono",monospace;text-align:right}
+#v-standings .archive-form-row>strong small{color:var(--mute);font:500 7px "IBM Plex Mono",monospace}
+#v-standings .archive-form-results{display:flex;gap:4px;flex-wrap:wrap}
+#v-standings .archive-form-results span{display:grid;place-items:center;min-width:24px;height:22px;padding:0 4px;border:1px solid var(--line);border-radius:4px;color:var(--txt);font:600 8px "IBM Plex Mono",monospace;background:var(--card)}
+#v-standings .archive-form-trends{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:15px}
+#v-standings .archive-form-callout{display:grid;gap:4px;padding:10px;border:1px solid var(--line);border-radius:7px;background:var(--card)}
+#v-standings .archive-form-callout>small{color:var(--mute);font:600 7px "IBM Plex Mono",monospace;letter-spacing:.07em}
+#v-standings .archive-form-callout>b{color:var(--txt);font-size:10px}
+#v-standings .archive-form-callout>strong{color:var(--red);font:700 16px "Barlow Condensed",sans-serif}
+#v-standings .archive-form-callout>strong small{color:var(--mute);font:500 7px "IBM Plex Mono",monospace}
+@media(max-width:520px){#v-standings .archive-form-head,#v-standings .archive-form-row{grid-template-columns:minmax(70px,.9fr) minmax(110px,1.4fr) 38px;gap:5px}#v-standings .archive-form-trends{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -4477,7 +4495,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
      <div class="archive-card-body" id="archiveHonours"><div class="state">Loading season records…</div></div>
     </details>
     <details class="archive-card">
-     <summary><span class="archive-card-icon">02</span><span><b>Championship milestones</b><small>Wins · Podiums · Pole positions · Fastest laps</small></span><i>＋</i></summary>
+     <summary><span class="archive-card-icon">02</span><span><b>Driver form guide</b><small>Last five races · Recent points · Form trend</small></span><i>＋</i></summary>
      <div class="archive-card-body" id="archiveMilestones"><div class="state">Loading season milestones…</div></div>
     </details>
     <details class="archive-card">
@@ -4786,9 +4804,30 @@ async function renderSeasonHonours(){
    const leaders=(map,key)=>[...map.values()].filter(x=>x[key]>0).sort((a,b)=>b[key]-a[key]||a.name.localeCompare(b.name));
    const metric=(label,items,key)=>{const top=items[0];return '<div class="archive-milestone"><small>'+label+'</small><b>'+(top?esc(top.name):'—')+'</b><strong>'+(top?top[key]:'—')+'</strong>'+(top&&items[1]&&items[1][key]===top[key]?'<em>Tied lead</em>':'')+'</div>'};
    if(milestones){
-    const dw=leaders(drivers,"wins"),dp=leaders(drivers,"podiums"),dpo=leaders(drivers,"poles"),df=leaders(drivers,"fastest");
-    const tw=leaders(teams,"wins"),tp=leaders(teams,"podiums"),tpo=leaders(teams,"poles"),tf=leaders(teams,"fastest");
-    milestones.innerHTML='<div class="archive-data-caption">'+records.length+' COMPLETED GRANDS PRIX · DRIVER RECORDS</div><div class="archive-milestone-grid">'+metric("RACE WINS",dw,"wins")+metric("PODIUMS",dp,"podiums")+metric("POLE POSITIONS",dpo,"poles")+metric("FASTEST LAPS",df,"fastest")+'</div><div class="archive-data-caption archive-data-subhead">CONSTRUCTOR RECORDS</div><div class="archive-milestone-grid">'+metric("RACE WINS",tw,"wins")+metric("PODIUMS",tp,"podiums")+metric("POLE POSITIONS",tpo,"poles")+metric("FASTEST LAPS",tf,"fastest")+'</div><p class="archive-data-note">Season totals from recorded Grand Prix results. Sprint sessions are excluded; fastest-lap records follow the available race timing feed.</p>';
+    const formMap=new Map();
+    [...results].sort((a,b)=>Number(a.round)-Number(b.round)).forEach(r=>{
+     (r.Results||[]).forEach(v=>{
+      const id=v.Driver?.driverId||driverName(v);
+      if(!formMap.has(id))formMap.set(id,{name:driverName(v),races:[]});
+      const pos=Number(v.position),classified=Number.isFinite(pos)&&pos>0;
+      formMap.get(id).races.push({round:Number(r.round),points:Number(v.points)||0,position:classified?pos:null,label:classified?"P"+pos:(v.status||"RET")});
+     });
+    });
+    const forms=[...formMap.values()].map(x=>{
+     const latest=x.races.slice(-5),prior=x.races.slice(-10,-5);
+     const recentPoints=latest.reduce((n,r)=>n+r.points,0);
+     const recentPositions=latest.filter(r=>r.position!==null).map(r=>r.position);
+     const priorPositions=prior.filter(r=>r.position!==null).map(r=>r.position);
+     const avg=a=>a.length?a.reduce((n,v)=>n+v,0)/a.length:null;
+     const before=avg(priorPositions),now=avg(recentPositions);
+     return {...x,latest,recentPoints,avgFinish:avg(recentPositions),change:before!==null&&now!==null?before-now:null};
+    }).filter(x=>x.latest.length);
+    forms.sort((a,b)=>b.recentPoints-a.recentPoints||((a.avgFinish??99)-(b.avgFinish??99)));
+    const formRows=forms.slice(0,8).map((x,i)=>'<div class="archive-form-row"><span class="archive-rank">'+String(i+1).padStart(2,"0")+'</span><b>'+esc(x.name)+'</b><div class="archive-form-results">'+x.latest.map(r=>'<span title="Round '+r.round+'">'+esc(r.label)+'</span>').join("")+'</div><strong>'+x.recentPoints+' <small>PTS</small></strong></div>').join("");
+    const improvers=forms.filter(x=>x.change!==null).sort((a,b)=>b.change-a.change);
+    const best=improvers[0],drop=improvers[improvers.length-1];
+    const trend=(x,positive)=>x?'<div class="archive-form-callout"><small>'+(positive?"BIGGEST IMPROVER":"BIGGEST DROP-OFF")+'</small><b>'+esc(x.name)+'</b><strong>'+(x.change>0?"+":"")+x.change.toFixed(1)+' <small>AVG POS.</small></strong></div>':'';
+    milestones.innerHTML='<div class="archive-data-caption">RECENT FORM · LAST '+Math.min(5,records.length)+' COMPLETED GRANDS PRIX</div><div class="archive-form-table"><div class="archive-form-head"><span>DRIVER</span><span>FINISHING FORM</span><span>POINTS</span></div>'+formRows+'</div><div class="archive-form-trends">'+trend(best,true)+trend(drop,false)+'</div><p class="archive-data-note">Ranked by points scored across each driver’s latest five completed Grands Prix. Finish sequence runs oldest to newest; RET indicates a non-numeric result. Trend compares average classified position across the latest five races against the preceding five, where available.</p>';
    }
    if(performance){
     const ranked=[...drivers.values()].filter(x=>x.starts>0).sort((a,b)=>b.points-a.points||a.name.localeCompare(b.name)).slice(0,6);
