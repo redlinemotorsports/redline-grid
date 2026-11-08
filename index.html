@@ -4726,17 +4726,19 @@ async function loadWeekendForecast(meeting){
  let savedWeather=null;
  const cachedHtml=briefingWeatherCache.get(key);
  if(cachedHtml)box.innerHTML=cachedHtml;
- // Restore the last successful forecast first, then try a live refresh when connected.
- savedWeather=await archiveRead("weather:"+key);
+ savedWeather=await archiveRead("weather:"+key).catch(()=>null);
  if(savedWeather?.html){
   box.innerHTML=savedWeather.html;
   const age=Math.max(1,Math.round((Date.now()-(savedWeather.savedAt||Date.now()))/60000));
-  const note=document.createElement("p");note.className="briefing-weather-foot";note.textContent="Saved forecast · last checked "+(age<60?age+" min ago":Math.round(age/60)+" hr ago")+". Updating when connected.";
+  const note=document.createElement("p");note.className="briefing-weather-foot";
+  note.textContent="Saved forecast · last checked "+(age<60?age+" min ago":Math.round(age/60)+" hr ago")+". Updating when connected.";
   box.appendChild(note);
  }else if(!cachedHtml)box.innerHTML='<div class="state">Finding the circuit forecast…</div>';
- // Offline is a valid archive-viewing mode: don't waste time retrying unreachable providers.
- if(!navigator.onLine){return}
- const weatherFailSafe=setTimeout(()=>{if(!savedWeather?.html&&!briefingWeatherCache.has(key)&&/Finding the circuit forecast|Loading weather/i.test(box.textContent))box.innerHTML='<p class="briefing-lead">Forecast is taking too long</p><p>Weather providers have not responded yet. The rest of Redline Grid remains available; try refreshing later.</p>';},15000);
+ if(!navigator.onLine)return;
+ const weatherFailSafe=setTimeout(()=>{
+  if(!savedWeather?.html&&!briefingWeatherCache.has(key)&&/Finding the circuit forecast|Loading weather/i.test(box.textContent))
+   box.innerHTML='<p class="briefing-lead">Forecast is taking too long</p><p>Weather providers have not responded yet. The rest of Redline Grid remains available; try refreshing later.</p>';
+ },15000);
  try{
   const countryName=String(meeting.country_name||"").trim();
   const searchNames=[meeting.location,meeting.circuit_short_name,meeting.meeting_name]
@@ -4744,8 +4746,6 @@ async function loadWeekendForecast(meeting){
    .map(v=>v.replace(/\s+(Grand Prix|GP)$/i,""));
   let place=null,lastGeoError=null;
   const country=countryName.toLowerCase();
-  // Try the country-qualified place first, then the plain name. Some circuit
-  // names are neighborhoods or track names rather than indexed city names.
   const geoQueries=[...new Set(searchNames.flatMap(name=>countryName?[name+", "+countryName,name]:[name]))];
   for(const query of geoQueries){
    try{
@@ -4761,28 +4761,44 @@ async function loadWeekendForecast(meeting){
   if(!place)throw new Error(lastGeoError?.message||"Could not locate circuit: "+(searchNames[0]||"unknown location"));
   let sessionData=[];
   try{sessionData=await get("/sessions?meeting_key="+encodeURIComponent(meeting.meeting_key))}catch(e){}
-  let sessions=(sessionData||[]).filter(s=>s.date_start&&s.session_name&&!s.is_cancelled);
-  // If the meeting-key query is incomplete, retry the season schedule and then
-  // use the already-loaded countdown schedule as a final fallback.
+  let sessions=(sessionData||[]).filter(x=>x.date_start&&x.session_name&&!x.is_cancelled)
+   .sort((a,b)=>new Date(a.date_start)-new Date(b.date_start));
   if(!sessions.length){
-  if(status)status.textContent="UPDATING";
-  if(meta)meta.textContent="SCHEDULE CHECK IN PROGRESS";
-  summary.innerHTML='<p class="home-weekend-race">Weekend schedule</p><p class="home-weekend-session">Race information is being refreshed. Saved race details remain available below.</p>';
-  note.textContent=navigator.onLine?"Loading the season schedule…":"Offline · showing saved information where available.";
- }  }else{
-   html+='<p>No upcoming session falls within the current forecast window. Check back when the weekend is closer.</p><p class="briefing-weather-foot"><a href="'+(provider==="MET Norway"?"https://api.met.no/":"https://open-meteo.com/")+'" target="_blank" rel="noopener noreferrer">Weather data by '+esc(provider)+'</a>.</p>';
+   sessions=(countdownSessions||[]).filter(x=>Number.isFinite(x.start)&&x.start>Date.now())
+    .slice(0,5).map(x=>({session_name:sessionLabel(x),date_start:new Date(x.start).toISOString()}));
   }
-  clearTimeout(weatherFailSafe);briefingWeatherCache.set(key,html);box.innerHTML=html;await archiveWrite("weather:"+key,{html,savedAt:Date.now(),provider});await archiveWrite("weather:last",{html,key,savedAt:Date.now(),provider});
+  const url="https://api.open-meteo.com/v1/forecast?latitude="+encodeURIComponent(place.latitude)+"&longitude="+encodeURIComponent(place.longitude)+"&hourly=temperature_2m,precipitation_probability,precipitation,wind_speed_10m,weather_code&forecast_days=16&timezone=auto";
+  const response=await fetchWeatherRetry(url);
+  if(!response.ok)throw new Error("Weather forecast returned HTTP "+response.status);
+  const forecast=await response.json(),hours=forecast.hourly?.time||[];
+  const htmlRows=sessions.map(session=>{
+   const target=new Date(session.date_start).getTime();
+   let best=-1,distance=Infinity;
+   hours.forEach((time,index)=>{const delta=Math.abs(new Date(time).getTime()-target);if(delta<distance){distance=delta;best=index}});
+   if(best<0||distance>90*60*1000)return "";
+   const condition=briefingWeatherCode(forecast.hourly.weather_code?.[best]);
+   const temp=forecast.hourly.temperature_2m?.[best],rain=forecast.hourly.precipitation_probability?.[best],wind=forecast.hourly.wind_speed_10m?.[best];
+   return '<div class="briefing-session"><div class="briefing-session-main"><b>'+esc(session.session_name||"Session")+'</b><small>'+esc(briefingDate(target))+'</small></div><span class="briefing-tag">'+esc(condition[0])+' · '+(Number.isFinite(temp)?Math.round(temp)+'°C':"—")+'</span><small class="briefing-weather-detail">'+(Number.isFinite(rain)?Math.round(rain)+"% rain":"Rain —")+' · '+(Number.isFinite(wind)?Math.round(wind)+" km/h wind":"Wind —")+'</small></div>';
+  }).filter(Boolean);
+  let html='<p class="briefing-lead">'+esc(place.name||meeting.location||"Circuit")+' · '+esc(place.country||countryName)+'</p>';
+  html+=htmlRows.length?htmlRows.join(""):'<p>No upcoming session falls within the 16-day forecast window. Check back closer to the weekend.</p>';
+  html+='<p class="briefing-weather-foot"><a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Weather data by Open-Meteo</a> · Forecasts are indicative and may change.</p>';
+  clearTimeout(weatherFailSafe);
+  briefingWeatherCache.set(key,html);box.innerHTML=html;
+  await archiveWrite("weather:"+key,{html,savedAt:Date.now(),provider:"Open-Meteo"});
+  await archiveWrite("weather:last",{html,key,savedAt:Date.now(),provider:"Open-Meteo"});
  }catch(e){
   clearTimeout(weatherFailSafe);console.warn("Redline Grid forecast error:",e);
   if(savedWeather?.html){
    box.innerHTML=savedWeather.html;
    const age=Math.max(1,Math.round((Date.now()-(savedWeather.savedAt||Date.now()))/60000));
-   const note=document.createElement("p");note.className="briefing-weather-foot";note.textContent="Offline archive · saved forecast from "+(age<60?age+" min ago":Math.round(age/60)+" hr ago")+". Forecasts change; reconnect to refresh.";
+   const note=document.createElement("p");note.className="briefing-weather-foot";
+   note.textContent="Saved forecast · last checked "+(age<60?age+" min ago":Math.round(age/60)+" hr ago")+". Reconnect to refresh.";
    box.appendChild(note);
-  }else box.innerHTML='<p class="briefing-lead">Forecast unavailable right now</p><p>Redline could not load the circuit forecast. Try refreshing later.</p><p class="briefing-weather-foot">Forecasts are limited to the next 16 days. <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Weather data by Open-Meteo.com</a>.</p>';
+  }else box.innerHTML='<p class="briefing-lead">Forecast unavailable right now</p><p>Redline could not load the circuit forecast. Try refreshing later.</p><p class="briefing-weather-foot">Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a>.</p>';
  }
 }
+
 let briefingFeaturesBusy=false,briefingFeaturesLoaded="";
 // Use the site's bundled season archive for the circuit card first; don't make the card wait in OpenF1's shared request queue.
 async function archivedCircuitMeetings(y){
