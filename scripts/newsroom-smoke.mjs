@@ -91,7 +91,38 @@ try {
   }
 
   if (failures.length) throw new Error("Browser page errors: " + failures.join(" | "));
-  console.log("PASS: Newsroom headlines, category filtering, FIA tab, refresh, offline cache, and Live Timing final classification");
+
+  // A failed archive + network fallback must not poison the cached task.
+  // The next Refresh should retry the archive and recover without reloading.
+  const retryPage = await browser.newPage();
+  let archiveAttempts = 0;
+  await retryPage.route("**/archive/2026.json", async route => {
+    archiveAttempts += 1;
+    if (archiveAttempts === 1) {
+      await route.fulfill({ status: 503, body: "Temporary archive failure" });
+    } else {
+      await route.continue();
+    }
+  });
+  await retryPage.route("https://f1-live-api.onrender.com/**", route => route.abort());
+  await retryPage.route("https://api.jolpi.ca/ergast/f1/**", route => route.abort());
+  await retryPage.goto(baseURL, { waitUntil: "domcontentloaded", timeout: 30000 });
+  await retryPage.locator('#tabs button[data-v="timing"]').click();
+  await retryPage.getByText("The last race result could not be retrieved right now.").waitFor({
+    state: "visible",
+    timeout: 15000
+  });
+  await retryPage.locator("#rtRefresh").click();
+  await retryPage.waitForFunction(() =>
+    document.getElementById("rtLastRaceName")?.textContent?.includes("Brazilian GP"),
+    { timeout: 15000 }
+  );
+  if (!(await retryPage.locator("#rtLastPodium").getByText("Lando Norris").count()) || archiveAttempts < 2) {
+    throw new Error("Final classification did not recover after Refresh retried the archive");
+  }
+  await retryPage.close();
+
+  console.log("PASS: Newsroom, Live Timing archive fallback, and final-classification retry recovery");
 } finally {
   await browser.close();
 }
