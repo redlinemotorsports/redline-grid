@@ -166,6 +166,7 @@ async function throttle(){for(;;){const now=Date.now();while(hits.length&&now-hi
  setNet("Waiting a moment for OpenF1's free rate limit…");await sleep(hits[0]+60050-now)}}
 async function fetchTimed(url,timeoutMs=9000){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeoutMs);try{return await fetch(url,{signal:controller.signal,cache:"no-store"})}finally{clearTimeout(timer)}}
 async function fetchRetry(p){let lastError;for(let i=0;i<3;i++){await throttle();try{const r=await fetchTimed(API+p,9000);
+  window.redlineOpenF1Cached=r.headers.get("X-Redline-Cache")==="offline-fallback";
   if(r.status===429){lastError=new Error("OpenF1 rate limit (429)");await sleep(1200*(i+1));continue}
   if(r.status>=500){lastError=new Error("OpenF1 returned "+r.status);if(i<2){await sleep(700*(i+1));continue}throw lastError}
   if(r.status===404)throw new Error("OpenF1 endpoint not found (404)");
@@ -194,7 +195,7 @@ async function restoreHomeCard(key,element,label){
  element.querySelectorAll("[data-hub-tab]").forEach(b=>b.onclick=()=>show(b.dataset.hubTab));
  offlineArchiveNote("saved Home card");return true;
 }
-function get(p){if(cache.has(p))return cache.get(p);const queued=chain.then(async()=>{try{const v=await fetchRetry(p);if(Array.isArray(v)&&v.length)archiveWrite("openf1:"+p,v);return v}catch(e){const saved=await archiveRead("openf1:"+p);if(Array.isArray(saved)&&saved.length){offlineArchiveNote("OpenF1");return saved}throw e}});
+function get(p){if(cache.has(p))return cache.get(p);const queued=chain.then(async()=>{try{const v=await fetchRetry(p);if(Array.isArray(v)&&v.length)archiveWrite("openf1:"+p,v);return v}catch(e){const saved=await archiveRead("openf1:"+p);if(Array.isArray(saved)&&saved.length){window.redlineOpenF1Cached=true;offlineArchiveNote("OpenF1");return saved}throw e}});
   chain=queued.catch(()=>{}).then(()=>sleep(250));let timer;const q=Promise.race([queued,new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error("OpenF1 request waited too long in the shared queue. Please refresh and retry.")),18000)})]).finally(()=>clearTimeout(timer));cache.set(p,q);q.then(v=>{if(Array.isArray(v)&&v.length===0&&cache.get(p)===q)cache.delete(p)}).catch(()=>{if(cache.get(p)===q)cache.delete(p)});return q}
 async function briefingGet(path,timeoutMs=8000){
  const saved=await archiveRead("openf1:"+path);
@@ -798,7 +799,7 @@ function renderLapTimes(){
   const sector=x=>typeof x==="number"?fmtTime(x):"—";
   return `<tr${isBest?' class="lap-times-best"':""}><td>${l.lap_number??"—"}</td><td><strong>${esc(d.name_acronym||d.full_name||("Driver #"+l.driver_number))}</strong><small>${esc(d.team_name||"")}</small></td><td><strong>${fmtTime(l.lap_duration)}</strong>${isBest?' <span class="lap-times-best-tag">BEST</span>':""}</td><td>${sector(l.duration_sector_1)}</td><td>${sector(l.duration_sector_2)}</td><td>${sector(l.duration_sector_3)}</td><td>${l.is_pit_out_lap?"PIT OUT":"—"}</td></tr>`;
  }).join("")||'<tr><td colspan="7" class="timing-empty">No valid timed laps in this sample.</td></tr>';
- const status=$("lapTimesStatus");if(status)status.textContent=navigator.onLine?"SESSION DATA · OPENF1":"OFFLINE · SAVED SESSION DATA";
+ const status=$("lapTimesStatus");if(status)status.textContent=window.redlineOpenF1Cached||!navigator.onLine?"OFFLINE · SAVED SESSION DATA":"SESSION DATA · OPENF1";
 }
 $("lapTimesSession").onchange=()=>{$("lsess").value=$("lapTimesSession").value;loadLaps()};$("lapTimesDriver").onchange=renderLapTimes;$("lapTimesRefresh").onclick=()=>{cache.delete(`/laps?session_key=${$("lsess").value}`);cache.delete(`/drivers?session_key=${$("lsess").value}`);loadLaps()};
 let sessionCompareFor=null,sessionCompareCache={};
