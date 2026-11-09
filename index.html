@@ -5303,7 +5303,10 @@ function renderLast(){
  const mount=$("last");if(mount)mount.innerHTML=countdownHTML();
 }
 async function loadYear(y){
- year=y;$("year").value=y;$("rounds").innerHTML="";
+ // A season change invalidates in-flight requests and clears the previous Grand Prix context.
+ t=++tok;cur=null;loaded={};rounds=[];year=y;$("year").value=y;$("rounds").innerHTML="";
+ $("pick").innerHTML=`<span>Select a Grand Prix · ${y}</span><span>CHANGE ▾</span>`;
+ ["drivers","teams","result","control","radioList","lapList","weatherView"].forEach(id=>{const el=$(id);if(el)el.innerHTML='<div class="state">Choose a Grand Prix from this season to view its data.</div>'});
  try{rounds=(await get(`/sessions?year=${y}&session_name=Race`)).sort((a,b)=>new Date(a.date_start)-new Date(b.date_start))}catch(e){rounds=[]}
  if(!rounds.length){try{rounds=await jolpicaRounds(y);fallbackNote()}catch(e){if(y===nowY&&y>2023){await loadCountdownSchedule(nowY).catch(()=>{});return loadYear(y-1)}$("rounds").innerHTML='<div class="state">OpenF1 and Jolpica-F1 are unavailable. Please try again later.</div>';$("last").innerHTML="<small>Couldn't load the season schedule.</small>";await loadCountdownSchedule(nowY).catch(()=>{});return}}
 
@@ -5312,7 +5315,7 @@ async function loadYear(y){
  renderChampionshipPulse(true);
  if(!done.length&&y===nowY&&y>2023)return loadYear(y-1);
  const nxt=rounds.findIndex(r=>new Date(r.date_start)>Date.now());
- $("rounds").innerHTML=rounds.map((r,i)=>`<button class="gp" data-i="${i}" ${new Date(r.date_end).getTime()>Date.now()?"disabled":""} aria-pressed="false"><span class="n">${String(i+1).padStart(2,"0")}</span><span><b>${esc(r.location||r.country_name)}</b><small>${esc(r.country_name)} · ${new Date(r.date_start).toLocaleDateString(undefined,{day:"numeric",month:"short"})}</small></span>${i===nxt?'<span class="badge">Next</span>':""}</button>`).join("");
+ $("rounds").innerHTML=rounds.map((r,i)=>{const title=r.meeting_name||r.raceName||((r.country_name||"Grand Prix")+" Grand Prix");const place=[r.location,r.country_name].filter(Boolean).join(" · ");return `<button class="gp" data-i="${i}" ${new Date(r.date_end).getTime()>Date.now()?"disabled":""} aria-pressed="false" aria-label="${esc(title)}"><span class="n">R${String(i+1).padStart(2,"0")}</span><span><b>${esc(title)}</b><small>${esc(place)} · ${new Date(r.date_start).toLocaleDateString(undefined,{day:"numeric",month:"short"})}</small></span>${i===nxt?'<span class="badge">Next</span>':""}</button>`}).join("");
  document.querySelectorAll(".gp").forEach(b=>b.onclick=()=>{loadRound(+b.dataset.i);closeSheet()});
  await loadCountdownSchedule(nowY);
  let saved=null;try{saved=JSON.parse(localStorage.getItem("redline-last-race")||"null")}catch(e){}
@@ -5328,9 +5331,10 @@ function loadRound(i){
  const race=rounds[i];if(!race)return;saveRaceSelection(i);t=++tok;cur=race;loaded={};radioFor=null;lapsFor=null;lapData={};
  $("rsess").innerHTML="";$("lsess").innerHTML="";$("ldrv").innerHTML="";$("wsess").innerHTML="";weatherFor=null;
  document.querySelectorAll(".gp").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.i===i));
- $("pick").innerHTML=`<span>R${i+1} · ${esc(race.location||race.country_name)}</span><span>Change ▾</span>`;
+ const raceTitle=race.meeting_name||race.raceName||((race.country_name||"Grand Prix")+" Grand Prix");
+ $("pick").innerHTML=`<span>${year} · R${String(i+1).padStart(2,"0")} · ${esc(raceTitle)}</span><span>CHANGE ▾</span>`;
  renderLast();$("last").title="Everything on this page is shown as it stood after this race";
- $("resTitle").textContent=`${race.country_name} Grand Prix`;
+ $("resTitle").textContent=raceTitle;
  ["drivers","teams","result","control","radioList","lapList","weatherView"].forEach(id=>$(id).innerHTML='<div class="state">Loading…</div>');
  // Load only the active tab on startup; other race-data panels fetch when opened.
  // Eagerly prefetching every panel queued many rate-limited API requests and slowed Home.
