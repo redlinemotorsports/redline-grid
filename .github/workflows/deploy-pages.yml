@@ -50,7 +50,12 @@ jobs:
           if (!assets.some((file) => file.endsWith(".js"))) {
             throw new Error("Vite did not emit any JavaScript bundles.");
           }
-          console.log(`PASS: Vite emitted index.html and ${assets.filter((file) => file.endsWith(".js")).length} JavaScript bundle(s).`);
+          const archive = JSON.parse(readFileSync("dist/archive/2026.json", "utf8"));
+          const races = archive.responses?.["/2026/results/"]?.RaceTable?.Races || [];
+          if (!races.some((race) => race.raceName === "Brazilian Grand Prix" && race.Results?.length)) {
+            throw new Error("The 2026 final-classification archive is missing from the production build.");
+          }
+          console.log(`PASS: Vite emitted index.html, ${assets.filter((file) => file.endsWith(".js")).length} JavaScript bundle(s), and the 2026 race archive.`);
           NODE
 
       - name: Upload Pages artifact

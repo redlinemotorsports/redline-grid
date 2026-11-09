@@ -5,6 +5,9 @@ on:
     paths:
       - "index.html"
       - "src/newsroom.ts"
+      - "src/live-timing.ts"
+      - "vite.config.js"
+      - "archive/2026.json"
       - "src/utils/html.ts"
       - "scripts/newsroom-smoke.mjs"
       - ".github/workflows/newsroom-smoke.yml"

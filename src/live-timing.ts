@@ -31,6 +31,10 @@ type LegacyBridge = {
 declare global {
   interface Window {
     RedlineLegacy?: LegacyBridge;
+    RedlineLiveTiming?: {
+      start: () => Promise<void>;
+      stop: () => void;
+    };
     RedlineRadio?: {
       setContext: (context: { sessions: Array<{ session_key: number | string; session_name?: string; date_start?: string }>; meetingKey: string }) => void;
       load: () => Promise<void>;
@@ -327,6 +331,9 @@ async function rtLoadLastRace(): Promise<void> {
       if (title) title.textContent = "Final classification";
       if (podium) podium.innerHTML = '<div class="timing-empty">The last race result could not be retrieved right now.</div>';
       if (foot) foot.textContent = "Reconnect later to load the official finishing order.";
+      // Do not cache a failed request: the Refresh button must be able to retry
+      // the archive and network fallback when connectivity returns.
+      rtLastRaceTask = null;
     }
   })();
   return rtLastRaceTask;
@@ -429,5 +436,10 @@ async function startLiveTiming(): Promise<void> {
     }
   }
 }
+
+window.RedlineLiveTiming = {
+  start: startLiveTiming,
+  stop: stopLiveTiming,
+};
 
 rt$("rtRefresh")?.addEventListener("click", () => void startLiveTiming());
