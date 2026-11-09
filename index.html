@@ -166,7 +166,7 @@ async function throttle(){for(;;){const now=Date.now();while(hits.length&&now-hi
  setNet("Waiting a moment for OpenF1's free rate limit…");await sleep(hits[0]+60050-now)}}
 async function fetchTimed(url,timeoutMs=9000){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeoutMs);try{return await fetch(url,{signal:controller.signal,cache:"no-store"})}finally{clearTimeout(timer)}}
 async function fetchRetry(p){let lastError;for(let i=0;i<3;i++){await throttle();try{const r=await fetchTimed(API+p,9000);
-  window.redlineOpenF1Cached=r.headers.get("X-Redline-Cache")==="offline-fallback";
+  window.redlineOpenF1Cached=!!window.redlineOpenF1Cached||r.headers.get("X-Redline-Cache")==="offline-fallback";
   if(r.status===429){lastError=new Error("OpenF1 rate limit (429)");await sleep(1200*(i+1));continue}
   if(r.status>=500){lastError=new Error("OpenF1 returned "+r.status);if(i<2){await sleep(700*(i+1));continue}throw lastError}
   if(r.status===404)throw new Error("OpenF1 endpoint not found (404)");
@@ -777,6 +777,7 @@ $("rsess").onchange=()=>{$("lsess").value=$("rsess").value;void window.RedlineRa
 // ---------- Lap times ----------
 let lapsFor=null,lapData={};
 async function loadLaps(){
+ window.redlineOpenF1Cached=false;
  const k=$("lsess").value;if(!k)return;lapsFor=k;$("lapList").innerHTML='<div class="state">Loading laps…</div>';
  try{const [laps,d]=await Promise.all([get(`/laps?session_key=${k}`),get(`/drivers?session_key=${k}`)]);
   const by=Object.fromEntries(d.map(x=>[x.driver_number,x])),g={};
