@@ -34,6 +34,7 @@ declare global {
     RedlineRadio?: {
       setContext: (context: { sessions: Array<{ session_key: number | string; session_name?: string; date_start?: string }>; meetingKey: string }) => void;
       load: () => Promise<void>;
+      refresh: () => void;
     };
   }
 }
