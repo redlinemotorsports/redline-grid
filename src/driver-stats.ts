@@ -169,10 +169,10 @@ function renderDriverStats(): void {
    ["Avg. finish","avgFinish","average finishing position",true]
   ];
   html+='<h3 class="stats-section-title">Season Record Book</h3><p class="stats-note" style="margin:0 0 14px">A neutral look at the season’s leading performances. Each category shows the top three recorded results, with ties included.</p><div class="stats-record-grid">'+records.map(([label,key,unit,lowerBetter])=>{
-   const rows=drivers.map((d: any)=>({d,value:statsNum(d[key])})).filter(x=>x.value!==null).sort((x,y)=>lowerBetter?x.value-y.value:y.value-x.value);
+   const rows: any[] = drivers.map((d: any)=>({d,value:statsNum(d[key])})).filter((x: any)=>x.value!==null).sort((x: any,y: any)=>lowerBetter?x.value-y.value:y.value-x.value);
    if(!rows.length)return `<article class="stats-record"><div class="stats-record-label">${label}</div><div class="stats-record-value">—</div><div class="stats-record-leader">${"No data available"}</div><div class="stats-record-foot">${"Waiting for season results"}</div></article>`;
    const cutoff=rows[Math.min(2,rows.length-1)].value;
-   const ranked=rows.filter(x=>lowerBetter?x.value<=cutoff:x.value>=cutoff);
+   const ranked=rows.filter((x: any)=>lowerBetter?x.value<=cutoff:x.value>=cutoff);
    const best=rows[0].value;
    const value=key.startsWith("avg")?best.toFixed(1):String(best);
    return `<article class="stats-record"><div class="stats-record-label">${label}</div><div class="stats-record-value">${value}<span style="font:500 10px Inter;color:var(--mute);letter-spacing:0"> ${key.startsWith("avg")?"AVG":""}</span></div><div class="stats-record-ranking">${ranked.map((x: any,i: number)=>`<div class="stats-record-row"><span class="stats-record-rank">${i+1}</span><span class="stats-record-driver">${statsEsc(x.d.name)}</span><span class="stats-record-stat">${key.startsWith("avg")?x.value.toFixed(1):x.value}</span></div>`).join("")}</div><div class="stats-record-foot">${ranked.length>3?"Top three · ties included":lowerBetter?"Lower is better":"Season total"}${unit?" · "+unit:""}</div></article>`;
