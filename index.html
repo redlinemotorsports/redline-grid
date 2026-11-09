@@ -7188,7 +7188,23 @@ function rtRenderLastRace(data){
 }
 async function rtLoadLastRace(){
  if(rtLastRaceTask)return rtLastRaceTask;
- rtLastRaceTask=(async()=>{try{const data=await jget("/current/last/results/");rtRenderLastRace(data)}catch(e){const title=rt$("rtLastRaceName"),podium=rt$("rtLastPodium"),foot=rt$("rtLastFoot");if(title)title.textContent="Final classification";if(podium)podium.innerHTML='<div class="timing-empty">The last race result could not be retrieved right now.</div>';if(foot)foot.textContent="Reconnect later to load the official finishing order."}})();
+ rtLastRaceTask=(async()=>{
+  // Use the same bundled season archive as the Home race recap for an instant,
+  // network-independent first paint. Only fall back to the live results API
+  // when no completed classification is present in the local archive.
+  try{
+   const now=Date.now();
+   for(let y=nowY;y>=Math.max(1950,nowY-3);y--){
+    const archive=await readStaticSeasonArchive(y);
+    const races=archive.responses?.["/"+y+"/results/"]?.RaceTable?.Races||[];
+    const completed=races.filter(r=>r.date&&new Date(r.date+"T23:59:59").getTime()<=now&&(r.Results||[]).length)
+     .sort((a,b)=>new Date(b.date)-new Date(a.date));
+    if(completed.length){rtRenderLastRace({RaceTable:{Races:[completed[0]]}});return}
+   }
+  }catch(e){console.warn("Local Live Timing classification archive unavailable",e)}
+  try{const data=await jget("/current/last/results/");rtRenderLastRace(data)}
+  catch(e){const title=rt$("rtLastRaceName"),podium=rt$("rtLastPodium"),foot=rt$("rtLastFoot");if(title)title.textContent="Final classification";if(podium)podium.innerHTML='<div class="timing-empty">The last race result could not be retrieved right now.</div>';if(foot)foot.textContent="Reconnect later to load the official finishing order."}
+ })();
  return rtLastRaceTask;
 }
 function rtApplyTiming(x){if(!x||typeof x!=="object")return;const t=Array.isArray(x.drivers)?x:(x.timing?.drivers?x.timing:null);if(!t)return;rtState.timing=t;rtState.updatedAt=Date.now();rtState.stale=false;rtRender()}
