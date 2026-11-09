@@ -5611,25 +5611,40 @@ async function loadControl(){
  try{const m=(await get(`/race_control?session_key=${cur.session_key}`)).sort((a,b)=>new Date(b.date)-new Date(a.date));if(!ok(t))return;controlMessages=m.slice(0,80);controlFilter="all";controlOrder="newest";renderControlTimeline()}catch(e){ok(t)&&fail("control",e)}
 }
 // Team radio: any session of the selected race weekend
-let rclips=[],rby={};
+let rclips=[],rby={},radioSessions=[];
 async function loadSessions(race){const t0=tok;
  if(race?._source==="jolpica"){$("rsess").innerHTML='<option value="">Live session data unavailable</option>';$("lsess").innerHTML=$("rsess").innerHTML;$("wsess").innerHTML=$("rsess").innerHTML;$("radioList").innerHTML=noJolpicaLive;$("lapList").innerHTML=noJolpicaLive;$("weatherView").innerHTML=noJolpicaLive;$("ldrv").innerHTML='<option value="">Unavailable</option>';return}
  try{const ss=(await get(`/sessions?meeting_key=${race.meeting_key}`)).filter(s=>new Date(s.date_start)<Date.now()).sort((a,b)=>new Date(a.date_start)-new Date(b.date_start));
-  if(!ok(t0))return;if(!ss.length)throw new Error("OpenF1 returned no completed sessions for this race");$("rsess").innerHTML=ss.map(s=>`<option value="${s.session_key}">${esc(race.country_name)} · ${esc(s.session_name)}</option>`).join("");
+  if(!ok(t0))return;if(!ss.length)throw new Error("OpenF1 returned no completed sessions for this race");radioSessions=ss.slice();$("rsess").innerHTML=ss.map(s=>`<option value="${s.session_key}">${esc(race.country_name)} · ${esc(s.session_name)}</option>`).join("");
   $("rsess").value=race.session_key;$("lsess").innerHTML=$("rsess").innerHTML;$("lsess").value=race.session_key;$("wsess").innerHTML=$("rsess").innerHTML;$("wsess").value=race.session_key;lapsFor=null;await loadRadio();await loadLaps();await loadWeather()}catch(e){try{await useJolpicaForCurrentRace();$("radioList").innerHTML=noJolpicaLive;$("lapList").innerHTML=noJolpicaLive;$("weatherView").innerHTML=noJolpicaLive;$("control").innerHTML=noJolpicaLive;await loadStandings();await loadResult()}catch(j){fail("radioList",j)}}
 }
 let radioFor=null,radioContext={key:null,control:[],positions:[],intervals:[],stints:[]};
 async function loadRadio(){
- const k=$("rsess").value;if(!k)return;radioFor=k;$("radioList").innerHTML='<div class="state">Loading team radio and session context…</div>';
+ const requested=$("rsess").value;if(!requested)return;radioFor=requested;$("radioList").innerHTML='<div class="state">Checking team radio across the selected race weekend…</div>';
  try{
-  const [c,d,control,positions,intervals,stints]=await Promise.all([
-   get(`/team_radio?session_key=${k}`),get(`/drivers?session_key=${k}`),
-   get(`/race_control?session_key=${k}`).catch(()=>[]),get(`/position?session_key=${k}`).catch(()=>[]),
-   get(`/intervals?session_key=${k}`).catch(()=>[]),get(`/stints?session_key=${k}`).catch(()=>[])
+  let session=radioSessions.find(x=>String(x.session_key)===String(requested))||{session_key:requested,session_name:"Selected session"};
+  let clips=await get("/team_radio?session_key="+requested).catch(()=>[]);
+  // A weekend can have recordings in practice or qualifying even when the Grand Prix session has none.
+  if(!clips.length){
+   const alternatives=radioSessions.slice().filter(x=>String(x.session_key)!==String(requested)).sort((a,b)=>new Date(b.date_start)-new Date(a.date_start));
+   for(const candidate of alternatives){
+    const candidateClips=await get("/team_radio?session_key="+candidate.session_key).catch(()=>[]);
+    if(candidateClips.length){session=candidate;clips=candidateClips;break}
+   }
+  }
+  if(radioFor!==requested)return;
+  if(String(session.session_key)!==String(requested))$("rsess").value=String(session.session_key);
+  radioFor=String(session.session_key);
+  const [drivers,control,positions,intervals,stints]=await Promise.all([
+   get("/drivers?session_key="+session.session_key).catch(()=>[]),
+   get("/race_control?session_key="+session.session_key).catch(()=>[]),
+   get("/position?session_key="+session.session_key).catch(()=>[]),
+   get("/intervals?session_key="+session.session_key).catch(()=>[]),
+   get("/stints?session_key="+session.session_key).catch(()=>[])
   ]);
-  if(radioFor!==k)return;
-  rby=Object.fromEntries(d.map(x=>[x.driver_number,x]));rclips=c.sort((a,b)=>new Date(b.date)-new Date(a.date));
-  radioContext={key:k,control,positions,intervals,stints};drawRadio()
+  if(radioFor!==String(session.session_key))return;
+  rby=Object.fromEntries(drivers.map(x=>[x.driver_number,x]));rclips=clips.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  radioContext={key:String(session.session_key),control,positions,intervals,stints};drawRadio();
  }catch(e){fail("radioList",e)}
 }
 function drawRadio(){
