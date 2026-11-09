@@ -795,6 +795,8 @@ function renderLapTimes(){
  if(!order.length){host.innerHTML='<tr><td colspan="7" class="timing-empty">No timed laps are available for this session.</td></tr>';return}
  const rows=driver?(g[driver]||[]).map(l=>({number:l.lap_number,driver_number:driver,...l})):Object.entries(g).flatMap(([n,ls])=>ls.map(l=>({driver_number:n,...l})));
  const valid=rows.filter(l=>typeof l.lap_duration==="number"&&Number.isFinite(l.lap_duration)&&!l.is_pit_out_lap);
+ const bestByDriver=new Map();
+ valid.forEach(l=>{const key=String(l.driver_number),current=bestByDriver.get(key);if(!current||l.lap_duration<current)bestByDriver.set(key,l.lap_duration)});
  let displayed=valid;
  if(view==="highlights"){
   const personalBest=new Map();
@@ -807,7 +809,7 @@ function renderLapTimes(){
   displayed=valid.sort((a,b)=>Number(a.lap_number)-Number(b.lap_number)||Number(a.driver_number)-Number(b.driver_number));
  }
  host.innerHTML=displayed.map(l=>{
-  const d=who(by,l.driver_number),isBest=true;
+  const d=who(by,l.driver_number),isBest=l.lap_duration===bestByDriver.get(String(l.driver_number));
   const sector=x=>typeof x==="number"?fmtTime(x):"—";
   return `<tr${isBest?' class="lap-times-best"':""}><td>${l.lap_number??"—"}</td><td><strong>${esc(d.name_acronym||d.full_name||("Driver #"+l.driver_number))}</strong><small>${esc(d.team_name||"")}</small></td><td><strong>${fmtTime(l.lap_duration)}</strong>${isBest?' <span class="lap-times-best-tag">PERSONAL BEST</span>':""}</td><td>${sector(l.duration_sector_1)}</td><td>${sector(l.duration_sector_2)}</td><td>${sector(l.duration_sector_3)}</td><td>${l.is_pit_out_lap?"PIT OUT":"—"}</td></tr>`;
  }).join("")||'<tr><td colspan="7" class="timing-empty">No valid timed laps in this sample.</td></tr>';
