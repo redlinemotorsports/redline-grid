@@ -1,0 +1,14 @@
+{
+  "appId": "com.redlinemotorsports.grid",
+  "appName": "Redline Grid",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "backgroundColor": "#090B10",
+  "ios": {
+    "contentInset": "automatic",
+    "allowsLinkPreview": false
+  },
+  "android": {
+    "allowMixedContent": false
+  }
+}
