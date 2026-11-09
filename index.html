@@ -3700,6 +3700,13 @@ main{font-family:Inter,Arial,sans-serif!important}
 .briefing-card,.home-weekend-card,.briefing-intel-tile,.briefing-session,.pressure-card,.lab-result,.prediction-panel,.feature-card{border-radius:4px!important;background:#11141a!important;border-color:rgba(255,255,255,.1)!important}
 .briefing-card h3,.briefing-card h4,.home-weekend-race,.home-weekend-session{font-family:"Barlow Condensed",Impact,sans-serif!important;text-transform:uppercase!important;letter-spacing:.02em!important}
 .home-weekend-card{position:relative!important;overflow:hidden!important;border:1px solid rgba(255,255,255,.16)!important;background:linear-gradient(112deg,#171a21 0%,#0d0f14 60%,#171015 100%)!important}
+.home-weekend-card::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(90deg,rgba(10,11,15,.94) 0%,rgba(18,8,10,.72) 48%,rgba(24,4,7,.34) 100%),linear-gradient(0deg,rgba(8,9,12,.72),rgba(116,0,12,.28)),var(--weekend-circuit-photo,none);background-size:cover;background-position:center 48%;background-repeat:no-repeat;filter:grayscale(.82) sepia(.58) saturate(4.2) hue-rotate(318deg) brightness(.72) contrast(1.12);opacity:.92;transition:opacity .25s ease}
+.home-weekend-card>*{position:relative;z-index:1}
+.home-weekend-card::before{z-index:2;pointer-events:none}
+.home-weekend-card.has-circuit-photo{border-color:rgba(255,48,36,.32)!important}
+@media(max-width:600px){.home-weekend-card::after{background-position:center 50%;filter:grayscale(.86) sepia(.62) saturate(4) hue-rotate(318deg) brightness(.62) contrast(1.1)}}
+@media(prefers-reduced-motion:reduce){.home-weekend-card::after{transition:none}}
+
 .home-weekend-card::before{content:"";position:absolute;top:0;right:0;width:36%;height:5px;background:linear-gradient(90deg,transparent,var(--red));transform:skewX(-35deg);transform-origin:right}
 .home-weekend-card-top{font:600 9px "IBM Plex Mono",monospace!important;letter-spacing:.2em!important;color:#aeb5c0!important}
 .home-weekend-status{color:#fff!important;background:rgba(242,29,36,.2)!important;border:1px solid rgba(242,29,36,.55)!important;border-radius:2px!important}
@@ -5562,6 +5569,59 @@ function briefingSessionCard(s,status){
  const time=briefingDate(s.start),race=s.race||"Grand Prix",label=sessionLabel(s);
  return `<div class="briefing-session"><div class="briefing-session-main"><b>${esc(label)}</b><small>${esc(race)} · ${esc(time)}</small></div><span class="briefing-tag ${status==="Completed"?"done":status==="In progress"?"live":""}">${esc(status)}</span></div>`;
 }
+const WEEKEND_CIRCUIT_PAGES=[
+ [/albert park|melbourne/i,"Albert_Park_Grand_Prix_Circuit"],
+ [/shanghai|chinese grand prix/i,"Shanghai_International_Circuit"],
+ [/suzuka|japanese grand prix/i,"Suzuka_International_Racing_Course"],
+ [/bahrain|sakhir/i,"Bahrain_International_Circuit"],
+ [/jeddah|saudi arabian grand prix/i,"Jeddah_Corniche_Circuit"],
+ [/miami/i,"Miami_International_Autodrome"],
+ [/montreal|gilles villeneuve|canadian grand prix/i,"Circuit_Gilles-Villeneuve"],
+ [/monaco|monte carlo/i,"Circuit_de_Monaco"],
+ [/catalunya|barcelona|spanish grand prix/i,"Circuit_de_Barcelona-Catalunya"],
+ [/spielberg|red bull ring|austrian grand prix/i,"Red_Bull_Ring"],
+ [/silverstone|british grand prix/i,"Silverstone_Circuit"],
+ [/spa|francorchamps|belgian grand prix/i,"Circuit_de_Spa-Francorchamps"],
+ [/hungaroring|hungarian grand prix/i,"Hungaroring"],
+ [/zandvoort|dutch grand prix/i,"Circuit_Zandvoort"],
+ [/monza|italian grand prix/i,"Autodromo_Nazionale_di_Monza"],
+ [/baku|azerbaijan grand prix/i,"Baku_City_Circuit"],
+ [/singapore|marina bay/i,"Marina_Bay_Street_Circuit"],
+ [/austin|cota|united states grand prix/i,"Circuit_of_the_Americas"],
+ [/mexico city|autodromo hermanos rodriguez/i,"Autodromo_Hermanos_Rodriguez"],
+ [/interlagos|sao paulo|brazilian grand prix/i,"Autodromo_Jose_Carlos_Pace"],
+ [/las vegas/i,"Las_Vegas_Strip_Circuit"],
+ [/lusail|qatar grand prix/i,"Lusail_International_Circuit"],
+ [/yas marina|abu dhabi grand prix/i,"Yas_Marina_Circuit"],
+ [/madrid|madring/i,"Madring"]
+];
+let weekendPhotoRequest="",weekendPhotoUrl="";
+async function setWeekendCircuitBackdrop(session){
+ const card=document.querySelector(".home-weekend-card");if(!card)return;
+ const identity=[session?.location,session?.race].filter(Boolean).join(" ");
+ const match=WEEKEND_CIRCUIT_PAGES.find(([re])=>re.test(identity));
+ if(!match){card.style.removeProperty("--weekend-circuit-photo");card.classList.remove("has-circuit-photo");return}
+ const page=match[1],key="redline-circuit-photo:"+page;
+ if(weekendPhotoRequest===page&&weekendPhotoUrl){card.style.setProperty("--weekend-circuit-photo",'url("'+weekendPhotoUrl+'")');card.classList.add("has-circuit-photo");return}
+ weekendPhotoRequest=page;
+ try{
+  let photo=null;
+  try{photo=sessionStorage.getItem(key)}catch(e){}
+  if(!photo){
+   const response=await fetchTimed("https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(page),6500);
+   if(!response.ok)throw new Error("Circuit image unavailable");
+   const data=await response.json();
+   photo=data?.originalimage?.source||data?.thumbnail?.source||null;
+   if(!photo)throw new Error("No circuit photograph found");
+   try{sessionStorage.setItem(key,photo)}catch(e){}
+  }
+  if(weekendPhotoRequest!==page)return;
+  const probe=new Image();
+  probe.onload=()=>{if(weekendPhotoRequest!==page)return;weekendPhotoUrl=photo;card.style.setProperty("--weekend-circuit-photo",'url("'+photo+'")');card.classList.add("has-circuit-photo")};
+  probe.onerror=()=>{if(weekendPhotoRequest===page){card.style.removeProperty("--weekend-circuit-photo");card.classList.remove("has-circuit-photo")}};
+  probe.src=photo;
+ }catch(e){if(weekendPhotoRequest===page){weekendPhotoUrl="";card.style.removeProperty("--weekend-circuit-photo");card.classList.remove("has-circuit-photo")}}
+}
 function renderBriefing(){
  const summary=$("briefingSummary"),note=$("briefingNote");
  if(!summary||!note)return;
@@ -5573,6 +5633,7 @@ function renderBriefing(){
  const completed=sessions.filter(s=>s.end<=now).sort((a,b)=>b.end-a.end);
  const status=$("weekendStatus"),meta=$("weekendSessionMeta");
  if(!sessions.length){
+  setWeekendCircuitBackdrop(null);
   if(status)status.textContent="UPDATING";
   if(meta)meta.textContent="SCHEDULE CHECK IN PROGRESS";
   summary.innerHTML='<p class="home-weekend-race">Weekend schedule</p><p class="home-weekend-session">Race information is being refreshed. Saved race details remain available below.</p>';
@@ -5580,6 +5641,7 @@ function renderBriefing(){
  }else{
   const next=upcoming[0],last=completed[0],focus=active||next||last;
   const race=focus?.race||"Grand Prix";
+  setWeekendCircuitBackdrop(focus);
   if(active){
    if(status)status.textContent="LIVE";
    summary.innerHTML=`<p class="home-weekend-race">${esc(race)}</p><p class="home-weekend-session">Now on track · ${esc(sessionLabel(active))}</p>`;
