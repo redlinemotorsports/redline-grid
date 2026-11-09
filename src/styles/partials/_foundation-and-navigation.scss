@@ -540,4 +540,9 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
  .sc-unit small{font-size:8px;margin-top:2px}
 }
 
-
+/* Mobile bottom navigation: use one contained active pill, not stacked underline accents. */
+@media(max-width:820px){
+ #tabs button{border:1px solid transparent;transition:background .16s ease,border-color .16s ease,color .16s ease}
+ #tabs button[aria-selected=true],#tabs button[aria-selected=true]:hover{background:rgba(255,42,24,.14);border-color:rgba(255,42,24,.48);color:var(--txt);box-shadow:none}
+ #tabs button:focus-visible{outline-offset:-3px}
+}
