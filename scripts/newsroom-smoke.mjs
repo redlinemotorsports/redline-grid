@@ -78,8 +78,20 @@ try {
   await page.locator('#sub button[data-s="headlines"]').click();
   await content.getByText("Cached paddock report").waitFor({ state: "visible", timeout: 10000 });
 
+  // The final classification must load from the bundled season archive even
+  // when the live timing service is offline.
+  await page.route("https://f1-live-api.onrender.com/**", route => route.abort());
+  await page.locator('#tabs button[data-v="timing"]').click();
+  await page.waitForFunction(() =>
+    document.getElementById("rtLastRaceName")?.textContent?.includes("Brazilian GP"),
+    { timeout: 15000 }
+  );
+  if (!(await page.locator("#rtLastPodium").getByText("Lando Norris").count())) {
+    throw new Error("Latest Brazilian GP podium was not loaded from the season archive");
+  }
+
   if (failures.length) throw new Error("Browser page errors: " + failures.join(" | "));
-  console.log("PASS: headlines, category filtering, FIA tab, refresh, offline cache fallback");
+  console.log("PASS: Newsroom headlines, category filtering, FIA tab, refresh, offline cache, and Live Timing final classification");
 } finally {
   await browser.close();
 }
