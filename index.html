@@ -5091,14 +5091,14 @@ $("year").onchange=()=>{renderChampionshipPulse(true);loadYear(+$("year").value)
 const SUBS={
  home:[["news","Overview"],["cal","Schedule"]],
  drivers:[["headlines","Headlines"],["fia","FIA documents"]],
- race:[["result","Results"],["control","Race control"],["radio","Team radio"],["weather","Track conditions"]],
- data:[["live","Strategy"],["laps","Lap times"],["car","Car data"]]
+ race:[["control","Race control"],["radio","Team radio"],["weather","Track conditions"]],
+ data:[["results","Results"],["live","Strategy"],["laps","Lap times"],["car","Car data"]]
 };
-const memo={home:"news",timing:"timing",standings:"standings",race:"result",drivers:"headlines",data:"live"};let curSub="news";
+const memo={home:"news",timing:"timing",standings:"standings",race:"control",drivers:"headlines",data:"results"};let curSub="news";
 const TOP_ALIAS={
  news:["home","news"],cal:["home","cal"],stats:["drivers","stats"],
  live:["data","live"],tele:["data","laps"],laps:["data","laps"],car:["data","car"],
- result:["race","result"],control:["race","control"],radio:["race","radio"],weather:["race","weather"]
+ result:["data","results"],control:["race","control"],radio:["race","radio"],weather:["race","weather"]
 };
 function show(top,sub){
  if(TOP_ALIAS[top]){if(!sub)sub=TOP_ALIAS[top][1];top=TOP_ALIAS[top][0]}
@@ -5117,7 +5117,7 @@ function show(top,sub){
 }
 document.querySelectorAll("#tabs button[data-v]").forEach(b=>b.onclick=()=>show(b.dataset.v));
 const heroRaceLink=$("heroRaceLink"),heroDataLink=$("heroDataLink");
-if(heroRaceLink)heroRaceLink.addEventListener("click",()=>show("race","result"));
+if(heroRaceLink)heroRaceLink.addEventListener("click",()=>show("data","results"));
 if(heroDataLink)heroDataLink.addEventListener("click",()=>show("data","live"));
 document.querySelectorAll("[data-weekend-link]").forEach(button=>button.addEventListener("click",()=>{
  const target=button.dataset.weekendLink;
@@ -5429,7 +5429,7 @@ $("strategySession").onchange=loadStrategy;$("strategyRefresh").onclick=loadStra
 function ensure(){
  const sub=curSub;if(sub==="headlines"||sub==="fia"){loadNewsroom();return;}if(sub==="live"){loadStrategy();return;}if(!cur)return;
  if(sub==="standings"&&!loaded.st){loaded.st=1;loadStandings()}
- if(sub==="result"&&!loaded.res){loaded.res=1;loadResult()}
+ if(sub==="results"&&!loaded.res){loaded.res=1;loadResult()}
  if(sub==="control"&&!loaded.ctl){loaded.ctl=1;loadControl()}
  if(sub==="radio"||sub==="laps"||sub==="car"||sub==="weather"){
   if(!loaded.sess){loaded.sess=1;loadSessions(cur)}
