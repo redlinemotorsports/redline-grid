@@ -1,5 +1,5 @@
 /* Driver Statistics — migrated from the legacy application without changing its UI. */
-const legacy = window.RedlineLegacy;
+const legacy = window.RedlineLegacy!;
 if (!legacy) {
   throw new Error("Redline Grid compatibility bridge is unavailable.");
 }
@@ -10,7 +10,7 @@ const $ = (id: string): HTMLElement => {
 };
 
 /* ---------- Driver Stats / offline-friendly head-to-head ---------- */
-const statsState: Record<string, any> = {year:legacy.nowY,view:"directory",profile:null,a:null,b:null,data:null,loading:false,offline:false,cacheKey:y=>"redline-driver-stats-v1-"+y};
+const statsState: Record<string, any> = {year:legacy.nowY,view:"directory",profile:null,a:null,b:null,data:null,loading:false,offline:false,cacheKey:(y: number)=>"redline-driver-stats-v1-"+y};
 function statsEsc(v: any): string {return legacy.esc(v)}
 function statsNum(v: any): number | null {if(v===null||v===undefined||v==="")return null;const n=Number(v);return Number.isFinite(n)?n:null}
 function statsDriverId(d: any): string {return d?.Driver?.driverId||d?.driverId||""}
@@ -21,26 +21,26 @@ function statsReadCache(y: number): any {try{const x=JSON.parse(localStorage.get
 function statsSaveCache(y: number, data: any): void {try{localStorage.setItem(statsState.cacheKey(y),JSON.stringify(data))}catch(e){}}
 async function statsEndpoint(path: string): Promise<any> { return legacy.jget(path); }
 function statsMerge(year: number, standingData: any, raceData: any, qualData: any, prior: any): any {
- const by: Record<string, any> = {};(prior?.drivers||[]).forEach(d=>{by[d.id]={...d}});
- const standings=standingData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings||[];
- standings.forEach((v,i)=>{const id=statsDriverId(v);if(!id)return;const d=by[id]||{id};d.name=statsName(v);d.code=v.Driver?.code||"";d.number=v.Driver?.permanentNumber||"";d.team=statsTeam(v);d.points=statsNum(v.points);d.wins=statsNum(v.wins);d.position=statsNum(v.position)||i+1;d.championshipAvailable=true;by[id]=d});
+ const by: Record<string, any> = {};(prior?.drivers||[]).forEach((d: any)=>{by[d.id]={...d}});
+ const standings: any[] = standingData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings||[];
+ standings.forEach((v: any, i: number)=>{const id=statsDriverId(v);if(!id)return;const d=by[id]||{id};d.name=statsName(v);d.code=v.Driver?.code||"";d.number=v.Driver?.permanentNumber||"";d.team=statsTeam(v);d.points=statsNum(v.points);d.wins=statsNum(v.wins);d.position=statsNum(v.position)||i+1;d.championshipAvailable=true;by[id]=d});
  Object.values(by).forEach(d=>{d.podiums=0;d.poles=0;d.fastest=0;d.retirements=0;d.finishSum=0;d.finishCount=0;d.roundPoints={};d.roundResults={};d.roundQualifying={}});
- const seasonRaces=(raceData?.RaceTable?.Races||[]).map(r=>({round:Number(r.round),name:r.raceName||("Round "+r.round),circuit:r.Circuit?.circuitName||""})).sort((a,b)=>a.round-b.round);
+ const seasonRaces: any[] = (raceData?.RaceTable?.Races||[]).map((r: any)=>({round:Number(r.round),name:r.raceName||("Round "+r.round),circuit:r.Circuit?.circuitName||""})).sort((a: any,b: any)=>a.round-b.round);
  if(raceData){
-  const races=raceData.RaceTable?.Races||[];
-  races.forEach(r=>{(r.Results||[]).forEach(v=>{const id=statsDriverId(v);if(!by[id])by[id]={id,name:statsName(v),team:statsTeam(v),points:null,wins:null,position:null,podiums:0,poles:0,fastest:0,retirements:0,finishSum:0,finishCount:0,roundPoints:{},roundResults:{},roundQualifying:{}};const d=by[id],pos=statsNum(v.position),status=String(v.status||"").trim().toLowerCase(),classified=/^finished$|^\+\d+\s+laps?$/.test(status),excluded=/disqualif|did not start|did not qualify|withdraw|excluded|107% rule/.test(status);if(status&&!classified&&!excluded)d.retirements=(d.retirements||0)+1;if(pos&&pos<=3)d.podiums++;if(pos){d.finishSum+=pos;d.finishCount++}const round=Number(r.round);d.roundPoints[round]=(d.roundPoints[round]||0)+(statsNum(v.points)||0);d.roundResults[round]={position:pos&&(!status||classified)?pos:null,status:String(v.status||"")};if(v.FastestLap?.rank==="1"||Number(v.FastestLap?.rank)===1)d.fastest++})});
+  const races: any[] = raceData.RaceTable?.Races||[];
+  races.forEach((r: any)=>{(r.Results||[]).forEach((v: any)=>{const id=statsDriverId(v);if(!by[id])by[id]={id,name:statsName(v),team:statsTeam(v),points:null,wins:null,position:null,podiums:0,poles:0,fastest:0,retirements:0,finishSum:0,finishCount:0,roundPoints:{},roundResults:{},roundQualifying:{}};const d=by[id],pos=statsNum(v.position),status=String(v.status||"").trim().toLowerCase(),classified=/^finished$|^\+\d+\s+laps?$/.test(status),excluded=/disqualif|did not start|did not qualify|withdraw|excluded|107% rule/.test(status);if(status&&!classified&&!excluded)d.retirements=(d.retirements||0)+1;if(pos&&pos<=3)d.podiums++;if(pos){d.finishSum+=pos;d.finishCount++}const round=Number(r.round);d.roundPoints[round]=(d.roundPoints[round]||0)+(statsNum(v.points)||0);d.roundResults[round]={position:pos&&(!status||classified)?pos:null,status:String(v.status||"")};if(v.FastestLap?.rank==="1"||Number(v.FastestLap?.rank)===1)d.fastest++})});
  }
  if(qualData){
-  const races=qualData.RaceTable?.Races||[];
-  races.forEach(r=>(r.QualifyingResults||[]).forEach(v=>{const id=statsDriverId(v);if(!by[id])by[id]={id,name:statsName(v),team:statsTeam(v),points:null,wins:null,podiums:0,poles:0,fastest:0,finishSum:0,finishCount:0,roundPoints:{},roundResults:{},roundQualifying:{}};const d=by[id],pos=statsNum(v.position);if(pos===1)d.poles=(d.poles||0)+1;if(pos){d.qualSum=(d.qualSum||0)+pos;d.qualCount=(d.qualCount||0)+1;d.roundQualifying[Number(r.round)]=pos}}));
+  const races: any[] = qualData.RaceTable?.Races||[];
+  races.forEach((r: any)=>(r.QualifyingResults||[]).forEach((v: any)=>{const id=statsDriverId(v);if(!by[id])by[id]={id,name:statsName(v),team:statsTeam(v),points:null,wins:null,podiums:0,poles:0,fastest:0,finishSum:0,finishCount:0,roundPoints:{},roundResults:{},roundQualifying:{}};const d=by[id],pos=statsNum(v.position);if(pos===1)d.poles=(d.poles||0)+1;if(pos){d.qualSum=(d.qualSum||0)+pos;d.qualCount=(d.qualCount||0)+1;d.roundQualifying[Number(r.round)]=pos}}));
  }
- const drivers=Object.values(by).sort((a,b)=>(a.position||999)-(b.position||999));
- drivers.forEach(d=>{d.avgFinish=d.finishCount?Math.round(d.finishSum/d.finishCount*10)/10:null;d.avgQual=d.qualCount?Math.round(d.qualSum/d.qualCount*10)/10:null;d.podiums=Number.isFinite(d.podiums)?d.podiums:null;d.poles=Number.isFinite(d.poles)?d.poles:null;d.fastest=Number.isFinite(d.fastest)?d.fastest:null;d.roundPoints=d.roundPoints||{};d.roundResults=d.roundResults||{};d.roundQualifying=d.roundQualifying||{}});
+ const drivers: any[] = Object.values(by).sort((a: any,b: any)=>(a.position||999)-(b.position||999));
+ drivers.forEach((d: any)=>{d.avgFinish=d.finishCount?Math.round(d.finishSum/d.finishCount*10)/10:null;d.avgQual=d.qualCount?Math.round(d.qualSum/d.qualCount*10)/10:null;d.podiums=Number.isFinite(d.podiums)?d.podiums:null;d.poles=Number.isFinite(d.poles)?d.poles:null;d.fastest=Number.isFinite(d.fastest)?d.fastest:null;d.roundPoints=d.roundPoints||{};d.roundResults=d.roundResults||{};d.roundQualifying=d.roundQualifying||{}});
  return {year,updatedAt:Date.now(),source:"jolpica",drivers,rounds:seasonRaces,hasRaces:!!raceData,hasQualifying:!!qualData};
 }
 function statsMetric(label: string, key: string, a: any, b: any, lowerBetter = false): string {
  const av=statsNum(a[key]),bv=statsNum(b[key]),max=Math.max(av||0,bv||0,1);
- const display=v=>v===null?"—":(key.startsWith("avg")?v.toFixed(1):v);
+ const display=(v: number | null)=>v===null?"—":(key.startsWith("avg")?v.toFixed(1):v);
  const winner=av===null||bv===null||av===bv?"":(lowerBetter?(av<bv?a.name:b.name):(av>bv?a.name:b.name));
  return `<div class="stats-metric"><div class="stats-metric-head"><span>${label}</span><b>${winner?statsEsc(winner)+" leads":av===null||bv===null?"Data unavailable":av===bv?"Level":display(av)+" vs "+display(bv)}</b></div><div class="stats-dual"><div class="stats-barline"><b>${display(av)}</b><div class="stats-track"><div class="stats-fill a" style="width:${av===null?0:Math.max(0,av/max*100)}%"></div></div></div><div class="stats-barline"><b>${display(bv)}</b><div class="stats-track"><div class="stats-fill b" style="width:${bv===null?0:Math.max(0,bv/max*100)}%"></div></div></div></div></div>`;
 }
@@ -58,32 +58,32 @@ function statsSummary(a: any, b: any): { headline: string; paragraph: string } {
  return {headline,paragraph};
 }
 function statsTrendSVG(data: any): string {
- const drivers=[...data.drivers].sort((a,b)=>(a.position||999)-(b.position||999));
- const rounds=(data.rounds?.length?data.rounds:Array.from(new Set(drivers.flatMap(d=>Object.keys(d.roundPoints||{}).map(Number)))).sort((a,b)=>a-b).map(round=>({round,name:"Round "+round})));
+ const drivers: any[] = [...data.drivers].sort((a: any,b: any)=>(a.position||999)-(b.position||999));
+ const rounds: any[] = (data.rounds?.length?data.rounds:Array.from(new Set(drivers.flatMap(d=>Object.keys(d.roundPoints||{}).map(Number)))).sort((a,b)=>a-b).map(round=>({round,name:"Round "+round})));
  if(rounds.length<2)return '<div class="stats-empty">Season-wide analysis will appear when at least two race results are available.</div>';
  const palette=["#FF1E00","#3987E8","#19A58C","#B17AE0","#D9A441","#42A5B5","#D66B91","#87964B","#8A7DCE","#D18A45","#4D9C6B","#B95F5F","#6D8EC7","#9B7B62","#55A6A0","#A76FA0","#7E8A96","#C28C39","#5B85A8","#9B9B55"];
- const series=drivers.map((d,index)=>{let total=0;const values=rounds.map(r=>{total+=Number(d.roundPoints?.[r.round]||0);return total});return {d,values,color:palette[index%palette.length]}});
+ const series: any[] = drivers.map((d: any,index: number)=>{let total=0;const values=rounds.map((r: any)=>{total+=Number(d.roundPoints?.[r.round]||0);return total});return {d,values,color:palette[index%palette.length]}});
  const max=Math.max(1,...series.flatMap(x=>x.values)),w=Math.max(700,rounds.length*36),h=270,l=42,r=12,t=20,b=32,iw=w-l-r,ih=h-t-b;
- const x=i=>l+(rounds.length===1?0:i*iw/(rounds.length-1)),y=v=>t+ih-(v/max)*ih;
- const grid=[0,.25,.5,.75,1].map(f=>{const v=max*f,yy=y(v);return `<line x1="${l}" y1="${yy}" x2="${w-r}" y2="${yy}" stroke="currentColor" opacity=".12"/><text x="${l-8}" y="${yy+3}" text-anchor="end" fill="currentColor" opacity=".65" font-size="10">${Math.round(v)}</text>`}).join("");
- const lines=series.map(z=>`<path d="${z.values.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+","+y(v).toFixed(1)).join(" ")}" stroke="${z.color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".9"><title>${statsEsc(z.d.name)}: ${z.values[z.values.length-1]} points</title></path>`).join("");
- const ticks=rounds.map((round,i)=>i===0||i===rounds.length-1||i%Math.ceil(rounds.length/10)===0?`<text x="${x(i)}" y="${h-10}" text-anchor="middle" fill="currentColor" opacity=".7" font-size="10">R${round.round}</text>`:"").join("");
- const legend=series.map(z=>`<span><i style="background:${z.color}"></i>${statsEsc(z.d.name)}</span>`).join("");
- const comparison=drivers.map(d=>{const paired=rounds.map(r=>({qual:statsNum(d.roundQualifying?.[r.round]),finish:statsNum(d.roundResults?.[r.round]?.position)})).filter(x=>x.qual!==null&&x.finish!==null);return {d,qual:paired.length?paired.reduce((sum,x)=>sum+x.qual,0)/paired.length:null,finish:paired.length?paired.reduce((sum,x)=>sum+x.finish,0)/paired.length:null,count:paired.length}}).filter(x=>x.qual!==null&&x.finish!==null).sort((a,b)=>a.qual-b.qual);
- const maxGridPosition=Math.max(20,...comparison.flatMap(x=>[x.qual,x.finish]));
- const positionChart=comparison.map((x,i)=>{const q=Math.max(0,Math.min(100,(x.qual/maxGridPosition)*100)),f=Math.max(0,Math.min(100,(x.finish/maxGridPosition)*100));return `<div class="stats-qf-row"><div class="stats-qf-name"><span>${statsEsc(x.d.name)}</span><small>${statsEsc(x.d.team||"")}</small></div><div class="stats-qf-bars"><div class="stats-qf-line"><span>QUAL</span><div class="stats-qf-track"><i style="width:${q}%;background:#3987E8"></i></div><b>P${x.qual.toFixed(1)}</b></div><div class="stats-qf-line"><span>FINISH</span><div class="stats-qf-track"><i style="width:${f}%;background:#19A58C"></i></div><b>P${x.finish.toFixed(1)}</b></div></div><div class="stats-qf-delta ${x.qual-x.finish>0?"gain":x.qual-x.finish<0?"loss":""}">${x.qual===x.finish?"—":(x.qual-x.finish>0?"+":"")+(x.qual-x.finish).toFixed(1)}</div></div>`}).join("");
- const performance=drivers.map(d=>{const paired=rounds.map(r=>{const q=statsNum(d.roundQualifying?.[r.round]),f=statsNum(d.roundResults?.[r.round]?.position);return q!==null&&f!==null?{round:r,qual:q,finish:f,gain:q-f}:null}).filter(Boolean);return {d,paired,avg:paired.length?paired.reduce((sum,x)=>sum+x.gain,0)/paired.length:null,gained:paired.filter(x=>x.gain>0).length,lost:paired.filter(x=>x.gain<0).length,same:paired.filter(x=>x.gain===0).length}}).filter(x=>x.avg!==null).sort((a,b)=>b.avg-a.avg);
- const gainRows=performance.map((x,i)=>`<div class="stats-gain-row"><span class="stats-gain-rank">${String(i+1).padStart(2,"0")}</span><span class="stats-gain-driver">${statsEsc(x.d.name)}<small>${x.paired.length} matched GP weekends</small></span><b class="${x.avg>0?"gain":x.avg<0?"loss":""}">${x.avg>0?"+":""}${x.avg.toFixed(1)} <small>PLACES</small></b><span class="stats-gain-record"><i>${x.gained} gained</i><i>${x.lost} lost</i></span></div>`).join("");
- const drives=performance.flatMap(x=>x.paired.map(p=>({...p,d:x.d})));
- const best=[...drives].sort((a,b)=>b.gain-a.gain||a.finish-b.finish).filter(x=>x.gain>0).slice(0,5);
- const worst=[...drives].sort((a,b)=>a.gain-b.gain||b.finish-a.finish).filter(x=>x.gain<0).slice(0,5);
- const driveRows=(items,kind)=>items.map(x=>`<div class="stats-drive-row"><span class="stats-drive-round">R${x.round.round}<small>${statsEsc(x.round.name.replace(/ Grand Prix$/," GP"))}</small></span><span class="stats-drive-driver">${statsEsc(x.d.name)}</span><span class="stats-drive-positions">Q P${x.qual} → P${x.finish}</span><b class="${kind}">${x.gain>0?"+":""}${x.gain}</b></div>`).join("");
+ const x=(i: number)=>l+(rounds.length===1?0:i*iw/(rounds.length-1)),y=(v: number)=>t+ih-(v/max)*ih;
+ const grid=[0,.25,.5,.75,1].map((f: number)=>{const v=max*f,yy=y(v);return `<line x1="${l}" y1="${yy}" x2="${w-r}" y2="${yy}" stroke="currentColor" opacity=".12"/><text x="${l-8}" y="${yy+3}" text-anchor="end" fill="currentColor" opacity=".65" font-size="10">${Math.round(v)}</text>`}).join("");
+ const lines=series.map((z: any)=>`<path d="${z.values.map((v: number,i: number)=>(i?"L":"M")+x(i).toFixed(1)+","+y(v).toFixed(1)).join(" ")}" stroke="${z.color}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".9"><title>${statsEsc(z.d.name)}: ${z.values[z.values.length-1]} points</title></path>`).join("");
+ const ticks=rounds.map((round: any,i: number)=>i===0||i===rounds.length-1||i%Math.ceil(rounds.length/10)===0?`<text x="${x(i)}" y="${h-10}" text-anchor="middle" fill="currentColor" opacity=".7" font-size="10">R${round.round}</text>`:"").join("");
+ const legend=series.map((z: any)=>`<span><i style="background:${z.color}"></i>${statsEsc(z.d.name)}</span>`).join("");
+ const comparison: any[] = drivers.map((d: any)=>{const paired: any[] = rounds.map((r: any)=>({qual:statsNum(d.roundQualifying?.[r.round]),finish:statsNum(d.roundResults?.[r.round]?.position)})).filter((x: any)=>x.qual!==null&&x.finish!==null);return {d,qual:paired.length?paired.reduce((sum: number,x: any)=>sum+x.qual,0)/paired.length:null,finish:paired.length?paired.reduce((sum: number,x: any)=>sum+x.finish,0)/paired.length:null,count:paired.length}}).filter(x=>x.qual!==null&&x.finish!==null).sort((a: any,b: any)=>a.qual-b.qual);
+ const maxGridPosition=Math.max(20,...comparison.flatMap((x: any)=>[x.qual,x.finish]));
+ const positionChart=comparison.map((x: any,i: number)=>{const q=Math.max(0,Math.min(100,(x.qual/maxGridPosition)*100)),f=Math.max(0,Math.min(100,(x.finish/maxGridPosition)*100));return `<div class="stats-qf-row"><div class="stats-qf-name"><span>${statsEsc(x.d.name)}</span><small>${statsEsc(x.d.team||"")}</small></div><div class="stats-qf-bars"><div class="stats-qf-line"><span>QUAL</span><div class="stats-qf-track"><i style="width:${q}%;background:#3987E8"></i></div><b>P${x.qual.toFixed(1)}</b></div><div class="stats-qf-line"><span>FINISH</span><div class="stats-qf-track"><i style="width:${f}%;background:#19A58C"></i></div><b>P${x.finish.toFixed(1)}</b></div></div><div class="stats-qf-delta ${x.qual-x.finish>0?"gain":x.qual-x.finish<0?"loss":""}">${x.qual===x.finish?"—":(x.qual-x.finish>0?"+":"")+(x.qual-x.finish).toFixed(1)}</div></div>`}).join("");
+ const performance: any[] = drivers.map((d: any)=>{const paired: any[] = rounds.map((r: any)=>{const q=statsNum(d.roundQualifying?.[r.round]),f=statsNum(d.roundResults?.[r.round]?.position);return q!==null&&f!==null?{round:r,qual:q,finish:f,gain:q-f}:null}).filter(Boolean);return {d,paired,avg:paired.length?paired.reduce((sum: number,x: any)=>sum+x.gain,0)/paired.length:null,gained:paired.filter(x=>x.gain>0).length,lost:paired.filter(x=>x.gain<0).length,same:paired.filter(x=>x.gain===0).length}}).filter((x: any)=>x.avg!==null).sort((a: any,b: any)=>b.avg-a.avg);
+ const gainRows=performance.map((x: any,i: number)=>`<div class="stats-gain-row"><span class="stats-gain-rank">${String(i+1).padStart(2,"0")}</span><span class="stats-gain-driver">${statsEsc(x.d.name)}<small>${x.paired.length} matched GP weekends</small></span><b class="${x.avg>0?"gain":x.avg<0?"loss":""}">${x.avg>0?"+":""}${x.avg.toFixed(1)} <small>PLACES</small></b><span class="stats-gain-record"><i>${x.gained} gained</i><i>${x.lost} lost</i></span></div>`).join("");
+ const drives=performance.flatMap((x: any)=>x.paired.map((p: any)=>({...p,d:x.d})));
+ const best=[...drives].sort((a: any,b: any)=>b.gain-a.gain||a.finish-b.finish).filter((x: any)=>x.gain>0).slice(0,5);
+ const worst=[...drives].sort((a: any,b: any)=>a.gain-b.gain||b.finish-a.finish).filter((x: any)=>x.gain<0).slice(0,5);
+ const driveRows=(items: any[],kind: string)=>items.map((x: any)=>`<div class="stats-drive-row"><span class="stats-drive-round">R${x.round.round}<small>${statsEsc(x.round.name.replace(/ Grand Prix$/," GP"))}</small></span><span class="stats-drive-driver">${statsEsc(x.d.name)}</span><span class="stats-drive-positions">Q P${x.qual} → P${x.finish}</span><b class="${kind}">${x.gain>0?"+":""}${x.gain}</b></div>`).join("");
  const recovery=`<div class="stats-recovery-grid"><section class="stats-analysis-panel"><h4>Biggest gains</h4><p class="stats-note">Largest improvements from qualifying to classified finish.</p>${best.length?driveRows(best,"gain"):'<div class="stats-empty">No qualifying-to-finish gains recorded yet.</div>'}</section><section class="stats-analysis-panel"><h4>Biggest drops</h4><p class="stats-note">Largest position losses from qualifying to classified finish.</p>${worst.length?driveRows(worst,"loss"):'<div class="stats-empty">No qualifying-to-finish drops recorded yet.</div>'}</section></div>`;
  const positionBreakdown=`<section class="stats-performance"><div class="stats-points-heading"><div><h3 class="stats-section-title">Average qualifying vs race finish</h3><p class="stats-note">Average positions for each driver. Lower position numbers are better; only available averages are shown.</p></div><span class="stats-points-count">${comparison.length} DRIVERS</span></div><div class="stats-qf-legend"><span><i style="background:#3987E8"></i>Qualifying</span><span><i style="background:#19A58C"></i>Race finish</span><span class="stats-note">Position gain = qualifying position − finishing position</span></div>${comparison.length?positionChart:'<div class="stats-empty">Qualifying and finishing averages are not both available.</div>'}</section>`;
  const gainBreakdown=`<section class="stats-performance"><div class="stats-points-heading"><div><h3 class="stats-section-title">Position gain leaderboard</h3><p class="stats-note">Average places gained or lost across rounds with both a qualifying position and a classified finish.</p></div><span class="stats-points-count">${performance.length} DRIVERS</span></div>${gainRows||'<div class="stats-empty">Matched qualifying and race results are not available yet.</div>'}</section>`;
  return `<div class="stats-chart-scroll"><svg class="stats-trend stats-season-chart" viewBox="0 0 ${w} ${h}" role="img" aria-label="Cumulative championship points for all drivers by round">${grid}${lines}${ticks}</svg></div><div class="stats-trend-legend">${legend}</div><div class="stats-performance-heading"><span class="stats-kicker">RACE EXECUTION</span><h3 class="stats-section-title">Qualifying vs race performance</h3><p class="stats-note">Compare one-lap starting performance with classified Grand Prix finishes. Sprint sessions and sprint results are excluded.</p></div>${positionBreakdown}${gainBreakdown}${recovery}`;
 }
-function statsOptions(selected: any, other: any): string {return statsState.data.drivers.filter(d=>d.id!==other).map(d=>`<option value="${statsEsc(d.id)}" ${d.id===selected?"selected":""}>${statsEsc(d.name)}</option>`).join("")}
+function statsOptions(selected: any, other: any): string {const drivers: any[] = statsState.data.drivers;return drivers.filter((d: any)=>d.id!==other).map(d=>`<option value="${statsEsc(d.id)}" ${d.id===selected?"selected":""}>${statsEsc(d.name)}</option>`).join("")}
 function statsDriverCard(d: any, side: "a" | "b", other: any): string {
  const color=side==="a"?"#FF1E00":"#3987E8";
  return `<div class="stats-driver ${side}"><div class="stats-kicker" style="color:${color}">DRIVER ${side.toUpperCase()}</div><select class="stats-select" data-driver-select="${side}" aria-label="Select Driver ${side.toUpperCase()}">${statsOptions(d.id,other)}</select><div class="stats-team">${statsEsc(d.team||"Team data unavailable")}</div><div class="stats-points">${d.points===null||d.points===undefined?"—":statsEsc(d.points)}<small>PTS</small></div></div>`;
@@ -124,26 +124,26 @@ function statsDriverSpotlight(d: any): { label: string; intro: string } {
 }
 function statsDriverBadge(d: any): string { return legacy.driverNoBadge(d.number || "—", statsColor(d.team, 0)); }
 function statsProfileMarkup(d: any, data: any): string {
- const races=(data.rounds||[]).map(r=>({round:r.round,name:r.name,circuit:r.circuit,result:d.roundResults?.[r.round],qual:d.roundQualifying?.[r.round],points:d.roundPoints?.[r.round]})).filter(r=>r.result||r.qual!==undefined||r.points!==undefined).reverse();
- const metric=(label,value)=>`<article class="driver-hub-metric"><span>${label}</span><b>${value===null||value===undefined||value===""?"—":statsEsc(value)}</b></article>`;
+ const races: any[] = (data.rounds||[]).map((r: any)=>({round:r.round,name:r.name,circuit:r.circuit,result:d.roundResults?.[r.round],qual:d.roundQualifying?.[r.round],points:d.roundPoints?.[r.round]})).filter((r: any)=>r.result||r.qual!==undefined||r.points!==undefined).reverse();
+ const metric=(label: string,value: any)=>`<article class="driver-hub-metric"><span>${label}</span><b>${value===null||value===undefined||value===""?"—":statsEsc(value)}</b></article>`;
  return `<div class="driver-profile-top"><div class="driver-profile-badge">${statsDriverBadge(d)}</div><div class="driver-profile-identity"><p class="stats-kicker">DRIVER PROFILE · ${data.year}</p><h3>${statsEsc(d.name)}</h3><p>${statsEsc(d.team||"Team not listed")}</p><span class="driver-profile-number">CAR NUMBER ${statsEsc(d.number||"—")}</span></div></div>
  ${(()=>{const spotlight=statsDriverSpotlight(d);return `<section class="driver-spotlight"><p class="stats-kicker">${spotlight.label}</p><h4>Driver Spotlight</h4><p>${statsEsc(spotlight.intro)}</p></section>`})()}
  <div class="driver-hub-metrics">${metric("Championship position",d.position?("P"+d.position):"—")}${metric("Points",d.points)}${metric("Wins",d.wins)}${metric("Podiums",d.podiums)}${metric("Pole positions",d.poles)}${metric("Fastest laps",d.fastest)}${metric("Avg. qualifying",d.avgQual===null||d.avgQual===undefined?null:d.avgQual.toFixed(1))}${metric("Avg. finish",d.avgFinish===null||d.avgFinish===undefined?null:d.avgFinish.toFixed(1))}</div>
  <div class="driver-profile-actions"><button type="button" data-driver-view="directory">← All drivers</button></div>
  <h3 class="stats-section-title">Season timeline</h3><p class="stats-note">Round-by-round results for ${data.year}. This is season data, not a complete career record.</p>
- ${races.length?`<div class="driver-race-list">${races.map(r=>`<article class="driver-race-row"><div class="driver-race-round">R${r.round}</div><div class="driver-race-name"><b>${statsEsc(r.name)}</b><small>${statsEsc(r.circuit||"Grand Prix")}</small></div><div class="driver-race-stats"><span>Q ${r.qual??"—"}</span><span>${r.result?.position?"P"+r.result.position:r.result?.status?statsEsc(r.result.status):"—"}</span><b>${r.points??0} pts</b></div></article>`).join("")}</div>`:'<div class="stats-empty">Round-by-round results are not available for this driver and season yet.</div>'}`;
+ ${races.length?`<div class="driver-race-list">${races.map((r: any)=>`<article class="driver-race-row"><div class="driver-race-round">R${r.round}</div><div class="driver-race-name"><b>${statsEsc(r.name)}</b><small>${statsEsc(r.circuit||"Grand Prix")}</small></div><div class="driver-race-stats"><span>Q ${r.qual??"—"}</span><span>${r.result?.position?"P"+r.result.position:r.result?.status?statsEsc(r.result.status):"—"}</span><b>${r.points??0} pts</b></div></article>`).join("")}</div>`:'<div class="stats-empty">Round-by-round results are not available for this driver and season yet.</div>'}`;
 }
 function renderDriverStats(): void {
  const root=$("statsContent");if(!root)return;
  const data=statsState.data;
  if(!data?.drivers?.length){root.innerHTML='<div class="stats-empty">Driver statistics are not available yet. Connect to the internet and refresh when OpenF1 or Jolpica-F1 is reachable. Once loaded, Redline will save a local copy for future API outages.</div>';return}
- const drivers=data.drivers,defaultA=drivers[0],defaultB=drivers.find(d=>d.id!==defaultA?.id)||defaultA;
- if(!statsState.a||!drivers.some(d=>d.id===statsState.a))statsState.a=defaultA.id;
- if(!statsState.b||!drivers.some(d=>d.id===statsState.b)||statsState.b===statsState.a)statsState.b=defaultB.id;
- const a=drivers.find(d=>d.id===statsState.a)||defaultA,b=drivers.find(d=>d.id===statsState.b)||defaultB;
+ const drivers: any[] = data.drivers,defaultA=drivers[0],defaultB=drivers.find((d: any)=>d.id!==defaultA?.id)||defaultA;
+ if(!statsState.a||!drivers.some((d: any)=>d.id===statsState.a))statsState.a=defaultA.id;
+ if(!statsState.b||!drivers.some((d: any)=>d.id===statsState.b)||statsState.b===statsState.a)statsState.b=defaultB.id;
+ const a=drivers.find((d: any)=>d.id===statsState.a)||defaultA,b=drivers.find((d: any)=>d.id===statsState.b)||defaultB;
  const summary=statsSummary(a,b),stamp=data.updatedAt?new Date(data.updatedAt).toLocaleString():"Unknown";
  if(statsState.view==="directory"){
-  root.innerHTML=`<div class="driver-directory-head"><div><h3 class="stats-section-title">Driver directory</h3><p class="stats-note">Select a driver to explore their season profile and performance.</p></div><label>Find a driver <input id="driverDirectorySearch" type="search" placeholder="Search name or team"></label></div><div class="driver-directory-grid">${drivers.map(d=>`<button type="button" class="driver-directory-card" data-driver-profile="${statsEsc(d.id)}" data-search="${statsEsc((d.name+" "+(d.team||"")).toLowerCase())}"><span class="driver-directory-badge">${statsDriverBadge(d)}</span><span class="driver-directory-info"><b>${statsEsc(d.name)}</b><small>${statsEsc(d.team||"Team not listed")}</small><span>${d.points===null||d.points===undefined?"—":statsEsc(d.points)+" pts"} · ${d.position?"P"+d.position:"Position —"}</span></span><span class="driver-directory-arrow">↗</span></button>`).join("")}</div><p class="stats-note">Season: ${data.year}. Driver number marks use the same graphic style as the Standings tab. ${statsState.offline?"Showing saved data from this device.":""}</p>`;
+  root.innerHTML=`<div class="driver-directory-head"><div><h3 class="stats-section-title">Driver directory</h3><p class="stats-note">Select a driver to explore their season profile and performance.</p></div><label>Find a driver <input id="driverDirectorySearch" type="search" placeholder="Search name or team"></label></div><div class="driver-directory-grid">${drivers.map((d: any)=>`<button type="button" class="driver-directory-card" data-driver-profile="${statsEsc(d.id)}" data-search="${statsEsc((d.name+" "+(d.team||"")).toLowerCase())}"><span class="driver-directory-badge">${statsDriverBadge(d)}</span><span class="driver-directory-info"><b>${statsEsc(d.name)}</b><small>${statsEsc(d.team||"Team not listed")}</small><span>${d.points===null||d.points===undefined?"—":statsEsc(d.points)+" pts"} · ${d.position?"P"+d.position:"Position —"}</span></span><span class="driver-directory-arrow">↗</span></button>`).join("")}</div><p class="stats-note">Season: ${data.year}. Driver number marks use the same graphic style as the Standings tab. ${statsState.offline?"Showing saved data from this device.":""}</p>`;
   const search = root.querySelector<HTMLInputElement>("#driverDirectorySearch");
   if (search) search.oninput = () => { const q = search.value.trim().toLowerCase(); root.querySelectorAll<HTMLElement>("[data-driver-profile]").forEach(card => { card.hidden = !(card.dataset.search || "").includes(q); }); };
   root.querySelectorAll<HTMLElement>("[data-driver-profile]").forEach(card => card.onclick = () => {statsState.profile=card.dataset.driverProfile;statsState.view="profile";renderDriverStats();document.querySelectorAll<HTMLElement>("[data-stats-view]").forEach(x=>x.setAttribute("aria-selected",String(x.dataset.statsView===statsState.view)))});
@@ -169,19 +169,19 @@ function renderDriverStats(): void {
    ["Avg. finish","avgFinish","average finishing position",true]
   ];
   html+='<h3 class="stats-section-title">Season Record Book</h3><p class="stats-note" style="margin:0 0 14px">A neutral look at the season’s leading performances. Each category shows the top three recorded results, with ties included.</p><div class="stats-record-grid">'+records.map(([label,key,unit,lowerBetter])=>{
-   const rows=drivers.map(d=>({d,value:statsNum(d[key])})).filter(x=>x.value!==null).sort((x,y)=>lowerBetter?x.value-y.value:y.value-x.value);
+   const rows=drivers.map((d: any)=>({d,value:statsNum(d[key])})).filter(x=>x.value!==null).sort((x,y)=>lowerBetter?x.value-y.value:y.value-x.value);
    if(!rows.length)return `<article class="stats-record"><div class="stats-record-label">${label}</div><div class="stats-record-value">—</div><div class="stats-record-leader">${"No data available"}</div><div class="stats-record-foot">${"Waiting for season results"}</div></article>`;
    const cutoff=rows[Math.min(2,rows.length-1)].value;
    const ranked=rows.filter(x=>lowerBetter?x.value<=cutoff:x.value>=cutoff);
    const best=rows[0].value;
    const value=key.startsWith("avg")?best.toFixed(1):String(best);
-   return `<article class="stats-record"><div class="stats-record-label">${label}</div><div class="stats-record-value">${value}<span style="font:500 10px Inter;color:var(--mute);letter-spacing:0"> ${key.startsWith("avg")?"AVG":""}</span></div><div class="stats-record-ranking">${ranked.map((x,i)=>`<div class="stats-record-row"><span class="stats-record-rank">${i+1}</span><span class="stats-record-driver">${statsEsc(x.d.name)}</span><span class="stats-record-stat">${key.startsWith("avg")?x.value.toFixed(1):x.value}</span></div>`).join("")}</div><div class="stats-record-foot">${ranked.length>3?"Top three · ties included":lowerBetter?"Lower is better":"Season total"}${unit?" · "+unit:""}</div></article>`;
+   return `<article class="stats-record"><div class="stats-record-label">${label}</div><div class="stats-record-value">${value}<span style="font:500 10px Inter;color:var(--mute);letter-spacing:0"> ${key.startsWith("avg")?"AVG":""}</span></div><div class="stats-record-ranking">${ranked.map((x: any,i: number)=>`<div class="stats-record-row"><span class="stats-record-rank">${i+1}</span><span class="stats-record-driver">${statsEsc(x.d.name)}</span><span class="stats-record-stat">${key.startsWith("avg")?x.value.toFixed(1):x.value}</span></div>`).join("")}</div><div class="stats-record-foot">${ranked.length>3?"Top three · ties included":lowerBetter?"Lower is better":"Season total"}${unit?" · "+unit:""}</div></article>`;
   }).join("")+'</div><p class="stats-note">All drivers use the same ranking rules. Average positions are calculated from recorded qualifying sessions or classified race finishes; missing data is excluded rather than counted as zero. Current-season records may change as more results become available.</p>';
  }else{
-  const leader=[...drivers].sort((x,y)=>(y.points||0)-(x.points||0))[0];
-  const wins=Math.max(0,...drivers.map(d=>Number(d.wins)||0)),winLeaders=drivers.filter(d=>wins>0&&Number(d.wins)===wins);
-  const podiums=Math.max(0,...drivers.map(d=>Number(d.podiums)||0)),podiumLeaders=drivers.filter(d=>podiums>0&&Number(d.podiums)===podiums);
-  const totalPoints=drivers.reduce((sum,d)=>sum+(Number(d.points)||0),0),roundCount=(data.rounds||[]).length;
+  const leader=[...drivers].sort((x: any,y: any)=>(y.points||0)-(x.points||0))[0];
+  const wins=Math.max(0,...drivers.map((d: any)=>Number(d.wins)||0)),winLeaders=drivers.filter((d: any)=>wins>0&&Number(d.wins)===wins);
+  const podiums=Math.max(0,...drivers.map((d: any)=>Number(d.podiums)||0)),podiumLeaders=drivers.filter((d: any)=>podiums>0&&Number(d.podiums)===podiums);
+  const totalPoints=drivers.reduce((sum: number,d: any)=>sum+(Number(d.points)||0),0),roundCount=(data.rounds||[]).length;
   html+=`<div class="stats-trend-intro"><div><p class="stats-kicker">FULL-GRID ANALYSIS</p><h3 class="stats-section-title" style="margin-top:4px">Season Trends</h3><p class="stats-note" style="margin-top:0">Follow the championship across the entire grid, race by race. Every driver uses the same scale and visual treatment.</p></div><div class="stats-round-count">${roundCount}<small>RACES IN DATA</small></div></div><div class="stats-trend-summary"><article><span>Championship leader</span><b>${statsEsc(leader?.name||"—")}</b><small>${leader?.points??"—"} points</small></article><article><span>Most wins</span><b>${winLeaders.length?winLeaders.map(d=>statsEsc(d.name)).join(" / "):"—"}</b><small>${wins} wins</small></article><article><span>Most podiums</span><b>${podiumLeaders.length?podiumLeaders.map(d=>statsEsc(d.name)).join(" / "):"—"}</b><small>${podiums} podiums</small></article><article><span>Points awarded</span><b>${Math.round(totalPoints)}</b><small>Across listed drivers</small></article></div><h3 class="stats-section-title">Cumulative championship points</h3><p class="stats-note">Each line tracks a driver’s running points total after each round. Use the legend to identify drivers; scroll horizontally on smaller screens.</p>${statsTrendSVG(data)}<p class="stats-note">Data is based on available race results and championship standings. Sprint points are not included in this race-results feed, and the latest rounds may be incomplete until results are published.</p>`;
  }
  html+='</div>';root.innerHTML=html;
@@ -213,6 +213,33 @@ async function loadDriverStats(force = false): Promise<void> {
   if(cached||statsState.data){statsState.offline=true;renderDriverStats()}
   if(!cached&&!statsState.data)$("statsContent").innerHTML='<div class="stats-empty">The F1 data APIs are unavailable and no saved driver stats exist for this season yet. Try again when online; Redline will cache successful data for later outages.</div>';
  }finally{statsState.loading=false}
+}
+
+function initDriverStats(): void {
+  const select = document.getElementById("statsYear") as HTMLSelectElement | null;
+  if (!select) return;
+  if (!select.options.length) {
+    for (let year = legacy.nowY; year >= 1950; year--) {
+      select.insertAdjacentHTML("beforeend", `<option value="${year}">${year}</option>`);
+    }
+  }
+  select.value = String(statsState.year);
+  select.onchange = () => {
+    statsState.a = null;
+    statsState.b = null;
+    statsState.data = null;
+    statsState.offline = false;
+    void loadDriverStats(true);
+  };
+  document.querySelectorAll<HTMLElement>("[data-stats-view]").forEach((button) => {
+    button.onclick = () => {
+      statsState.view = button.dataset.statsView || "directory";
+      document.querySelectorAll<HTMLElement>("[data-stats-view]").forEach((item) => {
+        item.setAttribute("aria-selected", String(item === button));
+      });
+      renderDriverStats();
+    };
+  });
 }
 
 initDriverStats();
