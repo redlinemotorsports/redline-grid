@@ -3,10 +3,14 @@ const legacy = window.RedlineLegacy;
 if (!legacy) {
   throw new Error("Redline Grid compatibility bridge is unavailable.");
 }
-const $ = (id: string): HTMLElement | null => legacy.getElementById(id);
+const $ = (id: string): HTMLElement => {
+  const element = legacy.getElementById(id);
+  if (!element) throw new Error(`Required Driver Statistics element not found: ${id}`);
+  return element;
+};
 
 /* ---------- Driver Stats / offline-friendly head-to-head ---------- */
-const statsState: Record<string, any> = {year:nowY,view:"directory",profile:null,a:null,b:null,data:null,loading:false,offline:false,cacheKey:y=>"redline-driver-stats-v1-"+y};
+const statsState: Record<string, any> = {year:legacy.nowY,view:"directory",profile:null,a:null,b:null,data:null,loading:false,offline:false,cacheKey:y=>"redline-driver-stats-v1-"+y};
 function statsEsc(v: any): string {return legacy.esc(v)}
 function statsNum(v: any): number | null {if(v===null||v===undefined||v==="")return null;const n=Number(v);return Number.isFinite(n)?n:null}
 function statsDriverId(d: any): string {return d?.Driver?.driverId||d?.driverId||""}
@@ -142,14 +146,14 @@ function renderDriverStats(): void {
   root.innerHTML=`<div class="driver-directory-head"><div><h3 class="stats-section-title">Driver directory</h3><p class="stats-note">Select a driver to explore their season profile and performance.</p></div><label>Find a driver <input id="driverDirectorySearch" type="search" placeholder="Search name or team"></label></div><div class="driver-directory-grid">${drivers.map(d=>`<button type="button" class="driver-directory-card" data-driver-profile="${statsEsc(d.id)}" data-search="${statsEsc((d.name+" "+(d.team||"")).toLowerCase())}"><span class="driver-directory-badge">${statsDriverBadge(d)}</span><span class="driver-directory-info"><b>${statsEsc(d.name)}</b><small>${statsEsc(d.team||"Team not listed")}</small><span>${d.points===null||d.points===undefined?"—":statsEsc(d.points)+" pts"} · ${d.position?"P"+d.position:"Position —"}</span></span><span class="driver-directory-arrow">↗</span></button>`).join("")}</div><p class="stats-note">Season: ${data.year}. Driver number marks use the same graphic style as the Standings tab. ${statsState.offline?"Showing saved data from this device.":""}</p>`;
   const search = root.querySelector<HTMLInputElement>("#driverDirectorySearch");
   if (search) search.oninput = () => { const q = search.value.trim().toLowerCase(); root.querySelectorAll<HTMLElement>("[data-driver-profile]").forEach(card => { card.hidden = !(card.dataset.search || "").includes(q); }); };
-  root.querySelectorAll<HTMLElement>("[data-driver-profile]").forEach(card => card.onclick = () => {statsState.profile=card.dataset.driverProfile;statsState.view="profile";renderDriverStats();document.querySelectorAll("[data-stats-view]").forEach(x=>x.setAttribute("aria-selected",String(x.dataset.statsView===statsState.view)))});
+  root.querySelectorAll<HTMLElement>("[data-driver-profile]").forEach(card => card.onclick = () => {statsState.profile=card.dataset.driverProfile;statsState.view="profile";renderDriverStats();document.querySelectorAll<HTMLElement>("[data-stats-view]").forEach(x=>x.setAttribute("aria-selected",String(x.dataset.statsView===statsState.view)))});
   return;
  }
  if(statsState.view==="profile"){
   const d=drivers.find(x=>x.id===statsState.profile)||a||drivers[0];statsState.profile=d.id;
   root.innerHTML='<div class="stats-body">'+statsProfileMarkup(d,data)+'</div>';
   const backButton = root.querySelector<HTMLElement>("[data-driver-view='directory']");
-  if (backButton) backButton.onclick = () => {statsState.view="directory";renderDriverStats();document.querySelectorAll("[data-stats-view]").forEach(x=>x.setAttribute("aria-selected",String(x.dataset.statsView===statsState.view)))};
+  if (backButton) backButton.onclick = () => {statsState.view="directory";renderDriverStats();document.querySelectorAll<HTMLElement>("[data-stats-view]").forEach(x=>x.setAttribute("aria-selected",String(x.dataset.statsView===statsState.view)))};
   return;
  }
  let html='<div class="stats-body">';
@@ -184,7 +188,7 @@ function renderDriverStats(): void {
  root.querySelectorAll<HTMLSelectElement>("[data-driver-select]").forEach(sel => sel.onchange = () => { const side = sel.dataset.driverSelect; if (side === "a" || side === "b") statsState[side] = sel.value; renderDriverStats(); });
 }
 async function loadDriverStats(force = false): Promise<void> {
- const y = Number($("statsYear")?.value || statsState.year || legacy.nowY);statsState.year=y;
+ const y = Number(($("statsYear") as HTMLSelectElement).value || statsState.year || legacy.nowY);statsState.year=y;
  const cached=statsReadCache(y);
  if(cached){statsState.data=cached;statsState.offline=false;renderDriverStats()}
  else {if(statsState.data?.year!==y)statsState.data=null;if(!statsState.data)$("statsContent").innerHTML='<div class="state">Loading driver statistics…</div>'}
