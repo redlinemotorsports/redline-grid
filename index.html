@@ -747,7 +747,7 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
 #v-tele>h2:before{content:"REDLINE GRID / TELEMETRY"!important}
 #v-result>h2:not(.race-tab-title):before,#v-control>h2:before,#v-radio>h2:before,#v-weather>h2:before{content:"REDLINE GRID / RACE WEEKEND"!important}
 .pane.grid#v-standings>section.panel h2{font:600 13px Inter;letter-spacing:.14em;text-transform:uppercase;padding:14px 18px;background:transparent;color:var(--mute)}
-@media(max-width:820px){.strategy-hero>div:first-child{flex:0 0 auto}.strategy-hero{gap:6px}}@media(max-width:640px){.strategy-pane .briefing-head{padding:18px 16px 8px}.strategy-summary{padding-top:8px}.pane.grid#v-standings{grid-template-columns:minmax(0,1fr)}.pane.grid#v-standings>.standings-head{grid-column:1}.panel.pane>.stats-head{padding:20px 16px 16px;gap:12px;flex-wrap:wrap}.panel.pane:not(#v-news):not(#v-live):not(#v-stats):not(#v-documents):not(#v-standings)>h2{padding:20px 16px 16px}}
+@media(max-width:820px){.strategy-hero>div:first-child{flex:0 0 auto}.strategy-hero{gap:6px}}@media(max-width:640px){.strategy-pane .briefing-head{padding:18px 16px 8px}.strategy-summary{padding-top:8px}.pane.grid#v-standings{grid-template-columns:minmax(0,1fr)}.pane.grid#v-standings>.standings-head{grid-column:1}.panel.pane>.stats-head{padding:20px 16px 16px;gap:12px;flex-wrap:wrap}.panel.pane:not(#v-news):not(#v-live):not(#v-stats):not(#v-standings)>h2{padding:20px 16px 16px}}
 .lap-editorial-wrap{padding:0 18px 18px}.lap-editorial{margin:0;padding:18px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(135deg,var(--soft),var(--card));position:relative;overflow:hidden}.lap-editorial:before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--red)}.lap-editorial-kicker{margin:0 0 7px;color:var(--red);font:700 10px Inter;letter-spacing:.16em;text-transform:uppercase}.lap-editorial h3{margin:0 0 8px;font:700 20px/1.2 Inter;letter-spacing:-.025em}.lap-editorial p{margin:0 0 10px;color:var(--mute);line-height:1.6}.lap-editorial p:last-child{margin-bottom:0}.lap-editorial strong{color:var(--txt)}.lap-editorial-note{font-size:12px;opacity:.9}.lap-editorial-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:13px 0}.lap-editorial-metric{min-width:0;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:10px 12px}.lap-editorial-metric span{display:block;color:var(--mute);font-size:10px;letter-spacing:.08em;text-transform:uppercase}.lap-editorial-metric b{display:block;margin-top:3px;font:600 20px "IBM Plex Mono",monospace}.lap-editorial-list{display:grid;gap:7px;margin:12px 0}.lap-editorial-row{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:13px}.lap-editorial-row span{color:var(--mute);min-width:0}.lap-editorial-row b{font-family:"IBM Plex Mono",monospace;white-space:nowrap}@media(max-width:640px){.lap-editorial-wrap{padding:0 12px 14px}.lap-editorial{padding:15px}.lap-editorial h3{font-size:18px}.lap-editorial-metric b{font-size:18px}}
 
 /* Race pace & consistency comparison */
@@ -1089,14 +1089,14 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
 #v-stats .stats-verdict{border-radius:8px;background:linear-gradient(125deg,rgba(227,38,54,.07),rgba(255,255,255,.015))}
 #v-stats .stats-record::before{width:2px}
 #v-stats .stats-record-value{font-size:clamp(22px,2.5vw,30px)}
-#v-result>h2,#v-control>h2,#v-radio>h2,#v-weather>h2,#v-documents>h2,#v-cal>h2,#v-tele>h2{font-family:"Barlow Condensed",Manrope,sans-serif;font-size:clamp(28px,4vw,40px);letter-spacing:-.035em;padding:25px 22px 20px;border-bottom:1px solid var(--line);background:linear-gradient(110deg,rgba(227,38,54,.09),transparent 72%)}
-#v-result .result-tools,#v-radio .tools,#v-weather .tools,#v-documents .documents-toolbar{padding:13px 18px;background:rgba(255,255,255,.015)}
+#v-result>h2,#v-control>h2,#v-radio>h2,#v-weather>h2,#v-cal>h2,#v-tele>h2{font-family:"Barlow Condensed",Manrope,sans-serif;font-size:clamp(28px,4vw,40px);letter-spacing:-.035em;padding:25px 22px 20px;border-bottom:1px solid var(--line);background:linear-gradient(110deg,rgba(227,38,54,.09),transparent 72%)}
+#v-result .result-tools,#v-radio .tools,#v-weather .tools{padding:13px 18px;background:rgba(255,255,255,.015)}
 #v-result .result-tools label,#v-radio .tools label,#v-weather .tools label{font-size:10px;letter-spacing:.07em;text-transform:uppercase}
 #v-result .result-tools input{min-height:40px}
 #v-control .control-tools{padding:12px 18px;background:rgba(255,255,255,.015)}
 #v-control .control-filters{gap:6px}
 #v-control .control-filters button,#v-control .control-order{border-radius:6px;font-size:10px;letter-spacing:.04em}
-#v-documents .document-card{background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));border-color:var(--line)}
+
 #v-live .strategy-hero{padding:26px 22px 20px}
 #v-live .strategy-hero h2{font-family:"Barlow Condensed",Manrope,sans-serif;font-size:clamp(30px,4vw,42px);letter-spacing:-.04em}
 #v-live .strategy-summary{gap:8px}
@@ -1114,7 +1114,7 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
  #v-standings td,#v-standings th{padding:9px 8px}
  #v-stats .stats-head{padding:22px 16px 16px}
  #v-stats .stats-head h2{font-size:32px!important}
- #v-result>h2,#v-control>h2,#v-radio>h2,#v-weather>h2,#v-documents>h2,#v-cal>h2,#v-tele>h2{padding:21px 16px 17px}
+ #v-result>h2,#v-control>h2,#v-radio>h2,#v-weather>h2,#v-cal>h2,#v-tele>h2{padding:21px 16px 17px}
  #v-live .strategy-hero{padding:21px 16px 16px}
  #v-live .strategy-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -2601,7 +2601,7 @@ header{gap:12px;margin-bottom:12px;padding-bottom:10px}
   .who b{font-size:12px}
   .who small{font-size:10px}
   .pts{font-size:12px}
-  .panel.pane:not(#v-news):not(#v-live):not(#v-stats):not(#v-documents):not(#v-standings)>h2{padding:14px 12px}
+  .panel.pane:not(#v-news):not(#v-live):not(#v-stats):not(#v-standings)>h2{padding:14px 12px}
 }
 
 
@@ -3636,7 +3636,7 @@ h1.brand-name span{color:var(--red)!important;font:inherit!important;letter-spac
 main{font-family:Inter,Arial,sans-serif!important}
 .panel.pane{border-radius:5px!important}
 .panel.pane>h2,.panel.pane>.briefing-head h2,.panel.pane>.stats-head h2{font-family:"Barlow Condensed",Impact,sans-serif!important;letter-spacing:.015em!important;text-transform:uppercase!important}
-.panel.pane:not(#v-news):not(#v-live):not(#v-stats):not(#v-documents):not(#v-standings)>h2{background:linear-gradient(90deg,rgba(242,29,36,.13),transparent 75%)!important;color:#fff!important;font:800 clamp(27px,3vw,38px)/1 "Barlow Condensed",Impact,sans-serif!important;letter-spacing:.02em!important;padding:22px 24px!important}
+.panel.pane:not(#v-news):not(#v-live):not(#v-stats):not(#v-standings)>h2{background:linear-gradient(90deg,rgba(242,29,36,.13),transparent 75%)!important;color:#fff!important;font:800 clamp(27px,3vw,38px)/1 "Barlow Condensed",Impact,sans-serif!important;letter-spacing:.02em!important;padding:22px 24px!important}
 .briefing-head,.stats-head,.home-weekend-head{background:linear-gradient(105deg,rgba(242,29,36,.16),rgba(242,29,36,.025) 42%,transparent 78%)!important;border-bottom:1px solid rgba(255,255,255,.1)!important}
 .briefing-kicker,.stats-kicker,.prediction-kicker{font:600 9px "IBM Plex Mono",monospace!important;letter-spacing:.2em!important;color:#ff4248!important}
 .briefing-head h2,.stats-head h2,.home-weekend-head h2{font:800 clamp(30px,4vw,46px)/.98 "Barlow Condensed",Impact,sans-serif!important;letter-spacing:.015em!important;text-transform:uppercase!important;color:#fff!important}
@@ -3975,7 +3975,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-control>.simple-title-head,
 #v-radio>.simple-title-head,
 #v-weather>.simple-title-head,
-#v-documents .paddock-hero-copy,
 #v-tele>.simple-title-head,
 #v-cal>.simple-title-head{
  box-sizing:border-box;
@@ -3993,7 +3992,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-control>.simple-title-head,
 #v-radio>.simple-title-head,
 #v-weather>.simple-title-head,
-#v-documents .paddock-hero-copy,
 #v-tele>.simple-title-head,
 #v-cal>.simple-title-head{
  padding:20px 22px 17px!important;
@@ -4008,7 +4006,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-control>h2,
 #v-radio>h2,
 #v-weather>h2,
-#v-documents .paddock-hero-copy h2,
 #v-tele>h2,
 #v-cal>h2{
  font-family:var(--page-title-font)!important;
@@ -4023,8 +4020,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-stats .newsroom-head .briefing-kicker,
 #v-standings .standings-head .briefing-kicker,
 #v-timing .timing-hero .briefing-kicker,
-#v-live .strategy-hero .briefing-kicker,
-#v-documents .paddock-hero-copy .briefing-kicker{
+#v-live .strategy-hero .briefing-kicker{
  display:block;
  margin:0 0 6px!important;
  color:var(--red)!important;
@@ -4036,8 +4032,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-stats.panel.pane .newsroom-head h2,
 #v-standings .standings-head h2,
 #v-timing .timing-hero h2,
-#v-live .strategy-hero h2,
-#v-documents .paddock-hero-copy h2{
+#v-live .strategy-hero h2{
  margin:0!important;padding:0!important;border:0!important;
 }
 #v-news .home-weekend-head .briefing-refresh{flex:none}
@@ -4073,8 +4068,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  display:flex;flex-direction:column;align-items:flex-start;
  margin:0 0 16px!important;
 }
-#v-documents .paddock-hero-copy{max-width:none!important}
-#v-documents .paddock-hero-copy .briefing-intro,
+{max-width:none!important}
+ .briefing-intro,
 #v-timing .timing-hero .briefing-intro,
 #v-live .strategy-hero .briefing-intro,
 #v-standings .standings-head .briefing-intro,
@@ -4095,7 +4090,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  #v-control>h2,
  #v-radio>h2,
  #v-weather>h2,
- #v-documents .paddock-hero-copy,
  #v-tele>h2,
  #v-cal>h2{padding:16px 14px 13px!important}
  #v-news .home-weekend-head{gap:10px!important}
@@ -4115,7 +4109,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-control>.simple-title-head,
 #v-radio>.simple-title-head,
 #v-weather>.simple-title-head,
-#v-documents .paddock-hero-copy,
 #v-tele>.simple-title-head,
 #v-cal>.simple-title-head{
  position:relative!important;
@@ -4131,7 +4124,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-control>h2::after,
 #v-radio>h2::after,
 #v-weather>h2::after,
-#v-documents .paddock-hero-copy::after,
 #v-tele>h2::after,
 #v-cal>h2::after{
  content:"";
@@ -4160,7 +4152,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  #v-control>h2::after,
  #v-radio>h2::after,
  #v-weather>h2::after,
- #v-documents .paddock-hero-copy::after,
  #v-tele>h2::after,
  #v-cal>h2::after{
   width:38%;opacity:.34;background-size:12px 12px;
