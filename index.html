@@ -6229,7 +6229,7 @@ function renderCurrentWeekend(items){
  if(!selected)throw new Error("No current or upcoming Grand Prix weekend was found");
  const index=ordered.indexOf(selected),status=active?"THIS WEEKEND":next?"NEXT UP":"LATEST";
  const title=$("v-cal").querySelector(".simple-title-head h2");
- if(title)title.textContent=(selected.meeting_name||selected.raceName||"Grand Prix").replace(/\\s+Grand Prix$/i," GP");
+ if(title)title.textContent=(selected.meeting_name||selected.raceName||"Grand Prix").replace(" Grand Prix"," GP");
  calMap={};calMap[selected.meeting_key]=selected;
  $("calList").innerHTML=`<div class="mt current-weekend" data-k="${selected.meeting_key}"><button class="mth" aria-expanded="true" type="button"><span class="rn">${String(index+1).padStart(2,"0")}</span><span class="mi"><b>${esc(selected.meeting_name||selected.raceName||"Grand Prix weekend")}</b><small>${esc(selected.location||selected.Circuit?.Location?.locality||"")}${selected.country_name||selected.Circuit?.Location?.country?" · "+esc(selected.country_name||selected.Circuit?.Location?.country):""} · ${new Date(selected.date_start).toLocaleDateString(undefined,{day:"numeric",month:"short"})}</small></span><span class="badge">${status}</span><span class="chev" aria-hidden="true">›</span></button><div class="mtd"></div></div>`;
  const trigger=$("calList").querySelector(".mth");if(trigger)trigger.click();
