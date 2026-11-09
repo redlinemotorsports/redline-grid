@@ -34,7 +34,7 @@ let newsroomFilter: NewsFilter = "ALL";
 let newsroomLoading = false;
 const newsText = (value: unknown): string => {
   const doc = new DOMParser().parseFromString(String(value || ""), "text/html");
-  return (doc.body.textContent || "").replace(/\\s+/g, " ").trim();
+  return (doc.body.textContent || "").replace(/\s+/g, " ").trim();
 };
 const newsSafeUrl = (value: unknown): string => {
   try {
@@ -67,11 +67,11 @@ function newsCard(item: NewsItem, featured = false): string {
   const meta = '<div class="newsroom-meta"><span>' + escapeHtml(item.source) + '</span><span>·</span><span>' + escapeHtml(item.dateLabel || "LATEST") + "</span></div>";
   if (featured) {
     const summary = newsText(item.description) || item.title;
-    const excerpt = summary.length > 190 ? summary.slice(0, 187).replace(/\\s+\\S*$/, "") + "…" : summary;
+    const excerpt = summary.length > 190 ? summary.slice(0, 187).replace(/\s+\S*$/, "") + "…" : summary;
     return '<a class="newsroom-feature" href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer"><div class="newsroom-feature-media">' + media + '</div><div class="newsroom-feature-copy"><span class="newsroom-kicker">LEAD STORY · ' + escapeHtml(item.category || "RACE") + '</span><h3>' + escapeHtml(item.title) + '</h3><p class="newsroom-excerpt newsroom-feature-excerpt">' + escapeHtml(excerpt) + '</p>' + meta + '<span class="newsroom-open">READ ORIGINAL STORY ↗</span></div></a>';
   }
   const summary = newsText(item.description) || item.title;
-  const excerpt = summary.length > 145 ? summary.slice(0, 142).replace(/\\s+\\S*$/, "") + "…" : summary;
+  const excerpt = summary.length > 145 ? summary.slice(0, 142).replace(/\s+\S*$/, "") + "…" : summary;
   return '<a class="newsroom-card" href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer"><div class="newsroom-card-media">' + media + '</div><div class="newsroom-card-copy"><span class="newsroom-kicker">' + escapeHtml(item.category || "RACE") + '</span><h3>' + escapeHtml(item.title) + '</h3><p class="newsroom-excerpt">' + escapeHtml(excerpt) + '</p>' + meta + "</div></a>";
 }
 function newsroomBriefing(items: NewsItem[]): string {
@@ -80,7 +80,7 @@ function newsroomBriefing(items: NewsItem[]): string {
   const rows = picks.map((item, index) => {
     const url = newsSafeUrl(item.link);
     const summary = newsText(item.description) || item.title;
-    const excerpt = summary.length > 172 ? summary.slice(0, 169).replace(/\\s+\\S*$/, "") + "…" : summary;
+    const excerpt = summary.length > 172 ? summary.slice(0, 169).replace(/\s+\S*$/, "") + "…" : summary;
     return '<a class="newsroom-briefing-row" href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer"><span class="newsroom-briefing-index">0' + (index + 1) + '</span><span class="newsroom-briefing-copy"><span class="newsroom-kicker">' + escapeHtml(item.category || "RACE") + " / " + escapeHtml(item.source) + '</span><b>' + escapeHtml(item.title) + '</b><small>' + escapeHtml(excerpt) + '</small></span><span class="newsroom-briefing-arrow" aria-hidden="true">↗</span></a>';
   }).join("");
   return '<section class="newsroom-briefing" aria-label="Paddock briefing"><div class="newsroom-briefing-head"><div><span class="newsroom-kicker">DAILY READOUT</span><h3>Paddock briefing</h3></div><span class="newsroom-briefing-count">03 / KEY DEVELOPMENTS</span></div><div class="newsroom-briefing-list">' + rows + "</div></section>";
