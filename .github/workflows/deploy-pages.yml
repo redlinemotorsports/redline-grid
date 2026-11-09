@@ -13,7 +13,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: github-pages
+  # Keep pull-request checks isolated so they cannot cancel a production deployment.
+  group: github-pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
