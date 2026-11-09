@@ -842,7 +842,7 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
  body{padding-bottom:calc(78px + env(safe-area-inset-bottom))}
  #tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;overflow:visible;scroll-snap-type:none;padding:5px;margin-bottom:10px}
  #tabs button{display:none;min-width:0!important;width:100%;padding:9px 3px;font-size:11px;line-height:1.2;white-space:normal;overflow-wrap:anywhere}
- #tabs button[data-v="news"],#tabs button[data-v="standings"],#tabs button[data-v="race"],#tabs #moreNavBtn{display:flex;align-items:center;justify-content:center;min-height:43px}
+ #tabs button[data-v="news"],#tabs button[data-v="standings"],#tabs #moreNavBtn{display:flex;align-items:center;justify-content:center;min-height:43px}
  #tabs #moreNavBtn{display:flex;gap:3px}
  #tabs button[aria-selected=true]{background:var(--on-bg);color:var(--on-fg)}
  #tabs button[data-v="news"]::before{content:"⌂";display:block;font-size:15px;line-height:1}
@@ -3545,12 +3545,11 @@ tr:hover td{background:var(--hover)}
 
 /* Primary navigation hierarchy: Live Timing is the second destination after Home. */
 @media(max-width:820px){
- #tabs{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:2px!important;padding-left:4px!important;padding-right:4px!important}
+ #tabs{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:2px!important;padding-left:4px!important;padding-right:4px!important}
  #tabs button{display:flex!important;min-width:0!important;width:100%!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:6px 1px 5px!important;font-size:9px!important;line-height:1.05!important;white-space:normal!important}
  #tabs button[data-v="home"]::before{content:"⌂";font-size:15px;line-height:1}
  #tabs button[data-v="timing"]::before{content:"▥";font-size:15px;line-height:1;color:var(--red)}
  #tabs button[data-v="standings"]::before{content:"▤";font-size:15px;line-height:1}
- #tabs button[data-v="race"]::before{content:"◉";font-size:15px;line-height:1}
  #tabs button[data-v="drivers"]::before{content:"◈";font-size:15px;line-height:1}
  #tabs button[data-v="data"]::before{content:"⌁";font-size:15px;line-height:1}
  #tabs button[aria-selected="true"]{background:var(--soft)!important;color:var(--txt)!important}
