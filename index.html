@@ -4737,6 +4737,45 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
 @media(max-width:899px){#v-stats .newsroom-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){#v-stats .newsroom-grid{grid-template-columns:1fr}#v-stats .newsroom-card{min-height:100px}#v-stats .newsroom-card-media{height:100%;min-height:100px}#v-stats .newsroom-card-copy{min-height:0}}
 
+
+/* STANDINGS — typography aligned with the Redline Grid display system */
+#v-standings .standings-driver-panel .standings-section-head,
+#v-standings .standings-team-panel .standings-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:15px 16px 12px;border-bottom:1px solid var(--line)}
+#v-standings .standings-section-head>div>span{display:block;color:var(--red);font:700 8px/1.2 "IBM Plex Mono",monospace;letter-spacing:.16em}
+#v-standings .standings-section-head h2{margin:5px 0 0;padding:0;color:var(--txt);font:700 23px/.98 "Barlow Condensed",Manrope,sans-serif;letter-spacing:.015em}
+#v-standings .standings-section-head>small{flex:0 0 auto;color:var(--mute);font:600 8px/1.2 "IBM Plex Mono",monospace;letter-spacing:.12em}
+#v-standings .standings-driver-panel .row,
+#v-standings .standings-team-panel .row{grid-template-columns:34px 40px minmax(0,1fr) auto;gap:12px;min-height:61px;padding:9px 15px}
+#v-standings .standings-driver-panel .pos,
+#v-standings .standings-team-panel .pos{font:600 12px/1 "IBM Plex Mono",monospace;letter-spacing:-.04em;color:var(--mute)}
+#v-standings .standings-driver-panel .row:first-child .pos,
+#v-standings .standings-team-panel .row:first-child .pos{color:var(--red)}
+#v-standings .standings-driver-panel .who,
+#v-standings .standings-team-panel .who{display:grid;gap:3px;min-width:0}
+#v-standings .standings-driver-panel .who b,
+#v-standings .standings-team-panel .who b{overflow:hidden;color:var(--txt);font:700 18px/1 "Barlow Condensed",Manrope,sans-serif;letter-spacing:.015em;text-overflow:ellipsis;white-space:nowrap}
+#v-standings .standings-driver-panel .who small,
+#v-standings .standings-team-panel .who small{overflow:hidden;color:var(--mute);font:500 8px/1.35 "IBM Plex Mono",monospace;letter-spacing:.045em;text-overflow:ellipsis;white-space:nowrap}
+#v-standings .standings-driver-panel .pts,
+#v-standings .standings-team-panel .pts{display:flex;align-items:baseline;justify-content:flex-end;gap:5px;color:var(--txt);font:700 21px/.95 "Barlow Condensed",Manrope,sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap}
+#v-standings .standings-driver-panel .pts small,
+#v-standings .standings-team-panel .pts small{color:var(--mute);font:600 8px/1 "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase}
+#v-standings .standings-driver-panel .av,
+#v-standings .standings-team-panel .av{flex:0 0 40px}
+@media(max-width:520px){
+ #v-standings .standings-driver-panel .standings-section-head,
+ #v-standings .standings-team-panel .standings-section-head{padding:13px 12px 10px}
+ #v-standings .standings-section-head h2{font-size:21px}
+ #v-standings .standings-driver-panel .row,
+ #v-standings .standings-team-panel .row{grid-template-columns:24px 32px minmax(0,1fr) auto;gap:8px;min-height:55px;padding:8px 10px}
+ #v-standings .standings-driver-panel .av,
+ #v-standings .standings-team-panel .av{width:32px;height:32px;flex-basis:32px}
+ #v-standings .standings-driver-panel .who b,
+ #v-standings .standings-team-panel .who b{font-size:16px}
+ #v-standings .standings-driver-panel .pts,
+ #v-standings .standings-team-panel .pts{font-size:18px}
+}
+
 </style>
 </head>
 <body>
