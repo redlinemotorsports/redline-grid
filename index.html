@@ -4305,6 +4305,77 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 
 
 
+/* STANDINGS LEADER CARDS — clear identity and points hierarchy */
+#v-standings .standings-leader-card{
+ box-sizing:border-box;
+ display:grid;
+ grid-template-columns:minmax(0,1fr) auto;
+ grid-template-areas:"label points" "identity points";
+ align-items:center;
+ column-gap:18px;
+ row-gap:12px;
+ min-width:0;
+ min-height:112px;
+ padding:16px 18px;
+ border:1px solid var(--line);
+ border-top:2px solid rgba(227,38,54,.72);
+ border-radius:9px;
+ background:linear-gradient(115deg,rgba(227,38,54,.075),transparent 58%),var(--card);
+}
+#v-standings .standings-leader-card>span{
+ grid-area:label;
+ color:var(--red);
+ font:700 9px/1.2 "IBM Plex Mono",monospace;
+ letter-spacing:.14em;
+}
+#v-standings .standings-leader-card>div{
+ grid-area:identity;
+ display:flex;
+ flex-direction:column;
+ align-items:flex-start;
+ gap:4px;
+ min-width:0;
+}
+#v-standings .standings-leader-card>div>b{
+ display:block;
+ max-width:100%;
+ overflow:hidden;
+ color:var(--txt);
+ font:700 clamp(19px,2vw,24px)/1.05 "Barlow Condensed",Manrope,sans-serif;
+ letter-spacing:-.015em;
+ text-transform:none;
+ text-overflow:ellipsis;
+ white-space:nowrap;
+}
+#v-standings .standings-leader-card>div>small{
+ display:block;
+ color:var(--mute);
+ font:500 10px/1.3 Inter,sans-serif;
+ letter-spacing:.035em;
+}
+#v-standings .standings-leader-card>strong{
+ grid-area:points;
+ display:flex;
+ align-items:baseline;
+ justify-content:center;
+ gap:5px;
+ min-width:82px;
+ padding:10px 12px;
+ border:1px solid rgba(227,38,54,.25);
+ border-radius:6px;
+ background:rgba(227,38,54,.09);
+ color:var(--txt);
+ font:700 23px/1 "IBM Plex Mono",monospace;
+ letter-spacing:-.06em;
+ white-space:nowrap;
+}
+#v-standings .standings-leader-card>strong::first-letter{color:var(--red)}
+@media(max-width:420px){
+ #v-standings .standings-leader-card{min-height:100px;padding:13px;column-gap:10px}
+ #v-standings .standings-leader-card>strong{min-width:70px;padding:9px 8px;font-size:19px}
+ #v-standings .standings-leader-card>div>b{font-size:20px}
+}
+
 /* STANDINGS GRID — keep leader cards and both tables in their intended rows */
 #v-standings>.standings-leaders{
  grid-column:1/-1;
