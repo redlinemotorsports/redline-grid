@@ -4680,6 +4680,23 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-cal .mth[aria-expanded="true"] .chev{color:var(--red)}
 #v-cal .mtd{padding:0 13px 14px 56px}
 @media(max-width:560px){#v-cal #calList{padding:7px 9px 12px}#v-cal .mth{grid-template-columns:25px minmax(0,1fr) auto 12px;gap:8px;padding:11px 10px;min-height:61px}#v-cal .mi b{font-size:13px}#v-cal .mi small{font-size:9px}#v-cal .mtd{padding:0 9px 12px}}
+
+/* Season rail becomes an on-demand Grand Prix picker; content uses the full canvas. */
+.layout{grid-template-columns:minmax(0,1fr)!important;gap:0!important}
+.layout>main{grid-column:1;min-width:0;width:100%}
+.pickbtn{display:flex!important;justify-content:space-between;align-items:center;gap:12px;width:100%;margin:0 0 12px;padding:11px 14px;min-height:42px;border:1px solid var(--line);border-left:2px solid var(--red);border-radius:7px;background:linear-gradient(110deg,rgba(255,255,255,.045),rgba(255,255,255,.015));color:var(--txt);font:600 11px "IBM Plex Mono",monospace;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+#gps{position:fixed!important;left:50%!important;top:50%!important;right:auto!important;bottom:auto!important;width:min(440px,calc(100vw - 32px))!important;max-height:min( min(76vh,680px), calc(100vh - 40px))!important;z-index:80!important;display:flex!important;flex-direction:column!important;overflow:hidden!important;padding:0!important;border:1px solid var(--line)!important;border-radius:10px!important;background:var(--sheet)!important;box-shadow:0 24px 80px rgba(0,0,0,.55)!important;transform:translate(-50%,-46%) scale(.98)!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;transition:opacity .18s ease,transform .18s ease,visibility .18s ease!important}
+#gps>h2{padding:16px 18px!important;border-bottom:1px solid var(--line)!important}
+#gps .yr{padding:10px 14px!important;margin:0!important;border-bottom:1px solid var(--line)!important}
+#gps .gplist{min-height:0;overflow:auto}
+body.sheet #gps{transform:translate(-50%,-50%) scale(1)!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+#scrim{display:none}
+body.sheet #scrim{display:block!important;position:fixed!important;inset:0!important;z-index:70!important;background:rgba(0,0,0,.72)!important;backdrop-filter:blur(3px)}
+@media(max-width:820px){
+ .pickbtn{margin-bottom:10px;min-height:46px;padding:12px 14px;font-size:10px}
+ #gps{left:0!important;right:0!important;top:auto!important;bottom:calc(60px + env(safe-area-inset-bottom))!important;width:100%!important;max-height:min(78dvh,calc(100dvh - 110px))!important;border-radius:16px 16px 0 0!important;transform:translateY(calc(100% + 70px))!important;opacity:1!important;visibility:visible!important;transition:transform .25s ease!important}
+ body.sheet #gps{transform:none!important}
+}
 </style>
 </head>
 <body>
