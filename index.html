@@ -4810,6 +4810,36 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
  #v-result .race-result-gap{font-size:8px}
  #v-result .race-result-points{font-size:16px}
 }
+
+/* TEAM RADIO — pitwall signal cards, aligned with the Redline graphite / red system */
+#v-radio .radio{position:relative;isolation:isolate;overflow:hidden;margin:12px 14px;padding:14px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(115deg,rgba(255,42,24,.035),transparent 34%),var(--card);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+#v-radio .radio:before{content:"";position:absolute;inset:0 auto 0 0;width:2px;background:linear-gradient(180deg,var(--red),rgba(255,42,24,.12))}
+#v-radio .radio-head{gap:11px;margin:0 0 12px}
+#v-radio .radio-head .av{width:38px;height:38px;flex-basis:38px;border:1px solid var(--line);border-radius:7px;background:var(--soft)}
+#v-radio .radio-id b{font:700 19px/1.05 "Barlow Condensed",Inter,sans-serif;letter-spacing:.025em;text-transform:uppercase}
+#v-radio .radio-id small{margin-top:4px;font:500 9px/1.4 "IBM Plex Mono",monospace;letter-spacing:.035em}
+#v-radio .radio-kicker{margin-bottom:4px;font:600 8px/1.3 "IBM Plex Mono",monospace;letter-spacing:.13em}
+#v-radio .radio-time{font:500 10px/1.6 "IBM Plex Mono",monospace}
+#v-radio .radio-audio{position:relative;overflow:hidden;padding:10px 11px 8px;border:1px solid rgba(220,228,240,.09);border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,.025),transparent 70%),#101115}
+#v-radio .radio-wave{position:relative;display:flex;align-items:center;gap:2px;height:30px;margin:0 0 8px;padding:0 2px;opacity:1;background:linear-gradient(180deg,transparent 49.3%,rgba(255,255,255,.09) 50%,transparent 50.7%)}
+#v-radio .radio-wave i{width:auto;max-width:none;min-width:1px;flex:1 1 0;border-radius:1px;background:linear-gradient(180deg,#FF6B60 0%,var(--red) 58%,rgba(255,42,24,.32) 100%);box-shadow:0 0 5px rgba(255,42,24,.08)}
+#v-radio .radio-audio audio{display:block;width:100%;height:34px;accent-color:var(--red);color-scheme:dark}
+#v-radio .radio-context{margin-top:11px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.012)}
+#v-radio .context-head{padding:10px 12px;background:rgba(255,255,255,.018)}
+#v-radio .context-head b{color:var(--red);font:600 8px/1.4 "IBM Plex Mono",monospace;letter-spacing:.13em}
+#v-radio .context-head small{font:500 8px/1.5 "IBM Plex Mono",monospace;letter-spacing:.025em}
+#v-radio .context-grid{gap:1px;background:var(--line)}
+#v-radio .context-card{padding:10px 11px;background:var(--card)}
+#v-radio .context-card small{font:500 8px/1.4 "IBM Plex Mono",monospace;letter-spacing:.09em}
+#v-radio .context-card b{font:700 17px/1 "Barlow Condensed",Inter,sans-serif;letter-spacing:.02em;text-transform:uppercase}
+#v-radio .context-card p{font:400 10px/1.5 Inter,sans-serif}
+#v-radio .context-summary{padding:10px 12px;background:rgba(255,255,255,.012)}
+#v-radio .context-summary b{color:var(--red);font:600 8px/1.4 "IBM Plex Mono",monospace;letter-spacing:.12em}
+#v-radio .context-summary p{font:400 11px/1.55 Inter,sans-serif}
+#v-radio .context-foot{padding:8px 12px;font:400 8px/1.5 Inter,sans-serif}
+@media(max-width:600px){#v-radio .radio{margin:9px 8px;padding:11px}#v-radio .radio-head .av{width:34px;height:34px;flex-basis:34px}#v-radio .radio-id b{font-size:17px}#v-radio .radio-wave{height:24px;gap:2px}#v-radio .radio-wave i:nth-child(n+65){display:none}#v-radio .context-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#v-radio .context-card{padding:9px}}
+@media(max-width:380px){#v-radio .context-grid{grid-template-columns:1fr}#v-radio .radio-time{font-size:9px}}
+
 </style>
 </head>
 <body>
