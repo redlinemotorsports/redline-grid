@@ -4624,6 +4624,25 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-news #briefingRecap .briefing-recap-stat span{display:block;color:var(--mute);font-size:8px;font-weight:750;letter-spacing:.12em;margin-bottom:5px}
 #v-news #briefingRecap .briefing-recap-stat b{display:block;font:600 11px "IBM Plex Mono",monospace;overflow-wrap:anywhere}
 #v-news #briefingRecap .briefing-recap-stat small{display:block;margin-top:3px;color:var(--mute);font-size:9px;overflow-wrap:anywhere}
+
+/* Home PIT LANE: compact live-session operations panel, matching the support-card system. */
+#v-news .home-pitlane-card{position:relative;padding:15px 15px 13px 17px;border-color:color-mix(in srgb,var(--red) 28%,var(--line));background:linear-gradient(112deg,rgba(242,29,36,.065),var(--card) 58%);overflow:hidden}
+#v-news .home-pitlane-card:before{content:"";position:absolute;inset:0 auto 0 0;width:2px;background:var(--red)}
+#v-news .home-pitlane-card .home-support-heading{margin:0 0 11px;color:var(--red);font-size:9px;font-weight:750;letter-spacing:.16em}
+#v-news .pitlane-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#v-news .pitlane-cell{min-width:0;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--soft)}
+#v-news .pitlane-label{display:block;margin-bottom:5px;color:var(--mute);font-size:8px;font-weight:750;letter-spacing:.12em}
+#v-news .pitlane-value{display:block;color:var(--txt);font-size:14px;font-weight:750;line-height:1.25;overflow-wrap:anywhere}
+#v-news .pitlane-sub{display:block;margin-top:4px;color:var(--mute);font-size:9px;line-height:1.4;overflow-wrap:anywhere}
+#v-news .pitlane-state{display:inline-flex;align-items:center;gap:6px;color:var(--txt);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.06em}
+#v-news .pitlane-dot{width:6px;height:6px;flex:none;border-radius:50%;background:#777}
+#v-news .pitlane-state.live .pitlane-dot{background:#31c878;box-shadow:0 0 8px #31c87866}
+#v-news .pitlane-state.warning .pitlane-dot{background:#f2bd35}
+#v-news .pitlane-state.danger .pitlane-dot{background:var(--red)}
+#v-news .pitlane-message{grid-column:1/-1}
+#v-news .pitlane-message .pitlane-value{font-size:11px;font-weight:550;line-height:1.5}
+#v-news .pitlane-foot{margin:8px 1px 0;color:var(--mute);font-size:8px;line-height:1.4}
+@media(max-width:600px){#v-news .home-pitlane-card{padding:13px 13px 12px 15px}#v-news .pitlane-cell{padding:9px}#v-news .pitlane-value{font-size:13px}}
 </style>
 </head>
 <body>
@@ -4747,6 +4766,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
    <section class="home-support-card home-weather-card"><div class="home-support-heading">TRACK WEATHER</div><div id="briefingWeather"><div class="state">Weather will appear when a circuit is selected.</div></div></section>
    <section class="home-support-card"><div class="home-support-heading">LATEST RACE RESULT</div><div id="briefingRecap"><div class="state">Checking the latest completed Grand Prix…</div></div></section>
    <section class="home-support-card home-circuit-card"><div class="home-support-heading">CIRCUIT DETAILS</div><div id="briefingSpotlight"><div class="state">Circuit details are loading…</div></div></section>
+   <section class="home-support-card home-pitlane-card" aria-label="Pit lane session status"><div class="home-support-heading">PIT LANE</div><div id="pitLanePanel" aria-live="polite"><div class="state">Checking session status…</div></div></section>
   </div>
   <div hidden><div id="briefingCircuit"></div></div>
  </section>
@@ -5702,6 +5722,67 @@ async function setWeekendCircuitBackdrop(session){
   probe.src=photo;
  }catch(e){if(weekendPhotoRequest===page){weekendPhotoUrl="";card.style.removeProperty("--weekend-circuit-photo");card.classList.remove("has-circuit-photo")}}
 }
+let pitLaneBusy=false,pitLaneLastLoad=0,pitLaneTimer=null;
+function pitLaneFlag(message){
+ const flag=String(message?.flag||"").replace(/_/g," ").trim().toUpperCase();
+ const body=String(message?.message||"").toUpperCase();
+ const raw=flag||(/RED FLAG/.test(body)?"RED FLAG":/DOUBLE YELLOW/.test(body)?"DOUBLE YELLOW":/YELLOW/.test(body)?"YELLOW":/GREEN FLAG/.test(body)?"GREEN":/CHEQUERED/.test(body)?"CHEQUERED":"");
+ if(/RED/.test(raw))return {label:raw,kind:"danger"};
+ if(/YELLOW|VSC|SAFETY CAR/.test(raw))return {label:raw,kind:"warning"};
+ if(/GREEN/.test(raw))return {label:raw,kind:"live"};
+ return {label:raw||"NO FLAG UPDATE",kind:""};
+}
+function pitLaneTime(ms){
+ return Number.isFinite(ms)?new Date(ms).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"}):"Time unavailable";
+}
+function renderPitLane(active,next,message,sourceNote){
+ const box=$("pitLanePanel");if(!box)return;
+ const status=active?{label:"SESSION LIVE",kind:"live"}:{label:"OFF TRACK",kind:""};
+ const sessionName=active?sessionLabel(active):"No active session";
+ const sessionRace=active?.meeting_name||active?.race||next?.meeting_name||next?.race||"Formula 1";
+ const nextName=next?sessionLabel(next):"No session scheduled";
+ const nextTime=next?briefingDate(next.start):"Schedule unavailable";
+ const flag=active?pitLaneFlag(message):{label:"NO LIVE SESSION",kind:""};
+ const msgText=message?.message?String(message.message):active?"No recent race-control message is available.":"Race-control messages appear when a session is active.";
+ const msgTime=message?.date?pitLaneTime(new Date(message.date).getTime()):"";
+ box.innerHTML='<div class="pitlane-grid">'+
+  '<div class="pitlane-cell"><span class="pitlane-label">CURRENT SESSION</span><span class="pitlane-state '+status.kind+'"><i class="pitlane-dot"></i>'+esc(status.label)+'</span><b class="pitlane-value">'+esc(sessionName)+'</b><small class="pitlane-sub">'+esc(active?sessionRace:"The circuit is currently off track")+'</small></div>'+
+  '<div class="pitlane-cell"><span class="pitlane-label">TRACK STATUS</span><span class="pitlane-state '+flag.kind+'"><i class="pitlane-dot"></i>'+esc(flag.label)+'</span><small class="pitlane-sub">'+(msgTime?"Updated "+esc(msgTime):"Based on available session messages")+'</small></div>'+
+  '<div class="pitlane-cell"><span class="pitlane-label">NEXT SESSION</span><b class="pitlane-value">'+esc(nextName)+'</b><small class="pitlane-sub">'+esc(nextTime)+'</small></div>'+
+  '<div class="pitlane-cell pitlane-message"><span class="pitlane-label">LATEST RACE-CONTROL MESSAGE</span><b class="pitlane-value">'+esc(msgText)+'</b><small class="pitlane-sub">'+(msgTime?"MESSAGE TIME · "+esc(msgTime):"No message timestamp available")+'</small></div>'+
+ '</div><p class="pitlane-foot">'+esc(sourceNote||"Session schedule and race-control feed · local time")+'</p>';
+}
+async function loadPitLane(force=false){
+ const box=$("pitLanePanel");if(!box||pitLaneBusy)return;
+ if(!force&&Date.now()-pitLaneLastLoad<60000)return;
+ pitLaneBusy=true;pitLaneLastLoad=Date.now();
+ try{
+  let liveSessions=[];
+  try{liveSessions=await briefingGet("/sessions?year="+nowY,10000)}catch(e){}
+  const now=Date.now();
+  const valid=liveSessions.filter(x=>Number.isFinite(new Date(x.date_start).getTime())).sort((a,b)=>new Date(a.date_start)-new Date(b.date_start));
+  const liveActive=valid.find(x=>new Date(x.date_start).getTime()<=now&&new Date(x.date_end||(+new Date(x.date_start)+7200000)).getTime()>now);
+  const liveNext=valid.find(x=>new Date(x.date_start).getTime()>now);
+  let active=liveActive?normaliseCountdownSession(liveActive):null;
+  let next=liveNext?normaliseCountdownSession(liveNext):null;
+  if(!active&&!next){
+   const schedule=(countdownSessions||[]).filter(x=>Number.isFinite(x.start)&&Number.isFinite(x.end)).sort((a,b)=>a.start-b.start);
+   active=schedule.find(x=>x.start<=now&&x.end>now)||null;
+   next=schedule.find(x=>x.start>now)||null;
+  }
+  let messages=[],message=null;
+  if(liveActive?.session_key){
+   try{messages=await briefingGet("/race_control?session_key="+liveActive.session_key,8000)}catch(e){}
+   messages=Array.isArray(messages)?messages.filter(x=>x.date).sort((a,b)=>new Date(b.date)-new Date(a.date)):[];
+   message=messages[0]||null;
+  }
+  const sourceNote=liveSessions.length?"OpenF1 session and race-control data · device local time":"Saved schedule fallback · live race-control feed unavailable";
+  renderPitLane(active,next,message,sourceNote);
+ }catch(e){
+  const schedule=(countdownSessions||[]).filter(x=>Number.isFinite(x.start)&&Number.isFinite(x.end)).sort((a,b)=>a.start-b.start),now=Date.now();
+  renderPitLane(schedule.find(x=>x.start<=now&&x.end>now)||null,schedule.find(x=>x.start>now)||null,null,"Live feed unavailable · schedule fallback");
+ }finally{pitLaneBusy=false}
+}
 function renderBriefing(){
  const summary=$("briefingSummary"),note=$("briefingNote");
  if(!summary||!note)return;
@@ -5738,6 +5819,8 @@ function renderBriefing(){
   note.textContent="Updated "+new Date().toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"})+" · Session times use your device's local timezone.";
  }
  loadBriefingFeatures();
+ loadPitLane();
+ if(!pitLaneTimer)pitLaneTimer=setInterval(()=>{if(document.visibilityState==="visible")loadPitLane(true)},60000);
 }
 // Open-Meteo non-commercial forecast: locate the circuit, then sample hourly weather at each session start.
 // Bound request time and retry temporary network, rate-limit, and server errors.
@@ -6092,7 +6175,7 @@ const briefingRefresh=$("briefingRefresh");
 if(briefingRefresh)briefingRefresh.onclick=async()=>{
  briefingRefresh.disabled=true;briefingRefresh.textContent="Refreshing…";
  $("briefingNote").textContent="Checking the latest available schedule…";
- try{await loadCountdownSchedule(nowY);await loadBriefingRecap(true);await loadBriefingFeatures(true);renderBriefing()}
+ try{await loadCountdownSchedule(nowY);await loadBriefingRecap(true);await loadBriefingFeatures(true);await loadPitLane(true);renderBriefing()}
  catch(e){$("briefingNote").textContent="Couldn't refresh the schedule. Existing information may be out of date.";renderBriefing()}
  finally{briefingRefresh.disabled=false;briefingRefresh.textContent="Refresh schedule ↻"}
 };
