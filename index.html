@@ -4655,14 +4655,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .fan-team-card{position:relative;isolation:isolate;min-height:105px;overflow:hidden;padding:12px;border:1px solid var(--line);border-radius:9px;background:linear-gradient(125deg,rgba(255,255,255,.035),var(--card) 72%)}
 .fan-team-card:before{content:attr(data-watermark);position:absolute;z-index:-1;right:5px;bottom:4px;color:var(--team-color,var(--mute));opacity:.10;font:900 28px/1 Inter,sans-serif;letter-spacing:-.08em;white-space:nowrap;pointer-events:none}
 .fan-team-card-head{display:flex;align-items:center;gap:7px;min-width:0}
-.fan-team-card-head img{width:30px;height:30px;object-fit:contain;opacity:.78;filter:grayscale(1) brightness(1.6)}
+
 .fan-team-card-head b{font:700 9px/1.25 Inter,sans-serif;letter-spacing:.035em;color:var(--txt)}
 .fan-team-card-event{margin-top:13px;color:var(--mute);font-size:10px;line-height:1.4}
 .fan-team-card-event strong{display:block;margin-bottom:3px;color:var(--txt);font:600 8px "IBM Plex Mono",monospace;letter-spacing:.08em}
 .fan-programme-foot{margin:0 0 14px;color:var(--mute);font-size:9px;line-height:1.5}
 .fan-programme-foot a{color:var(--txt);text-decoration:none}
 @media(max-width:760px){.fan-team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:420px){.fan-team-card{min-height:98px;padding:10px}.fan-team-card:before{font-size:24px}.fan-team-card-head img{width:25px;height:25px}}
+@media(max-width:420px){.fan-team-card{min-height:98px;padding:10px}.fan-team-card:before{font-size:24px}}
 
 /* Home > Schedule: a compact season race list, distinct from the weekend overview. */
 #v-cal>.simple-title-head h2:before{content:"REDLINE GRID / SEASON SCHEDULE";display:block;margin:0 0 7px;color:var(--red);font:600 9px/1.3 "IBM Plex Mono",monospace;letter-spacing:.16em}
@@ -6214,9 +6214,9 @@ async function loadCar(repop){
 
 // ---------- Calendar (meetings) ----------
 let calFor=null,calMap={};
-const FAN_WEEKEND_TEAMS=[["McLaren","MCL","#FF8000","https://commons.wikimedia.org/wiki/Special:FilePath/McLaren_logo_(2026).svg"],["Mercedes","MER","#00A19B","https://commons.wikimedia.org/wiki/Special:FilePath/Mercedes-AMG_Petronas_F1_Team_logo_(2026).svg"],["Red Bull Racing","RBR","#3671C6","https://commons.wikimedia.org/wiki/Special:FilePath/Red_Bull_Racing_logo.svg"],["Ferrari","FER","#E8002D","https://commons.wikimedia.org/wiki/Special:FilePath/Scuderia_Ferrari_Logo.svg"],["Williams","WIL","#64C4FF","https://commons.wikimedia.org/wiki/Special:FilePath/Williams_Racing_logo.svg"],["Aston Martin","AMR","#229971","https://commons.wikimedia.org/wiki/Special:FilePath/Aston_Martin_Aramco_Cognizant_Formula_One_Team_logo.svg"],["Alpine","ALP","#0093CC","https://commons.wikimedia.org/wiki/Special:FilePath/Alpine_F1_Team_Logo.svg"],["Haas","HAA","#B6BABD","https://commons.wikimedia.org/wiki/Special:FilePath/Haas_F1_Team_Logo.svg"],["Racing Bulls","VCARB","#6692FF","https://commons.wikimedia.org/wiki/Special:FilePath/Racing_Bulls_logo.svg"],["Audi","AUD","#BB0000","https://commons.wikimedia.org/wiki/Special:FilePath/Audi_F1_Team_logo.svg"],["Cadillac","CAD","#D6D6D6","https://commons.wikimedia.org/wiki/Special:FilePath/Cadillac_Formula_1_Team_logo.svg"]];
+const FAN_WEEKEND_TEAMS=[["McLaren","MCL","#FF8000"],["Mercedes","MER","#00A19B"],["Red Bull Racing","RBR","#3671C6"],["Ferrari","FER","#E8002D"],["Williams","WIL","#64C4FF"],["Aston Martin","AMR","#229971"],["Alpine","ALP","#0093CC"],["Haas","HAA","#B6BABD"],["Racing Bulls","VCARB","#6692FF"],["Audi","AUD","#BB0000"],["Cadillac","CAD","#D6D6D6"]];
 function fanWeekendHTML(){
- const cards=FAN_WEEKEND_TEAMS.map(([name,code,color,logo])=>'<article class="fan-team-card" data-watermark="'+esc(code)+'" style="--team-color:'+color+'"><div class="fan-team-card-head"><img src="'+logo+'" alt="" loading="lazy" onerror="this.style.display=\'none\'"><b>'+esc(name.toUpperCase())+'</b></div><div class="fan-team-card-event"><strong>TEAM APPEARANCE</strong>To be announced</div></article>').join("");
+ const cards=FAN_WEEKEND_TEAMS.map(([name,code,color])=>'<article class="fan-team-card" data-watermark="'+esc(code)+'" style="--team-color:'+color+'"><div class="fan-team-card-head"><b>'+esc(name.toUpperCase())+'</b></div><div class="fan-team-card-event"><strong>TEAM APPEARANCE</strong>To be announced</div></article>').join("");
  return '<section class="fan-weekend-programme" aria-label="Fan weekend programme"><div class="fan-weekend-intro"><div><b>OFFICIAL FAN PROGRAMME</b><span>Driver appearances and team events are added when confirmed by the teams, circuit or race promoter.</span></div><span class="fan-weekend-status">UPDATES PENDING</span></div><div class="fan-team-grid">'+cards+'</div><p class="fan-programme-foot">No verified team appearance times have been published here yet. Check the <a href="https://www.formula1.com/en/teams" target="_blank" rel="noopener">official F1 team directory</a> and the selected Grand Prix promoter for announcements.</p></section>';
 }
 const trackTime=(t,gmt)=>{const o=(gmt||"").match(/(-?)(\d+):(\d+)/);const ms=o?(o[1]?-1:1)*(+o[2]*60+ +o[3])*6e4:0;const d=new Date(new Date(t).getTime()+ms);return d.toUTCString().slice(5,11)+" "+d.toISOString().slice(11,16)};
