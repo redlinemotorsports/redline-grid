@@ -347,10 +347,10 @@
     max-height: 620px;
     margin: 12px;
   }
-  #v-tele > #lapEditorial,
-  #v-tele > #paceCompare,
-  #v-tele > #sessionCompare,
-  #v-tele > #qualifyingGap { padding: 8px 12px; }
+  #v-tele > #lapEditorial { order: 4; padding: 8px 12px; }
+  #v-tele > #paceCompare { order: 5; padding: 8px 12px; }
+  #v-tele > #sessionCompare { order: 6; padding: 8px 12px; }
+  #v-tele > #qualifyingGap { order: 7; padding: 8px 12px; }
   #v-tele > #lapDeltaTool { order: 6; margin: 8px 12px 16px; }
   #v-tele .pace-compare-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
