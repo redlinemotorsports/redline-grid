@@ -92,10 +92,12 @@
  <section class="panel pane" id="v-control" hidden><div class="simple-title-head"><h2>Race control</h2><p class="briefing-intro">Flags, incidents and official decisions from the session.</p></div><div id="controlInsights" class="control-insights" aria-live="polite"><div class="state">Building race-control summary…</div></div><div class="control-tools" id="controlTools" aria-label="Filter race control messages"><div class="control-filters" role="group" aria-label="Message category"><button type="button" data-control-filter="all" aria-pressed="true">All</button><button type="button" data-control-filter="flags" aria-pressed="false">Flags</button><button type="button" data-control-filter="safety" aria-pressed="false">Safety Car</button><button type="button" data-control-filter="incidents" aria-pressed="false">Incidents</button><button type="button" data-control-filter="other" aria-pressed="false">Other</button></div><button type="button" class="control-order" id="controlOrder" aria-label="Change message order">Newest first ↓</button></div><div class="feature-search"><label for="controlSearch">Search race-control messages</label><input id="controlSearch" type="search" placeholder="e.g. driver, turn, penalty…" autocomplete="off"></div><div class="scroll" id="control"><div class="state">Loading…</div></div></section>
  <section class="panel pane" id="v-radio" hidden><div class="simple-title-head"><h2>Team radio</h2><p class="briefing-intro">Driver messages and team communications from the track.</p></div><div class="tools"><select id="rsess" aria-label="Session"></select></div><div class="feature-search"><label for="radioSearch">Search available radio context</label><input id="radioSearch" type="search" placeholder="Search driver, message or context…" autocomplete="off"></div><div class="scroll" id="radioList"><div class="state">Loading…</div></div></section>
  <section class="panel pane" id="v-weather" hidden><div class="simple-title-head"><h2>Track Conditions</h2><p class="briefing-intro">Recorded session weather and circuit conditions, with context on how they shaped the running.</p></div><div class="tools"><select id="wsess" aria-label="Session"></select></div><div id="weatherView"><div class="state">Loading…</div></div><section class="weather-strategy" id="weatherStrategy"><div class="feature-head"><div><p class="briefing-kicker">WEATHER / STRATEGY DESK</p><h3>What the conditions can mean</h3><p>Guidance based on the weather readings available for the selected session.</p></div><span class="feature-tag">CONTEXT, NOT PREDICTION</span></div><div class="weather-guides"><article><b>Rain readings</b><p>Recorded rain can reduce grip and increase the relevance of intermediate or wet tyres. A dry sample does not guarantee a dry track throughout the session.</p></article><article><b>Track vs air temperature</b><p>A warmer track can increase tyre-energy demands, but compound, setup, traffic and stint length also matter.</p></article><article><b>Wind and humidity</b><p>Wind can affect balance and braking references; humidity alone is not a reliable rain forecast.</p></article></div><p class="feature-footnote">These are general interpretation notes, not a tyre recommendation. If session weather data is missing, no conditions are inferred.</p></section></section>
- <section class="panel pane" id="v-tele" hidden><div class="simple-title-head"><h2>Telemetry</h2><p class="briefing-intro">Lap times, sector performance and driver comparisons.</p></div>
+ <section class="panel pane" id="v-tele" hidden>
+  <div class="simple-title-head"><h2>Car Data</h2><p class="briefing-intro">Explore recorded speed, throttle, braking and gear data from an individual lap.</p></div>
   <div class="tools"><select id="lsess" aria-label="Session"></select><select id="ldrv" aria-label="Driver"></select><select id="clap" aria-label="Lap" hidden></select></div>
-  <section class="panel lap-delta-tool" id="lapDeltaTool"><div class="feature-head"><div><p class="briefing-kicker">TELEMETRY / COMPARISON</p><h3>Lap Delta Explorer</h3><p>Compare the fastest recorded lap for two drivers in the selected session.</p></div><span class="feature-tag">SESSION DATA</span></div><div class="delta-controls"><label>Driver A<select id="deltaDriverA" aria-label="First driver for lap delta"></select></label><label>Driver B<select id="deltaDriverB" aria-label="Second driver for lap delta"></select></label></div><div class="delta-result" id="lapDeltaResult" aria-live="polite">Waiting for timed lap data…</div><p class="feature-footnote">Uses recorded lap durations only. Different tyre, fuel, traffic and track conditions are not normalized.</p></section>
-  <div id="lapEditorial" class="lap-editorial-wrap" aria-live="polite"></div><div id="paceCompare" class="pace-compare-wrap" aria-live="polite"></div><div id="sessionCompare" class="pace-compare-wrap" aria-live="polite"></div><div id="qualifyingGap" class="pace-compare-wrap" aria-live="polite"></div><div class="scroll" id="lapList"><div class="state">Loading…</div></div><div id="carView" hidden></div></section>
+  <div id="carView"><div class="state">Choose a Grand Prix, session and driver to inspect recorded car data.</div></div>
+  <div id="lapList" hidden></div><div id="lapEditorial" hidden></div><div id="paceCompare" hidden></div><div id="sessionCompare" hidden></div><div id="qualifyingGap" hidden></div>
+ </section>
  <section class="panel pane" id="v-news">
   <div class="home-weekend-head">
    <div><p class="briefing-kicker">WEEKEND BRIEF</p><h2>Weekend Overview</h2><p class="briefing-intro">The latest Grand Prix, session schedule and weekend essentials.</p></div>
@@ -252,12 +254,12 @@ $("year").onchange=()=>{renderChampionshipPulse(true);loadYear(+$("year").value)
 const SUBS={
  home:[["news","Overview"],["cal","Schedule"]],
  drivers:[["headlines","Headlines"],["fia","FIA documents"]],
- data:[["results","Results"],["control","Race control"],["radio","Team radio"],["weather","Track conditions"],["live","Strategy"],["laps","Lap times"],["car","Car data"]]
+ data:[["results","Results"],["control","Race control"],["radio","Team radio"],["weather","Track conditions"],["live","Strategy"],["car","Car data"]]
 };
 const memo={home:"news",timing:"timing",standings:"standings",drivers:"headlines",data:"results"};let curSub="news";
 const TOP_ALIAS={
  news:["home","news"],cal:["home","cal"],stats:["drivers","stats"],
- live:["data","live"],tele:["data","laps"],laps:["data","laps"],car:["data","car"],
+ live:["data","live"],car:["data","car"],
  result:["data","results"],race:["data","control"],control:["data","control"],radio:["data","radio"],weather:["data","weather"]
 };
 function show(top,sub){
@@ -266,13 +268,13 @@ function show(top,sub){
  document.querySelectorAll("#tabs button[data-v]").forEach(x=>x.setAttribute("aria-selected",x.dataset.v===top));
  $("sub").innerHTML=(SUBS[top]||[]).map(([k,l])=>`<button data-s="${k}" aria-selected="${k===sub}">${l}</button>`).join("");$("sub").hidden=!(SUBS[top]&&SUBS[top].length);$("dataRacePicker").hidden=top!=="data";
  $("sub").querySelectorAll("button").forEach(b=>b.onclick=()=>show(top,b.dataset.s));
- const pane=(sub==="results")?"result":(sub==="laps"||sub==="car")?"tele":(sub==="headlines"||sub==="fia")?"stats":sub;
+ const pane=(sub==="results")?"result":(sub==="car")?"tele":(sub==="headlines"||sub==="fia")?"stats":sub;
  if(top==="drivers"){window.newsroomView=sub;window.RedlineNewsroom?.setView(sub)}
  document.querySelectorAll(".pane").forEach(p=>p.hidden=p.id!=="v-"+pane);
  stopLive();
  window.RedlineLiveTiming?.stop();
  if(pane==="timing")void window.RedlineLiveTiming?.start();
- if(pane==="tele"){$("lapList").hidden=sub!=="laps";$("lapEditorial").hidden=sub!=="laps";$("carView").hidden=sub!=="car";$("clap").hidden=sub!=="car";}
+ if(pane==="tele"){$("carView").hidden=sub!=="car";$("clap").hidden=sub!=="car";}
  ensure();
 }
 document.querySelectorAll("#tabs button[data-v]").forEach(b=>b.onclick=()=>show(b.dataset.v));
@@ -610,7 +612,7 @@ function ensure(){
  if(sub==="standings"&&!loaded.st){loaded.st=1;loadStandings()}
  if(sub==="results"&&!loaded.res){loaded.res=1;loadResult()}
  if(sub==="control"&&!loaded.ctl){loaded.ctl=1;loadControl()}
- if(sub==="radio"||sub==="laps"||sub==="car"||sub==="weather"){
+ if(sub==="radio"||sub==="car"||sub==="weather"){
   if(!loaded.sess){loaded.sess=1;loadSessions(cur)}
   else if(sub==="radio"){if(radioFor!==$("rsess").value)loadRadio()}
   else if(sub==="weather"){if(weatherFor!==$("wsess").value)loadWeather()}
