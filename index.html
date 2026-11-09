@@ -4819,7 +4819,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   <div hidden><div id="briefingCircuit"></div></div>
  </section>
  
- <section class="panel pane" id="v-cal" hidden><div class="simple-title-head"><h2>Fan Weekend</h2><p class="briefing-intro">Team appearances, fan-zone moments and the race-weekend programme.</p></div><div id="calList"><div class="state">Loading the season schedule…</div></div></section>
+ <section class="panel pane" id="v-cal" hidden><div class="simple-title-head"><h2>Fan Weekend</h2><p class="briefing-intro">Team appearances, fan-zone moments and the race-weekend programme.</p></div><div id="calList"><div class="state">Loading the current weekend programme…</div></div></section>
  </main></div>
  <div id="scrim"></div>
  
@@ -6220,20 +6220,30 @@ function fanWeekendHTML(){
  return '<section class="fan-weekend-programme" aria-label="Fan weekend programme"><div class="fan-weekend-intro"><div><b>OFFICIAL FAN PROGRAMME</b><span>Driver appearances and team events are added when confirmed by the teams, circuit or race promoter.</span></div><span class="fan-weekend-status">UPDATES PENDING</span></div><div class="fan-team-grid">'+cards+'</div><p class="fan-programme-foot">No verified team appearance times have been published here yet. Check the <a href="https://www.formula1.com/en/teams" target="_blank" rel="noopener">official F1 team directory</a> and the selected Grand Prix promoter for announcements.</p></section>';
 }
 const trackTime=(t,gmt)=>{const o=(gmt||"").match(/(-?)(\d+):(\d+)/);const ms=o?(o[1]?-1:1)*(+o[2]*60+ +o[3])*6e4:0;const d=new Date(new Date(t).getTime()+ms);return d.toUTCString().slice(5,11)+" "+d.toISOString().slice(11,16)};
+function renderCurrentWeekend(items){
+ const ordered=items.slice().sort((a,b)=>new Date(a.date_start)-new Date(b.date_start));
+ const now=Date.now();
+ const active=ordered.find(x=>{const start=Date.parse(x.date_start),end=Date.parse(x.date_end);return Number.isFinite(start)&&start<=now&&Number.isFinite(end)&&end>=now});
+ const next=ordered.find(x=>Number.isFinite(Date.parse(x.date_start))&&Date.parse(x.date_start)>now);
+ const selected=active||next||ordered.filter(x=>Number.isFinite(Date.parse(x.date_start))).slice(-1)[0];
+ if(!selected)throw new Error("No current or upcoming Grand Prix weekend was found");
+ const index=ordered.indexOf(selected),status=active?"THIS WEEKEND":next?"NEXT UP":"LATEST";
+ calMap={};calMap[selected.meeting_key]=selected;
+ $("calList").innerHTML=`<div class="mt current-weekend" data-k="${selected.meeting_key}"><button class="mth" aria-expanded="false"><span class="rn">${String(index+1).padStart(2,"0")}</span><span class="mi"><b>${esc(selected.meeting_name||selected.raceName||"Grand Prix weekend")}</b><small>${esc(selected.location||selected.Circuit?.Location?.locality||"")}${selected.country_name||selected.Circuit?.Location?.country?" · "+esc(selected.country_name||selected.Circuit?.Location?.country):""} · ${new Date(selected.date_start).toLocaleDateString(undefined,{day:"numeric",month:"short"})}</small></span><span class="badge">${status}</span><span class="chev" aria-hidden="true">›</span></button><div class="mtd" hidden></div></div>`;
+ const trigger=$("calList").querySelector(".mth");if(trigger)trigger.click();
+}
 async function loadCal(){
- calFor=year;$("calList").innerHTML='<div class="state">Loading…</div>';
+ calFor=year;$("calList").innerHTML='<div class="state">Loading current weekend…</div>';
  try{
   const m=(await get(`/meetings?year=${year}`)).sort((a,b)=>new Date(a.date_start)-new Date(b.date_start));
   if(!m.length)throw new Error("OpenF1 returned no calendar meetings");
-  const now=Date.now(),nx=m.findIndex(x=>new Date(x.date_start)>now);calMap={};
-  $("calList").innerHTML=m.map((x,i)=>{calMap[x.meeting_key]=x;const st=new Date(x.date_start)>now?(i===nx?"Next":"Upcoming"):"Done";return `<div class="mt" data-k="${x.meeting_key}"><button class="mth" aria-expanded="false"><span class="rn">${String(i+1).padStart(2,"0")}</span><span class="mi"><b>${esc(x.meeting_name)}</b><small>${esc(x.location)}, ${esc(x.country_name)} · ${new Date(x.date_start).toLocaleDateString(undefined,{day:"numeric",month:"short"})}</small></span><span class="badge${st==="Done"?" off":""}">${st}</span><span class="chev" aria-hidden="true">›</span></button><div class="mtd" hidden></div></div>`}).join("");
+  renderCurrentWeekend(m);
  }catch(e){try{await loadJolpicaCalendar()}catch(j){fail("calList",j)}}
 }
 async function loadJolpicaCalendar(){
- const data=await jget(`/${year}/races/`),races=data.RaceTable?.Races||[];if(!races.length)throw new Error("Jolpica-F1 returned no calendar data");const now=Date.now();calMap={};
- const mapped=races.map(r=>{const sessions=jolpicaSessionList(r),raceDate=jdate({date:r.date,time:r.time})||new Date(r.date+"T12:00:00Z"),start=sessions[0]?.date||raceDate,key=`jolpica-${r.season}-${r.round}`;const x={...r,_source:"jolpica",meeting_key:key,meeting_name:r.raceName,location:r.Circuit?.Location?.locality||"",country_name:r.Circuit?.Location?.country||"",date_start:start.toISOString(),date_end:new Date(raceDate.getTime()+7200000).toISOString(),_sessions:sessions};calMap[key]=x;return x});
- const nx=mapped.findIndex(x=>new Date(x.date_start)>now);
- $("calList").innerHTML=mapped.map((x,i)=>{const st=new Date(x.date_start)>now?(i===nx?"Next":"Upcoming"):"Done";return `<div class="mt" data-k="${x.meeting_key}"><button class="mth" aria-expanded="false"><span class="rn">${String(i+1).padStart(2,"0")}</span><span class="mi"><b>${esc(x.raceName)}</b><small>${esc(x.location)}, ${esc(x.country_name)} · ${new Date(x.date_start).toLocaleDateString(undefined,{day:"numeric",month:"short"})}</small></span><span class="badge${st==="Done"?" off":""}">${st}</span><span class="chev" aria-hidden="true">›</span></button><div class="mtd" hidden></div></div>`}).join("");fallbackNote();
+ const data=await jget(`/${year}/races/`),races=data.RaceTable?.Races||[];if(!races.length)throw new Error("Jolpica-F1 returned no calendar data");
+ const mapped=races.map(r=>{const sessions=jolpicaSessionList(r),raceDate=jdate({date:r.date,time:r.time})||new Date(r.date+"T12:00:00Z"),start=sessions[0]?.date||raceDate,key=`jolpica-${r.season}-${r.round}`;return {...r,_source:"jolpica",meeting_key:key,meeting_name:r.raceName,location:r.Circuit?.Location?.locality||"",country_name:r.Circuit?.Location?.country||"",date_start:start.toISOString(),date_end:new Date(raceDate.getTime()+7200000).toISOString(),_sessions:sessions}});
+ renderCurrentWeekend(mapped);fallbackNote();
 }
 const circuitStoryCache=new Map();
 function circuitStoryTitle(x){
