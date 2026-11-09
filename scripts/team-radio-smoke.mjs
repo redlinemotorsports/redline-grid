@@ -59,6 +59,14 @@ try {
   if (!(await article.locator("audio").getAttribute("src"))?.includes("team-radio.mp3")) throw new Error("Radio audio source was not rendered");
   if (!(await article.locator(".radio-id b").textContent())?.includes("Lando Norris")) throw new Error("Driver identity was not rendered");
   if (!(await article.locator(".context-card").count())) throw new Error("Timing context cards were not rendered");
+  await page.waitForFunction(() => {
+    const text = document.querySelector("#radioList")?.textContent || "";
+    return text.includes("1:31.234") && text.includes("MEDIUM") && text.includes("9 laps into stint");
+  }, null, { timeout: 10000 });
+  const contextText = await article.locator(".radio-context").textContent();
+  if (!contextText?.includes("1:31.234")) throw new Error("Previous completed lap context was not refreshed after lap data loaded");
+  if (!contextText?.includes("MEDIUM")) throw new Error("Tyre compound context was not rendered");
+  if (!contextText?.includes("9 laps into stint")) throw new Error("Tyre age context was not rendered");
   if (!(await article.locator(".radio-wave i").count())) throw new Error("Minimal waveform was not rendered");
   await page.locator("#rsess").selectOption("100");
   await page.locator("#radioList article.radio").first().waitFor({ timeout: 10000 });
