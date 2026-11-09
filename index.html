@@ -6229,7 +6229,7 @@ function renderCurrentWeekend(items){
  if(!selected)throw new Error("No current or upcoming Grand Prix weekend was found");
  const index=ordered.indexOf(selected),status=active?"THIS WEEKEND":next?"NEXT UP":"LATEST";
  calMap={};calMap[selected.meeting_key]=selected;
- $("calList").innerHTML=`<div class="mt current-weekend" data-k="${selected.meeting_key}"><button class="mth" aria-expanded="false"><span class="rn">${String(index+1).padStart(2,"0")}</span><span class="mi"><b>${esc(selected.meeting_name||selected.raceName||"Grand Prix weekend")}</b><small>${esc(selected.location||selected.Circuit?.Location?.locality||"")}${selected.country_name||selected.Circuit?.Location?.country?" · "+esc(selected.country_name||selected.Circuit?.Location?.country):""} · ${new Date(selected.date_start).toLocaleDateString(undefined,{day:"numeric",month:"short"})}</small></span><span class="badge">${status}</span><span class="chev" aria-hidden="true">›</span></button><div class="mtd" hidden></div></div>`;
+ $("calList").innerHTML=`<div class="mt current-weekend" data-k="${selected.meeting_key}"><button class="mth" aria-expanded="true" type="button"><span class="rn">${String(index+1).padStart(2,"0")}</span><span class="mi"><b>${esc(selected.meeting_name||selected.raceName||"Grand Prix weekend")}</b><small>${esc(selected.location||selected.Circuit?.Location?.locality||"")}${selected.country_name||selected.Circuit?.Location?.country?" · "+esc(selected.country_name||selected.Circuit?.Location?.country):""} · ${new Date(selected.date_start).toLocaleDateString(undefined,{day:"numeric",month:"short"})}</small></span><span class="badge">${status}</span><span class="chev" aria-hidden="true">›</span></button><div class="mtd"></div></div>`;
  const trigger=$("calList").querySelector(".mth");if(trigger)trigger.click();
 }
 async function loadCal(){
@@ -6446,18 +6446,20 @@ async function circuitGuideHTMLOffline(meeting){
  return html;
 }
 $("calList").onclick=async e=>{
- const h=e.target.closest(".mth");if(!h)return;const box=h.parentNode,det=box.querySelector(".mtd"),x=calMap[box.dataset.k],open=det.hidden;det.hidden=!open;h.setAttribute("aria-expanded",open);if(!open||det.dataset.done)return;
+ const h=e.target.closest(".mth");if(!h)return;const box=h.parentNode,det=box.querySelector(".mtd"),x=calMap[box.dataset.k],pinned=box.classList.contains("current-weekend");
+ if(pinned){det.hidden=false;h.setAttribute("aria-expanded","true");if(det.dataset.done||det.dataset.loading)return;det.dataset.loading="1";}
+ else{const open=det.hidden;det.hidden=!open;h.setAttribute("aria-expanded",open);if(!open||det.dataset.done)return;}
  try{
   if(x._source==="jolpica"){
-   const ss=x._sessions||[];let html=fanWeekendHTML()+circuitGuideHTML(x)+'<div class="schedule-intro"><b>'+esc(x.raceName)+'</b><span>·</span><span>'+esc(x.Circuit?.circuitName||"")+'</span></div><div class="schedule-table"><table><thead><tr><th>Session</th><th>Your local time</th></tr></thead><tbody>';
+   const ss=x._sessions||[];let html=fanWeekendHTML()+'<div class="schedule-intro"><b>'+esc(x.raceName)+'</b><span>·</span><span>'+esc(x.Circuit?.circuitName||"")+'</span></div><div class="schedule-table"><table><thead><tr><th>Session</th><th>Your local time</th></tr></thead><tbody>';
    ss.forEach(q=>{const date=q.date;html+='<tr><td><span class="session-name"><i class="session-dot"></i>'+esc(q.name)+'</span></td><td><span class="time-main">'+date.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"})+'</span><span class="time-date">'+date.toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"})+'</span></td></tr>'});
-   det.innerHTML=html+'</tbody></table></div>';det.dataset.done=1;return;
+   det.innerHTML=html+'</tbody></table></div>';det.dataset.done=1;delete det.dataset.loading;return;
   }
   const ss=(await get(`/sessions?meeting_key=${x.meeting_key}`)).sort((a,b)=>new Date(a.date_start)-new Date(b.date_start));
-  let html=fanWeekendHTML()+circuitGuideHTML(x)+'<div class="schedule-intro"><b>'+esc(x.meeting_official_name||"Grand Prix weekend")+'</b><span>·</span><span>'+esc(x.circuit_short_name||"")+'</span><span class="time-zone">TRACK TIME <b>UTC'+esc((x.gmt_offset||"").slice(0,6))+'</b></span></div><div class="schedule-table"><table><thead><tr><th>Session</th><th>Your time</th><th>Track time</th></tr></thead><tbody>';
+  let html=fanWeekendHTML()+'<div class="schedule-intro"><b>'+esc(x.meeting_official_name||"Grand Prix weekend")+'</b><span>·</span><span>'+esc(x.circuit_short_name||"")+'</span><span class="time-zone">TRACK TIME <b>UTC'+esc((x.gmt_offset||"").slice(0,6))+'</b></span></div><div class="schedule-table"><table><thead><tr><th>Session</th><th>Your time</th><th>Track time</th></tr></thead><tbody>';
   ss.forEach(q=>{const date=new Date(q.date_start);html+='<tr><td><span class="session-name"><i class="session-dot"></i>'+esc(q.session_name)+'</span></td><td><span class="time-main">'+date.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"})+'</span><span class="time-date">'+date.toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"})+'</span></td><td><span class="time-main">'+esc(trackTime(q.date_start,x.gmt_offset))+'</span><span class="time-date">Circuit local time</span></td></tr>'});
-  det.innerHTML=html+'</tbody></table></div>';det.dataset.done=1;
- }catch(err){det.textContent="Couldn't load sessions: "+err.message}
+  det.innerHTML=html+'</tbody></table></div>';det.dataset.done=1;delete det.dataset.loading;
+ }catch(err){delete det.dataset.loading;det.textContent="Couldn't load sessions: "+err.message}
 };
 
 // ---------- Live positions ----------
