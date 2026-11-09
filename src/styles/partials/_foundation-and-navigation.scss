@@ -457,7 +457,7 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
 :root[data-theme=light] .last{box-shadow:0 8px 24px rgba(21,27,38,.055);background:rgba(255,255,255,.68);backdrop-filter:blur(12px)}
 :root[data-theme=light] .briefing-card{box-shadow:0 8px 24px rgba(21,27,38,.035)}
 @media(min-width:821px){
- #tabs{background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:0;gap:4px;margin-bottom:14px}
+ #tabs{overflow-x:hidden;background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:0;gap:4px;margin-bottom:14px}
  #tabs button{flex:0 0 auto;border-radius:0;padding:12px 18px;font-size:13.5px;letter-spacing:.09em;text-transform:uppercase;border-bottom:3px solid transparent;margin-bottom:-1px}
  #tabs button[aria-selected=true],#tabs button[aria-selected=true]:hover{background:none;color:var(--txt);border-bottom-color:var(--red)}
  :root[data-theme=light] #tabs{box-shadow:none}}
