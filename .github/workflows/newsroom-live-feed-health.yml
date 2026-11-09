@@ -1,0 +1,94 @@
+name: Newsroom live feed health
+
+on:
+  schedule:
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: newsroom-live-feed-health
+  cancel-in-progress: true
+
+jobs:
+  check-publisher-feeds:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check RSS2JSON publisher feeds
+        run: |
+          node --input-type=module <<'NODE'
+          const feeds = [
+            {
+              name: "Motorsport.com",
+              url: "https://www.motorsport.com/rss/f1/news/",
+            },
+            {
+              name: "Autosport",
+              url: "https://www.autosport.com/rss/feed/f1",
+            },
+          ];
+
+          async function checkFeed(feed) {
+            const endpoint = new URL("https://api.rss2json.com/v1/api.json");
+            endpoint.searchParams.set("rss_url", feed.url);
+
+            let lastError;
+            for (let attempt = 1; attempt <= 2; attempt += 1) {
+              try {
+                const response = await fetch(endpoint, {
+                  signal: AbortSignal.timeout(15000),
+                  headers: { accept: "application/json" },
+                });
+                if (!response.ok) {
+                  throw new Error(`HTTP ${response.status} ${response.statusText}`);
+                }
+
+                const payload = await response.json();
+                if (payload.status !== "ok") {
+                  throw new Error(`RSS2JSON status: ${payload.status || "missing"}; ${payload.message || "no message"}`);
+                }
+                if (!Array.isArray(payload.items) || payload.items.length === 0) {
+                  throw new Error("Feed returned no story items.");
+                }
+
+                const validItems = payload.items.filter((item) =>
+                  typeof item.title === "string" &&
+                  item.title.trim() &&
+                  typeof item.link === "string" &&
+                  item.link.startsWith("https://")
+                );
+                if (validItems.length === 0) {
+                  throw new Error("Feed returned items, but none had a valid title and HTTPS article link.");
+                }
+
+                console.log(`PASS: ${feed.name} returned ${payload.items.length} item(s); latest: ${validItems[0].title}`);
+                return;
+              } catch (error) {
+                lastError = error;
+                if (attempt < 2) {
+                  console.warn(`WARN: ${feed.name} attempt ${attempt} failed: ${error.message}; retrying once.`);
+                  await new Promise((resolve) => setTimeout(resolve, 3000));
+                }
+              }
+            }
+
+            throw new Error(`${feed.name} failed after 2 attempts: ${lastError?.message || "unknown error"}`);
+          }
+
+          const results = await Promise.allSettled(feeds.map(checkFeed));
+          const failures = results
+            .map((result, index) => ({ result, feed: feeds[index] }))
+            .filter(({ result }) => result.status === "rejected");
+
+          if (failures.length) {
+            for (const { result, feed } of failures) {
+              console.error(`FAIL: ${feed.name}: ${result.reason?.message || result.reason}`);
+            }
+            process.exitCode = 1;
+          } else {
+            console.log("PASS: both live Newsroom publisher feeds are reachable through RSS2JSON.");
+          }
+          NODE
