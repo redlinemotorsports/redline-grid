@@ -4970,6 +4970,71 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
   #v-result .race-result-labels,#v-result #result{min-width:490px}
 }
 
+
+/* NEWSROOM — mobile-first reading and scanning treatment. Desktop rules are unchanged. */
+#v-stats .newsroom-excerpt{display:none}
+#v-stats .newsroom-list-label{display:none}
+@media(max-width:600px){
+ #v-stats .newsroom-head{align-items:flex-start!important;padding:18px 14px 15px!important;gap:10px!important}
+ #v-stats .newsroom-head>div{min-width:0}
+ #v-stats .newsroom-head h2{font-size:34px!important;line-height:.98!important;letter-spacing:.01em!important}
+ #v-stats .newsroom-intro{max-width:260px;margin-top:7px!important;font-size:11px!important;line-height:1.55!important}
+ #v-stats .newsroom-refresh{min-height:38px;padding:8px 9px!important;border-radius:3px!important;font-size:8px!important;letter-spacing:.08em}
+ #v-stats .newsroom-body{padding:12px 10px 16px!important}
+ #v-stats .newsroom-toolbar{display:flex!important;flex-direction:column;align-items:stretch!important;gap:9px!important;margin-bottom:12px;padding-bottom:10px!important}
+ #v-stats .newsroom-filters{display:flex!important;flex-wrap:nowrap!important;gap:6px!important;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;padding:1px 0 5px;-webkit-overflow-scrolling:touch}
+ #v-stats .newsroom-filters::-webkit-scrollbar{display:none}
+ #v-stats .newsroom-filter{flex:0 0 auto;min-height:36px;padding:8px 11px!important;border-radius:3px!important;font:600 9px "IBM Plex Mono",monospace!important;white-space:nowrap}
+ #v-stats .newsroom-filter-count{margin-left:5px;opacity:.7}
+ #v-stats .newsroom-updated{margin:0!important;font-size:8px!important;letter-spacing:.04em}
+ #v-stats .newsroom-feature{display:flex!important;flex-direction:column;min-height:0!important;margin-bottom:17px!important;border:1px solid var(--line)!important;border-left:2px solid var(--red)!important;border-radius:4px!important}
+ #v-stats .newsroom-feature-media{height:auto!important;min-height:0!important;aspect-ratio:16/9;flex:none}
+ #v-stats .newsroom-feature-media:after{background:linear-gradient(0deg,rgba(7,9,12,.28),transparent 65%)!important}
+ #v-stats .newsroom-feature-copy{display:flex;gap:9px!important;padding:15px 13px 14px!important}
+ #v-stats .newsroom-feature .newsroom-kicker{font-size:8px!important;letter-spacing:.14em}
+ #v-stats .newsroom-feature h3{font:700 27px/1.08 "Barlow Condensed",sans-serif!important;letter-spacing:-.015em!important}
+ #v-stats .newsroom-excerpt{display:block;margin:0;color:var(--mute);font:400 11px/1.6 Inter,sans-serif}
+ #v-stats .newsroom-feature-excerpt{font-size:12px;line-height:1.65}
+ #v-stats .newsroom-meta{gap:6px!important;font-size:8px!important;line-height:1.4}
+ #v-stats .newsroom-open{display:inline-flex;align-self:flex-start;align-items:center;min-height:34px;margin-top:1px;padding:0 11px;border:1px solid var(--line);border-radius:3px;font:600 8px "IBM Plex Mono",monospace!important;letter-spacing:.06em}
+ #v-stats .newsroom-list-label{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 1px 9px}
+ #v-stats .newsroom-list-label span{font:700 9px "IBM Plex Mono",monospace;letter-spacing:.12em;color:var(--txt)}
+ #v-stats .newsroom-list-label small{font:8px "IBM Plex Mono",monospace;color:var(--mute)}
+ #v-stats .newsroom-grid{display:grid!important;grid-template-columns:1fr!important;gap:8px!important}
+ #v-stats .newsroom-card{display:grid!important;grid-template-columns:88px minmax(0,1fr)!important;min-height:0!important;border:1px solid var(--line)!important;border-radius:4px!important;background:var(--card2)!important}
+ #v-stats .newsroom-card-media{height:100%!important;min-height:112px!important;aspect-ratio:auto;align-self:stretch}
+ #v-stats .newsroom-card-media img{min-height:112px}
+ #v-stats .newsroom-card-copy{min-width:0;gap:6px!important;padding:10px 10px 9px!important}
+ #v-stats .newsroom-card .newsroom-kicker{font-size:7px!important;letter-spacing:.13em}
+ #v-stats .newsroom-card h3{font:650 16px/1.18 "Barlow Condensed",sans-serif!important;letter-spacing:0!important}
+ #v-stats .newsroom-card .newsroom-excerpt{display:-webkit-box;overflow:hidden;-webkit-line-clamp:3;-webkit-box-orient:vertical;font-size:10px;line-height:1.45}
+ #v-stats .newsroom-card .newsroom-meta{margin-top:2px;padding-top:5px;border-top:1px solid var(--line);font-size:7px!important}
+ #v-stats .newsroom-sources{align-items:flex-start!important;flex-direction:column;gap:7px!important;margin-top:12px!important;font-size:8px!important;line-height:1.5}
+ #v-stats .newsroom-fia-panel{padding:15px 11px 16px!important}
+ #v-stats .newsroom-fia-heading{gap:7px!important;padding:0 1px 12px!important}
+ #v-stats .newsroom-fia-heading h3{font-size:27px!important}
+ #v-stats .newsroom-fia-heading p{font-size:11px!important;line-height:1.55!important}
+ #v-stats .newsroom-fia-index{font-size:8px!important;line-height:1.6}
+ #v-stats .newsroom-fia-list{grid-template-columns:1fr!important;gap:7px!important;margin-top:10px!important}
+ #v-stats .newsroom-fia-doc{min-height:0!important;gap:9px!important;padding:12px!important;border-radius:4px!important}
+ #v-stats .newsroom-fia-doc-top span:first-child{font-size:8px!important}
+ #v-stats .newsroom-fia-doc-top span:last-child{font-size:7px!important}
+ #v-stats .newsroom-fia-doc-copy{gap:4px!important}
+ #v-stats .newsroom-fia-doc-copy b{font:650 17px/1.15 "Barlow Condensed",sans-serif!important}
+ #v-stats .newsroom-fia-doc-copy small{font-size:10px!important;line-height:1.5!important}
+ #v-stats .newsroom-fia-doc-foot{padding-top:8px!important}
+ #v-stats .newsroom-fia-doc-foot span,#v-stats .newsroom-fia-doc-foot strong{font-size:7px!important}
+ #v-stats .newsroom-fia-archive{gap:10px!important;margin-top:10px!important;padding:13px!important;border-radius:4px!important}
+ #v-stats .newsroom-fia-archive b{font-size:15px!important}
+ #v-stats .newsroom-fia-archive small{font-size:10px!important}
+ #v-stats .newsroom-fia-archive>a{min-height:42px;font-size:8px!important}
+}
+@media(max-width:380px){
+ #v-stats .newsroom-card{grid-template-columns:76px minmax(0,1fr)!important}
+ #v-stats .newsroom-card h3{font-size:15px!important}
+ #v-stats .newsroom-feature h3{font-size:25px!important}
+}
+
 </style>
 </head>
 <body>
@@ -6999,8 +7064,8 @@ const newsCategory=item=>{const t=(item.title+" "+item.description).toLowerCase(
 function newsCard(item,featured=false){
  const image=newsSafeUrl(item.image),url=newsSafeUrl(item.link),media=image?'<img src="'+esc(image)+'" alt="" loading="lazy">':"";
  const meta='<div class="newsroom-meta"><span>'+esc(item.source)+'</span><span>·</span><span>'+esc(item.dateLabel)+'</span></div>';
- if(featured)return '<a class="newsroom-feature" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer"><div class="newsroom-feature-media">'+media+'</div><div class="newsroom-feature-copy"><span class="newsroom-kicker">FEATURED STORY · '+esc(item.category)+'</span><h3>'+esc(item.title)+'</h3>'+meta+'<span class="newsroom-open">READ ORIGINAL STORY ↗</span></div></a>';
- return '<a class="newsroom-card" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer"><div class="newsroom-card-media">'+media+'</div><div class="newsroom-card-copy"><span class="newsroom-kicker">'+esc(item.category)+'</span><h3>'+esc(item.title)+'</h3>'+meta+'</div></a>';
+ if(featured){const summary=newsText(item.description)||item.title;const excerpt=summary.length>190?summary.slice(0,187).replace(/\\s+\\S*$/,"")+"…":summary;return '<a class="newsroom-feature" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer"><div class="newsroom-feature-media">'+media+'</div><div class="newsroom-feature-copy"><span class="newsroom-kicker">LEAD STORY · '+esc(item.category)+'</span><h3>'+esc(item.title)+'</h3><p class="newsroom-excerpt newsroom-feature-excerpt">'+esc(excerpt)+'</p>'+meta+'<span class="newsroom-open">READ ORIGINAL STORY ↗</span></div></a>'}
+ const summary=newsText(item.description)||item.title;const excerpt=summary.length>145?summary.slice(0,142).replace(/\\s+\\S*$/,"")+"…":summary;return '<a class="newsroom-card" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer"><div class="newsroom-card-media">'+media+'</div><div class="newsroom-card-copy"><span class="newsroom-kicker">'+esc(item.category)+'</span><h3>'+esc(item.title)+'</h3><p class="newsroom-excerpt">'+esc(excerpt)+'</p>'+meta+'</div></a>';
 }
 function newsroomBriefing(items){
  const picks=items.slice(0,3);
@@ -7023,7 +7088,7 @@ function renderNewsroom(){
  const filterHtml=filters.map(f=>'<button type="button" class="newsroom-filter" data-news-filter="'+f+'" aria-pressed="'+(f===newsroomFilter)+'">'+labels[f]+'<span class="newsroom-filter-count">'+(f==="ALL"?newsroomItems.length:counts[f])+'</span></button>').join("");
  const featured=visible[0],cards=visible.slice(1,36);
  const active=window.newsroomView||"headlines";
- const headlines='<div class="newsroom-body" data-newsroom-panel="headlines"'+(active==="headlines"?"":" hidden")+'><div class="newsroom-toolbar"><div class="newsroom-filters" role="group" aria-label="Filter news">'+filterHtml+'</div><span class="newsroom-updated">SHOWING '+visible.length+' STORIES · UPDATED '+stamp+'</span></div>'+(featured?newsCard(featured,true)+(cards.length?'<div class="newsroom-grid">'+cards.map(x=>newsCard(x)).join("")+'</div>':''):'<div class="newsroom-empty">No stories are available in this category yet.</div>')+'<div class="newsroom-sources"><span>HEADLINES VIA PUBLISHER RSS · OPEN ORIGINAL ARTICLES</span><span><a href="https://www.motorsport.com/rss/f1/news/" target="_blank" rel="noopener">MOTORSPORT.COM</a> · <a href="https://www.autosport.com/rss/feed/f1" target="_blank" rel="noopener">AUTOSPORT</a></span></div></div>';
+ const headlines='<div class="newsroom-body" data-newsroom-panel="headlines"'+(active==="headlines"?"":" hidden")+'><div class="newsroom-toolbar"><div class="newsroom-filters" role="group" aria-label="Filter news">'+filterHtml+'</div><span class="newsroom-updated">SHOWING '+visible.length+' STORIES · UPDATED '+stamp+'</span></div>'+(featured?newsCard(featured,true)+(cards.length?'<div class="newsroom-list-label"><span>MORE FROM THE PADDOCK</span><small>'+cards.length+' STORIES</small></div><div class="newsroom-grid">'+cards.map(x=>newsCard(x)).join("")+'</div>':''):'<div class="newsroom-empty">No stories are available in this category yet.</div>')+'<div class="newsroom-sources"><span>HEADLINES VIA PUBLISHER RSS · OPEN ORIGINAL ARTICLES</span><span><a href="https://www.motorsport.com/rss/f1/news/" target="_blank" rel="noopener">MOTORSPORT.COM</a> · <a href="https://www.autosport.com/rss/feed/f1" target="_blank" rel="noopener">AUTOSPORT</a></span></div></div>';
  const fia='<section class="newsroom-fia-panel" data-newsroom-panel="fia"'+(active==="fia"?"":" hidden")+'><div class="newsroom-fia-heading"><div><span class="newsroom-kicker">FIA / OFFICIAL DOCUMENT ROOM</span><h3>Latest event documents</h3><p>Primary-source PDFs from the 2026 São Paulo Grand Prix. Open a document directly from the FIA archive.</p></div><span class="newsroom-fia-index">2026 SEASON<br>ROUND 21 / SÃO PAULO</span></div><div class="newsroom-fia-list"><a class="newsroom-fia-doc" href="https://www.fia.com/system/files/decision-document/2026_sao_paulo_grand_prix_-_final_race_classification.pdf" target="_blank" rel="noopener noreferrer"><div class="newsroom-fia-doc-top"><span>DOC 81</span><span>CLASSIFICATION</span></div><div class="newsroom-fia-doc-copy"><b>Final Race Classification</b><small>Official finishing order, race times, gaps, fastest lap and points.</small></div><div class="newsroom-fia-doc-foot"><span>08 NOV 2026</span><strong>VIEW FIA PDF ↗</strong></div></a><a class="newsroom-fia-doc" href="https://www.fia.com/system/files/decision-document/2026_sao_paulo_grand_prix_-_infringement_-_car_16_-_causing_a_collision.pdf" target="_blank" rel="noopener noreferrer"><div class="newsroom-fia-doc-top"><span>DOC 79</span><span>STEWARDS / DECISION</span></div><div class="newsroom-fia-doc-copy"><b>Car 16 — Causing a Collision</b><small>Stewards’ decision following the contact involving Charles Leclerc and Liam Lawson.</small></div><div class="newsroom-fia-doc-foot"><span>08 NOV 2026</span><strong>VIEW FIA PDF ↗</strong></div></a><a class="newsroom-fia-doc" href="https://www.fia.com/system/files/decision-document/2026_sao_paulo_grand_prix_-_infringement_-_car_87_-_unsafe_release.pdf" target="_blank" rel="noopener noreferrer"><div class="newsroom-fia-doc-top"><span>DOC 78</span><span>STEWARDS / DECISION</span></div><div class="newsroom-fia-doc-copy"><b>Car 87 — Unsafe Release</b><small>Stewards’ ruling and five-second penalty for the pit-lane release incident.</small></div><div class="newsroom-fia-doc-foot"><span>08 NOV 2026</span><strong>VIEW FIA PDF ↗</strong></div></a><a class="newsroom-fia-doc" href="https://www.fia.com/system/files/decision-document/2026_sao_paulo_grand_prix_-_race_scrutineering.pdf" target="_blank" rel="noopener noreferrer"><div class="newsroom-fia-doc-top"><span>DOC 77</span><span>TECHNICAL / SCRUTINEERING</span></div><div class="newsroom-fia-doc-copy"><b>Race Scrutineering Report</b><small>Technical Delegate’s report covering inspections and regulatory compliance checks.</small></div><div class="newsroom-fia-doc-foot"><span>08 NOV 2026</span><strong>VIEW FIA PDF ↗</strong></div></a></div><div class="newsroom-fia-archive"><div><span>FIA DOCUMENT ARCHIVE</span><b>Looking for an earlier Grand Prix?</b><small>Browse the full Formula One document archive, organised by event and publication.</small></div><a href="https://www.fia.com/documents/championships/fia-formula-one-world-championship-14/season" target="_blank" rel="noopener noreferrer">BROWSE PREVIOUS RACE DOCUMENTS <span aria-hidden="true">↗</span></a></div><p class="newsroom-fia-note">DIRECT FIA PDF LINKS · Additional event documents and previous rounds are hosted by the FIA.</p></section>';
  root.innerHTML=headlines+fia;
  root.querySelectorAll("[data-news-filter]").forEach(btn=>btn.addEventListener("click",()=>{newsroomFilter=btn.dataset.newsFilter;renderNewsroom()}));
