@@ -96,9 +96,10 @@ try {
   // The next Refresh should retry the archive and recover without reloading.
   const retryPage = await browser.newPage();
   let archiveAttempts = 0;
+  let allowArchive = false;
   await retryPage.route("**/archive/2026.json", async route => {
     archiveAttempts += 1;
-    if (archiveAttempts === 1) {
+    if (!allowArchive) {
       await route.fulfill({ status: 503, body: "Temporary archive failure" });
     } else {
       await route.continue();
@@ -112,6 +113,7 @@ try {
     state: "visible",
     timeout: 15000
   });
+  allowArchive = true;
   await retryPage.locator("#rtRefresh").click();
   await retryPage.waitForFunction(() =>
     document.getElementById("rtLastRaceName")?.textContent?.includes("Brazilian GP"),
