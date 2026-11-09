@@ -4644,6 +4644,26 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-news .paddock-note-foot a{color:var(--txt);text-decoration:none;white-space:nowrap}
 @media(max-width:600px){#v-news .home-paddock-card{padding:13px 13px 12px 15px}#v-news .paddock-note-item{grid-template-columns:82px minmax(0,1fr);gap:9px;padding:9px 0}#v-news .paddock-note-team{font-size:8px}#v-news .paddock-note-copy h3{font-size:11px}#v-news .paddock-note-copy p{font-size:9px}#v-news .paddock-note-meta{font-size:7px}}
 
+/* Home > Fan Weekend: team appearance columns with subdued logo watermarks. */
+#v-cal>.simple-title-head h2:before{content:"REDLINE GRID / FAN WEEKEND"}
+#v-cal>.simple-title-head .briefing-intro{max-width:620px}
+.fan-weekend-intro{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0 12px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--soft)}
+.fan-weekend-intro b{display:block;color:var(--txt);font:650 10px "IBM Plex Mono",monospace;letter-spacing:.09em}
+.fan-weekend-intro span{display:block;margin-top:4px;color:var(--mute);font-size:10px;line-height:1.45}
+.fan-weekend-status{flex:0 0 auto;padding:5px 7px;border:1px solid color-mix(in srgb,var(--red) 35%,var(--line));border-radius:4px;color:var(--txt);font:600 8px "IBM Plex Mono",monospace;letter-spacing:.07em}
+.fan-team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 12px}
+.fan-team-card{position:relative;isolation:isolate;min-height:105px;overflow:hidden;padding:12px;border:1px solid var(--line);border-radius:9px;background:linear-gradient(125deg,rgba(255,255,255,.035),var(--card) 72%)}
+.fan-team-card:before{content:attr(data-watermark);position:absolute;z-index:-1;right:5px;bottom:4px;color:var(--team-color,var(--mute));opacity:.10;font:900 28px/1 Inter,sans-serif;letter-spacing:-.08em;white-space:nowrap;pointer-events:none}
+.fan-team-card-head{display:flex;align-items:center;gap:7px;min-width:0}
+.fan-team-card-head img{width:30px;height:30px;object-fit:contain;opacity:.78;filter:grayscale(1) brightness(1.6)}
+.fan-team-card-head b{font:700 9px/1.25 Inter,sans-serif;letter-spacing:.035em;color:var(--txt)}
+.fan-team-card-event{margin-top:13px;color:var(--mute);font-size:10px;line-height:1.4}
+.fan-team-card-event strong{display:block;margin-bottom:3px;color:var(--txt);font:600 8px "IBM Plex Mono",monospace;letter-spacing:.08em}
+.fan-programme-foot{margin:0 0 14px;color:var(--mute);font-size:9px;line-height:1.5}
+.fan-programme-foot a{color:var(--txt);text-decoration:none}
+@media(max-width:760px){.fan-team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.fan-team-card{min-height:98px;padding:10px}.fan-team-card:before{font-size:24px}.fan-team-card-head img{width:25px;height:25px}}
+
 /* Home > Schedule: a compact season race list, distinct from the weekend overview. */
 #v-cal>.simple-title-head h2:before{content:"REDLINE GRID / SEASON SCHEDULE";display:block;margin:0 0 7px;color:var(--red);font:600 9px/1.3 "IBM Plex Mono",monospace;letter-spacing:.16em}
 #v-cal #calList{padding:8px 12px 14px}
@@ -4799,7 +4819,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   <div hidden><div id="briefingCircuit"></div></div>
  </section>
  
- <section class="panel pane" id="v-cal" hidden><div class="simple-title-head"><h2>Season schedule</h2><p class="briefing-intro">Every Grand Prix, with circuit details and session times.</p></div><div id="calList"><div class="state">Loading the season schedule…</div></div></section>
+ <section class="panel pane" id="v-cal" hidden><div class="simple-title-head"><h2>Fan Weekend</h2><p class="briefing-intro">Team appearances, fan-zone moments and the race-weekend programme.</p></div><div id="calList"><div class="state">Loading the season schedule…</div></div></section>
  </main></div>
  <div id="scrim"></div>
  
@@ -6194,6 +6214,11 @@ async function loadCar(repop){
 
 // ---------- Calendar (meetings) ----------
 let calFor=null,calMap={};
+const FAN_WEEKEND_TEAMS=[["McLaren","MCL","#FF8000","https://commons.wikimedia.org/wiki/Special:FilePath/McLaren_logo_(2026).svg"],["Mercedes","MER","#00A19B","https://commons.wikimedia.org/wiki/Special:FilePath/Mercedes-AMG_Petronas_F1_Team_logo_(2026).svg"],["Red Bull Racing","RBR","#3671C6","https://commons.wikimedia.org/wiki/Special:FilePath/Red_Bull_Racing_logo.svg"],["Ferrari","FER","#E8002D","https://commons.wikimedia.org/wiki/Special:FilePath/Scuderia_Ferrari_Logo.svg"],["Williams","WIL","#64C4FF","https://commons.wikimedia.org/wiki/Special:FilePath/Williams_Racing_logo.svg"],["Aston Martin","AMR","#229971","https://commons.wikimedia.org/wiki/Special:FilePath/Aston_Martin_Aramco_Cognizant_Formula_One_Team_logo.svg"],["Alpine","ALP","#0093CC","https://commons.wikimedia.org/wiki/Special:FilePath/Alpine_F1_Team_Logo.svg"],["Haas","HAA","#B6BABD","https://commons.wikimedia.org/wiki/Special:FilePath/Haas_F1_Team_Logo.svg"],["Racing Bulls","VCARB","#6692FF","https://commons.wikimedia.org/wiki/Special:FilePath/Racing_Bulls_logo.svg"],["Audi","AUD","#BB0000","https://commons.wikimedia.org/wiki/Special:FilePath/Audi_F1_Team_logo.svg"],["Cadillac","CAD","#D6D6D6","https://commons.wikimedia.org/wiki/Special:FilePath/Cadillac_Formula_1_Team_logo.svg"]];
+function fanWeekendHTML(){
+ const cards=FAN_WEEKEND_TEAMS.map(([name,code,color,logo])=>'<article class="fan-team-card" data-watermark="'+esc(code)+'" style="--team-color:'+color+'"><div class="fan-team-card-head"><img src="'+logo+'" alt="" loading="lazy" onerror="this.style.display=\'none\'"><b>'+esc(name.toUpperCase())+'</b></div><div class="fan-team-card-event"><strong>TEAM APPEARANCE</strong>To be announced</div></article>').join("");
+ return '<section class="fan-weekend-programme" aria-label="Fan weekend programme"><div class="fan-weekend-intro"><div><b>OFFICIAL FAN PROGRAMME</b><span>Driver appearances and team events are added when confirmed by the teams, circuit or race promoter.</span></div><span class="fan-weekend-status">UPDATES PENDING</span></div><div class="fan-team-grid">'+cards+'</div><p class="fan-programme-foot">No verified team appearance times have been published here yet. Check the <a href="https://www.formula1.com/en/teams" target="_blank" rel="noopener">official F1 team directory</a> and the selected Grand Prix promoter for announcements.</p></section>';
+}
 const trackTime=(t,gmt)=>{const o=(gmt||"").match(/(-?)(\d+):(\d+)/);const ms=o?(o[1]?-1:1)*(+o[2]*60+ +o[3])*6e4:0;const d=new Date(new Date(t).getTime()+ms);return d.toUTCString().slice(5,11)+" "+d.toISOString().slice(11,16)};
 async function loadCal(){
  calFor=year;$("calList").innerHTML='<div class="state">Loading…</div>';
@@ -6414,12 +6439,12 @@ $("calList").onclick=async e=>{
  const h=e.target.closest(".mth");if(!h)return;const box=h.parentNode,det=box.querySelector(".mtd"),x=calMap[box.dataset.k],open=det.hidden;det.hidden=!open;h.setAttribute("aria-expanded",open);if(!open||det.dataset.done)return;
  try{
   if(x._source==="jolpica"){
-   const ss=x._sessions||[];let html=circuitGuideHTML(x)+'<div class="schedule-intro"><b>'+esc(x.raceName)+'</b><span>·</span><span>'+esc(x.Circuit?.circuitName||"")+'</span></div><div class="schedule-table"><table><thead><tr><th>Session</th><th>Your local time</th></tr></thead><tbody>';
+   const ss=x._sessions||[];let html=fanWeekendHTML()+circuitGuideHTML(x)+'<div class="schedule-intro"><b>'+esc(x.raceName)+'</b><span>·</span><span>'+esc(x.Circuit?.circuitName||"")+'</span></div><div class="schedule-table"><table><thead><tr><th>Session</th><th>Your local time</th></tr></thead><tbody>';
    ss.forEach(q=>{const date=q.date;html+='<tr><td><span class="session-name"><i class="session-dot"></i>'+esc(q.name)+'</span></td><td><span class="time-main">'+date.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"})+'</span><span class="time-date">'+date.toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"})+'</span></td></tr>'});
    det.innerHTML=html+'</tbody></table></div>';det.dataset.done=1;return;
   }
   const ss=(await get(`/sessions?meeting_key=${x.meeting_key}`)).sort((a,b)=>new Date(a.date_start)-new Date(b.date_start));
-  let html=circuitGuideHTML(x)+'<div class="schedule-intro"><b>'+esc(x.meeting_official_name||"Grand Prix weekend")+'</b><span>·</span><span>'+esc(x.circuit_short_name||"")+'</span><span class="time-zone">TRACK TIME <b>UTC'+esc((x.gmt_offset||"").slice(0,6))+'</b></span></div><div class="schedule-table"><table><thead><tr><th>Session</th><th>Your time</th><th>Track time</th></tr></thead><tbody>';
+  let html=fanWeekendHTML()+circuitGuideHTML(x)+'<div class="schedule-intro"><b>'+esc(x.meeting_official_name||"Grand Prix weekend")+'</b><span>·</span><span>'+esc(x.circuit_short_name||"")+'</span><span class="time-zone">TRACK TIME <b>UTC'+esc((x.gmt_offset||"").slice(0,6))+'</b></span></div><div class="schedule-table"><table><thead><tr><th>Session</th><th>Your time</th><th>Track time</th></tr></thead><tbody>';
   ss.forEach(q=>{const date=new Date(q.date_start);html+='<tr><td><span class="session-name"><i class="session-dot"></i>'+esc(q.session_name)+'</span></td><td><span class="time-main">'+date.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"})+'</span><span class="time-date">'+date.toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"})+'</span></td><td><span class="time-main">'+esc(trackTime(q.date_start,x.gmt_offset))+'</span><span class="time-date">Circuit local time</span></td></tr>'});
   det.innerHTML=html+'</tbody></table></div>';det.dataset.done=1;
  }catch(err){det.textContent="Couldn't load sessions: "+err.message}
