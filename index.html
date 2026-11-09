@@ -5625,7 +5625,7 @@ function loadRound(i){
  document.querySelectorAll(".gp").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.i===i));
  const raceTitle=race.meeting_name||race.raceName||((race.country_name||"Grand Prix")+" Grand Prix");
  $("pick").innerHTML=`<span>${year} · R${String(i+1).padStart(2,"0")} · ${esc(raceTitle)}</span><span>CHANGE ▾</span>`;
- renderLast();$("last").title="Everything on this page is shown as it stood after this race";
+ renderLast();const lastCard=document.querySelector(".last");if(lastCard)lastCard.title="Everything on this page is shown as it stood after this race";
  $("resTitle").textContent=raceTitle;
  ["drivers","teams","result","control","radioList","lapList","weatherView"].forEach(id=>$(id).innerHTML='<div class="state">Loading…</div>');
  // Load only the active tab on startup; other race-data panels fetch when opened.
