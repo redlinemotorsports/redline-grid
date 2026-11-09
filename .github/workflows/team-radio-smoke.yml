@@ -1,0 +1,47 @@
+name: Team Radio browser smoke test
+
+on:
+  pull_request:
+    paths:
+      - "index.html"
+      - "src/team-radio.ts"
+      - "scripts/team-radio-smoke.mjs"
+      - ".github/workflows/team-radio-smoke.yml"
+      - "package.json"
+  push:
+    branches:
+      - "tooling/typescript-team-radio"
+
+jobs:
+  team-radio-browser-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Type-check and build
+        run: |
+          npm run typecheck
+          npm run build
+      - name: Install Playwright
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - name: Start production preview
+        run: |
+          npm run preview -- --host 127.0.0.1 > /tmp/redline-preview.log 2>&1 &
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/redline-preview.log
+          exit 1
+      - name: Exercise Team Radio in Chromium
+        run: node scripts/team-radio-smoke.mjs
