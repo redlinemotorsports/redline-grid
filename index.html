@@ -4840,6 +4840,17 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
 @media(max-width:600px){#v-radio .radio{margin:9px 8px;padding:11px}#v-radio .radio-head .av{width:34px;height:34px;flex-basis:34px}#v-radio .radio-id b{font-size:17px}#v-radio .radio-wave{height:24px;gap:2px}#v-radio .radio-wave i:nth-child(n+65){display:none}#v-radio .context-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#v-radio .context-card{padding:9px}}
 @media(max-width:380px){#v-radio .context-grid{grid-template-columns:1fr}#v-radio .radio-time{font-size:9px}}
 
+
+/* Team radio: restrained signal trace, with each driver's constructor identity colour. */
+#v-radio .radio{border-left:2px solid var(--radio-team,#8B8B98);background:linear-gradient(100deg,color-mix(in srgb,var(--radio-team,#8B8B98) 5%,transparent),transparent 44%),var(--card)}
+#v-radio .radio-kicker{color:var(--radio-team,#8B8B98)}
+#v-radio .radio-audio{padding:9px 11px 8px;border-color:rgba(220,228,240,.075);background:#101115}
+#v-radio .radio-wave{height:22px;gap:2px;margin:0 0 8px;opacity:.8;background:linear-gradient(180deg,transparent 48%,rgba(220,228,240,.12) 49.5%,rgba(220,228,240,.12) 50.5%,transparent 52%)}
+#v-radio .radio-wave i{display:block;min-width:1px;width:auto;max-width:2px;flex:1 1 0;border-radius:1px;background:var(--radio-team,#8B8B98);opacity:.66!important;box-shadow:none}
+#v-radio .radio-audio audio{width:100%;height:32px;accent-color:var(--radio-team,#8B8B98);color-scheme:dark}
+#v-radio .radio-context .context-head b,#v-radio .radio-context .context-summary b{color:var(--radio-team,#8B8B98)}
+@media(max-width:600px){#v-radio .radio-wave{height:20px;gap:2px}#v-radio .radio-wave i{max-width:2px}}
+
 </style>
 </head>
 <body>
@@ -5647,9 +5658,10 @@ function drawRadio(){
   if(prevLap&&typeof prevLap.lap_duration==="number")summary.push("previous completed lap "+lapText);
   if(stint&&stint.compound)summary.push(tyre+" tyres"+(tyreAge?" ("+tyreAge+")":""));
   const what=summary.length?"At "+time+", "+(d.full_name||"this driver")+" was "+summary.join("; ")+".":"There isn't enough nearby timing data to describe this moment reliably.";
-  return `<article class="radio${isFavD(d)?" hot":""}">
-   <div class="radio-head">${driverNoBadge(c.driver_number,d.team_colour)}<div class="radio-id"><div class="radio-kicker">Original team radio</div><b>${esc(d.full_name||"Driver #"+c.driver_number)}</b><small>${esc(d.team_name||"")} · Driver #${esc(c.driver_number)}</small></div><div class="radio-time">${esc(time)}<br><span>${esc(dt.toLocaleDateString([],{day:"numeric",month:"short"}))}</span></div></div>
-   <div class="radio-audio"><div class="radio-wave" aria-hidden="true">${Array.from({length:128},(_,j)=>{const envelope=0.38+0.62*Math.abs(Math.sin(j*0.19)+0.42*Math.sin(j*0.071));const h=Math.max(3,Math.min(28,Math.round(3+envelope*(8+((j*17+j*j*3)%17)))));return `<i style="height:${h}px;opacity:${.42+(j%5)*.11}"></i>`}).join("")}</div><audio controls preload="none" src="${esc(c.recording_url)}">Your browser does not support audio playback.</audio></div>
+  const radioTeamColor=String(teamIconColor(d.team_name,d.team_colour)||"8B8B98").replace(/[^0-9a-f]/gi,"").slice(0,6)||"8B8B98";
+  return `<article class="radio${isFavD(d)?" hot":""}" style="--radio-team:#${radioTeamColor}">
+   <div class="radio-head">${driverNoBadge(c.driver_number,radioTeamColor)}<div class="radio-id"><div class="radio-kicker">Original team radio</div><b>${esc(d.full_name||"Driver #"+c.driver_number)}</b><small>${esc(d.team_name||"")} · Driver #${esc(c.driver_number)}</small></div><div class="radio-time">${esc(time)}<br><span>${esc(dt.toLocaleDateString([],{day:"numeric",month:"short"}))}</span></div></div>
+   <div class="radio-audio"><div class="radio-wave" aria-hidden="true">${Array.from({length:64},(_,j)=>{const envelope=0.3+0.7*Math.abs(Math.sin(j*0.17)+0.34*Math.sin(j*0.053));const h=Math.max(3,Math.min(15,Math.round(3+envelope*(3+((j*7+j*j)%7)))));return `<i style="height:${h}px"></i>`}).join("")}</div><audio controls preload="none" src="${esc(c.recording_url)}">Your browser does not support audio playback.</audio></div>
    <section class="radio-context"><div class="context-head"><b>REDLINE TEAM RADIO CONTEXT</b><small>${esc(cur&&cur.country_name?cur.country_name+" Grand Prix":"Race weekend")} · ${esc(sessionLabel)} · ${lapNo!=null?"Lap "+lapNo:"Lap not available"}</small></div>
     <div class="context-grid">
      <div class="context-card"><small>Race Control</small><b>${esc(nearby&&nearby.flag||"Session notes")}</b><p>${esc(raceText)}</p></div>
