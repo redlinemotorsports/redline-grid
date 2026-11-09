@@ -17,6 +17,10 @@ type LegacyBridge = {
   nowY: number;
   readStaticSeasonArchive: (year: number) => Promise<any>;
   jget: (path: string) => Promise<any>;
+  esc: (value: unknown) => string;
+  teamIconColor: (team: string, color?: string) => string;
+  driverNoBadge: (number: unknown, color?: string) => string;
+  getElementById: (id: string) => HTMLElement | null;
 };
 
 declare global {
