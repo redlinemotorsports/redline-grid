@@ -4643,6 +4643,23 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-news .paddock-note-foot span{color:var(--mute)}
 #v-news .paddock-note-foot a{color:var(--txt);text-decoration:none;white-space:nowrap}
 @media(max-width:600px){#v-news .home-paddock-card{padding:13px 13px 12px 15px}#v-news .paddock-note-item{grid-template-columns:82px minmax(0,1fr);gap:9px;padding:9px 0}#v-news .paddock-note-team{font-size:8px}#v-news .paddock-note-copy h3{font-size:11px}#v-news .paddock-note-copy p{font-size:9px}#v-news .paddock-note-meta{font-size:7px}}
+
+/* Home > Schedule: a compact season race list, distinct from the weekend overview. */
+#v-cal>.simple-title-head h2:before{content:"REDLINE GRID / SEASON SCHEDULE";display:block;margin:0 0 7px;color:var(--red);font:600 9px/1.3 "IBM Plex Mono",monospace;letter-spacing:.16em}
+#v-cal #calList{padding:8px 12px 14px}
+#v-cal .mt{margin:7px 0;border:1px solid var(--line);border-radius:10px;background:linear-gradient(105deg,rgba(255,255,255,.025),var(--card) 58%);overflow:hidden;transition:border-color .18s,background .18s}
+#v-cal .mt:has(.mth[aria-expanded="true"]){border-color:color-mix(in srgb,var(--red) 42%,var(--line));background:linear-gradient(105deg,rgba(227,38,54,.055),var(--card) 65%)}
+#v-cal .mth{grid-template-columns:32px minmax(0,1fr) auto 15px;gap:11px;padding:12px 13px;min-height:65px}
+#v-cal .rn{font:600 13px "IBM Plex Mono",monospace;color:var(--red);opacity:.9}
+#v-cal .mi{min-width:0}
+#v-cal .mi b{font:700 14px/1.25 Inter,sans-serif;color:var(--txt);letter-spacing:-.015em}
+#v-cal .mi small{display:block;margin-top:4px;font-size:10px;line-height:1.35;color:var(--mute)}
+#v-cal .badge{font:600 8px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;padding:5px 7px;border:1px solid var(--line);border-radius:4px;background:var(--soft);color:var(--mute);white-space:nowrap}
+#v-cal .badge:not(.off){border-color:color-mix(in srgb,var(--red) 28%,var(--line));color:var(--txt)}
+#v-cal .chev{font:500 20px/1 Inter,sans-serif;color:var(--mute);text-align:center}
+#v-cal .mth[aria-expanded="true"] .chev{color:var(--red)}
+#v-cal .mtd{padding:0 13px 14px 56px}
+@media(max-width:560px){#v-cal #calList{padding:7px 9px 12px}#v-cal .mth{grid-template-columns:25px minmax(0,1fr) auto 12px;gap:8px;padding:11px 10px;min-height:61px}#v-cal .mi b{font-size:13px}#v-cal .mi small{font-size:9px}#v-cal .mtd{padding:0 9px 12px}}
 </style>
 </head>
 <body>
@@ -4782,7 +4799,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   <div hidden><div id="briefingCircuit"></div></div>
  </section>
  
- <section class="panel pane" id="v-cal" hidden><div class="simple-title-head"><h2>Race weekends</h2><p class="briefing-intro">Race dates, circuits and session schedules across the season.</p></div><div id="calList"><div class="state">Loading…</div></div></section>
+ <section class="panel pane" id="v-cal" hidden><div class="simple-title-head"><h2>Season schedule</h2><p class="briefing-intro">Every Grand Prix, with circuit details and session times.</p></div><div id="calList"><div class="state">Loading the season schedule…</div></div></section>
  </main></div>
  <div id="scrim"></div>
  
@@ -4905,7 +4922,7 @@ const nowY=new Date().getFullYear();
 for(let y=nowY;y>=1950;y--)$("year").insertAdjacentHTML("beforeend",`<option>${y}</option>`);
 $("year").onchange=()=>loadYear(+$("year").value);
 const SUBS={
- home:[["news","Overview"],["cal","Calendar"]],
+ home:[["news","Overview"],["cal","Schedule"]],
  race:[["result","Results"],["control","Race control"],["radio","Team radio"],["weather","Weather"],["documents","Documents"]],
  data:[["live","Strategy"],["laps","Lap times"],["car","Car data"]]
 };
