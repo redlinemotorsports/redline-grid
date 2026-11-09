@@ -7165,8 +7165,6 @@ function initDriverStats(){
  sel.value=String(statsState.year);sel.onchange=()=>{statsState.a=null;statsState.b=null;statsState.data=null;statsState.offline=false;loadDriverStats(true)};
  document.querySelectorAll("[data-stats-view]").forEach(btn=>btn.onclick=()=>{statsState.view=btn.dataset.statsView;document.querySelectorAll("[data-stats-view]").forEach(x=>x.setAttribute("aria-selected",String(x===btn)));renderDriverStats()});
 }
-initNewsroom();
-
 function drawLive(){
  const s=L.s||{};$("liveTitle").textContent=`${s.country_name||"Formula 1"} · ${s.session_name||"Live positions"}`;
  const source=L.source==="alternate"?"Alternative feed":"OpenF1";
