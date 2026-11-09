@@ -13,6 +13,10 @@
 <title>Redline Grid · The Racing Season, Decoded</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Oxanium:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./src/styles/main.scss">
+
+<style>
+.lap-times-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:18px 0}.lap-times-toolbar select,.lap-times-toolbar button{min-height:40px;padding:0 13px;border:1px solid var(--line,rgba(255,255,255,.12));border-radius:5px;background:var(--panel2,#111116);color:inherit;font:inherit}.lap-times-toolbar #lapTimesStatus{margin-left:auto;font:600 10px/1.4 'IBM Plex Mono',monospace;letter-spacing:.08em;color:var(--muted,#999)}.lap-times-table-wrap{width:100%;overflow-x:auto;border:1px solid var(--line,rgba(255,255,255,.1));border-radius:6px}.lap-times-table{width:100%;border-collapse:collapse;min-width:650px;font-variant-numeric:tabular-nums}.lap-times-table th{padding:12px 14px;text-align:left;font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.08em;color:var(--muted,#999);background:rgba(255,255,255,.025)}.lap-times-table td{padding:12px 14px;border-top:1px solid rgba(255,255,255,.07);font:500 12px 'IBM Plex Mono',monospace;white-space:nowrap}.lap-times-table td:nth-child(2){font-family:Inter,sans-serif}.lap-times-table td:nth-child(2) small{display:block;margin-top:3px;color:var(--muted,#888);font-size:10px}.lap-times-best{background:rgba(255,42,24,.055)}.lap-times-best-tag{margin-left:5px;color:#ff6a5d;font-size:9px;font-weight:700;letter-spacing:.08em}.lap-times-footnote{margin:13px 0 0;color:var(--muted,#888);font-size:11px;line-height:1.6}@media(max-width:640px){.lap-times-toolbar #lapTimesStatus{margin-left:0;width:100%;order:3}.lap-times-toolbar select{flex:1;min-width:130px}}
+</style>
 </head>
 <body>
 <div class="kerb"></div>
@@ -92,6 +96,7 @@
  <section class="panel pane" id="v-control" hidden><div class="simple-title-head"><h2>Race control</h2><p class="briefing-intro">Flags, incidents and official decisions from the session.</p></div><div id="controlInsights" class="control-insights" aria-live="polite"><div class="state">Building race-control summary…</div></div><div class="control-tools" id="controlTools" aria-label="Filter race control messages"><div class="control-filters" role="group" aria-label="Message category"><button type="button" data-control-filter="all" aria-pressed="true">All</button><button type="button" data-control-filter="flags" aria-pressed="false">Flags</button><button type="button" data-control-filter="safety" aria-pressed="false">Safety Car</button><button type="button" data-control-filter="incidents" aria-pressed="false">Incidents</button><button type="button" data-control-filter="other" aria-pressed="false">Other</button></div><button type="button" class="control-order" id="controlOrder" aria-label="Change message order">Newest first ↓</button></div><div class="feature-search"><label for="controlSearch">Search race-control messages</label><input id="controlSearch" type="search" placeholder="e.g. driver, turn, penalty…" autocomplete="off"></div><div class="scroll" id="control"><div class="state">Loading…</div></div></section>
  <section class="panel pane" id="v-radio" hidden><div class="simple-title-head"><h2>Team radio</h2><p class="briefing-intro">Driver messages and team communications from the track.</p></div><div class="tools"><select id="rsess" aria-label="Session"></select></div><div class="feature-search"><label for="radioSearch">Search available radio context</label><input id="radioSearch" type="search" placeholder="Search driver, message or context…" autocomplete="off"></div><div class="scroll" id="radioList"><div class="state">Loading…</div></div></section>
  <section class="panel pane" id="v-weather" hidden><div class="simple-title-head"><h2>Track Conditions</h2><p class="briefing-intro">Recorded session weather and circuit conditions, with context on how they shaped the running.</p></div><div class="tools"><select id="wsess" aria-label="Session"></select></div><div id="weatherView"><div class="state">Loading…</div></div><section class="weather-strategy" id="weatherStrategy"><div class="feature-head"><div><p class="briefing-kicker">WEATHER / STRATEGY DESK</p><h3>What the conditions can mean</h3><p>Guidance based on the weather readings available for the selected session.</p></div><span class="feature-tag">CONTEXT, NOT PREDICTION</span></div><div class="weather-guides"><article><b>Rain readings</b><p>Recorded rain can reduce grip and increase the relevance of intermediate or wet tyres. A dry sample does not guarantee a dry track throughout the session.</p></article><article><b>Track vs air temperature</b><p>A warmer track can increase tyre-energy demands, but compound, setup, traffic and stint length also matter.</p></article><article><b>Wind and humidity</b><p>Wind can affect balance and braking references; humidity alone is not a reliable rain forecast.</p></article></div><p class="feature-footnote">These are general interpretation notes, not a tyre recommendation. If session weather data is missing, no conditions are inferred.</p></section></section>
+<section class="panel pane" id="v-laps" hidden><div class="simple-title-head"><h2>Lap Times</h2><p class="briefing-intro">A clean view of recorded lap pace and sector splits from the selected session.</p></div><div class="lap-times-toolbar"><select id="lapTimesSession" aria-label="Lap times session"></select><select id="lapTimesDriver" aria-label="Filter by driver"><option value="">All drivers</option></select><span id="lapTimesStatus" role="status">WAITING FOR SESSION</span><button type="button" id="lapTimesRefresh">Refresh</button></div><div class="lap-times-table-wrap"><table class="lap-times-table"><thead><tr><th>LAP</th><th>DRIVER</th><th>LAP TIME</th><th>S1</th><th>S2</th><th>S3</th><th>NOTE</th></tr></thead><tbody id="lapTimesRows"><tr><td colspan="7" class="timing-empty">Choose a Grand Prix to load lap times.</td></tr></tbody></table></div><p class="lap-times-footnote">Previously loaded session data is retained in the browser for offline viewing. Freshness depends on the OpenF1 feed.</p></section>
  <section class="panel pane" id="v-tele" hidden>
   <div class="simple-title-head"><h2>Car Data</h2><p class="briefing-intro">Explore recorded speed, throttle, braking and gear data from an individual lap.</p></div>
   <div class="tools"><select id="lsess" aria-label="Session"></select><select id="ldrv" aria-label="Driver"></select><select id="clap" aria-label="Lap" hidden></select></div>
@@ -161,6 +166,7 @@ async function throttle(){for(;;){const now=Date.now();while(hits.length&&now-hi
  setNet("Waiting a moment for OpenF1's free rate limit…");await sleep(hits[0]+60050-now)}}
 async function fetchTimed(url,timeoutMs=9000){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeoutMs);try{return await fetch(url,{signal:controller.signal,cache:"no-store"})}finally{clearTimeout(timer)}}
 async function fetchRetry(p){let lastError;for(let i=0;i<3;i++){await throttle();try{const r=await fetchTimed(API+p,9000);
+  window.redlineOpenF1Cached=!!window.redlineOpenF1Cached||r.headers.get("X-Redline-Cache")==="offline-fallback";
   if(r.status===429){lastError=new Error("OpenF1 rate limit (429)");await sleep(1200*(i+1));continue}
   if(r.status>=500){lastError=new Error("OpenF1 returned "+r.status);if(i<2){await sleep(700*(i+1));continue}throw lastError}
   if(r.status===404)throw new Error("OpenF1 endpoint not found (404)");
@@ -189,7 +195,7 @@ async function restoreHomeCard(key,element,label){
  element.querySelectorAll("[data-hub-tab]").forEach(b=>b.onclick=()=>show(b.dataset.hubTab));
  offlineArchiveNote("saved Home card");return true;
 }
-function get(p){if(cache.has(p))return cache.get(p);const queued=chain.then(async()=>{try{const v=await fetchRetry(p);if(Array.isArray(v)&&v.length)archiveWrite("openf1:"+p,v);return v}catch(e){const saved=await archiveRead("openf1:"+p);if(Array.isArray(saved)&&saved.length){offlineArchiveNote("OpenF1");return saved}throw e}});
+function get(p){if(cache.has(p))return cache.get(p);const queued=chain.then(async()=>{try{const v=await fetchRetry(p);if(Array.isArray(v)&&v.length)archiveWrite("openf1:"+p,v);return v}catch(e){const saved=await archiveRead("openf1:"+p);if(Array.isArray(saved)&&saved.length){window.redlineOpenF1Cached=true;offlineArchiveNote("OpenF1");return saved}throw e}});
   chain=queued.catch(()=>{}).then(()=>sleep(250));let timer;const q=Promise.race([queued,new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error("OpenF1 request waited too long in the shared queue. Please refresh and retry.")),18000)})]).finally(()=>clearTimeout(timer));cache.set(p,q);q.then(v=>{if(Array.isArray(v)&&v.length===0&&cache.get(p)===q)cache.delete(p)}).catch(()=>{if(cache.get(p)===q)cache.delete(p)});return q}
 async function briefingGet(path,timeoutMs=8000){
  const saved=await archiveRead("openf1:"+path);
@@ -254,7 +260,7 @@ $("year").onchange=()=>{renderChampionshipPulse(true);loadYear(+$("year").value)
 const SUBS={
  home:[["news","Overview"],["cal","Schedule"]],
  drivers:[["headlines","Headlines"],["fia","FIA documents"]],
- data:[["results","Results"],["control","Race control"],["radio","Team radio"],["weather","Track conditions"],["live","Strategy"],["car","Car data"]]
+ data:[["results","Results"],["laps","Lap times"],["control","Race control"],["radio","Team radio"],["weather","Track conditions"],["live","Strategy"],["car","Car data"]]
 };
 const memo={home:"news",timing:"timing",standings:"standings",drivers:"headlines",data:"results"};let curSub="news";
 const TOP_ALIAS={
@@ -612,10 +618,11 @@ function ensure(){
  if(sub==="standings"&&!loaded.st){loaded.st=1;loadStandings()}
  if(sub==="results"&&!loaded.res){loaded.res=1;loadResult()}
  if(sub==="control"&&!loaded.ctl){loaded.ctl=1;loadControl()}
- if(sub==="radio"||sub==="car"||sub==="weather"){
+ if(sub==="radio"||sub==="car"||sub==="weather"||sub==="laps"){
   if(!loaded.sess){loaded.sess=1;loadSessions(cur)}
   else if(sub==="radio"){if(radioFor!==$("rsess").value)loadRadio()}
   else if(sub==="weather"){if(weatherFor!==$("wsess").value)loadWeather()}
+  else if(sub==="laps"){if(lapsFor!==$("lsess").value||!lapData.order)loadLaps();else renderLapTimes()}
   else if(lapsFor!==$("lsess").value||!lapData.order)loadLaps();else drawTele()}
  if(sub==="cal"&&calFor!==year)loadCal();
  if(sub==="news")renderBriefing();
@@ -759,6 +766,7 @@ async function loadSessions(race){const t0=tok;
   radioSessions=ss.slice();radioMeetingKey=String(race.meeting_key);
   $("rsess").innerHTML=ss.map(s=>`<option value="${s.session_key}">${esc(race.country_name)} · ${esc(s.session_name)}</option>`).join("");
   $("rsess").value=race.session_key;$("lsess").innerHTML=$("rsess").innerHTML;$("lsess").value=race.session_key;$("wsess").innerHTML=$("rsess").innerHTML;$("wsess").value=race.session_key;
+  $("lapTimesSession").innerHTML=$("rsess").innerHTML;$("lapTimesSession").value=race.session_key;
   window.RedlineRadio?.setContext({sessions:radioSessions,meetingKey:radioMeetingKey});
   lapsFor=null;await window.RedlineRadio?.load();await loadLaps();await loadWeather()
  }catch(e){try{await useJolpicaForCurrentRace();$("radioList").innerHTML=noJolpicaLive;$("lapList").innerHTML=noJolpicaLive;$("weatherView").innerHTML=noJolpicaLive;$("control").innerHTML=noJolpicaLive;await loadStandings();await loadResult()}catch(j){fail("radioList",j)}}
@@ -769,6 +777,7 @@ $("rsess").onchange=()=>{$("lsess").value=$("rsess").value;void window.RedlineRa
 // ---------- Lap times ----------
 let lapsFor=null,lapData={};
 async function loadLaps(){
+ window.redlineOpenF1Cached=false;
  const k=$("lsess").value;if(!k)return;lapsFor=k;$("lapList").innerHTML='<div class="state">Loading laps…</div>';
  try{const [laps,d]=await Promise.all([get(`/laps?session_key=${k}`),get(`/drivers?session_key=${k}`)]);
   const by=Object.fromEntries(d.map(x=>[x.driver_number,x])),g={};
@@ -777,8 +786,23 @@ async function loadLaps(){
   const order=Object.keys(g).filter(n=>best[n]).sort((a,b)=>best[a]-best[b]);
   lapData={g,by,best,order};renderPaceComparison();window.RedlineRadio?.refresh();
   $("ldrv").innerHTML='<option value="">Fastest laps, all drivers</option>'+order.map(n=>`<option value="${n}">${esc(who(by,n).full_name||"Driver #"+n)}</option>`).join("");
-  drawTele();loadSessionComparison(k,lapData).catch(()=>{});loadQualifyingGap(k).catch(()=>{})}catch(e){fail("lapList",e)}
+  $("lapTimesDriver").innerHTML=$("ldrv").innerHTML;$("lapTimesDriver").value=$("ldrv").value;
+  renderLapTimes();drawTele();loadSessionComparison(k,lapData).catch(()=>{});loadQualifyingGap(k).catch(()=>{})}catch(e){fail("lapList",e);const host=$("lapTimesRows");if(host)host.innerHTML='<tr><td colspan="7" class="timing-empty">Lap data is unavailable. Reconnect and retry, or choose a session previously opened online.</td></tr>';const status=$("lapTimesStatus");if(status)status.textContent="DATA UNAVAILABLE";}
 }
+function renderLapTimes(){
+ const host=$("lapTimesRows");if(!host)return;
+ const {g={},by={},best={},order=[]}=lapData||{},driver=$("lapTimesDriver")?.value||"";
+ if(!order.length){host.innerHTML='<tr><td colspan="7" class="timing-empty">No timed laps are available for this session.</td></tr>';return}
+ const rows=driver?(g[driver]||[]).map(l=>({number:l.lap_number,driver_number:driver,...l})):Object.entries(g).flatMap(([n,ls])=>ls.map(l=>({driver_number:n,...l})));
+ rows.sort((a,b)=>Number(a.lap_number)-Number(b.lap_number)||Number(a.driver_number)-Number(b.driver_number));
+ host.innerHTML=rows.filter(l=>typeof l.lap_duration==="number"&&Number.isFinite(l.lap_duration)).map(l=>{
+  const d=who(by,l.driver_number),isBest=l.lap_duration===best[l.driver_number];
+  const sector=x=>typeof x==="number"?fmtTime(x):"—";
+  return `<tr${isBest?' class="lap-times-best"':""}><td>${l.lap_number??"—"}</td><td><strong>${esc(d.name_acronym||d.full_name||("Driver #"+l.driver_number))}</strong><small>${esc(d.team_name||"")}</small></td><td><strong>${fmtTime(l.lap_duration)}</strong>${isBest?' <span class="lap-times-best-tag">BEST</span>':""}</td><td>${sector(l.duration_sector_1)}</td><td>${sector(l.duration_sector_2)}</td><td>${sector(l.duration_sector_3)}</td><td>${l.is_pit_out_lap?"PIT OUT":"—"}</td></tr>`;
+ }).join("")||'<tr><td colspan="7" class="timing-empty">No valid timed laps in this sample.</td></tr>';
+ const status=$("lapTimesStatus");if(status)status.textContent=window.redlineOpenF1Cached||!navigator.onLine?"OFFLINE · SAVED SESSION DATA":"SESSION DATA · OPENF1";
+}
+$("lapTimesSession").onchange=()=>{$("lsess").value=$("lapTimesSession").value;loadLaps()};$("lapTimesDriver").onchange=renderLapTimes;$("lapTimesRefresh").onclick=()=>{cache.delete(`/laps?session_key=${$("lsess").value}`);cache.delete(`/drivers?session_key=${$("lsess").value}`);loadLaps()};
 let sessionCompareFor=null,sessionCompareCache={};
 async function loadSessionComparison(selectedKey,current){
  const host=$("sessionCompare");if(!host)return;
@@ -894,7 +918,7 @@ function drawLaps(){
   return `<div class="lap${isBest?" best":""}"><small>Lap ${l.lap_number}</small><b>${typeof t==="number"?fmtTime(t):"No time"}${l.is_pit_out_lap?' <small>pit out</small>':""}</b><small>${typeof t==="number"&&!isBest?"+"+(t-best[n]).toFixed(3):isBest?"best":""}</small></div>`}).join("");
  renderLapEditorial();renderPaceComparison();
 }
-$("lsess").onchange=loadLaps;$("ldrv").onchange=drawTele;$("clap").onchange=()=>loadCar(false);
+$("lsess").onchange=()=>{if($("lapTimesSession"))$("lapTimesSession").value=$("lsess").value;loadLaps()};$("ldrv").onchange=drawTele;$("clap").onchange=()=>loadCar(false);
 
 // ---------- Weather ----------
 let weatherFor=null;
