@@ -5615,37 +5615,48 @@ let rclips=[],rby={},radioSessions=[];
 async function loadSessions(race){const t0=tok;
  if(race?._source==="jolpica"){$("rsess").innerHTML='<option value="">Live session data unavailable</option>';$("lsess").innerHTML=$("rsess").innerHTML;$("wsess").innerHTML=$("rsess").innerHTML;$("radioList").innerHTML=noJolpicaLive;$("lapList").innerHTML=noJolpicaLive;$("weatherView").innerHTML=noJolpicaLive;$("ldrv").innerHTML='<option value="">Unavailable</option>';return}
  try{const ss=(await get(`/sessions?meeting_key=${race.meeting_key}`)).filter(s=>new Date(s.date_start)<Date.now()).sort((a,b)=>new Date(a.date_start)-new Date(b.date_start));
-  if(!ok(t0))return;if(!ss.length)throw new Error("OpenF1 returned no completed sessions for this race");radioSessions=ss.slice();$("rsess").innerHTML=ss.map(s=>`<option value="${s.session_key}">${esc(race.country_name)} · ${esc(s.session_name)}</option>`).join("");
+  if(!ok(t0))return;if(!ss.length)throw new Error("OpenF1 returned no completed sessions for this race");radioSessions=ss.slice();radioMeetingKey=String(race.meeting_key);radioAllClips=null;$("rsess").innerHTML=ss.map(s=>`<option value="${s.session_key}">${esc(race.country_name)} · ${esc(s.session_name)}</option>`).join("");
   $("rsess").value=race.session_key;$("lsess").innerHTML=$("rsess").innerHTML;$("lsess").value=race.session_key;$("wsess").innerHTML=$("rsess").innerHTML;$("wsess").value=race.session_key;lapsFor=null;await loadRadio();await loadLaps();await loadWeather()}catch(e){try{await useJolpicaForCurrentRace();$("radioList").innerHTML=noJolpicaLive;$("lapList").innerHTML=noJolpicaLive;$("weatherView").innerHTML=noJolpicaLive;$("control").innerHTML=noJolpicaLive;await loadStandings();await loadResult()}catch(j){fail("radioList",j)}}
 }
-let radioFor=null,radioContext={key:null,control:[],positions:[],intervals:[],stints:[]};
+let radioFor=null,radioMeetingKey=null,radioAllClips=null,radioContext={key:null,control:[],positions:[],intervals:[],stints:[]};
 async function loadRadio(){
- const requested=$("rsess").value;if(!requested)return;radioFor=requested;$("radioList").innerHTML='<div class="state">Checking team radio across the selected race weekend…</div>';
+ const requested=String($("rsess").value||"");if(!requested)return;
+ radioFor=requested;$("radioList").innerHTML='<div class="state">Loading team radio for this race weekend…</div>';
  try{
-  let session=radioSessions.find(x=>String(x.session_key)===String(requested))||{session_key:requested,session_name:"Selected session"};
-  let clips=await get("/team_radio?session_key="+requested).catch(()=>[]);
-  // A weekend can have recordings in practice or qualifying even when the Grand Prix session has none.
-  if(!clips.length){
-   const alternatives=radioSessions.slice().filter(x=>String(x.session_key)!==String(requested)).sort((a,b)=>new Date(b.date_start)-new Date(a.date_start));
-   for(const candidate of alternatives){
-    const candidateClips=await get("/team_radio?session_key="+candidate.session_key).catch(()=>[]);
-    if(candidateClips.length){session=candidate;clips=candidateClips;break}
-   }
+  // One meeting-level request avoids serially probing every session.
+  if(!Array.isArray(radioAllClips)){
+   const meeting=radioMeetingKey||radioSessions.find(x=>String(x.session_key)===requested)?.meeting_key;
+   if(!meeting)throw new Error("The selected race weekend has no OpenF1 meeting key.");
+   radioAllClips=await get("/team_radio?meeting_key="+meeting);
   }
   if(radioFor!==requested)return;
-  if(String(session.session_key)!==String(requested))$("rsess").value=String(session.session_key);
-  radioFor=String(session.session_key);
+  const bySession=new Map();
+  radioAllClips.forEach(clip=>{
+   const key=String(clip.session_key??"");
+   if(!bySession.has(key))bySession.set(key,[]);
+   bySession.get(key).push(clip);
+  });
+  let session=radioSessions.find(x=>String(x.session_key)===requested)||{session_key:requested,session_name:"Selected session"};
+  let clips=bySession.get(requested)||[];
+  if(!clips.length){
+   const alternatives=radioSessions.slice().filter(x=>(bySession.get(String(x.session_key))||[]).length)
+    .sort((a,b)=>new Date(b.date_start)-new Date(a.date_start));
+   if(alternatives.length){session=alternatives[0];clips=bySession.get(String(session.session_key))||[];$("rsess").value=String(session.session_key)}
+  }
+  const activeKey=String(session.session_key);radioFor=activeKey;
+  if(!clips.length){rclips=[];rby={};radioContext={key:activeKey,control:[],positions:[],intervals:[],stints:[]};drawRadio();return}
   const [drivers,control,positions,intervals,stints]=await Promise.all([
-   get("/drivers?session_key="+session.session_key).catch(()=>[]),
-   get("/race_control?session_key="+session.session_key).catch(()=>[]),
-   get("/position?session_key="+session.session_key).catch(()=>[]),
-   get("/intervals?session_key="+session.session_key).catch(()=>[]),
-   get("/stints?session_key="+session.session_key).catch(()=>[])
+   get("/drivers?session_key="+activeKey).catch(()=>[]),
+   get("/race_control?session_key="+activeKey).catch(()=>[]),
+   get("/position?session_key="+activeKey).catch(()=>[]),
+   get("/intervals?session_key="+activeKey).catch(()=>[]),
+   get("/stints?session_key="+activeKey).catch(()=>[])
   ]);
-  if(radioFor!==String(session.session_key))return;
-  rby=Object.fromEntries(drivers.map(x=>[x.driver_number,x]));rclips=clips.sort((a,b)=>new Date(b.date)-new Date(a.date));
-  radioContext={key:String(session.session_key),control,positions,intervals,stints};drawRadio();
- }catch(e){fail("radioList",e)}
+  if(radioFor!==activeKey)return;
+  rby=Object.fromEntries(drivers.map(x=>[x.driver_number,x]));
+  rclips=clips.slice().sort((a,b)=>new Date(b.date)-new Date(a.date));
+  radioContext={key:activeKey,control,positions,intervals,stints};drawRadio();
+ }catch(e){if(radioFor===requested)$("radioList").innerHTML='<div class="state">Team radio could not be loaded. '+esc(e.message||"OpenF1 is temporarily unavailable.")+' Try changing session or refreshing.</div>'}
 }
 function drawRadio(){
  const l=rclips.slice(0,40);
@@ -5687,7 +5698,7 @@ function drawRadio(){
    </section></article>`
  }).join("")||'<div class="state">No original team-radio recordings were returned for any completed session in this race weekend.</div>';
 }
-$("rsess").onchange=()=>{$("lsess").value=$("rsess").value;loadRadio();loadLaps()};
+$("rsess").onchange=()=>{$("lsess").value=$("rsess").value;radioFor=null;loadRadio();loadLaps()};
 
 // ---------- Lap times ----------
 let lapsFor=null,lapData={};
