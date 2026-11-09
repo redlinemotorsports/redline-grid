@@ -1,6 +1,9 @@
 name: Deploy Redline Grid to GitHub Pages
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
@@ -36,17 +39,22 @@ jobs:
 
       - name: Verify Vite output
         run: |
-          test -s dist/index.html
-          if grep -Eq 'src=["'\''"]?\./src/[^"'\''"]+\.ts' dist/index.html; then
-            echo "Production HTML still references raw TypeScript source files."
-            exit 1
-          fi
-          grep -Eq 'assets/[^"'\''"]+\.js' dist/index.html
+          node --input-type=module <<'NODE'
+          import { readFileSync, readdirSync } from "node:fs";
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+          const html = readFileSync("dist/index.html", "utf8");
+          if (/src=["']\.\/src\/[^"']+\.ts/i.test(html)) {
+            throw new Error("Production HTML still references raw TypeScript source files.");
+          }
+          const assets = readdirSync("dist/assets");
+          if (!assets.some((file) => file.endsWith(".js"))) {
+            throw new Error("Vite did not emit any JavaScript bundles.");
+          }
+          console.log(`PASS: Vite emitted index.html and ${assets.filter((file) => file.endsWith(".js")).length} JavaScript bundle(s).`);
+          NODE
 
       - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v4
         with:
           path: dist
