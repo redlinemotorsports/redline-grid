@@ -85,7 +85,7 @@ select{background:var(--card2);color:var(--txt);border:1px solid var(--line);bor
 .rd{flex:0 0 auto;min-width:52px;text-align:center;background:var(--card);color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:4px 8px;cursor:pointer;font:600 14px Inter}
 .rd small{display:block;font:400 11px Inter;color:var(--mute)}
 .rd[aria-pressed=true]{background:var(--red);border-color:var(--red)}.rd[aria-pressed=true] small{color:#fff}.rd:disabled{opacity:.3;cursor:default}
-#tabs{display:flex;gap:4px;margin-bottom:12px;padding:4px;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow-x:auto}
+#tabs{display:flex;gap:4px;margin-bottom:12px;padding:4px;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}#tabs::-webkit-scrollbar{display:none}
 #tabs button{flex:1;white-space:nowrap;background:none;border:0;color:var(--mute);font:600 15px Inter;padding:10px 16px;cursor:pointer;border-radius:10px}
 #tabs button[aria-selected=true]{background:var(--on-bg);color:var(--on-fg)}#tabs button:hover{color:var(--txt)}#tabs button[aria-selected=true]:hover{color:var(--on-fg)}
 #sub{display:flex;gap:7px;margin:0 0 14px;padding:3px 0 7px;flex-wrap:wrap;align-items:center}
