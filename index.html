@@ -4776,6 +4776,40 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
  #v-standings .standings-team-panel .pts{font-size:18px}
 }
 
+/* RACE RESULTS — simplified classification in the Redline display system */
+#v-result .result-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:17px 20px 13px;border-bottom:1px solid var(--line);background:linear-gradient(100deg,rgba(227,38,54,.055),transparent 68%)}
+#v-result .result-heading>div>span{display:block;color:var(--red);font:700 8px/1.2 "IBM Plex Mono",monospace;letter-spacing:.16em}
+#v-result .result-heading h3{margin:5px 0 0;color:var(--txt);font:700 clamp(23px,3vw,30px)/1 "Barlow Condensed",Manrope,sans-serif;letter-spacing:.01em}
+#v-result .result-heading>small{color:var(--mute);font:600 8px/1.2 "IBM Plex Mono",monospace;letter-spacing:.12em}
+#v-result .race-result-table{padding:0 14px 8px}
+#v-result .race-result-labels,#v-result .race-result-row{display:grid;grid-template-columns:38px minmax(0,1fr) minmax(92px,.55fr) 46px;align-items:center;gap:12px}
+#v-result .race-result-labels{min-height:34px;padding:0 8px;color:var(--mute);font:600 8px/1 "IBM Plex Mono",monospace;letter-spacing:.12em}
+#v-result .race-result-labels span:last-child{text-align:right}
+#v-result .race-result-row{position:relative;min-height:59px;padding:8px;border-top:1px solid var(--line)}
+#v-result .race-result-row:first-child{border-top:0}
+#v-result .race-result-pos{color:var(--mute);font:600 13px/1 "IBM Plex Mono",monospace;text-align:center}
+#v-result .race-result-hot .race-result-pos{color:var(--red)}
+#v-result .race-result-driver{display:flex;align-items:center;gap:10px;min-width:0}
+#v-result .race-result-driver .av{width:34px;height:34px;flex:0 0 34px;border-radius:6px}
+#v-result .race-result-driver>span:last-child{display:grid;gap:3px;min-width:0}
+#v-result .race-result-driver b{overflow:hidden;color:var(--txt);font:700 17px/1 "Barlow Condensed",Manrope,sans-serif;letter-spacing:.015em;text-overflow:ellipsis;white-space:nowrap}
+#v-result .race-result-driver small{overflow:hidden;color:var(--mute);font:500 8px/1.3 "IBM Plex Mono",monospace;letter-spacing:.035em;text-overflow:ellipsis;white-space:nowrap}
+#v-result .race-result-gap{overflow:hidden;color:var(--mute);font:500 10px/1.25 "IBM Plex Mono",monospace;text-overflow:ellipsis;white-space:nowrap}
+#v-result .race-result-points{display:flex;justify-content:flex-end;align-items:baseline;gap:4px;color:var(--txt);font:700 18px/1 "Barlow Condensed",Manrope,sans-serif;font-variant-numeric:tabular-nums}
+#v-result .race-result-points small{color:var(--mute);font:600 7px/1 "IBM Plex Mono",monospace;letter-spacing:.08em}
+@media(max-width:520px){
+ #v-result .result-heading{padding:14px 12px 11px}
+ #v-result .race-result-table{padding:0 8px 8px}
+ #v-result .race-result-labels,#v-result .race-result-row{grid-template-columns:25px minmax(0,1fr) minmax(60px,.45fr) 34px;gap:7px}
+ #v-result .race-result-labels{font-size:7px}
+ #v-result .race-result-row{min-height:54px;padding:7px 4px}
+ #v-result .race-result-driver{gap:7px}
+ #v-result .race-result-driver .av{width:29px;height:29px;flex-basis:29px}
+ #v-result .race-result-driver b{font-size:15px}
+ #v-result .race-result-driver small{font-size:7px}
+ #v-result .race-result-gap{font-size:8px}
+ #v-result .race-result-points{font-size:16px}
+}
 </style>
 </head>
 <body>
@@ -4850,8 +4884,9 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
   
 <div class="briefing-head strategy-hero">
 <div><p class="briefing-kicker">TYRE & PACE ANALYSIS</p><h2>Race Strategy</h2><p class="briefing-intro">Tyres, stints and race pace from recorded session data.</p></div><div class="strategy-controls"><label for="strategySession">Session</label><select id="strategySession" aria-label="Strategy session"><option value="">Selected Grand Prix</option></select><button type="button" id="strategyRefresh">Refresh data</button></div></div><div id="strategySummary" class="strategy-summary"><div class="state">Select a Grand Prix to explore its strategy.</div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>01 / TYRE PLAN</span><h3>Stints &amp; pit stops</h3></div><p>Recorded tyre stints and pit stops.</p></div><div id="strategyPirelli" class="strategy-pirelli"></div><div id="strategyStints"><div class="state">Strategy data will appear here.</div></div></div><details class="strategy-advanced"><summary><span><b>Advanced analysis</b><small>Stint comparison · Strategy insights · Race pace</small></span><span class="strategy-advanced-toggle">VIEW ANALYSIS <i>＋</i></span></summary><div class="strategy-advanced-body"><div class="strategy-section"><div class="strategy-section-head"><div><span>02 / STRATEGY COMPARISON</span><h3>Stint comparison</h3></div><p>Compare stint lengths and recorded pace across drivers. Conditions are not normalized.</p></div><div id="strategyCompare"><div class="state">Strategy comparison will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>03 / AUTOMATED READOUT</span><h3>Strategy insights</h3></div><p>Observations based on the available session data.</p></div><div id="strategyInsights"><div class="state">Strategy insights will appear here.</div></div></div><div class="strategy-section"><div class="strategy-section-head"><div><span>04 / PACE EVOLUTION</span><h3>Race pace</h3></div><p>Median lap pace across race phases.</p></div><div id="strategyPace"><div class="state">Strategy data will appear here.</div></div></div></div></details><div class="strategy-note" id="strategyNote">Data coverage varies by season and session. Tyre compounds and stint boundaries are shown only when the source provides them.</div></section>
- <section class="panel pane" id="v-result" hidden><div class="simple-title-head"><h2 class="race-tab-title">Race</h2><p class="briefing-intro">Results, race control and team communications from the Grand Prix.</p></div>
-  <div class="last" id="last" aria-label="Next race session countdown"><small>Loading session countdown…</small></div><h2 id="resTitle">Race result</h2><div class="result-tools"><label for="resultSearch">Find driver or team</label><input id="resultSearch" type="search" placeholder="Search results…" autocomplete="off"><span id="resultMatchCount" aria-live="polite">All results</span></div><div class="scroll" id="result"><div class="state">Loading…</div></div></section>
+ <section class="panel pane" id="v-result" hidden><div class="simple-title-head"><h2 class="race-tab-title">Race</h2><p class="briefing-intro">The final order, points and finishing gaps from the selected Grand Prix.</p></div>
+  <div class="result-heading"><div><span>RACE / CLASSIFICATION</span><h3 id="resTitle">Race result</h3></div><small>FINAL CLASSIFICATION</small></div>
+  <div class="race-result-table"><div class="race-result-labels" aria-hidden="true"><span>POS</span><span>DRIVER</span><span>GAP / STATUS</span><span>PTS</span></div><div id="result"><div class="state">Loading…</div></div></div></section>
  <section class="panel pane" id="v-control" hidden><div class="simple-title-head"><h2>Race control</h2><p class="briefing-intro">Flags, incidents and official decisions from the session.</p></div><div id="controlInsights" class="control-insights" aria-live="polite"><div class="state">Building race-control summary…</div></div><div class="control-tools" id="controlTools" aria-label="Filter race control messages"><div class="control-filters" role="group" aria-label="Message category"><button type="button" data-control-filter="all" aria-pressed="true">All</button><button type="button" data-control-filter="flags" aria-pressed="false">Flags</button><button type="button" data-control-filter="safety" aria-pressed="false">Safety Car</button><button type="button" data-control-filter="incidents" aria-pressed="false">Incidents</button><button type="button" data-control-filter="other" aria-pressed="false">Other</button></div><button type="button" class="control-order" id="controlOrder" aria-label="Change message order">Newest first ↓</button></div><div class="feature-search"><label for="controlSearch">Search race-control messages</label><input id="controlSearch" type="search" placeholder="e.g. driver, turn, penalty…" autocomplete="off"></div><div class="scroll" id="control"><div class="state">Loading…</div></div></section>
  <section class="panel pane" id="v-radio" hidden><div class="simple-title-head"><h2>Team radio</h2><p class="briefing-intro">Driver messages and team communications from the track.</p></div><div class="tools"><select id="rsess" aria-label="Session"></select></div><div class="feature-search"><label for="radioSearch">Search available radio context</label><input id="radioSearch" type="search" placeholder="Search driver, message or context…" autocomplete="off"></div><div class="scroll" id="radioList"><div class="state">Loading…</div></div></section>
  <section class="panel pane" id="v-weather" hidden><div class="simple-title-head"><h2>Weather</h2><p class="briefing-intro">Track conditions and session forecasts for the race weekend.</p></div><div class="tools"><select id="wsess" aria-label="Session"></select></div><div id="weatherView"><div class="state">Loading…</div></div><section class="weather-strategy" id="weatherStrategy"><div class="feature-head"><div><p class="briefing-kicker">WEATHER / STRATEGY DESK</p><h3>What the conditions can mean</h3><p>Guidance based on the weather readings available for the selected session.</p></div><span class="feature-tag">CONTEXT, NOT PREDICTION</span></div><div class="weather-guides"><article><b>Rain readings</b><p>Recorded rain can reduce grip and increase the relevance of intermediate or wet tyres. A dry sample does not guarantee a dry track throughout the session.</p></article><article><b>Track vs air temperature</b><p>A warmer track can increase tyre-energy demands, but compound, setup, traffic and stint length also matter.</p></article><article><b>Wind and humidity</b><p>Wind can affect balance and braking references; humidity alone is not a reliable rain forecast.</p></article></div><p class="feature-footnote">These are general interpretation notes, not a tyre recommendation. If session weather data is missing, no conditions are inferred.</p></section></section>
@@ -5167,21 +5202,6 @@ function updateStandingsLeader(type){
  const root=$(type);
  if(root){new MutationObserver(()=>updateStandingsLeader(type)).observe(root,{childList:true,subtree:true});updateStandingsLeader(type)}
 });
-const resultSearch=$("resultSearch"),resultRoot=$("result"),resultMatchCount=$("resultMatchCount");
-function filterRaceResults(){
- if(!resultRoot||!resultSearch)return;
- const q=resultSearch.value.trim().toLowerCase();
- const rows=[...resultRoot.children].filter(el=>!el.classList.contains("state")&&!el.querySelector(".state"));
- let shown=0;
- rows.forEach(row=>{const match=!q||row.textContent.toLowerCase().includes(q);row.hidden=!match;if(match)shown++;});
- if(resultMatchCount)resultMatchCount.textContent=q?shown+" match"+(shown===1?"":"es"):rows.length+" result"+(rows.length===1?"":"s");
-}
-if(resultSearch&&resultRoot){
- resultSearch.addEventListener("input",filterRaceResults);
- new MutationObserver(filterRaceResults).observe(resultRoot,{childList:true,subtree:true,characterData:true});
-}
-
-
 /* Paddock Archive: verified examples linking directly to official FIA PDFs. */
 const documentSources=[
  {type:"results",tag:"CHAMPIONSHIP",number:"DOC 91",title:"Championship Points",desc:"Updated drivers’ and teams’ championship points following the Singapore Grand Prix.",meta:["11 Oct 2026","Points"],url:"https://www.fia.com/system/files/decision-document/2026_singapore_grand_prix_-_championship_points.pdf"},
@@ -5317,7 +5337,7 @@ function loadRound(i){
  document.querySelectorAll(".gp").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.i===i));
  $("pick").innerHTML=`<span>R${i+1} · ${esc(race.location||race.country_name)}</span><span>Change ▾</span>`;
  renderLast();$("last").title="Everything on this page is shown as it stood after this race";
- $("resTitle").textContent=`${race.country_name} Grand Prix result`;renderDocuments();
+ $("resTitle").textContent=`${race.country_name} Grand Prix`;renderDocuments();
  ["drivers","teams","result","control","radioList","lapList","weatherView"].forEach(id=>$(id).innerHTML='<div class="state">Loading…</div>');
  // Load only the active tab on startup; other race-data panels fetch when opened.
  // Eagerly prefetching every panel queued many rate-limited API requests and slowed Home.
@@ -5461,11 +5481,15 @@ async function loadJolpicaStandings(){
  $("teams").innerHTML=ts.map(v=>{const c=v.Constructor||{},col=teamIconColor(c.name);return row(v.position,av("",c.name,col,true).replace('class="av logo"','class="av logo team-icon"'),c.name||"Team","",v.points,isFavT(c.name))}).join("")||'<div class="state">No historical constructor standings for this round.</div>';
  }catch(e){if(ok(t)){fail("drivers",e);fail("teams",e)}}
 }
+function raceClassificationRow(pos,badge,name,team,gap,points,hot){
+ const p=Number(points),hasPoints=points!==null&&points!==undefined&&String(points)!=="";
+ return '<article class="race-result-row'+(hot?' race-result-hot':'')+'"><span class="race-result-pos">'+esc(pos)+'</span><div class="race-result-driver">'+badge+'<span><b>'+esc(name)+'</b><small>'+esc(team||"—")+'</small></span></div><span class="race-result-gap">'+esc(gap||"—")+'</span><strong class="race-result-points">'+(hasPoints&&Number.isFinite(p)?p:"—")+'<small>PTS</small></strong></article>';
+}
 async function loadJolpicaResult(){
  const t=tok,y=year,r=cur.jolpicaRound;
  try{
   const data=await jget(`/${y}/${r}/results/`);if(!ok(t))return;const res=data.RaceTable?.Races?.[0]?.Results||[];
-  $("result").innerHTML=res.map(v=>{const d=v.Driver||{},c=v.Constructor||{},name=[d.givenName,d.familyName].filter(Boolean).join(" ")||d.driverId||"Driver",gap=v.Time?.time||v.status||"";return row(v.position||"-",driverNoBadge(d.permanentNumber||v.number||"—",teamIconColor(c.name)),name,(c.name||"")+(v.points?` · +${v.points} pts`:""),gap,false,"")}).join("")||'<div class="state">No completed race result is available from Jolpica-F1 yet.</div>';
+  $("result").innerHTML=res.map(v=>{const d=v.Driver||{},c=v.Constructor||{},name=[d.givenName,d.familyName].filter(Boolean).join(" ")||d.driverId||"Driver",gap=v.Time?.time||v.status||"";return raceClassificationRow(v.position||"—",driverNoBadge(d.permanentNumber||v.number||"—",teamIconColor(c.name)),name,c.name,gap,v.points,Number(v.position)===1)}).join("")||'<div class="state">No completed race result is available from Jolpica-F1 yet.</div>';
  }catch(e){if(ok(t))fail("result",e)}
 }
 async function loadResult(){
@@ -5476,7 +5500,7 @@ async function loadResult(){
   if(res.length){
    $("result").innerHTML=res.map(r=>{const d=who(by,r.driver_number);const out=r.dsq?"DSQ":r.dns?"DNS":r.dnf?"DNF":null;
     const gap=out||(r.position===1?fmtTime(r.duration):typeof r.gap_to_leader==="number"?"+"+r.gap_to_leader.toFixed(3):String(r.gap_to_leader??""));
-    return row(r.position??"-",av(0,d.full_name,d.team_colour),d.full_name||"Driver #"+r.driver_number,(d.team_name||"")+(r.points?` · +${r.points} pts`:""),gap,isFavD(d),"")}).join("");
+    return raceClassificationRow(r.position??"—",driverNoBadge(r.driver_number,d.team_colour),d.full_name||"Driver #"+r.driver_number,d.team_name,gap,r.points,Number(r.position)===1)}).join("");
    return;
   }
   throw new Error("OpenF1 returned no race result");
