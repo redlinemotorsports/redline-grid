@@ -5100,7 +5100,7 @@ function show(top,sub){
  document.querySelectorAll("#tabs button[data-v]").forEach(x=>x.setAttribute("aria-selected",x.dataset.v===top));
  $("sub").innerHTML=(SUBS[top]||[]).map(([k,l])=>`<button data-s="${k}" aria-selected="${k===sub}">${l}</button>`).join("");$("sub").hidden=!(SUBS[top]&&SUBS[top].length);$("dataRacePicker").hidden=top!=="data";
  $("sub").querySelectorAll("button").forEach(b=>b.onclick=()=>show(top,b.dataset.s));
- const pane=(sub==="laps"||sub==="car")?"tele":(sub==="headlines"||sub==="fia")?"stats":sub;
+ const pane=(sub==="results")?"result":(sub==="laps"||sub==="car")?"tele":(sub==="headlines"||sub==="fia")?"stats":sub;
  if(top==="drivers"){window.newsroomView=sub;if(typeof renderNewsroom==="function")renderNewsroom()}
  document.querySelectorAll(".pane").forEach(p=>p.hidden=p.id!=="v-"+pane);
  stopLive();
