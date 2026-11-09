@@ -4569,6 +4569,28 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-news #briefingRecap .briefing-result-link{display:inline-flex;align-items:center;margin-top:9px;padding:6px 8px;border-radius:7px;font-size:10px}
 @media(max-width:600px){#v-news #briefingRecap .briefing-recap-top{gap:8px}#v-news #briefingRecap .briefing-lead{font-size:14px}#v-news #briefingRecap .briefing-podium-row{padding:8px}}
 
+
+/* Circuit details — compact pitwall treatment matching the weather and result cards */
+#v-news .home-circuit-card{background:var(--panel,rgba(127,127,127,.025));border-color:var(--line);border-radius:10px}
+#v-news .home-circuit-card #briefingSpotlight{display:grid;gap:9px;min-width:0}
+#v-news .home-circuit-card .briefing-statusline{display:flex;align-items:center;gap:7px;margin:0;color:var(--red);font-size:9px;font-weight:750;letter-spacing:.12em}
+#v-news .home-circuit-card .briefing-lead{margin:2px 0 0;font-size:17px;line-height:1.2;font-weight:700;overflow-wrap:anywhere}
+#v-news .home-circuit-card .briefing-intel-sub{margin:-5px 0 0;color:var(--mute);font-size:10px;line-height:1.4}
+#v-news .home-circuit-card .circuit-guide{display:grid;gap:9px;min-width:0;padding:0;border:0;background:transparent}
+#v-news .home-circuit-card .circuit-guide-head{display:none}
+#v-news .home-circuit-card .circuit-guide-map{display:grid;place-items:center;min-height:112px;padding:12px;border:1px solid var(--line);border-radius:9px;background:var(--soft);overflow:hidden}
+#v-news .home-circuit-card .circuit-guide-map img{display:block;width:100%;max-width:300px;height:108px;object-fit:contain;filter:drop-shadow(0 0 7px rgba(242,29,36,.13))}
+#v-news .home-circuit-card .circuit-guide-map .circuit-guide-sub{font-size:10px;color:var(--mute)}
+#v-news .home-circuit-card .circuit-guide> .circuit-guide-sub{font:700 8px/1.3 "IBM Plex Mono",monospace;letter-spacing:.13em;color:var(--red)}
+#v-news .home-circuit-card .circuit-guide-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:0}
+#v-news .home-circuit-card .circuit-stat{display:flex;flex-direction:column;gap:3px;min-width:0;padding:8px 9px;border:1px solid var(--line);border-radius:8px;background:var(--soft)}
+#v-news .home-circuit-card .circuit-stat>b{font:600 13px/1.15 "IBM Plex Mono",monospace;color:var(--txt);overflow-wrap:anywhere}
+#v-news .home-circuit-card .circuit-stat>span{font-size:9px;line-height:1.3;color:var(--mute)}
+#v-news .home-circuit-card .circuit-guide-title[style]{margin:1px 0 0!important;font:700 8px/1.3 "IBM Plex Mono",monospace!important;letter-spacing:.13em;color:var(--red)!important;text-transform:uppercase}
+#v-news .home-circuit-card .circuit-sectorbar,#v-news .home-circuit-card .circuit-sectors,#v-news .home-circuit-card .circuit-guide-links{display:none!important}
+#v-news .home-circuit-card .briefing-recap-foot{margin:0;font-size:9px;line-height:1.4;color:var(--mute)}
+@media(max-width:600px){#v-news .home-circuit-card .circuit-guide-map{min-height:104px;padding:9px}#v-news .home-circuit-card .circuit-guide-map img{height:100px}#v-news .home-circuit-card .circuit-stat{padding:8px}}
+
 </style>
 </head>
 <body>
