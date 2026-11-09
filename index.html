@@ -4771,6 +4771,19 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
 @media(max-width:700px){#v-timing .timing-between-main{min-height:210px;padding:25px 20px}#v-timing .timing-between-mark{width:92px;height:92px;margin-right:0;font-size:40px;flex:none}#v-timing .timing-between-copy h3{font-size:38px}#v-timing .timing-last-race{padding:16px 13px 13px}#v-timing .timing-last-podium{grid-template-columns:1fr}#v-timing .timing-podium-place{min-height:68px}#v-timing .timing-last-head{align-items:flex-start}#v-timing .timing-last-head .feature-tag{display:none}}
 @media(max-width:430px){#v-timing .timing-between-mark{display:none}#v-timing .timing-between-main{min-height:195px}#v-timing .timing-last-list-head,.timing-last-row{grid-template-columns:31px minmax(0,1fr) minmax(0,.8fr) minmax(70px,.55fr);gap:6px;padding-left:7px;padding-right:7px}#v-timing .timing-last-list-head{font-size:7px}#v-timing .timing-last-row{font-size:9px}#v-timing .timing-last-row>small{font-size:8px}}
 
+
+/* Newsroom: keep the editorial feature + story grid, but only show live categories. */
+#v-stats .newsroom-filter{display:inline-flex;align-items:center;gap:7px}
+#v-stats .newsroom-filter-count{display:inline-grid;place-items:center;min-width:17px;height:17px;padding:0 4px;border-radius:3px;background:rgba(255,255,255,.06);color:var(--mute);font:8px "IBM Plex Mono",monospace}
+#v-stats .newsroom-filter[aria-pressed="true"] .newsroom-filter-count{background:rgba(227,38,54,.18);color:var(--txt)}
+#v-stats .newsroom-grid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
+#v-stats .newsroom-card{min-height:190px}
+#v-stats .newsroom-card-media{height:126px}
+#v-stats .newsroom-card-copy{min-height:88px}
+#v-stats .newsroom-card h3{overflow-wrap:anywhere}
+@media(max-width:899px){#v-stats .newsroom-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){#v-stats .newsroom-grid{grid-template-columns:1fr}#v-stats .newsroom-card{min-height:100px}#v-stats .newsroom-card-media{height:100%;min-height:100px}#v-stats .newsroom-card-copy{min-height:0}}
+
 </style>
 </head>
 <body>
@@ -6880,12 +6893,19 @@ function newsroomBriefing(items){
 }
 function renderNewsroom(){
  const root=$("newsroomContent");if(!root)return;
- const filters=["ALL","RACE","DRIVERS","TEAMS","TECH"],visible=newsroomFilter==="ALL"?newsroomItems:newsroomItems.filter(x=>x.category===newsroomFilter);
+ const labels={ALL:"ALL",RACE:"RACE WEEKEND",DRIVERS:"DRIVERS",TEAMS:"TEAMS",TECH:"TECHNICAL"};
+ const counts=newroomCounts();
+ if(newsroomFilter!=="ALL"&&!counts[newsroomFilter])newsroomFilter="ALL";
+ const filters=["ALL","RACE","DRIVERS","TEAMS","TECH"].filter(f=>f==="ALL"||counts[f]>0);
+ const visible=newsroomFilter==="ALL"?newsroomItems:newsroomItems.filter(x=>x.category===newsroomFilter);
  const stamp=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
- const filterHtml=filters.map(f=>'<button type="button" class="newsroom-filter" data-news-filter="'+f+'" aria-pressed="'+(f===newsroomFilter)+'">'+({ALL:"ALL",RACE:"RACE WEEKEND",DRIVERS:"DRIVERS",TEAMS:"TEAMS",TECH:"TECHNICAL"}[f])+'</button>').join("");
- const briefingItems=visible.slice(0,3),displayed=visible.slice(3,19);
- root.innerHTML='<div class="newsroom-body"><div class="newsroom-toolbar"><div class="newsroom-filters" role="group" aria-label="Filter news">'+filterHtml+'</div><span class="newsroom-updated">SHOWING '+Math.min(visible.length,19)+' OF '+visible.length+' STORIES · UPDATED '+stamp+'</span></div>'+(briefingItems.length?newsroomBriefing(briefingItems):"")+(displayed.length?newsCard(displayed[0],true)+(displayed.length>1?'<div class="newsroom-grid">'+displayed.slice(1).map(x=>newsCard(x)).join("")+'</div>':''):(!briefingItems.length?'<div class="newsroom-empty">No stories match this filter. Try another category.</div>':''))+'<div class="newsroom-sources"><span>HEADLINES VIA PUBLISHER RSS · OPEN ORIGINAL ARTICLES</span><span><a href="https://www.motorsport.com/rss/f1/news/" target="_blank" rel="noopener">MOTORSPORT.COM</a> · <a href="https://www.autosport.com/rss/feed/f1" target="_blank" rel="noopener">AUTOSPORT</a></span></div></div>';
+ const filterHtml=filters.map(f=>'<button type="button" class="newsroom-filter" data-news-filter="'+f+'" aria-pressed="'+(f===newsroomFilter)+'">'+labels[f]+'<span class="newsroom-filter-count">'+(f==="ALL"?newsroomItems.length:counts[f])+'</span></button>').join("");
+ const featured=visible[0],cards=visible.slice(1,36);
+ root.innerHTML='<div class="newsroom-body"><div class="newsroom-toolbar"><div class="newsroom-filters" role="group" aria-label="Filter news">'+filterHtml+'</div><span class="newsroom-updated">SHOWING '+visible.length+' STORIES · UPDATED '+stamp+'</span></div>'+(featured?newsCard(featured,true)+(cards.length?'<div class="newsroom-grid">'+cards.map(x=>newsCard(x)).join("")+'</div>':''):'<div class="newsroom-empty">No stories are available in this category yet.</div>')+'<div class="newsroom-sources"><span>HEADLINES VIA PUBLISHER RSS · OPEN ORIGINAL ARTICLES</span><span><a href="https://www.motorsport.com/rss/f1/news/" target="_blank" rel="noopener">MOTORSPORT.COM</a> · <a href="https://www.autosport.com/rss/feed/f1" target="_blank" rel="noopener">AUTOSPORT</a></span></div></div>';
  root.querySelectorAll("[data-news-filter]").forEach(btn=>btn.addEventListener("click",()=>{newsroomFilter=btn.dataset.newsFilter;renderNewsroom()}));
+}
+function newroomCounts(){
+ return newsroomItems.reduce((counts,item)=>{const category=item.category||"RACE";counts[category]=(counts[category]||0)+1;return counts},{});
 }
 async function loadNewsroom(force=false){
  const root=$("newsroomContent");if(!root||newsroomLoading)return;
@@ -6901,7 +6921,7 @@ async function loadNewsroom(force=false){
   }));
   const all=results.flatMap(x=>x.status==="fulfilled"?x.value:[]);all.sort((a,b)=>new Date(b.published)-new Date(a.published));
   const unique=new Map();all.forEach(item=>{const key=item.title.toLowerCase().replace(/[^a-z0-9]+/g," ").trim();if(!unique.has(key)){const d=new Date(item.published);item.dateLabel=Number.isNaN(d.getTime())?"LATEST":d.toLocaleString([],{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});item.category=newsCategory(item);unique.set(key,item)}});
-  const fresh=[...unique.values()].slice(0,24);if(fresh.length){newsroomItems=fresh;try{localStorage.setItem("redline-news-cache-v1",JSON.stringify({savedAt:Date.now(),items:fresh}))}catch(e){}renderNewsroom()}
+  const fresh=[...unique.values()].slice(0,36);if(fresh.length){newsroomItems=fresh;try{localStorage.setItem("redline-news-cache-v1",JSON.stringify({savedAt:Date.now(),items:fresh}))}catch(e){}renderNewsroom()}
   else if(!newsroomItems.length)root.innerHTML='<div class="newsroom-empty">Live news feeds could not be reached. You can still open a publisher feed directly below.</div><div class="newsroom-sources"><span>NEWS SOURCES</span><span><a href="https://www.motorsport.com/rss/f1/news/" target="_blank" rel="noopener">MOTORSPORT.COM</a> · <a href="https://www.autosport.com/rss/feed/f1" target="_blank" rel="noopener">AUTOSPORT</a></span></div>';
  }catch(e){if(!newsroomItems.length)root.innerHTML='<div class="newsroom-empty">The live news feed is temporarily unavailable. Please try again shortly.</div>'}
  finally{newsroomLoading=false}
