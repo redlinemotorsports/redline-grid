@@ -5071,14 +5071,14 @@ async function renderChampionshipPulse(force=false){
     });
    };
    recent.forEach(r=>addResults(r.Results,"r"+r.round,r.raceName||("Round "+r.round)));
-   const sprintRaces=(sprintData?.SprintTable?.Races||[]).filter(r=>recentRounds.has(String(r.round)));
+   const sprintRaces=(sprintData?.RaceTable?.Races||[]).filter(r=>recentRounds.has(String(r.round)));
    sprintRaces.forEach(r=>addResults(r.SprintResults,"r"+r.round,r.raceName||("Round "+r.round)));
    const best=map=>[...map.values()].sort((a,b)=>b.points-a.points||a.name.localeCompare(b.name))[0];
    const driver=best(drivers),team=best(teams);
    const pct=totalRounds?Math.min(100,Math.round(results.length/totalRounds*100)):0;
    const shortRace=name=>String(name||"Grand Prix").replace(/\\s+Grand Prix$/i,"").replace(/\\s+GP$/i,"");
    const formMarkup=item=>item?'<div class="pulse-form-total"><b>'+esc(item.name)+'</b><strong>'+item.points+' <small>PTS</small></strong></div><div class="pulse-form-races">'+[...item.history.values()].map(h=>'<span><b>+'+h.points+'</b><small>'+esc(shortRace(h.race))+'</small></span>').join("")+'</div>':'<div class="state">Form data unavailable.</div>';
-   const sprintLabel=sprintData?'Race + sprint points':'Race points only · sprint feed unavailable';
+   const sprintLabel=sprintRaces.length?"Race + sprint points":"Race points only · no sprint classifications returned";
    if(content)content.innerHTML='<div class="pulse-progress"><div class="pulse-progress-top"><span>SEASON PROGRESS</span><b>'+results.length+(totalRounds?' / '+totalRounds:'')+' <small>GRANDS PRIX</small></b></div><div class="pulse-progress-track"><i style="width:'+pct+'%"></i></div><p>'+(totalRounds?Math.max(0,totalRounds-results.length)+' rounds remaining':'Completed race count · schedule unavailable')+'</p></div><div class="pulse-form-grid"><article class="pulse-form-card"><div class="pulse-form-label"><span>DRIVER IN FORM</span><small>LAST '+recent.length+' GPs</small></div>'+formMarkup(driver)+'</article><article class="pulse-form-card"><div class="pulse-form-label"><span>CONSTRUCTOR IN FORM</span><small>LAST '+recent.length+' GPs</small></div>'+formMarkup(team)+'</article></div><p class="pulse-data-note">Ranked by points scored across the latest '+recent.length+' completed Grand Prix weekends, including sprint points when published. '+sprintLabel+'. Source: Jolpica-F1 race and sprint classifications.</p>';
    const tag=$("pulseSeasonTag");if(tag)tag.textContent=selectedYear+" SEASON";
   }catch(e){
