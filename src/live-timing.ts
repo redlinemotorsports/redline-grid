@@ -351,9 +351,9 @@ async function rtStartStream(): Promise<void> {
   try {
     const stream = new EventSource(RT_API + "/stream/timing");
     rtStream = stream;
-    const receive = (event: MessageEvent): void => {
+    const receive = (event: Event): void => {
       try {
-        rtApplyTiming(JSON.parse(event.data));
+        rtApplyTiming(JSON.parse((event as MessageEvent).data));
       } catch {
         // Ignore malformed stream messages.
       }
