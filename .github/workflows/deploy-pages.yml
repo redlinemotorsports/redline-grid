@@ -86,7 +86,7 @@ jobs:
           if (!page.ok) throw new Error(`Page returned HTTP ${page.status}`);
           const html = await page.text();
 
-          const scripts = [...html.matchAll(/<script\\b[^>]*\\bsrc=["']([^"']+)["'][^>]*>/gi)]
+          const scripts = [...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/gi)]
             .map((match) => match[1]);
 
           if (scripts.length === 0) {
@@ -94,7 +94,7 @@ jobs:
           }
 
           for (const source of scripts) {
-            if (/\\.ts(?:$|\\?)/i.test(source)) {
+            if (/\.ts(?:$|\?)/i.test(source)) {
               throw new Error(`Deployed page still references raw TypeScript: ${source}`);
             }
             const assetUrl = new URL(source, base);
