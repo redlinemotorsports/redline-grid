@@ -5884,7 +5884,7 @@ async function loadLaps(){
   laps.forEach(l=>(g[l.driver_number]??=[]).push(l));
   const best={};Object.keys(g).forEach(n=>{const t=g[n].map(l=>l.lap_duration).filter(x=>typeof x==="number");best[n]=t.length?Math.min(...t):null});
   const order=Object.keys(g).filter(n=>best[n]).sort((a,b)=>best[a]-best[b]);
-  lapData={g,by,best,order};renderPaceComparison();if(radioFor===k)drawRadio();
+  lapData={g,by,best,order};renderPaceComparison();window.RedlineRadio?.refresh();
   $("ldrv").innerHTML='<option value="">Fastest laps, all drivers</option>'+order.map(n=>`<option value="${n}">${esc(who(by,n).full_name||"Driver #"+n)}</option>`).join("");
   drawTele();loadSessionComparison(k,lapData).catch(()=>{});loadQualifyingGap(k).catch(()=>{})}catch(e){fail("lapList",e)}
 }
