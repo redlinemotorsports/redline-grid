@@ -1,0 +1,108 @@
+name: Deploy Redline Grid to GitHub Pages
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Type-check TypeScript
+        run: npm run typecheck
+
+      - name: Build production site
+        run: npm run build
+
+      - name: Verify Vite output
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, readdirSync } from "node:fs";
+
+          const html = readFileSync("dist/index.html", "utf8");
+          if (/src=["']\.\/src\/[^"']+\.ts/i.test(html)) {
+            throw new Error("Production HTML still references raw TypeScript source files.");
+          }
+          const assets = readdirSync("dist/assets");
+          if (!assets.some((file) => file.endsWith(".js"))) {
+            throw new Error("Vite did not emit any JavaScript bundles.");
+          }
+          console.log(`PASS: Vite emitted index.html and ${assets.filter((file) => file.endsWith(".js")).length} JavaScript bundle(s).`);
+          NODE
+
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify deployed HTML and JavaScript assets
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          node --input-type=module <<'NODE'
+          const base = process.env.PAGE_URL;
+          if (!base) throw new Error("GitHub Pages did not return a deployment URL.");
+
+          const page = await fetch(base);
+          if (!page.ok) throw new Error(`Page returned HTTP ${page.status}`);
+          const html = await page.text();
+
+          const scripts = [...html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/gi)]
+            .map((match) => match[1]);
+
+          if (scripts.length === 0) {
+            throw new Error("Deployed page contains no external JavaScript bundles.");
+          }
+
+          for (const source of scripts) {
+            if (/\.ts(?:$|\?)/i.test(source)) {
+              throw new Error(`Deployed page still references raw TypeScript: ${source}`);
+            }
+            const assetUrl = new URL(source, base);
+            const asset = await fetch(assetUrl);
+            if (!asset.ok) {
+              throw new Error(`JavaScript asset failed: ${assetUrl} (HTTP ${asset.status})`);
+            }
+          }
+
+          console.log(`PASS: deployed page and ${scripts.length} JavaScript bundle(s) are reachable.`);
+          NODE
