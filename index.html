@@ -4845,11 +4845,11 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
 #v-radio .radio{border-left:2px solid var(--radio-team,#8B8B98);background:linear-gradient(100deg,color-mix(in srgb,var(--radio-team,#8B8B98) 5%,transparent),transparent 44%),var(--card)}
 #v-radio .radio-kicker{color:var(--radio-team,#8B8B98)}
 #v-radio .radio-audio{padding:9px 11px 8px;border-color:rgba(220,228,240,.075);background:#101115}
-#v-radio .radio-wave{display:flex;width:100%;box-sizing:border-box;height:30px;gap:2px;margin:0 0 8px;padding:0 2px;opacity:.9;background:linear-gradient(180deg,transparent 48%,rgba(220,228,240,.12) 49.5%,rgba(220,228,240,.12) 50.5%,transparent 52%)}
-#v-radio .radio-wave i{display:block;min-width:1px;width:auto;max-width:none;flex:1 1 0;border-radius:1px;background:var(--radio-team,#8B8B98);opacity:.72!important;box-shadow:none}
+#v-radio .radio-wave{display:flex;width:100%;box-sizing:border-box;height:30px;align-items:center;justify-content:space-between;gap:0;margin:0 0 8px;padding:0 2px;opacity:.9;background:linear-gradient(180deg,transparent 48%,rgba(220,228,240,.12) 49.5%,rgba(220,228,240,.12) 50.5%,transparent 52%)}
+#v-radio .radio-wave i{display:block;flex:0 0 2px;width:2px;min-width:2px;max-width:2px;border-radius:1px;background:var(--radio-team,#8B8B98);opacity:.72!important;box-shadow:none}
 #v-radio .radio-audio audio{width:100%;height:32px;accent-color:var(--radio-team,#8B8B98);color-scheme:dark}
 #v-radio .radio-context .context-head b,#v-radio .radio-context .context-summary b{color:var(--radio-team,#8B8B98)}
-@media(max-width:600px){#v-radio .radio-wave{height:26px;gap:2px}#v-radio .radio-wave i{max-width:none}}
+@media(max-width:600px){#v-radio .radio-wave{height:26px;gap:0}#v-radio .radio-wave i{flex-basis:2px;width:2px;min-width:2px;max-width:2px}}
 
 </style>
 </head>
