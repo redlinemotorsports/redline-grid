@@ -158,4 +158,7 @@ function draw(): void {
       '<small class="context-foot">Original audio from the session. Context is based on recorded timing and race-control data near this timestamp; no AI transcript or invented quotes.</small></section></article>';
   }).join("") || '<div class="state">No original team-radio recordings were returned for any completed session in this race weekend.</div>';
 }
-window.RedlineRadio = { setContext, load };
+function refresh(): void {
+  draw();
+}
+window.RedlineRadio = { setContext, load, refresh };
