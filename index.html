@@ -5601,19 +5601,22 @@ async function setWeekendCircuitBackdrop(session){
  const identity=[session?.location,session?.race].filter(Boolean).join(" ");
  const match=WEEKEND_CIRCUIT_PAGES.find(([re])=>re.test(identity));
  if(!match){card.style.removeProperty("--weekend-circuit-photo");card.classList.remove("has-circuit-photo");return}
- const page=match[1],key="redline-circuit-photo:"+page;
+ const page=match[1],key="redline-circuit-photo-v2:"+page;
+ const curatedCircuitPhotos={
+  "Las_Vegas_Strip_Circuit":"https://commons.wikimedia.org/wiki/Special:FilePath/Las_Vegas_Strip_at_night_2023.jpg?width=1800"
+ };
  if(weekendPhotoRequest===page&&weekendPhotoUrl){card.style.setProperty("--weekend-circuit-photo",'url("'+weekendPhotoUrl+'")');card.classList.add("has-circuit-photo");return}
  weekendPhotoRequest=page;
  try{
-  let photo=null;
-  try{photo=sessionStorage.getItem(key)}catch(e){}
+  let photo=curatedCircuitPhotos[page]||null;
+  try{if(!photo)photo=sessionStorage.getItem(key)}catch(e){}
   if(!photo){
    const response=await fetchTimed("https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(page),6500);
    if(!response.ok)throw new Error("Circuit image unavailable");
    const data=await response.json();
    photo=data?.originalimage?.source||data?.thumbnail?.source||null;
    if(!photo)throw new Error("No circuit photograph found");
-   try{sessionStorage.setItem(key,photo)}catch(e){}
+   try{if(!curatedCircuitPhotos[page])sessionStorage.setItem(key,photo)}catch(e){}
   }
   if(weekendPhotoRequest!==page)return;
   const probe=new Image();
