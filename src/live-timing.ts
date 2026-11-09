@@ -17,11 +17,24 @@ type LegacyBridge = {
   nowY: number;
   readStaticSeasonArchive: (year: number) => Promise<any>;
   jget: (path: string) => Promise<any>;
+  get: (path: string) => Promise<any>;
+  who: (by: Record<string, any>, number: number | string) => any;
+  esc: (value: unknown) => string;
+  fmtTime: (value: unknown) => string;
+  teamIconColor: (team?: string, colour?: string) => string;
+  driverNoBadge: (number: number | string, colour?: string) => string;
+  isFavD: (driver: any) => boolean;
+  getCurrentRace: () => any;
+  getLapData: () => any;
 };
 
 declare global {
   interface Window {
     RedlineLegacy?: LegacyBridge;
+    RedlineRadio?: {
+      setContext: (context: { sessions: Array<{ session_key: number | string; session_name?: string; date_start?: string }>; meetingKey: string }) => void;
+      load: () => Promise<void>;
+    };
   }
 }
 
