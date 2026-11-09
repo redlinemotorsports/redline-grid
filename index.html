@@ -851,12 +851,14 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
  #tabs #moreNavBtn{flex-direction:column;gap:2px}
  .more-nav-menu{bottom:calc(76px + env(safe-area-inset-bottom))}
  .standings-head{margin-bottom:4px}
- .standings-switch{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:5px;margin:0 0 12px;background:var(--soft);border:1px solid var(--line);border-radius:11px}
- .standings-switch button{border:1px solid transparent;background:transparent;color:var(--mute);border-radius:8px;padding:10px 8px;font:600 12px Inter}
- .standings-switch button[aria-pressed=true]{background:var(--red);border-color:var(--red);color:#fff}
+ .standings-switch{display:flex;align-items:center;gap:24px;padding:0 2px;margin:0 0 12px;border:0;border-bottom:1px solid var(--line);background:transparent}
+ .standings-switch button{position:relative;border:0;border-radius:0;background:transparent;color:var(--mute);padding:10px 1px 11px;font:600 12px Inter;letter-spacing:.02em}
+ .standings-switch button[aria-pressed=true]{color:var(--txt)}
+ .standings-switch button[aria-pressed=true]::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--red)}
  .standings-team-panel{display:none}
  body.show-team-standings .standings-driver-panel{display:none}
  body.show-team-standings .standings-team-panel{display:block}
+ #v-standings .standings-driver-panel,#v-standings .standings-team-panel{touch-action:pan-y}
  .result-tools{gap:7px;padding:10px 12px}
  .result-tools label{width:100%}
  .result-tools input{flex-basis:100%;width:100%}
@@ -5320,6 +5322,21 @@ function setStandingsView(teams){
  document.querySelectorAll("[data-standing-kind]").forEach(b=>b.setAttribute("aria-pressed",String((b.dataset.standingKind==="teams")===teams)));
 }
 document.querySelectorAll("[data-standing-kind]").forEach(btn=>btn.addEventListener("click",()=>setStandingsView(btn.dataset.standingKind==="teams")));
+/* Mobile-only horizontal swipe between the two compact championship tables. */
+(()=>{
+ const root=$("v-standings");if(!root)return;
+ let startX=0,startY=0;
+ root.addEventListener("touchstart",e=>{
+  if(window.matchMedia("(min-width:821px)").matches||!e.touches?.length)return;
+  startX=e.touches[0].clientX;startY=e.touches[0].clientY;
+ },{passive:true});
+ root.addEventListener("touchend",e=>{
+  if(window.matchMedia("(min-width:821px)").matches||!e.changedTouches?.length)return;
+  const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;
+  if(Math.abs(dx)<55||Math.abs(dx)<Math.abs(dy)*1.25)return;
+  setStandingsView(dx<0);
+ },{passive:true});
+})();
 let championshipPulseYear=null,championshipPulseTask=null;
 async function renderChampionshipPulse(force=false){
  const root=$("championshipPulse");if(!root)return;
