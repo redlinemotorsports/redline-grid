@@ -1,0 +1,272 @@
+/* LAP TIMES — desktop workspace redesign.
+   Presentation-only: the existing selectors, data rendering and mobile layout remain intact. */
+@media (min-width: 1024px) {
+  #v-tele {
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(340px, .88fr);
+    grid-template-rows: auto auto minmax(230px, auto) minmax(230px, auto) auto auto auto;
+    column-gap: 0;
+    row-gap: 0;
+    align-items: stretch;
+  }
+
+  #v-tele > .simple-title-head {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding: 24px 28px 18px;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(105deg, rgba(227, 38, 54, .075), transparent 58%);
+  }
+
+  #v-tele > .simple-title-head h2 {
+    margin-bottom: 7px;
+    font: 700 clamp(30px, 3vw, 38px)/1 "Barlow Condensed", Inter, sans-serif;
+    letter-spacing: .015em;
+    text-transform: uppercase;
+  }
+
+  #v-tele > .simple-title-head .briefing-intro {
+    max-width: 650px;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  #v-tele > .tools {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 66px;
+    margin: 0 24px 18px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  #v-tele > .tools::before {
+    content: "SESSION / DRIVER";
+    flex: 0 0 auto;
+    margin-right: 5px;
+    color: var(--red);
+    font: 600 9px/1 "IBM Plex Mono", monospace;
+    letter-spacing: .13em;
+  }
+
+  #v-tele > .tools select {
+    min-width: 190px;
+    max-width: 260px;
+    min-height: 39px;
+    padding: 8px 34px 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    background: var(--card2);
+    color: var(--txt);
+    font: 600 11px Inter, sans-serif;
+  }
+
+  #v-tele > #lapList {
+    grid-column: 1;
+    grid-row: 3 / span 2;
+    min-width: 0;
+    min-height: 480px;
+    max-height: 760px;
+    margin: 0 12px 20px 24px;
+    overflow: auto;
+    overscroll-behavior: contain;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(255,255,255,.018), transparent 150px), var(--card);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,.18) transparent;
+  }
+
+  #v-tele > #lapList::before {
+    content: "SESSION PACE / FASTEST BY DRIVER";
+    position: sticky;
+    z-index: 2;
+    top: 0;
+    display: block;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--card2);
+    color: var(--mute);
+    font: 600 9px/1.2 "IBM Plex Mono", monospace;
+    letter-spacing: .12em;
+  }
+
+  #v-tele > #lapList:has(.lap)::before {
+    content: "LAP-BY-LAP / SELECTED DRIVER";
+  }
+
+  #v-tele > #lapList .row {
+    display: grid;
+    grid-template-columns: 38px 38px minmax(0, 1fr) minmax(105px, auto);
+    align-items: center;
+    gap: 12px;
+    min-height: 60px;
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--line);
+    transition: background .16s ease;
+  }
+
+  #v-tele > #lapList .row:hover {
+    background: rgba(255,255,255,.035);
+  }
+
+  #v-tele > #lapList .row:first-of-type {
+    background: linear-gradient(90deg, rgba(227,38,54,.09), transparent 70%);
+  }
+
+  #v-tele > #lapList .pos {
+    color: var(--mute);
+    font: 600 12px "IBM Plex Mono", monospace;
+    text-align: center;
+  }
+
+  #v-tele > #lapList .av {
+    width: 34px;
+    height: 34px;
+    border-radius: 5px;
+  }
+
+  #v-tele > #lapList .who b {
+    display: block;
+    overflow: hidden;
+    color: var(--txt);
+    font: 700 14px/1.15 "Barlow Condensed", Inter, sans-serif;
+    letter-spacing: .025em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #v-tele > #lapList .who small {
+    display: block;
+    margin-top: 4px;
+    color: var(--mute);
+    font: 10px/1.35 Inter, sans-serif;
+  }
+
+  #v-tele > #lapList .pts {
+    color: var(--txt);
+    font: 600 13px "IBM Plex Mono", monospace;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  #v-tele > #lapList .lap {
+    display: grid;
+    grid-template-columns: 82px minmax(0, 1fr) 88px;
+    align-items: center;
+    gap: 12px;
+    min-height: 48px;
+    padding: 9px 15px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  #v-tele > #lapList .lap > small:first-child {
+    color: var(--mute);
+    font: 500 10px "IBM Plex Mono", monospace;
+    letter-spacing: .04em;
+  }
+
+  #v-tele > #lapList .lap b {
+    color: var(--txt);
+    font: 600 14px "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #v-tele > #lapList .lap > small:last-child {
+    color: var(--mute);
+    font: 500 10px "IBM Plex Mono", monospace;
+    text-align: right;
+  }
+
+  #v-tele > #lapList .lap.best {
+    background: rgba(227,38,54,.085);
+    box-shadow: inset 2px 0 0 var(--red);
+  }
+
+  #v-tele > #lapList .lap.best > small:last-child {
+    color: var(--red);
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  #v-tele > #lapEditorial {
+    grid-column: 2;
+    grid-row: 3;
+    min-width: 0;
+    padding: 0 24px 12px 12px;
+  }
+
+  #v-tele > #paceCompare {
+    grid-column: 2;
+    grid-row: 4;
+    min-width: 0;
+    padding: 0 24px 20px 12px;
+  }
+
+  #v-tele > #sessionCompare {
+    grid-column: 1 / -1;
+    grid-row: 5;
+    min-width: 0;
+    padding: 0 24px 16px;
+  }
+
+  #v-tele > #qualifyingGap {
+    grid-column: 1 / -1;
+    grid-row: 6;
+    min-width: 0;
+    padding: 0 24px 16px;
+  }
+
+  #v-tele > #lapDeltaTool {
+    grid-column: 1 / -1;
+    grid-row: 7;
+    margin: 0 24px 24px;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: linear-gradient(110deg, rgba(227,38,54,.055), transparent 52%), var(--card);
+  }
+
+  #v-tele .lap-editorial,
+  #v-tele .pace-compare {
+    height: 100%;
+    border-radius: 8px;
+  }
+
+  #v-tele .lap-editorial {
+    padding: 16px;
+  }
+
+  #v-tele .pace-compare-head {
+    padding: 14px 16px;
+  }
+
+  #v-tele .pace-compare-grid {
+    padding: 12px 16px;
+  }
+
+  #v-tele .delta-controls {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 821px) and (max-width: 1023px) {
+  #v-tele > #lapList {
+    margin: 0 18px 16px;
+  }
+
+  #v-tele > #lapEditorial,
+  #v-tele > #paceCompare,
+  #v-tele > #sessionCompare,
+  #v-tele > #qualifyingGap {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}
