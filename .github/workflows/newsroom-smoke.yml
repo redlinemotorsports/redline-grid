@@ -9,7 +9,6 @@ on:
       - "scripts/newsroom-smoke.mjs"
       - ".github/workflows/newsroom-smoke.yml"
       - "package.json"
-      - "package-lock.json"
   push:
     branches:
       - "tooling/typescript-newsroom"
@@ -24,9 +23,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
       - name: Install dependencies
-        run: npm ci
+        run: npm install
       - name: Type-check and build
         run: |
           npm run typecheck
