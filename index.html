@@ -4305,180 +4305,33 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 
 
 
-/* CHAMPIONSHIP ARCHIVE — reference desk */
-#v-standings>.championship-archive{grid-column:1/-1;min-width:0;margin:2px 0 0;padding:18px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(135deg,rgba(255,35,24,.045),transparent 52%),var(--card)}
-#v-standings .archive-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:15px}
-#v-standings .archive-head h3{margin:2px 0 0;color:var(--txt);font:800 clamp(20px,2.4vw,27px)/1.1 Inter,sans-serif;letter-spacing:-.035em}
-#v-standings .archive-head p:not(.briefing-kicker){margin:7px 0 0;color:var(--mute);font-size:12px;line-height:1.5}
-#v-standings .archive-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:start}
-#v-standings .archive-card{min-width:0;border:1px solid var(--line);border-radius:11px;background:var(--card2);overflow:hidden}
-#v-standings .archive-card>summary{display:grid;grid-template-columns:34px minmax(0,1fr) 16px;align-items:center;gap:10px;min-height:76px;padding:12px;cursor:pointer;list-style:none}
-#v-standings .archive-card>summary::-webkit-details-marker{display:none}
-#v-standings .archive-card-icon{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--line);border-radius:8px;color:var(--red);font:600 10px "IBM Plex Mono",monospace}
-#v-standings .archive-card>summary>span:nth-child(2){display:grid;gap:4px;min-width:0}
-#v-standings .archive-card>summary b{color:var(--txt);font-size:12px;font-weight:700}
-#v-standings .archive-card>summary small{color:var(--mute);font-size:9px;line-height:1.4}
-#v-standings .archive-card>summary i{color:var(--mute);font:normal 16px Inter,sans-serif;transition:transform .2s}
-#v-standings .archive-card[open]>summary i{transform:rotate(45deg)}
-#v-standings .archive-card-body{padding:0 12px 13px;border-top:1px solid var(--line)}
-#v-standings .archive-round{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid var(--line)}
-#v-standings .archive-round:last-child{border-bottom:0}
-#v-standings .archive-round>span:first-child{color:var(--mute);font:600 9px "IBM Plex Mono",monospace}
-#v-standings .archive-round>div{display:grid;gap:3px;min-width:0}
-#v-standings .archive-round b{color:var(--txt);font-size:11px;overflow-wrap:anywhere}
-#v-standings .archive-round small{color:var(--mute);font-size:9px}
-#v-standings .archive-round em{color:var(--mute);font:600 8px "IBM Plex Mono",monospace;font-style:normal;letter-spacing:.04em;text-align:right}
-#v-standings .archive-round em.done{color:var(--red)}
-#v-standings .honour-round{padding:11px 0;border-bottom:1px solid var(--line)}
-#v-standings .honour-round:last-child{border-bottom:0}
-#v-standings .honour-round>header{display:flex;align-items:center;gap:8px;margin:0 0 10px;padding:0;border:0}
-#v-standings .honour-round>header>span{flex:none;color:var(--red);font:600 8px "IBM Plex Mono",monospace;letter-spacing:.08em}
-#v-standings .honour-round>header>b{min-width:0;color:var(--txt);font-size:10px;line-height:1.35}
-#v-standings .honour-round>header>time{margin-left:auto;flex:none;color:var(--mute);font:500 8px "IBM Plex Mono",monospace}
-#v-standings .honour-winner{display:grid;gap:3px;padding:10px 11px;border:1px solid var(--line);border-radius:8px;background:linear-gradient(100deg,rgba(255,35,24,.08),transparent 75%),var(--card)}
-#v-standings .honour-winner>small,#v-standings .honour-details small{color:var(--mute);font:600 8px "IBM Plex Mono",monospace;letter-spacing:.08em}
-#v-standings .honour-winner>strong{color:var(--txt);font:700 17px "Barlow Condensed",Inter,sans-serif}
-#v-standings .honour-podium{display:flex;flex-wrap:wrap;gap:7px 12px;padding:9px 2px}
-#v-standings .honour-podium-item{display:flex;align-items:center;gap:5px;color:var(--mute);font-size:9px}
-#v-standings .honour-podium-item>b{color:var(--red);font:600 9px "IBM Plex Mono",monospace}
-#v-standings .honour-details{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-#v-standings .honour-details>div{display:grid;gap:4px;min-width:0;padding:8px 9px;border:1px solid var(--line);border-radius:7px}
-#v-standings .honour-details b{color:var(--txt);font-size:9px;line-height:1.35;overflow-wrap:anywhere}
-#v-standings .honour-details em{color:var(--mute);font:normal 8px "IBM Plex Mono",monospace}
-#v-standings .honour-muted{color:var(--mute);font-size:9px}
-#v-standings .archive-team{display:grid;gap:4px;padding:10px 0;border-bottom:1px solid var(--line)}
-#v-standings .archive-team:last-child{border-bottom:0}
-#v-standings .archive-team b{color:var(--txt);font-size:11px}
-#v-standings .archive-team small{color:var(--mute);font-size:10px;line-height:1.45}
-#v-standings .archive-reg-group{display:grid;gap:5px;padding:11px 0;border-bottom:1px solid var(--line)}
-#v-standings .archive-reg-group>span{color:var(--mute);font:600 8px "IBM Plex Mono",monospace;letter-spacing:.09em}
-#v-standings .archive-reg-group>b{color:var(--txt);font:700 11px/1.5 "IBM Plex Mono",monospace;overflow-wrap:anywhere}
-#v-standings .archive-reg-group>small,.archive-reg-note{color:var(--mute);font-size:9px;line-height:1.5}
-#v-standings .archive-reg-note{margin:10px 0 0}
-@media(max-width:900px){#v-standings .archive-grid{grid-template-columns:1fr}#v-standings .archive-card>summary{min-height:66px}}
-
-/* STANDINGS REVAMP — scoped layout; retain existing data rows and renderers */
-#v-standings.pane.grid{grid-template-columns:minmax(0,1fr)!important;gap:14px}
-#v-standings>.standings-head,#v-standings>.standings-leaders,
-#v-standings>.standings-switch,#v-standings>.standings-driver-panel,
-#v-standings>.standings-team-panel,#v-standings>.championship-pressure,
-#v-standings>.standings-advanced{grid-column:1/-1;min-width:0}
-#v-standings>.standings-head{margin:0}
-#v-standings>.standings-leaders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-#v-standings .standings-leader-card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:7px 12px;min-width:0;padding:13px 15px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(120deg,rgba(255,35,24,.07),var(--card) 62%)}
-#v-standings .standings-leader-card>span{grid-column:1/-1;color:var(--mute);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.13em}
-#v-standings .standings-leader-card>div{display:grid;gap:3px;min-width:0}
-#v-standings .standings-leader-card>div b{font:700 18px/1.1 "Barlow Condensed",Inter,sans-serif;overflow-wrap:anywhere}
-#v-standings .standings-leader-card>div small{font-size:10px;color:var(--mute);overflow-wrap:anywhere}
-#v-standings .standings-leader-card>strong{font:700 16px "IBM Plex Mono",monospace;white-space:nowrap}
-#v-standings>.standings-switch{display:grid!important;grid-template-columns:1fr 1fr;gap:5px;padding:5px;margin:0;background:var(--soft);border:1px solid var(--line);border-radius:10px}
-#v-standings .standings-switch button{min-height:39px;border:1px solid transparent;border-radius:7px;background:transparent;color:var(--mute);font:600 12px Inter;cursor:pointer}
-#v-standings .standings-switch button[aria-pressed=true]{background:var(--red);border-color:var(--red);color:#fff}
-#v-standings .standings-team-panel{display:none}
-#v-standings.show-team-standings .standings-driver-panel{display:none}
-#v-standings.show-team-standings .standings-team-panel{display:block}
-#v-standings .standings-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
-#v-standings .standings-section-head span{color:var(--red);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.13em}
-#v-standings .standings-section-head h2{margin:4px 0 0;font:700 20px "Barlow Condensed",Inter,sans-serif;text-transform:uppercase}
-#v-standings .championship-pressure{margin:0}
-#v-standings .standings-advanced{border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
-#v-standings .standings-advanced>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;cursor:pointer;list-style:none}
-#v-standings .standings-advanced>summary::-webkit-details-marker{display:none}
-#v-standings .standings-advanced>summary>span:first-child{display:grid;gap:4px}
-#v-standings .standings-advanced>summary b{font:700 15px "Barlow Condensed",Inter,sans-serif;text-transform:uppercase;letter-spacing:.04em}
-#v-standings .standings-advanced>summary small{font-size:10px;color:var(--mute)}
-#v-standings .standings-advanced-toggle{color:var(--red);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.08em;white-space:nowrap}
-#v-standings .standings-advanced[open] .standings-advanced-toggle i{display:inline-block;transform:rotate(45deg)}
-#v-standings .standings-advanced-body{border-top:1px solid var(--line)}
-#v-standings .standings-advanced-body>.strategy-lab-head{padding:18px 18px 12px}
-#v-standings .standings-advanced-body>.lab-tabs{padding-left:18px;padding-right:18px}
-#v-standings .standings-advanced-body>.lab-tool{padding:17px 18px}
-#v-standings .standings-advanced-body>.prediction-panel{margin:12px 18px 18px}
-@media(max-width:640px){
- #v-standings.pane.grid{gap:10px}
- #v-standings>.standings-leaders{grid-template-columns:1fr;gap:7px}
- #v-standings .standings-leader-card{padding:11px 13px}
- #v-standings .standings-section-head{padding:12px 13px}
- #v-standings .standings-advanced>summary{padding:12px 13px}
- #v-standings .standings-advanced-body>.strategy-lab-head{padding:15px 13px 10px}
- #v-standings .standings-advanced-body>.lab-tabs{padding:0 13px 12px}
- #v-standings .standings-advanced-body>.lab-tool{padding:14px 13px}
- #v-standings .standings-advanced-body>.prediction-panel{margin:10px}
-}
-
-/* CHAMPIONSHIP ARCHIVE — season analytics */
-#v-standings .archive-data-caption{margin:2px 0 9px;color:var(--mute);font:600 8px "IBM Plex Mono",monospace;letter-spacing:.11em}
-#v-standings .archive-data-subhead{margin-top:17px;padding-top:13px;border-top:1px solid var(--line)}
-#v-standings .archive-milestone-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
-#v-standings .archive-milestone{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 8px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:7px;background:var(--card)}
-#v-standings .archive-milestone small{grid-column:1/-1;color:var(--mute);font:600 8px "IBM Plex Mono",monospace;letter-spacing:.08em}
-#v-standings .archive-milestone b{min-width:0;color:var(--txt);font-size:10px;overflow-wrap:anywhere}
-#v-standings .archive-milestone strong{color:var(--red);font:700 19px "Barlow Condensed",sans-serif}
-#v-standings .archive-milestone em{grid-column:1/-1;color:var(--mute);font:normal 8px "IBM Plex Mono",monospace}
-#v-standings .archive-data-note{margin:12px 0 0;color:var(--mute);font-size:9px;line-height:1.5}
-#v-standings .archive-performance-table{display:grid;gap:0}
-#v-standings .archive-performance-head,#v-standings .archive-performance-row{display:grid;grid-template-columns:minmax(90px,1.4fr) .65fr .85fr .85fr;gap:7px;align-items:center}
-#v-standings .archive-performance-head{padding:0 7px 7px;color:var(--mute);font:600 7px "IBM Plex Mono",monospace;letter-spacing:.06em}
-#v-standings .archive-performance-row{padding:9px 7px;border-top:1px solid var(--line);font-size:9px}
-#v-standings .archive-performance-row>b{min-width:0;overflow-wrap:anywhere}
-#v-standings .archive-performance-row>strong{color:var(--txt);font:700 12px "IBM Plex Mono",monospace}
-#v-standings .archive-performance-row>span{color:var(--txt);font:600 9px "IBM Plex Mono",monospace}
-#v-standings .archive-performance-row small{display:block;color:var(--mute);font:500 7px "IBM Plex Mono",monospace}
-#v-standings .archive-performance-row .archive-rank{color:var(--red)}
-#v-standings .archive-teammate{display:grid;grid-template-columns:minmax(0,1fr) 1fr 1fr;gap:8px;padding:9px 0;border-top:1px solid var(--line);font-size:9px}
-#v-standings .archive-teammate>b{color:var(--mute);font-size:8px}
-#v-standings .archive-teammate span{display:flex;justify-content:space-between;gap:5px;min-width:0;overflow-wrap:anywhere}
-#v-standings .archive-teammate strong{color:var(--txt);font-family:"IBM Plex Mono",monospace}
-@media(max-width:520px){#v-standings .archive-performance-head,#v-standings .archive-performance-row{grid-template-columns:minmax(78px,1.3fr) .6fr .75fr .75fr;gap:4px}#v-standings .archive-performance-row{font-size:8px}#v-standings .archive-teammate{grid-template-columns:1fr 1fr}#v-standings .archive-teammate>b{grid-column:1/-1}}
-
-/* COLLAPSIBLE CHAMPIONSHIP ARCHIVE */
-#v-standings .archive-shell{padding:0;overflow:hidden}
-#v-standings .archive-shell>.archive-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 19px;cursor:pointer;list-style:none}
-#v-standings .archive-shell>.archive-head::-webkit-details-marker{display:none}
-#v-standings .archive-shell>.archive-head::marker{content:""}
-#v-standings .archive-shell-side{display:flex;align-items:center;gap:13px;flex-shrink:0}
-#v-standings .archive-shell-side>i{display:grid;place-items:center;width:27px;height:27px;border:1px solid var(--line);border-radius:50%;color:var(--txt);font:500 18px/1 Inter,sans-serif;font-style:normal;transition:transform .2s ease,background .2s ease,color .2s ease}
-#v-standings .archive-shell[open]>.archive-head .archive-shell-side>i{transform:rotate(45deg);background:rgba(255,35,24,.1);color:var(--red)}
-#v-standings .archive-shell-content{padding:0 19px 18px}
-#v-standings .archive-shell-content .archive-grid{margin:0}
-@media(max-width:600px){#v-standings .archive-shell>.archive-head{padding:14px;gap:10px}#v-standings .archive-shell-side{gap:8px}#v-standings .archive-shell-side .feature-tag{display:none}#v-standings .archive-shell-content{padding:0 12px 13px}}
-
-/* DRIVER FORM GUIDE */
-#v-standings .archive-form-table{display:grid;gap:0}
-#v-standings .archive-form-head,#v-standings .archive-form-row{display:grid;grid-template-columns:minmax(82px,1fr) minmax(120px,1.5fr) 48px;gap:8px;align-items:center}
-#v-standings .archive-form-head{padding:0 7px 7px;color:var(--mute);font:600 7px "IBM Plex Mono",monospace;letter-spacing:.07em}
-#v-standings .archive-form-row{padding:9px 7px;border-top:1px solid var(--line);font-size:9px}
-#v-standings .archive-form-row>b{min-width:0;overflow-wrap:anywhere}
-#v-standings .archive-form-row>strong{color:var(--txt);font:700 12px "IBM Plex Mono",monospace;text-align:right}
-#v-standings .archive-form-row>strong small{color:var(--mute);font:500 7px "IBM Plex Mono",monospace}
-#v-standings .archive-form-results{display:flex;gap:4px;flex-wrap:wrap}
-#v-standings .archive-form-results span{display:grid;place-items:center;min-width:24px;height:22px;padding:0 4px;border:1px solid var(--line);border-radius:4px;color:var(--txt);font:600 8px "IBM Plex Mono",monospace;background:var(--card)}
-#v-standings .archive-form-trends{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:15px}
-#v-standings .archive-form-callout{display:grid;gap:4px;padding:10px;border:1px solid var(--line);border-radius:7px;background:var(--card)}
-#v-standings .archive-form-callout>small{color:var(--mute);font:600 7px "IBM Plex Mono",monospace;letter-spacing:.07em}
-#v-standings .archive-form-callout>b{color:var(--txt);font-size:10px}
-#v-standings .archive-form-callout>strong{color:var(--red);font:700 16px "Barlow Condensed",sans-serif}
-#v-standings .archive-form-callout>strong small{color:var(--mute);font:500 7px "IBM Plex Mono",monospace}
-@media(max-width:520px){#v-standings .archive-form-head,#v-standings .archive-form-row{grid-template-columns:minmax(70px,.9fr) minmax(110px,1.4fr) 38px;gap:5px}#v-standings .archive-form-trends{grid-template-columns:1fr}}
-
-/* NEWSROOM — compact paddock briefing, matched to the existing pitwall language. */
-#v-stats .newsroom-briefing{margin:0 0 16px;padding:15px 16px 10px;border:1px solid var(--line);border-radius:8px;background:linear-gradient(115deg,rgba(227,38,54,.055),transparent 58%),var(--card2)}
-#v-stats .newsroom-briefing-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
-#v-stats .newsroom-briefing-head h3{margin:3px 0 0;color:var(--txt);font:700 19px/1.1 "Barlow Condensed",Manrope,sans-serif;letter-spacing:.005em}
-#v-stats .newsroom-briefing-count{color:var(--mute);font:8px "IBM Plex Mono",monospace;letter-spacing:.08em;white-space:nowrap}
-#v-stats .newsroom-briefing-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
-#v-stats .newsroom-briefing-row{display:grid;grid-template-columns:22px minmax(0,1fr) 12px;gap:9px;align-items:start;min-width:0;padding:12px 12px 7px 0;color:var(--txt);text-decoration:none}
-#v-stats .newsroom-briefing-row+.newsroom-briefing-row{padding-left:12px;border-left:1px solid var(--line)}
-#v-stats .newsroom-briefing-index{color:var(--red);font:700 10px "IBM Plex Mono",monospace;padding-top:1px}
-#v-stats .newsroom-briefing-copy{display:flex;min-width:0;flex-direction:column;gap:5px}
-#v-stats .newsroom-briefing-copy .newsroom-kicker{font-size:8px;letter-spacing:.09em}
-#v-stats .newsroom-briefing-copy b{font:650 14px/1.2 "Barlow Condensed",Manrope,sans-serif}
-#v-stats .newsroom-briefing-copy small{color:var(--mute);font-size:10px;line-height:1.45}
-#v-stats .newsroom-briefing-arrow{color:var(--mute);font-size:11px}
-#v-stats .newsroom-briefing-row:hover .newsroom-briefing-copy b,#v-stats .newsroom-briefing-row:hover .newsroom-briefing-arrow{color:var(--red)}
-@media(max-width:899px){#v-stats .newsroom-briefing-list{grid-template-columns:1fr}#v-stats .newsroom-briefing-row{padding:10px 0}#v-stats .newsroom-briefing-row+.newsroom-briefing-row{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
-@media(max-width:520px){#v-stats .newsroom-briefing{padding:12px 12px 7px}#v-stats .newsroom-briefing-head h3{font-size:18px}#v-stats .newsroom-briefing-copy b{font-size:14px}}
-
+/* STANDINGS — compact championship momentum panel */
+#v-standings .championship-pulse{grid-column:1/-1;min-width:0;padding:19px 20px 15px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(112deg,rgba(227,38,54,.055),transparent 48%),var(--card)}
+#v-standings .championship-pulse-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}
+#v-standings .championship-pulse-head h3{margin:3px 0 0;color:var(--txt);font:700 22px/1.1 "Barlow Condensed",Manrope,sans-serif}
+#v-standings .championship-pulse-head p:not(.briefing-kicker){margin:5px 0 0;color:var(--mute);font-size:11px}
+#v-standings .championship-pulse-content{display:grid;grid-template-columns:minmax(180px,.72fr) minmax(0,1.8fr);gap:12px;align-items:stretch}
+#v-standings .pulse-progress,#v-standings .pulse-form-card{min-width:0;padding:14px;border:1px solid rgba(255,255,255,.075);border-radius:6px;background:rgba(0,0,0,.13)}
+#v-standings .pulse-progress-top{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--mute);font:700 8px "IBM Plex Mono",monospace;letter-spacing:.1em}
+#v-standings .pulse-progress-top>b{color:var(--txt);font-size:10px;white-space:nowrap}
+#v-standings .pulse-progress-top small{color:var(--mute);font-size:7px;font-weight:500}
+#v-standings .pulse-progress-track{height:5px;margin:17px 0 9px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden}
+#v-standings .pulse-progress-track i{display:block;height:100%;background:var(--red);border-radius:5px}
+#v-standings .pulse-progress>p{margin:0;color:var(--mute);font-size:10px}
+#v-standings .pulse-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#v-standings .pulse-form-label{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--red);font:700 8px "IBM Plex Mono",monospace;letter-spacing:.1em}
+#v-standings .pulse-form-label small{color:var(--mute);font-size:7px;white-space:nowrap}
+#v-standings .pulse-form-total{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:13px 0 12px}
+#v-standings .pulse-form-total>b{min-width:0;color:var(--txt);font:700 17px "Barlow Condensed",Manrope,sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#v-standings .pulse-form-total>strong{color:var(--txt);font:700 16px "IBM Plex Mono",monospace;white-space:nowrap}
+#v-standings .pulse-form-total>strong small{color:var(--mute);font-size:8px}
+#v-standings .pulse-form-races{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+#v-standings .pulse-form-races>span{display:grid;gap:4px;min-width:0;padding:8px 7px;border-left:2px solid rgba(227,38,54,.55);background:rgba(255,255,255,.025)}
+#v-standings .pulse-form-races b{color:var(--txt);font:600 12px "IBM Plex Mono",monospace}
+#v-standings .pulse-form-races small{color:var(--mute);font-size:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#v-standings .pulse-data-note{grid-column:1/-1;margin:0;color:var(--mute);font-size:9px;line-height:1.45}
+@media(max-width:760px){#v-standings .championship-pulse-content{grid-template-columns:1fr}#v-standings .championship-pulse{padding:15px 13px 12px}}
+@media(max-width:520px){#v-standings .pulse-form-grid{grid-template-columns:1fr}#v-standings .championship-pulse-head .feature-tag{display:none}}
 /* Unified compact refresh controls */
 #newsRefresh,#briefingRefresh,#rtRefresh,#strategyRefresh{
  display:inline-flex!important;align-items:center!important;justify-content:center!important;
@@ -4818,25 +4671,10 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
   <section class="panel standings-driver-panel"><div class="standings-section-head"><div><span>DRIVER CHAMPIONSHIP</span><h2>Drivers’ Championship</h2></div><small>POINTS TABLE</small></div><div id="drivers"><div class="state">Loading…</div></div></section>
   <section class="panel standings-team-panel"><div class="standings-section-head"><div><span>TEAM CHAMPIONSHIP</span><h2>Constructors’ Championship</h2></div><small>POINTS TABLE</small></div><div id="teams"><div class="state">Loading…</div></div></section>
 
-  <details class="panel championship-archive archive-shell" id="championshipArchive">
-   <summary class="archive-head"><div><p class="briefing-kicker">CHAMPIONSHIP / REFERENCE</p><h3>Championship Archive</h3><p>Season records and performance analysis.</p></div><span class="archive-shell-side"><span class="feature-tag">SEASON REFERENCE</span><i aria-hidden="true">＋</i></span></summary>
-   <div class="archive-shell-content">
-   <div class="archive-grid">
-    <details class="archive-card" open>
-     <summary><span class="archive-card-icon">01</span><span><b>Season honours</b><small>Race winners · Pole positions · Podium finishers · Fastest laps</small></span><i>＋</i></summary>
-     <div class="archive-card-body" id="archiveHonours"><div class="state">Loading season records…</div></div>
-    </details>
-    <details class="archive-card">
-     <summary><span class="archive-card-icon">02</span><span><b>Driver form guide</b><small>Last five races · Recent points · Form trend</small></span><i>＋</i></summary>
-     <div class="archive-card-body" id="archiveMilestones"><div class="state">Loading season milestones…</div></div>
-    </details>
-    <details class="archive-card">
-     <summary><span class="archive-card-icon">03</span><span><b>Season performance</b><small>Points efficiency · Finishing pace · Team-mate comparison</small></span><i>＋</i></summary>
-     <div class="archive-card-body" id="archivePerformance"><div class="state">Loading performance analysis…</div></div>
-    </details>
-   </div>
-   </div>
-  </details>
+  <section class="championship-pulse" id="championshipPulse" aria-live="polite">
+   <div class="championship-pulse-head"><div><p class="briefing-kicker">CHAMPIONSHIP / MOMENTUM</p><h3>Season Pulse</h3><p>Who's carrying form into the next Grand Prix.</p></div><span class="feature-tag" id="pulseSeasonTag">SEASON FORM</span></div>
+   <div class="championship-pulse-content"><div class="state">Calculating recent championship form…</div></div>
+  </section>
 
 
 
@@ -5054,7 +4892,7 @@ const fmtTime=t=>{if(typeof t!=="number")return"";const m=Math.floor(t/60);retur
 let rounds=[],year,tok=0,current=null,t;
 const nowY=new Date().getFullYear();
 for(let y=nowY;y>=1950;y--)$("year").insertAdjacentHTML("beforeend",`<option>${y}</option>`);
-$("year").onchange=()=>loadYear(+$("year").value);
+$("year").onchange=()=>{renderChampionshipPulse(true);loadYear(+$("year").value)};
 const SUBS={
  home:[["news","Overview"],["cal","Schedule"]],
  race:[["result","Results"],["control","Race control"],["radio","Team radio"],["weather","Weather"],["documents","Documents"]],
@@ -5102,105 +4940,49 @@ function setStandingsView(teams){
  document.querySelectorAll("[data-standing-kind]").forEach(b=>b.setAttribute("aria-pressed",String((b.dataset.standingKind==="teams")===teams)));
 }
 document.querySelectorAll("[data-standing-kind]").forEach(btn=>btn.addEventListener("click",()=>setStandingsView(btn.dataset.standingKind==="teams")));
-let archiveHonoursYear=null,archiveHonoursTask=null;
-async function renderSeasonHonours(){
- const root=$("archiveHonours"),milestones=$("archiveMilestones"),performance=$("archivePerformance");
- if(!root)return;
- const selectedYear=Number(year);if(!selectedYear)return;
- if(archiveHonoursYear===selectedYear&&archiveHonoursTask)return archiveHonoursTask;
- archiveHonoursYear=selectedYear;
- root.innerHTML='<div class="state">Loading recorded race honours…</div>';
- if(milestones)milestones.innerHTML='<div class="state">Calculating season milestones…</div>';
- if(performance)performance.innerHTML='<div class="state">Analysing completed race results…</div>';
- archiveHonoursTask=(async()=>{
+let championshipPulseYear=null,championshipPulseTask=null;
+async function renderChampionshipPulse(force=false){
+ const root=$("championshipPulse");if(!root)return;
+ const selectedYear=Number($("year")?.value||year||nowY);if(!selectedYear)return;
+ if(championshipPulseYear===selectedYear&&championshipPulseTask&&!force)return championshipPulseTask;
+ championshipPulseYear=selectedYear;
+ const content=root.querySelector(".championship-pulse-content");
+ if(content)content.innerHTML='<div class="state">Calculating recent championship form…</div>';
+ championshipPulseTask=(async()=>{
   try{
-   const [resultsData,qualifyingData,fastestData]=await Promise.all([
-    jget('/'+selectedYear+'/results/'),
-    jget('/'+selectedYear+'/qualifying/1/').catch(()=>null),
-    jget('/'+selectedYear+'/fastest/1/').catch(()=>null)
+   const [resultData,raceData]=await Promise.all([
+    jget("/"+selectedYear+"/results/"),
+    jget("/"+selectedYear+"/races/").catch(()=>null)
    ]);
-   if(Number(year)!==selectedYear)return;
-   const results=resultsData.RaceTable?.Races||[];
-   const qualifying=qualifyingData?.RaceTable?.Races||[];
-   const fastest=fastestData?.RaceTable?.Races||[];
-   const qByRound=new Map(qualifying.map(r=>[Number(r.round),r]));
-   const fByRound=new Map(fastest.map(r=>[Number(r.round),r]));
-   const driverName=v=>[v?.Driver?.givenName,v?.Driver?.familyName].filter(Boolean).join(" ")||v?.Driver?.driverId||"—";
-   const teamName=v=>v?.Constructor?.name||v?.Constructor?.constructorId||"Unknown team";
-   const records=results.map(r=>{
-    const entries=[...(r.Results||[])].sort((a,b)=>Number(a.position)-Number(b.position));
-    if(!entries.length)return null;
-    const q=qByRound.get(Number(r.round)),pole=q?.QualifyingResults?.find(v=>Number(v.position)===1);
-    const fRace=fByRound.get(Number(r.round)),fastestEntry=fRace?.Results?.[0]||entries.find(v=>Number(v.FastestLap?.rank)===1);
-    return {round:Number(r.round),name:r.raceName||"Round "+r.round,date:r.date,winner:driverName(entries.find(v=>Number(v.position)===1)),podium:entries.filter(v=>[1,2,3].includes(Number(v.position))).map(driverName),pole:pole?driverName(pole):"—",fastest:fastestEntry?driverName(fastestEntry):"—",fastestTime:fastestEntry?.FastestLap?.Time?.time||""};
-   }).filter(Boolean);
-   if(!records.length){root.innerHTML='<div class="state">No completed race honours are available for '+selectedYear+'.</div>';if(milestones)milestones.innerHTML='<div class="state">No completed race data is available.</div>';if(performance)performance.innerHTML='<div class="state">No performance data is available.</div>';return}
-   root.innerHTML=records.map(r=>{
-    const podium=r.podium.length?r.podium.map((n,i)=>'<span class="honour-podium-item"><b>'+(i+1)+'</b>'+esc(n)+'</span>').join(""):'<span class="honour-muted">Podium unavailable</span>';
-    return '<article class="honour-round"><header><span>ROUND '+String(r.round).padStart(2,"0")+'</span><b>'+esc(r.name)+'</b><time>'+esc(r.date||"")+'</time></header><div class="honour-winner"><small>RACE WINNER</small><strong>'+esc(r.winner)+'</strong></div><div class="honour-podium">'+podium+'</div><div class="honour-details"><div><small>POLE POSITION</small><b>'+esc(r.pole)+'</b></div><div><small>FASTEST LAP</small><b>'+esc(r.fastest)+'</b>'+(r.fastestTime?'<em>'+esc(r.fastestTime)+'</em>':'')+'</div></div></article>';
-   }).join("");
-   const drivers=new Map(),teams=new Map(),teamDrivers=new Map();
-   const getStat=(map,id,name)=>{if(!map.has(id))map.set(id,{id,name,wins:0,podiums:0,poles:0,fastest:0,points:0,finishes:[],starts:0});return map.get(id)};
-   results.forEach(r=>{
-    (r.Results||[]).forEach(v=>{
-     const did=v.Driver?.driverId||driverName(v),dn=driverName(v),tid=v.Constructor?.constructorId||teamName(v),tn=teamName(v);
-     const d=getStat(drivers,did,dn),t=getStat(teams,tid,tn);
-     d.starts++;t.starts++;d.points+=Number(v.points)||0;t.points+=Number(v.points)||0;
-     const pos=Number(v.position);
-     if(Number.isFinite(pos)&&pos>0){d.finishes.push(pos);t.finishes.push(pos)}
-     if(pos===1){d.wins++;t.wins++}if(pos<=3&&pos>0){d.podiums++;t.podiums++}
-     if(!teamDrivers.has(tid))teamDrivers.set(tid,new Map());
-     const mates=teamDrivers.get(tid);if(!mates.has(did))mates.set(did,{name:dn,points:0,finishes:[],starts:0});
-     const m=mates.get(did);m.points+=Number(v.points)||0;m.starts++;if(Number.isFinite(pos)&&pos>0)m.finishes.push(pos);
-    });
-    const pole=qByRound.get(Number(r.round))?.QualifyingResults?.find(v=>Number(v.position)===1);
-    if(pole){const d=getStat(drivers,pole.Driver?.driverId||driverName(pole),driverName(pole));d.poles++;const t=getStat(teams,pole.Constructor?.constructorId||teamName(pole),teamName(pole));t.poles++}
-    const f=fByRound.get(Number(r.round))?.Results?.[0]||(r.Results||[]).find(v=>Number(v.FastestLap?.rank)===1);
-    if(f){const d=getStat(drivers,f.Driver?.driverId||driverName(f),driverName(f));d.fastest++;const t=getStat(teams,f.Constructor?.constructorId||teamName(f),teamName(f));t.fastest++}
-   });
-   const leaders=(map,key)=>[...map.values()].filter(x=>x[key]>0).sort((a,b)=>b[key]-a[key]||a.name.localeCompare(b.name));
-   const metric=(label,items,key)=>{const top=items[0];return '<div class="archive-milestone"><small>'+label+'</small><b>'+(top?esc(top.name):'—')+'</b><strong>'+(top?top[key]:'—')+'</strong>'+(top&&items[1]&&items[1][key]===top[key]?'<em>Tied lead</em>':'')+'</div>'};
-   if(milestones){
-    const formMap=new Map();
-    [...results].sort((a,b)=>Number(a.round)-Number(b.round)).forEach(r=>{
-     (r.Results||[]).forEach(v=>{
-      const id=v.Driver?.driverId||driverName(v);
-      if(!formMap.has(id))formMap.set(id,{name:driverName(v),races:[]});
-      const pos=Number(v.position),classified=Number.isFinite(pos)&&pos>0;
-      formMap.get(id).races.push({round:Number(r.round),points:Number(v.points)||0,position:classified?pos:null,label:classified?"P"+pos:(v.status||"RET")});
-     });
-    });
-    const forms=[...formMap.values()].map(x=>{
-     const latest=x.races.slice(-5),prior=x.races.slice(-10,-5);
-     const recentPoints=latest.reduce((n,r)=>n+r.points,0);
-     const recentPositions=latest.filter(r=>r.position!==null).map(r=>r.position);
-     const priorPositions=prior.filter(r=>r.position!==null).map(r=>r.position);
-     const avg=a=>a.length?a.reduce((n,v)=>n+v,0)/a.length:null;
-     const before=avg(priorPositions),now=avg(recentPositions);
-     return {...x,latest,recentPoints,avgFinish:avg(recentPositions),change:before!==null&&now!==null?before-now:null};
-    }).filter(x=>x.latest.length);
-    forms.sort((a,b)=>b.recentPoints-a.recentPoints||((a.avgFinish??99)-(b.avgFinish??99)));
-    const formRows=forms.slice(0,8).map((x,i)=>'<div class="archive-form-row"><span class="archive-rank">'+String(i+1).padStart(2,"0")+'</span><b>'+esc(x.name)+'</b><div class="archive-form-results">'+x.latest.map(r=>'<span title="Round '+r.round+'">'+esc(r.label)+'</span>').join("")+'</div><strong>'+x.recentPoints+' <small>PTS</small></strong></div>').join("");
-    const improvers=forms.filter(x=>x.change!==null).sort((a,b)=>b.change-a.change);
-    const best=improvers[0],drop=improvers[improvers.length-1];
-    const trend=(x,positive)=>x?'<div class="archive-form-callout"><small>'+(positive?"BIGGEST IMPROVER":"BIGGEST DROP-OFF")+'</small><b>'+esc(x.name)+'</b><strong>'+(x.change>0?"+":"")+x.change.toFixed(1)+' <small>AVG POS.</small></strong></div>':'';
-    milestones.innerHTML='<div class="archive-data-caption">RECENT FORM · LAST '+Math.min(5,records.length)+' COMPLETED GRANDS PRIX</div><div class="archive-form-table"><div class="archive-form-head"><span>DRIVER</span><span>FINISHING FORM</span><span>POINTS</span></div>'+formRows+'</div><div class="archive-form-trends">'+trend(best,true)+trend(drop,false)+'</div><p class="archive-data-note">Ranked by points scored across each driver’s latest five completed Grands Prix. Finish sequence runs oldest to newest; RET indicates a non-numeric result. Trend compares average classified position across the latest five races against the preceding five, where available.</p>';
-   }
-   if(performance){
-    const ranked=[...drivers.values()].filter(x=>x.starts>0).sort((a,b)=>b.points-a.points||a.name.localeCompare(b.name)).slice(0,6);
-    const avg=x=>x.finishes.length?(x.finishes.reduce((a,b)=>a+b,0)/x.finishes.length).toFixed(1):"—";
-    const rate=(n,d)=>d?(100*n/d).toFixed(0)+"%":"—";
-    const driverRows=ranked.map((x,i)=>'<div class="archive-performance-row"><span class="archive-rank">'+String(i+1).padStart(2,"0")+'</span><b>'+esc(x.name)+'</b><strong>'+x.points+' <small>PTS</small></strong><span>'+avg(x)+' <small>AVG FIN.</small></span><span>'+rate(x.podiums,x.starts)+' <small>PODIUM</small></span></div>').join("");
-    const teammateRows=[...teamDrivers.entries()].map(([tid,m])=>({team:teams.get(tid)?.name||tid,drivers:[...m.values()].sort((a,b)=>b.points-a.points)})).filter(x=>x.drivers.length>=2).map(x=>'<div class="archive-teammate"><b>'+esc(x.team)+'</b><span>'+esc(x.drivers[0].name)+' <strong>'+x.drivers[0].points+'</strong></span><span>'+esc(x.drivers[1].name)+' <strong>'+x.drivers[1].points+'</strong></span></div>').join("");
-    performance.innerHTML='<div class="archive-data-caption">TOP DRIVERS · '+records.length+' COMPLETED GRANDS PRIX</div><div class="archive-performance-table"><div class="archive-performance-head"><span>DRIVER</span><span>POINTS</span><span>AVG FINISH</span><span>PODIUM RATE</span></div>'+driverRows+'</div><div class="archive-data-caption archive-data-subhead">TEAM-MATE POINTS COMPARISON</div>'+(teammateRows||'<div class="state">Team-mate comparisons are not available yet.</div>')+'<p class="archive-data-note">Average finish uses numeric classified finishing positions only. Points and podium rates use each driver’s recorded Grand Prix starts; sprint results are excluded.</p>';
-   }
+   if(Number($("year")?.value||year||nowY)!==selectedYear)return;
+   const results=(resultData.RaceTable?.Races||[]).filter(r=>Array.isArray(r.Results)&&r.Results.length).sort((a,b)=>Number(a.round)-Number(b.round));
+   const scheduled=(raceData?.RaceTable?.Races||[]);
+   const totalRounds=scheduled.length||((Number(year)===selectedYear&&Array.isArray(rounds))?rounds.length:0);
+   if(!results.length){if(content)content.innerHTML='<div class="state">No completed Grand Prix results are available for this season yet.</div>';return}
+   const recent=results.slice(-3),drivers=new Map(),teams=new Map();
+   const add=(map,id,name,race,points)=>{
+    if(!map.has(id))map.set(id,{name,points:0,history:[]});
+    const item=map.get(id);item.points+=points;item.history.push({race,points});
+   };
+   recent.forEach(r=>(r.Results||[]).forEach(v=>{
+    const points=Number(v.points)||0,driverId=v.Driver?.driverId||v.Driver?.familyName||"driver",driverName=[v.Driver?.givenName,v.Driver?.familyName].filter(Boolean).join(" ")||"Driver";
+    const teamId=v.Constructor?.constructorId||v.Constructor?.name||"team",teamName=v.Constructor?.name||"Constructor";
+    add(drivers,driverId,driverName,r.raceName||("Round "+r.round),points);
+    add(teams,teamId,teamName,r.raceName||("Round "+r.round),points);
+   }));
+   const best=map=>[...map.values()].sort((a,b)=>b.points-a.points||a.name.localeCompare(b.name))[0];
+   const driver=best(drivers),team=best(teams);
+   const pct=totalRounds?Math.min(100,Math.round(results.length/totalRounds*100)):0;
+   const shortRace=name=>String(name||"Grand Prix").replace(/\s+Grand Prix$/i,"").replace(/\s+GP$/i,"");
+   const formMarkup=item=>item?'<div class="pulse-form-total"><b>'+esc(item.name)+'</b><strong>'+item.points+' <small>PTS</small></strong></div><div class="pulse-form-races">'+item.history.map(h=>'<span><b>+'+h.points+'</b><small>'+esc(shortRace(h.race))+'</small></span>').join("")+'</div>':'<div class="state">Form data unavailable.</div>';
+   if(content)content.innerHTML='<div class="pulse-progress"><div class="pulse-progress-top"><span>SEASON PROGRESS</span><b>'+results.length+(totalRounds?' / '+totalRounds:'')+' <small>GRANDS PRIX</small></b></div><div class="pulse-progress-track"><i style="width:'+pct+'%"></i></div><p>'+(totalRounds?totalRounds-results.length+' rounds remaining':'Completed race count · schedule unavailable')+'</p></div><div class="pulse-form-grid"><article class="pulse-form-card"><div class="pulse-form-label"><span>DRIVER IN FORM</span><small>LAST '+recent.length+' GPs</small></div>'+formMarkup(driver)+'</article><article class="pulse-form-card"><div class="pulse-form-label"><span>CONSTRUCTOR IN FORM</span><small>LAST '+recent.length+' GPs</small></div>'+formMarkup(team)+'</article></div><p class="pulse-data-note">Form is ranked by points scored across the latest '+recent.length+' completed Grands Prix. Sprint points are not included. Source: official race classification data.</p>';
+   const tag=$("pulseSeasonTag");if(tag)tag.textContent=selectedYear+" SEASON";
   }catch(e){
-   if(Number(year)===selectedYear){root.innerHTML='<div class="state">Season honours are temporarily unavailable. Please try again later.</div>';if(milestones)milestones.innerHTML='<div class="state">Season milestones are temporarily unavailable.</div>';if(performance)performance.innerHTML='<div class="state">Season performance is temporarily unavailable.</div>'}
+   if(Number($("year")?.value||year||nowY)===selectedYear&&content)content.innerHTML='<div class="state">Season momentum data is temporarily unavailable. Please refresh later.</div>';
   }
  })();
- return archiveHonoursTask;
+ return championshipPulseTask;
 }
-function renderChampionshipArchive(){renderSeasonHonours()}
 function updateStandingsLeader(type){
  const root=$(type==="teams"?"teams":"drivers"),first=root?.querySelector(".row");
  if(!first)return;
@@ -5212,7 +4994,7 @@ function updateStandingsLeader(type){
  if(nameEl)nameEl.textContent=name;
  if(metaEl)metaEl.textContent=sub;
  if(pointsEl)pointsEl.textContent=pts+" pts";
- renderChampionshipArchive();
+ renderChampionshipPulse();
 }
 ["drivers","teams"].forEach(type=>{
  const root=$(type);
