@@ -5037,6 +5037,57 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
  #v-stats .newsroom-feature h3{font-size:25px!important}
 }
 
+
+/* LAP TIMES — mobile-first hierarchy. Desktop presentation remains unchanged. */
+@media(max-width:600px){
+  #v-tele{display:flex;flex-direction:column}
+  #v-tele>.simple-title-head{order:0}
+  #v-tele>.tools{order:1;display:grid;grid-template-columns:minmax(0,1fr);gap:7px;padding:11px 12px;background:transparent}
+  #v-tele>.tools select{width:100%;min-width:0;min-height:42px;padding:9px 12px;border:1px solid var(--line);border-radius:5px;background:var(--card2);color:var(--txt);font:600 12px Inter}
+  #v-tele>#lapList{order:2;max-height: min(58vh,520px);margin:0 10px 12px;border:1px solid var(--line);border-radius:6px;background:rgba(255,255,255,.012);overflow-y:auto;overscroll-behavior:contain}
+  #v-tele>#lapList .row{grid-template-columns:22px 32px minmax(0,1fr) auto;gap:8px;padding:10px 9px;min-height:58px}
+  #v-tele>#lapList .pos{font:600 14px "IBM Plex Mono",monospace}
+  #v-tele>#lapList .av{width:32px;height:32px;border-radius:5px}
+  #v-tele>#lapList .av img{padding:4px}
+  #v-tele>#lapList .who{min-width:0}
+  #v-tele>#lapList .who b{display:block;font:700 13px/1.15 Inter,sans-serif;white-space:normal;overflow-wrap:anywhere}
+  #v-tele>#lapList .who small{display:block;margin-top:3px;font:10px/1.35 Inter,sans-serif;color:var(--mute)}
+  #v-tele>#lapList .pts{font:600 12px "IBM Plex Mono",monospace;white-space:nowrap}
+  #v-tele>#lapList .lap{grid-template-columns:54px minmax(0,1fr) auto;align-items:center;gap:8px;padding:11px 10px;min-height:48px}
+  #v-tele>#lapList .lap>small:first-child{font:10px "IBM Plex Mono",monospace;letter-spacing:.02em}
+  #v-tele>#lapList .lap b{font:600 14px "IBM Plex Mono",monospace;white-space:nowrap}
+  #v-tele>#lapList .lap>small:last-child{font:10px "IBM Plex Mono",monospace;text-align:right;white-space:nowrap}
+  #v-tele>#lapList .lap.best{background:rgba(227,38,54,.075);box-shadow:inset 2px 0 0 var(--red)}
+  #v-tele>#lapList .lap.best>small:last-child{color:var(--red);font-weight:700;text-transform:uppercase}
+  #v-tele>#lapEditorial{order:3;padding:0 12px 10px}
+  #v-tele>#paceCompare{order:4;padding:0 12px 10px}
+  #v-tele>#sessionCompare{order:5;padding:0 12px 10px}
+  #v-tele>#qualifyingGap{order:6;padding:0 12px 10px}
+  #v-tele>#lapDeltaTool{order:7;margin:0 12px 12px;padding:12px;border-radius:6px}
+  #v-tele>#lapDeltaTool .feature-head h3{font-size:20px}
+  #v-tele>#lapDeltaTool .feature-head p{font-size:10px;line-height:1.45}
+  #v-tele>#lapDeltaTool .feature-tag{font-size:8px}
+  #v-tele>#lapDeltaTool .delta-controls{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  #v-tele>#lapDeltaTool .delta-controls label{min-width:0;font-size:9px}
+  #v-tele>#lapDeltaTool .delta-controls select{width:100%;min-width:0;font-size:11px}
+  #v-tele>#lapDeltaTool .feature-footnote{font-size:9px;line-height:1.45}
+  #v-tele .lap-editorial{padding:12px;border-radius:6px}
+  #v-tele .lap-editorial h3{font-size:19px}
+  #v-tele .lap-editorial-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  #v-tele .lap-editorial-metric{padding:9px;border-radius:5px}
+  #v-tele .lap-editorial-metric b{font-size:16px}
+  #v-tele .pace-compare{border-radius:6px}
+  #v-tele .pace-compare-head{padding:11px 12px}
+}
+@media(max-width:360px){
+  #v-tele>#lapList .row{grid-template-columns:19px 29px minmax(0,1fr) auto;gap:6px;padding:9px 7px}
+  #v-tele>#lapList .av{width:29px;height:29px}
+  #v-tele>#lapList .who b{font-size:12px}
+  #v-tele>#lapList .pts{font-size:11px}
+  #v-tele>#lapList .lap{grid-template-columns:48px minmax(0,1fr) auto;gap:6px;padding:10px 8px}
+  #v-tele>#lapDeltaTool .delta-controls{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
