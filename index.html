@@ -5984,7 +5984,7 @@ function renderBriefingRecapSessionStatus(){
   box.innerHTML=briefingRecapBaseHtml;
  }
 }
-async function briefingRecapStats(margin,fastestTime,fastestDriver){
+function briefingRecapStats(margin,fastestTime,fastestDriver){
  const items=[["WINNING MARGIN",margin||"Not published"],["FASTEST LAP",fastestTime||"Not published"]];
  return '<div class="briefing-recap-stats">'+items.map(([label,value])=>'<div class="briefing-recap-stat"><span>'+label+'</span><b>'+esc(value)+'</b>'+(label==="FASTEST LAP"&&fastestDriver?'<small>'+esc(fastestDriver)+'</small>':'')+'</div>').join("")+'</div>';
 }
@@ -5993,7 +5993,7 @@ async function loadBriefingRecap(force=false){
  const y=nowY;
  if(!force&&briefingRecapKey===String(y)&&box.dataset.loaded==="true")return;
  briefingRecapBusy=true;briefingRecapKey=String(y);
- const restored=await restoreHomeCard("race-recap-"+y,box,"race recap");
+ const restored=await restoreHomeCard("race-recap-v2-"+y,box,"race recap");
  if(!restored)box.innerHTML='<div class="state">Checking the latest completed Grand Prix…</div>';
  try{
   // Prefer OpenF1's current-season race sessions and classification. Jolpica-F1
@@ -6020,7 +6020,7 @@ async function loadBriefingRecap(force=false){
     const archiveFast=archiveFastResult?.FastestLap;
     const archiveStats=briefingRecapStats(archiveMargin,archiveFast?.Time?.time,archiveFastResult?name(archiveFastResult):null);
     briefingRecapBaseHtml='<div class="briefing-recap-top"><div><div class="briefing-statusline"><span class="briefing-live-dot"></span><span>ARCHIVED RESULT</span></div><p class="briefing-lead">'+esc(gp)+'</p><p>'+date.toLocaleDateString(undefined,{day:"numeric",month:"long",year:"numeric"})+' · Winner: <strong>'+esc(name(winner))+'</strong>'+(winner.Constructor?.name?" · "+esc(winner.Constructor.name):"")+'</p></div><span class="briefing-recap-points">'+(winner.points?esc(winner.points)+" pts":"")+'</span></div><div class="briefing-verdict"><p class="briefing-verdict-kicker">THE VERDICT</p><p class="briefing-recap-summary">'+esc(name(winner))+' takes the win in the '+esc(gp)+'. This snapshot comes from the bundled season archive; check official results for any later corrections.</p></div><p class="briefing-podium-label">PODIUM</p><div class="briefing-podium">'+podiumLine+'</div>'+archiveStats+'<p class="briefing-recap-foot">Bundled season archive · no live API required for this result.</p><a class="briefing-result-link" href="https://www.formula1.com/en/results/'+y+'/races" target="_blank" rel="noopener noreferrer">View official F1 results ↗</a>';
-    box.dataset.loaded="true";renderBriefingRecapSessionStatus();saveHomeCard("race-recap-"+y,box);return;
+    box.dataset.loaded="true";renderBriefingRecapSessionStatus();saveHomeCard("race-recap-v2-"+y,box);return;
    }
   }catch(archiveError){console.warn("Local race recap archive unavailable; trying live sources",archiveError)}
   try{
@@ -6047,7 +6047,7 @@ async function loadBriefingRecap(force=false){
       const date=new Date(session.date_start);
       const verdict=second&&typeof second.gap_to_leader==="number"?driverName(winner)+" wins the "+gp+", finishing "+second.gap_to_leader.toFixed(3)+" seconds ahead of "+driverName(second)+".":driverName(winner)+" takes victory in the "+gp+".";
       briefingRecapBaseHtml='<div class="briefing-recap-top"><div><div class="briefing-statusline"><span class="briefing-live-dot"></span><span>RESULT AVAILABLE</span></div><p class="briefing-lead">'+esc(gp)+'</p><p>'+(!Number.isNaN(+date)?date.toLocaleDateString(undefined,{day:"numeric",month:"long",year:"numeric"}):"")+' · Winner: <strong>'+esc(driverName(winner))+'</strong>'+(team?" · "+esc(team):"")+'</p></div><span class="briefing-recap-points">'+(winner.points?esc(winner.points)+" pts":"")+'</span></div><div class="briefing-verdict"><p class="briefing-verdict-kicker">THE VERDICT</p><p class="briefing-recap-summary">'+esc(verdict)+'</p></div><p class="briefing-podium-label">PODIUM</p><div class="briefing-podium">'+podiumLine+'</div>'+openStats+'<p class="briefing-recap-foot">Based on the latest completed Grand Prix classification from OpenF1.</p><a class="briefing-result-link" href="https://www.formula1.com/en/results/'+y+'/races" target="_blank" rel="noopener noreferrer">View official F1 results ↗</a>';
-      box.dataset.loaded="true";renderBriefingRecapSessionStatus();saveHomeCard("race-recap-"+y,box);return;
+      box.dataset.loaded="true";renderBriefingRecapSessionStatus();saveHomeCard("race-recap-v2-"+y,box);return;
      }
     }
    }
@@ -6081,11 +6081,11 @@ async function loadBriefingRecap(force=false){
    ?driverName(winner)+" takes the win"+(team?" for "+team:"")+", beating "+driverName(second)+" by "+gap.replace(/^\+/,"")+". The official result gives us the winning margin."
    :driverName(winner)+" takes P1"+(team?" for "+team:"")+" in the "+gp+". The published result does not provide a clear time gap to P2, so Redline won't label the win dominant or close without evidence.";
   briefingRecapBaseHtml='<div class="briefing-recap-top"><div><div class="briefing-statusline"><span class="briefing-live-dot"></span><span>RESULT AVAILABLE</span></div><p class="briefing-lead">'+esc(gp)+'</p><p>'+date.toLocaleDateString(undefined,{day:"numeric",month:"long",year:"numeric"})+' · Winner: <strong>'+esc(driverName(winner))+'</strong>'+(team?" · "+esc(team):"")+'</p></div><span class="briefing-recap-points">'+(winner.points?esc(winner.points)+" pts":"")+'</span></div><div class="briefing-verdict"><p class="briefing-verdict-kicker">THE VERDICT</p><p class="briefing-recap-summary">'+esc(verdict)+'</p></div><p class="briefing-podium-label">PODIUM</p><div class="briefing-podium">'+podiumLine+'</div>'+jolStats+'<p class="briefing-recap-foot">Based on the Jolpica-F1 race-results feed. The recap only appears when the newest completed Grand Prix has a published classification.</p><a class="briefing-result-link" href="https://www.formula1.com/en/results/'+y+'/races" target="_blank" rel="noopener noreferrer">View official F1 results ↗</a>';
-  box.dataset.loaded="true";renderBriefingRecapSessionStatus();saveHomeCard("race-recap-"+y,box);
+  box.dataset.loaded="true";renderBriefingRecapSessionStatus();saveHomeCard("race-recap-v2-"+y,box);
  }catch(e){
   if(box.dataset.loaded==="saved"){console.warn("Keeping saved Home race recap while offline",e);return}
   briefingRecapBaseHtml='<p class="briefing-lead">Latest Grand Prix results could not be verified.</p><p>Redline could not confirm the newest completed Grand Prix classification, so it will not show an older race as if it were current. Refresh in a moment or check the official results page.</p><a class="briefing-result-link" href="https://www.formula1.com/en/results/'+y+'/races" target="_blank" rel="noopener noreferrer">Check official F1 results ↗</a>';
-  box.dataset.loaded="true";renderBriefingRecapSessionStatus();saveHomeCard("race-recap-"+y,box);
+  box.dataset.loaded="true";renderBriefingRecapSessionStatus();saveHomeCard("race-recap-v2-"+y,box);
  }finally{briefingRecapBusy=false}
 }
 const briefingRefresh=$("briefingRefresh");
