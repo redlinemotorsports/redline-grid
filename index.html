@@ -783,7 +783,6 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
   #tabs button[data-v="stats"]::before{content:"◈"}
   #tabs button[data-v="cal"]::before{content:"▦"}
   #tabs button[data-v="standings"]::before{content:"▤"}
-  #tabs button[data-v="race"]::before{content:"◉"}
   #tabs button[data-v="live"]::before{content:"⌁"}
   #tabs button[data-v="tele"]::before{content:"≋"}
   #tabs button[aria-selected="true"]{color:var(--txt);background:var(--soft)}
@@ -4867,8 +4866,7 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
   <button role="tab" aria-selected="false" data-v="timing"><span class="nav-index" aria-hidden="true">02</span><span>Live Timing</span></button>
   <button role="tab" aria-selected="false" data-v="drivers"><span class="nav-index" aria-hidden="true">03</span><span>Newsroom</span></button>
   <button role="tab" aria-selected="false" data-v="standings"><span class="nav-index" aria-hidden="true">04</span><span>Standings</span></button>
-  <button role="tab" aria-selected="false" data-v="race"><span class="nav-index" aria-hidden="true">05</span><span>Race</span></button>
-  <button role="tab" aria-selected="false" data-v="data"><span class="nav-index" aria-hidden="true">06</span><span>Data</span></button>
+  <button role="tab" aria-selected="false" data-v="data"><span class="nav-index" aria-hidden="true">05</span><span>Data</span></button>
  </nav>
  <div class="data-race-context" id="dataRacePicker" hidden><span>SEASON / GRAND PRIX</span><button class="pickbtn" id="pick" type="button" aria-haspopup="dialog"><span>Select a Grand Prix</span><span>CHANGE ↗</span></button></div>
  <div id="sub" hidden></div>
@@ -5091,14 +5089,13 @@ $("year").onchange=()=>{renderChampionshipPulse(true);loadYear(+$("year").value)
 const SUBS={
  home:[["news","Overview"],["cal","Schedule"]],
  drivers:[["headlines","Headlines"],["fia","FIA documents"]],
- race:[["control","Race control"],["radio","Team radio"],["weather","Track conditions"]],
- data:[["results","Results"],["live","Strategy"],["laps","Lap times"],["car","Car data"]]
+ data:[["results","Results"],["control","Race control"],["radio","Team radio"],["weather","Track conditions"],["live","Strategy"],["laps","Lap times"],["car","Car data"]]
 };
-const memo={home:"news",timing:"timing",standings:"standings",race:"control",drivers:"headlines",data:"results"};let curSub="news";
+const memo={home:"news",timing:"timing",standings:"standings",drivers:"headlines",data:"results"};let curSub="news";
 const TOP_ALIAS={
  news:["home","news"],cal:["home","cal"],stats:["drivers","stats"],
  live:["data","live"],tele:["data","laps"],laps:["data","laps"],car:["data","car"],
- result:["data","results"],control:["race","control"],radio:["race","radio"],weather:["race","weather"]
+ result:["data","results"],race:["data","control"],control:["data","control"],radio:["data","radio"],weather:["data","weather"]
 };
 function show(top,sub){
  if(TOP_ALIAS[top]){if(!sub)sub=TOP_ALIAS[top][1];top=TOP_ALIAS[top][0]}
