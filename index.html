@@ -267,62 +267,6 @@ select{background:var(--card2);color:var(--txt);border:1px solid var(--line);bor
  .control-order{display:block;width:100%;min-height:36px;margin:0;text-align:center}
 }
 
-.paddock-archive{overflow:hidden}
-.paddock-hero{position:relative;isolation:isolate;overflow:hidden;padding:22px clamp(18px,3vw,30px) 0;background:#15171c;color:#f7f7f8;border-bottom:3px solid var(--red)}
-.paddock-hero:before{content:"";position:absolute;z-index:-1;right:-38px;top:55px;width:290px;height:290px;border:1px solid #ffffff12;border-radius:50%;box-shadow:0 0 0 28px #ffffff06,0 0 0 58px #ffffff04}
-.paddock-hero:after{content:"";position:absolute;z-index:-1;right:0;top:0;width:36%;height:100%;background:repeating-linear-gradient(135deg,transparent 0 18px,#ffffff06 19px 20px);mask-image:linear-gradient(90deg,transparent,#000)}
-.paddock-hero-top,.paddock-hero-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.paddock-mark{font:800 11px Inter;letter-spacing:.16em}.paddock-mark span{color:#ef4444}
-.paddock-live{display:flex;align-items:center;gap:7px;color:#c8cbd2;font:600 9px Inter;letter-spacing:.12em}
-.paddock-live i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#70d6a1;box-shadow:0 0 0 3px #70d6a11f}
-.paddock-hero-copy{padding:clamp(26px,4vw,36px) 0 25px;max-width:620px}
-.paddock-hero .briefing-kicker{color:var(--red)}
-.paddock-hero .paddock-hero-copy h2{font:700 clamp(26px,4vw,34px)/1.1 Inter,sans-serif;letter-spacing:-.035em;margin:0;color:#fff;text-transform:none;border:0;padding:0}
-.paddock-hero-copy .briefing-intro{max-width:590px;color:#c3c6ce;font-size:13px;margin-top:8px;line-height:1.5}
-.paddock-hero-bottom{position:relative;margin:0 -2px;padding:14px 0;border-top:1px solid #ffffff1c}
-.paddock-hero-bottom>div{display:flex;flex-direction:column;gap:5px;min-width:0}
-.paddock-meta-label{color:#9ea3af;font:600 9px Inter;letter-spacing:.13em}
-.paddock-hero-bottom strong{font:600 12px Inter;color:#fff;overflow-wrap:anywhere}
-.paddock-primary-link{display:inline-flex;align-items:center;gap:16px;flex:0 0 auto;padding:11px 13px;background:#f0444b;color:white;text-decoration:none;font:700 10px Inter;letter-spacing:.04em;border-radius:6px}
-.paddock-primary-link span{font-size:15px}
-.paddock-body{padding:20px clamp(14px,2.5vw,24px) 18px}
-.paddock-section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:12px}
-.paddock-section-heading h3{font:750 21px/1.1 Inter;letter-spacing:-.04em;margin:0;color:var(--txt)}
-.paddock-section-note,.paddock-record-count{color:var(--mute);font:600 9px Inter;letter-spacing:.1em;white-space:nowrap}
-.paddock-categories{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-.paddock-categories button{display:flex;align-items:flex-start;gap:9px;min-width:0;position:relative;text-align:left;padding:13px 10px;border:1px solid var(--line);border-radius:10px;background:var(--soft);color:var(--txt);cursor:pointer;transition:border-color .15s,background .15s}
-.paddock-categories button[aria-pressed=true]{border-color:var(--red);background:color-mix(in srgb,var(--red) 7%,var(--soft));box-shadow:inset 0 2px var(--red)}
-.paddock-category-icon{display:grid;place-items:center;flex:0 0 27px;height:27px;border-radius:7px;background:var(--card2);color:var(--red);font:700 17px Inter}
-.paddock-categories button>span:nth-child(2){display:flex;flex-direction:column;gap:5px;min-width:0}
-.paddock-categories b{font:700 11px Inter}
-.paddock-categories small{color:var(--mute);font:10px/1.35 Inter}
-.paddock-category-arrow{margin-left:auto;color:var(--mute);font-size:11px}
-.paddock-latest-heading{margin-top:26px}
-.paddock-latest-heading .documents-kicker{margin-bottom:6px}
-.paddock-latest-heading h3{margin-bottom:6px}
-.paddock-latest-heading p:last-child{color:var(--mute);font-size:11px;line-height:1.5}
-.documents-tools{display:flex;align-items:center;gap:9px;padding:10px 12px;margin:0 0 10px;border:1px solid var(--line);border-radius:9px;background:var(--card2)}
-.paddock-search-icon{font-size:22px;line-height:1;color:var(--mute)}
-.documents-search{flex:1;min-width:0;width:100%;background:transparent;color:var(--txt);border:0;outline:none;padding:4px 0;font:12px Inter}
-.documents-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.document-card{display:flex;flex-direction:column;min-width:0;padding:15px;border:1px solid var(--line);border-radius:10px;background:var(--soft);gap:10px;transition:border-color .15s,transform .15s}
-.document-card:hover{border-color:color-mix(in srgb,var(--red) 55%,var(--line));transform:translateY(-1px)}
-.document-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--red);font:700 9px Inter;letter-spacing:.1em;text-transform:uppercase}
-.document-number{color:var(--mute);font:600 9px Inter;letter-spacing:.04em}
-.document-card h4{font:750 14px/1.35 Inter;letter-spacing:-.02em;color:var(--txt)}
-.document-card p{color:var(--mute);font-size:11px;line-height:1.55;flex:1}
-.document-card-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
-.document-card-meta span{padding:4px 6px;border:1px solid var(--line);border-radius:4px;color:var(--mute);font:600 9px Inter}
-.document-card a{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--txt);font:700 10px Inter;text-decoration:none;padding-top:10px;border-top:1px solid var(--line)}
-.document-card a span{color:var(--red);font-size:15px}
-.documents-empty{grid-column:1/-1;padding:28px 12px;text-align:center;color:var(--mute);font-size:12px;border:1px dashed var(--line);border-radius:10px}
-.paddock-footer{display:grid;grid-template-columns:auto 1fr;gap:8px 11px;align-items:start;margin-top:16px;padding:14px;border:1px solid var(--line);border-radius:10px;background:var(--card2)}
-.paddock-footer-icon{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--soft);color:var(--red);font-size:17px}
-.paddock-footer p{color:var(--mute);font-size:11px;line-height:1.55}
-.paddock-footer p strong{color:var(--txt)}
-.paddock-footer>a{grid-column:2;color:var(--txt);font:700 10px Inter;text-decoration:none}
-@media(max-width:760px){.paddock-categories{grid-template-columns:repeat(2,minmax(0,1fr))}.paddock-hero:before{right:-100px}.paddock-hero:after{width:48%}}
-@media(max-width:520px){.paddock-hero{padding:17px 15px 0}.paddock-hero-copy{padding:28px 0 22px}.paddock-hero .paddock-hero-copy h2{font-size:clamp(26px,4vw,34px)}.paddock-hero-copy .briefing-intro{font-size:12px}.paddock-hero-bottom{align-items:flex-start;flex-direction:column}.paddock-primary-link{width:100%;justify-content:space-between}.paddock-body{padding:17px 12px 13px}.paddock-section-heading h3{font-size:19px}.paddock-section-note{display:none}.paddock-categories{gap:7px}.paddock-categories button{padding:11px 9px;gap:7px}.paddock-category-icon{flex-basis:24px;height:24px}.paddock-categories b{font-size:10px}.paddock-categories small{font-size:9px}.paddock-category-arrow{display:none}.paddock-latest-heading{margin-top:23px}.paddock-latest-heading .paddock-record-count{font-size:8px}.documents-list{grid-template-columns:minmax(0,1fr);gap:8px}.document-card{padding:13px}.paddock-footer{padding:12px}}
 .msg.event-yellow time,.msg.event-red time,.msg.event-green time,.msg.event-blue time{font-weight:700}
 @media(max-width:480px){.msg{margin:6px;padding:10px;grid-template-columns:56px minmax(0,1fr);gap:8px;font-size:12px}.msg time{font-size:11px}.msg .msg-meta{font-size:9px}}
 .state{padding:30px 18px;text-align:center;color:var(--mute)}
@@ -797,11 +741,11 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
 .panel.pane>.stats-head{padding:22px 20px 18px;align-items:flex-end}
 .panel.pane>.stats-head .stats-kicker{font:600 10px Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:7px}
 .panel.pane>.stats-head .stats-intro{color:var(--mute);font-size:13px;margin-top:8px;max-width:590px;line-height:1.5}
-.panel.pane:not(#v-news):not(#v-live):not(#v-stats):not(#v-documents):not(#v-standings)>h2{display:flex;flex-direction:column;align-items:flex-start;gap:7px;padding:22px 20px 18px;border-bottom:1px solid var(--line);background:linear-gradient(120deg,rgba(255,30,0,.10),transparent 62%);font:700 clamp(26px,4vw,34px)/1.1 Inter;letter-spacing:-.035em;text-transform:none;color:var(--txt)}
-.panel.pane:not(#v-news):not(#v-live):not(#v-stats):not(#v-documents):not(#v-standings)>h2:before{content:"REDLINE GRID / RACE WEEKEND";font:600 10px Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+.panel.pane:not(#v-news):not(#v-live):not(#v-stats):not(#v-standings)>h2{display:flex;flex-direction:column;align-items:flex-start;gap:7px;padding:22px 20px 18px;border-bottom:1px solid var(--line);background:linear-gradient(120deg,rgba(255,30,0,.10),transparent 62%);font:700 clamp(26px,4vw,34px)/1.1 Inter;letter-spacing:-.035em;text-transform:none;color:var(--txt)}
+.panel.pane:not(#v-news):not(#v-live):not(#v-stats):not(#v-standings)>h2:before{content:"REDLINE GRID / RACE WEEKEND";font:600 10px Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
 #v-cal>h2:before{content:"REDLINE GRID / SEASON CALENDAR"!important}
 #v-tele>h2:before{content:"REDLINE GRID / TELEMETRY"!important}
-#v-result>h2:not(.race-tab-title):before,#v-control>h2:before,#v-radio>h2:before,#v-weather>h2:before{content:"RACE CONTROL"!important}
+#v-result>h2:not(.race-tab-title):before,#v-control>h2:before,#v-radio>h2:before,#v-weather>h2:before{content:"REDLINE GRID / RACE WEEKEND"!important}
 .pane.grid#v-standings>section.panel h2{font:600 13px Inter;letter-spacing:.14em;text-transform:uppercase;padding:14px 18px;background:transparent;color:var(--mute)}
 @media(max-width:820px){.strategy-hero>div:first-child{flex:0 0 auto}.strategy-hero{gap:6px}}@media(max-width:640px){.strategy-pane .briefing-head{padding:18px 16px 8px}.strategy-summary{padding-top:8px}.pane.grid#v-standings{grid-template-columns:minmax(0,1fr)}.pane.grid#v-standings>.standings-head{grid-column:1}.panel.pane>.stats-head{padding:20px 16px 16px;gap:12px;flex-wrap:wrap}.panel.pane:not(#v-news):not(#v-live):not(#v-stats):not(#v-documents):not(#v-standings)>h2{padding:20px 16px 16px}}
 .lap-editorial-wrap{padding:0 18px 18px}.lap-editorial{margin:0;padding:18px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(135deg,var(--soft),var(--card));position:relative;overflow:hidden}.lap-editorial:before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--red)}.lap-editorial-kicker{margin:0 0 7px;color:var(--red);font:700 10px Inter;letter-spacing:.16em;text-transform:uppercase}.lap-editorial h3{margin:0 0 8px;font:700 20px/1.2 Inter;letter-spacing:-.025em}.lap-editorial p{margin:0 0 10px;color:var(--mute);line-height:1.6}.lap-editorial p:last-child{margin-bottom:0}.lap-editorial strong{color:var(--txt)}.lap-editorial-note{font-size:12px;opacity:.9}.lap-editorial-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:13px 0}.lap-editorial-metric{min-width:0;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:10px 12px}.lap-editorial-metric span{display:block;color:var(--mute);font-size:10px;letter-spacing:.08em;text-transform:uppercase}.lap-editorial-metric b{display:block;margin-top:3px;font:600 20px "IBM Plex Mono",monospace}.lap-editorial-list{display:grid;gap:7px;margin:12px 0}.lap-editorial-row{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:13px}.lap-editorial-row span{color:var(--mute);min-width:0}.lap-editorial-row b{font-family:"IBM Plex Mono",monospace;white-space:nowrap}@media(max-width:640px){.lap-editorial-wrap{padding:0 12px 14px}.lap-editorial{padding:15px}.lap-editorial h3{font-size:18px}.lap-editorial-metric b{font-size:18px}}
@@ -3875,6 +3819,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-stats .newsroom-card h3{margin:0;font:650 16px/1.2 "Barlow Condensed",Manrope,sans-serif}
 #v-stats .newsroom-card .newsroom-meta{margin-top:auto;padding-top:3px;font-size:8px}
 #v-stats .newsroom-empty{padding:22px 14px;border:1px solid var(--line);border-radius:8px;color:var(--mute);font-size:12px;line-height:1.6}
+#v-stats .newsroom-fia-strip{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;margin:18px 0 4px;padding:15px 16px;border:1px solid var(--line);border-left:3px solid var(--red);border-radius:9px;background:var(--card2);color:var(--txt);text-decoration:none;transition:border-color .15s,background .15s}#v-stats .newsroom-fia-strip:hover{border-color:var(--red);background:var(--hover)}#v-stats .newsroom-fia-mark{font:700 9px "IBM Plex Mono",monospace;letter-spacing:.1em;color:var(--red);white-space:nowrap}#v-stats .newsroom-fia-copy{display:grid;gap:4px;min-width:0}#v-stats .newsroom-fia-copy b{font:700 12px Inter}#v-stats .newsroom-fia-copy small{font:11px/1.45 Inter;color:var(--mute)}#v-stats .newsroom-fia-open{font:700 9px "IBM Plex Mono",monospace;letter-spacing:.04em;white-space:nowrap;color:var(--txt)}@media(max-width:600px){#v-stats .newsroom-fia-strip{grid-template-columns:1fr auto;gap:8px 10px;padding:13px}#v-stats .newsroom-fia-mark{grid-column:1/-1}#v-stats .newsroom-fia-copy b{font-size:11px}#v-stats .newsroom-fia-copy small{font-size:10px}#v-stats .newsroom-fia-open{font-size:8px;white-space:normal;text-align:right}}
 #v-stats .newsroom-sources{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding-top:10px;border-top:1px solid var(--line);color:var(--mute);font-size:9px}
 #v-stats .newsroom-sources a{color:var(--mute);text-decoration:none}
 #v-stats .newsroom-sources a:hover{color:var(--red)}
@@ -4930,27 +4875,7 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
   <div class="race-result-table"><div class="race-result-labels" aria-hidden="true"><span>POS</span><span>DRIVER</span><span>GAP / STATUS</span><span>PTS</span></div><div id="result"><div class="state">Loading…</div></div></div></section>
  <section class="panel pane" id="v-control" hidden><div class="simple-title-head"><h2>Race control</h2><p class="briefing-intro">Flags, incidents and official decisions from the session.</p></div><div id="controlInsights" class="control-insights" aria-live="polite"><div class="state">Building race-control summary…</div></div><div class="control-tools" id="controlTools" aria-label="Filter race control messages"><div class="control-filters" role="group" aria-label="Message category"><button type="button" data-control-filter="all" aria-pressed="true">All</button><button type="button" data-control-filter="flags" aria-pressed="false">Flags</button><button type="button" data-control-filter="safety" aria-pressed="false">Safety Car</button><button type="button" data-control-filter="incidents" aria-pressed="false">Incidents</button><button type="button" data-control-filter="other" aria-pressed="false">Other</button></div><button type="button" class="control-order" id="controlOrder" aria-label="Change message order">Newest first ↓</button></div><div class="feature-search"><label for="controlSearch">Search race-control messages</label><input id="controlSearch" type="search" placeholder="e.g. driver, turn, penalty…" autocomplete="off"></div><div class="scroll" id="control"><div class="state">Loading…</div></div></section>
  <section class="panel pane" id="v-radio" hidden><div class="simple-title-head"><h2>Team radio</h2><p class="briefing-intro">Driver messages and team communications from the track.</p></div><div class="tools"><select id="rsess" aria-label="Session"></select></div><div class="feature-search"><label for="radioSearch">Search available radio context</label><input id="radioSearch" type="search" placeholder="Search driver, message or context…" autocomplete="off"></div><div class="scroll" id="radioList"><div class="state">Loading…</div></div></section>
- <section class="panel pane" id="v-weather" hidden><div class="simple-title-head"><h2>Weather</h2><p class="briefing-intro">Track conditions and session forecasts for the race weekend.</p></div><div class="tools"><select id="wsess" aria-label="Session"></select></div><div id="weatherView"><div class="state">Loading…</div></div><section class="weather-strategy" id="weatherStrategy"><div class="feature-head"><div><p class="briefing-kicker">WEATHER / STRATEGY DESK</p><h3>What the conditions can mean</h3><p>Guidance based on the weather readings available for the selected session.</p></div><span class="feature-tag">CONTEXT, NOT PREDICTION</span></div><div class="weather-guides"><article><b>Rain readings</b><p>Recorded rain can reduce grip and increase the relevance of intermediate or wet tyres. A dry sample does not guarantee a dry track throughout the session.</p></article><article><b>Track vs air temperature</b><p>A warmer track can increase tyre-energy demands, but compound, setup, traffic and stint length also matter.</p></article><article><b>Wind and humidity</b><p>Wind can affect balance and braking references; humidity alone is not a reliable rain forecast.</p></article></div><p class="feature-footnote">These are general interpretation notes, not a tyre recommendation. If session weather data is missing, no conditions are inferred.</p></section></section>
- <section class="panel pane paddock-archive" id="v-documents" hidden>
-  <header class="paddock-hero">
-   <div class="paddock-hero-top"><span class="paddock-mark">RG<span> / </span>ARCHIVE</span><span class="paddock-live"><i></i> OFFICIAL SOURCES</span></div>
-   <div class="paddock-hero-copy"><p class="briefing-kicker">OFFICIAL RECORDS</p><h2>Paddock Archive</h2><p class="briefing-intro">Official decisions, technical checks and race-weekend records — all in one place.</p></div>
-   <div class="paddock-hero-bottom"><div><span class="paddock-meta-label">RACE DESK CONTEXT</span><strong id="documentsRace">Selected Grand Prix</strong></div><a href="https://www.fia.com/documents/championships/fia-formula-one-world-championship-14/season" target="_blank" rel="noopener noreferrer" class="paddock-primary-link">OPEN FIA ARCHIVE <span>↗</span></a></div>
-  </header>
-  <div class="paddock-body">
-   <div class="paddock-section-heading"><div><p class="documents-kicker">01 / EXPLORE BY FILE TYPE</p><h3>Find your angle</h3></div><span class="paddock-section-note">FILTER THE RECORD</span></div>
-   <div class="paddock-categories" id="documentFilters" role="group" aria-label="Filter archive documents">
-    <button type="button" data-doc-filter="all" aria-pressed="true"><span class="paddock-category-icon">▤</span><span><b>All files</b><small>Every document</small></span><span class="paddock-category-arrow">↗</span></button>
-    <button type="button" data-doc-filter="stewards" aria-pressed="false"><span class="paddock-category-icon">§</span><span><b>Stewards</b><small>Decisions &amp; infringements</small></span><span class="paddock-category-arrow">↗</span></button>
-    <button type="button" data-doc-filter="technical" aria-pressed="false"><span class="paddock-category-icon">⌁</span><span><b>Technical</b><small>Checks &amp; compliance</small></span><span class="paddock-category-arrow">↗</span></button>
-    <button type="button" data-doc-filter="results" aria-pressed="false"><span class="paddock-category-icon">▥</span><span><b>Classifications</b><small>Results &amp; points</small></span><span class="paddock-category-arrow">↗</span></button>
-   </div>
-   <div class="paddock-section-heading paddock-latest-heading"><div><p class="documents-kicker">02 / LATEST VERIFIED FILES</p><h3>From the document room</h3><p>Direct links to official FIA PDFs. These examples are from the 2026 Singapore Grand Prix.</p></div><span class="paddock-record-count" id="documentCount">05 RECORDS</span></div>
-   <div class="documents-tools"><span class="paddock-search-icon">⌕</span><input class="documents-search" id="documentSearch" type="search" placeholder="Search titles, car numbers or document types…" aria-label="Search archive documents"></div>
-   <div class="documents-list" id="documentList"></div>
-   <div class="paddock-footer"><span class="paddock-footer-icon">↗</span><p><strong>Primary sources, always.</strong> Redline Grid links to the FIA's original publications. Document summaries are brief orientation notes, not substitutes for the official ruling or report.</p><a href="https://www.fia.com/documents/championships/fia-formula-one-world-championship-14/season" target="_blank" rel="noopener noreferrer">Browse full FIA archive ↗</a></div>
-  </div>
- </section>
+ <section class="panel pane" id="v-weather" hidden><div class="simple-title-head"><h2>Track Conditions</h2><p class="briefing-intro">Recorded session weather and circuit conditions, with context on how they shaped the running.</p></div><div class="tools"><select id="wsess" aria-label="Session"></select></div><div id="weatherView"><div class="state">Loading…</div></div><section class="weather-strategy" id="weatherStrategy"><div class="feature-head"><div><p class="briefing-kicker">WEATHER / STRATEGY DESK</p><h3>What the conditions can mean</h3><p>Guidance based on the weather readings available for the selected session.</p></div><span class="feature-tag">CONTEXT, NOT PREDICTION</span></div><div class="weather-guides"><article><b>Rain readings</b><p>Recorded rain can reduce grip and increase the relevance of intermediate or wet tyres. A dry sample does not guarantee a dry track throughout the session.</p></article><article><b>Track vs air temperature</b><p>A warmer track can increase tyre-energy demands, but compound, setup, traffic and stint length also matter.</p></article><article><b>Wind and humidity</b><p>Wind can affect balance and braking references; humidity alone is not a reliable rain forecast.</p></article></div><p class="feature-footnote">These are general interpretation notes, not a tyre recommendation. If session weather data is missing, no conditions are inferred.</p></section></section>
  <section class="panel pane" id="v-tele" hidden><div class="simple-title-head"><h2>Telemetry</h2><p class="briefing-intro">Lap times, sector performance and driver comparisons.</p></div>
   <div class="tools"><select id="lsess" aria-label="Session"></select><select id="ldrv" aria-label="Driver"></select><select id="clap" aria-label="Lap" hidden></select></div>
   <section class="panel lap-delta-tool" id="lapDeltaTool"><div class="feature-head"><div><p class="briefing-kicker">TELEMETRY / COMPARISON</p><h3>Lap Delta Explorer</h3><p>Compare the fastest recorded lap for two drivers in the selected session.</p></div><span class="feature-tag">SESSION DATA</span></div><div class="delta-controls"><label>Driver A<select id="deltaDriverA" aria-label="First driver for lap delta"></select></label><label>Driver B<select id="deltaDriverB" aria-label="Second driver for lap delta"></select></label></div><div class="delta-result" id="lapDeltaResult" aria-live="polite">Waiting for timed lap data…</div><p class="feature-footnote">Uses recorded lap durations only. Different tyre, fuel, traffic and track conditions are not normalized.</p></section>
@@ -5110,14 +5035,14 @@ for(let y=nowY;y>=1950;y--)$("year").insertAdjacentHTML("beforeend",`<option>${y
 $("year").onchange=()=>{renderChampionshipPulse(true);loadYear(+$("year").value)};
 const SUBS={
  home:[["news","Overview"],["cal","Schedule"]],
- race:[["result","Results"],["control","Race control"],["radio","Team radio"],["weather","Weather"],["documents","Documents"]],
+ race:[["result","Results"],["control","Race control"],["radio","Team radio"],["weather","Track conditions"]],
  data:[["live","Strategy"],["laps","Lap times"],["car","Car data"]]
 };
 const memo={home:"news",timing:"timing",standings:"standings",race:"result",drivers:"stats",data:"live"};let curSub="news";
 const TOP_ALIAS={
  news:["home","news"],cal:["home","cal"],stats:["drivers","stats"],
  live:["data","live"],tele:["data","laps"],laps:["data","laps"],car:["data","car"],
- result:["race","result"],control:["race","control"],radio:["race","radio"],weather:["race","weather"],documents:["race","documents"]
+ result:["race","result"],control:["race","control"],radio:["race","radio"],weather:["race","weather"]
 };
 function show(top,sub){
  if(TOP_ALIAS[top]){if(!sub)sub=TOP_ALIAS[top][1];top=TOP_ALIAS[top][0]}
@@ -5243,29 +5168,6 @@ function updateStandingsLeader(type){
  const root=$(type);
  if(root){new MutationObserver(()=>updateStandingsLeader(type)).observe(root,{childList:true,subtree:true});updateStandingsLeader(type)}
 });
-/* Paddock Archive: verified examples linking directly to official FIA PDFs. */
-const documentSources=[
- {type:"results",tag:"CHAMPIONSHIP",number:"DOC 91",title:"Championship Points",desc:"Updated drivers’ and teams’ championship points following the Singapore Grand Prix.",meta:["11 Oct 2026","Points"],url:"https://www.fia.com/system/files/decision-document/2026_singapore_grand_prix_-_championship_points.pdf"},
- {type:"results",tag:"CLASSIFICATION",number:"DOC 90",title:"Final Race Classification",desc:"The official final classification for the Singapore Grand Prix.",meta:["11 Oct 2026","Race"],url:"https://www.fia.com/system/files/decision-document/2026_singapore_grand_prix_-_final_race_classification.pdf"},
- {type:"technical",tag:"TECHNICAL DELEGATE",number:"DOC 89",title:"Race Scrutineering Report",desc:"Technical checks and compliance inspections carried out before and after the race.",meta:["11 Oct 2026","Technical"],url:"https://www.fia.com/system/files/decision-document/2026_singapore_grand_prix_-_race_scrutineering.pdf"},
- {type:"stewards",tag:"INFRINGEMENT",number:"DOC 88",title:"Race Deleted Lap Times",desc:"Stewards’ report covering lap times deleted for cars not using the track at specified turns.",meta:["11 Oct 2026","Track limits"],url:"https://www.fia.com/system/files/decision-document/2026_singapore_grand_prix_-_infringement_-_race_deleted_lap_times.pdf"},
- {type:"stewards",tag:"STEWARDS' DECISION",number:"DOC 86",title:"Car 44 — Leaving the Track",desc:"The stewards’ decision concerning an alleged track-limits infringement and gaining an advantage.",meta:["11 Oct 2026","Car 44"],url:"https://www.fia.com/system/files/decision-document/2026_singapore_grand_prix_-_decision_-_car_44_-_alleged_leaving_the_track_and_gaining_an_advantage.pdf"}
-];
-let documentFilter="all";
-function renderDocuments(){
- const host=$("documentList");if(!host)return;
- const query=($("documentSearch")?.value||"").trim().toLowerCase();
- const list=documentSources.filter(d=>(documentFilter==="all"||d.type===documentFilter)&&[d.tag,d.number,d.title,d.desc,d.type,...d.meta].join(" ").toLowerCase().includes(query));
- $("documentFilters")?.querySelectorAll("[data-doc-filter]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.docFilter===documentFilter)));
- const race=$("documentsRace");
- if(race)race.textContent=cur?(cur.country_name||cur.location||"Selected Grand Prix")+" · "+new Date(cur.date_start).toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"}):"Choose a Grand Prix from the season list";
- const count=$("documentCount");if(count)count.textContent=String(list.length).padStart(2,"0")+" RECORD"+(list.length===1?"":"S");
- host.innerHTML=list.length?list.map(d=>'<article class="document-card"><div class="document-card-top"><span>'+esc(d.tag)+'</span><span class="document-number">'+esc(d.number)+'</span></div><h4>'+esc(d.title)+'</h4><p>'+esc(d.desc)+'</p><div class="document-card-meta">'+d.meta.map(m=>'<span>'+esc(m)+'</span>').join("")+'</div><a href="'+esc(d.url)+'" target="_blank" rel="noopener noreferrer">OPEN OFFICIAL PDF <span>↗</span></a></article>').join(""):'<div class="documents-empty">No records match those filters. Try another keyword or open the full FIA archive.</div>';
-}
-$("documentSearch")?.addEventListener("input",renderDocuments);
-$("documentFilters")?.addEventListener("click",e=>{const b=e.target.closest("[data-doc-filter]");if(!b)return;documentFilter=b.dataset.docFilter;renderDocuments()});
-
-
 /* ---------- Next-session countdown ---------- */
 let countdownSessions=[],countdownTimer=null,countdownRefreshTimer=null;
 const COUNTDOWN_LABELS={"First Practice":"FP1","Second Practice":"FP2","Third Practice":"FP3","Qualifying":"QUALIFYING","Sprint Qualifying":"SPRINT QUALIFYING","Sprint Shootout":"SPRINT SHOOTOUT","Sprint":"SPRINT","Race":"RACE"};
@@ -5369,7 +5271,6 @@ async function loadYear(y){
 }
 
 let cur=null,loaded={};
-renderDocuments();
 const closeSheet=()=>document.body.classList.remove("sheet");
 $("pick").onclick=()=>document.body.classList.add("sheet");$("scrim").onclick=closeSheet;
 function loadRound(i){
@@ -5378,7 +5279,7 @@ function loadRound(i){
  document.querySelectorAll(".gp").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.i===i));
  $("pick").innerHTML=`<span>R${i+1} · ${esc(race.location||race.country_name)}</span><span>Change ▾</span>`;
  renderLast();$("last").title="Everything on this page is shown as it stood after this race";
- $("resTitle").textContent=`${race.country_name} Grand Prix`;renderDocuments();
+ $("resTitle").textContent=`${race.country_name} Grand Prix`;
  ["drivers","teams","result","control","radioList","lapList","weatherView"].forEach(id=>$(id).innerHTML='<div class="state">Loading…</div>');
  // Load only the active tab on startup; other race-data panels fetch when opened.
  // Eagerly prefetching every panel queued many rate-limited API requests and slowed Home.
@@ -6943,6 +6844,7 @@ function renderNewsroom(){
  const filterHtml=filters.map(f=>'<button type="button" class="newsroom-filter" data-news-filter="'+f+'" aria-pressed="'+(f===newsroomFilter)+'">'+labels[f]+'<span class="newsroom-filter-count">'+(f==="ALL"?newsroomItems.length:counts[f])+'</span></button>').join("");
  const featured=visible[0],cards=visible.slice(1,36);
  root.innerHTML='<div class="newsroom-body"><div class="newsroom-toolbar"><div class="newsroom-filters" role="group" aria-label="Filter news">'+filterHtml+'</div><span class="newsroom-updated">SHOWING '+visible.length+' STORIES · UPDATED '+stamp+'</span></div>'+(featured?newsCard(featured,true)+(cards.length?'<div class="newsroom-grid">'+cards.map(x=>newsCard(x)).join("")+'</div>':''):'<div class="newsroom-empty">No stories are available in this category yet.</div>')+'<div class="newsroom-sources"><span>HEADLINES VIA PUBLISHER RSS · OPEN ORIGINAL ARTICLES</span><span><a href="https://www.motorsport.com/rss/f1/news/" target="_blank" rel="noopener">MOTORSPORT.COM</a> · <a href="https://www.autosport.com/rss/feed/f1" target="_blank" rel="noopener">AUTOSPORT</a></span></div></div>';
+ const sources=root.querySelector(".newsroom-sources");if(sources)sources.insertAdjacentHTML("beforebegin",`<a class="newsroom-fia-strip" href="https://www.fia.com/documents/championships/fia-formula-one-world-championship-14/season" target="_blank" rel="noopener noreferrer"><span class="newsroom-fia-mark">FIA / DOCUMENT ROOM</span><span class="newsroom-fia-copy"><b>Official decisions &amp; technical reports</b><small>Stewards’ decisions, technical delegate reports and event bulletins — the primary source behind important paddock updates.</small></span><span class="newsroom-fia-open">OPEN FIA ARCHIVE ↗</span></a>`);
  root.querySelectorAll("[data-news-filter]").forEach(btn=>btn.addEventListener("click",()=>{newsroomFilter=btn.dataset.newsFilter;renderNewsroom()}));
 }
 function newroomCounts(){
