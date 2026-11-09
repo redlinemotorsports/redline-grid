@@ -13,21 +13,21 @@ type LegacyBridge = {
   getCurrentRace: () => any;
   getLapData: () => any;
 };
-const legacy = window.RedlineLegacy as unknown as LegacyBridge | undefined;
-if (!legacy) throw new Error("Redline Grid legacy compatibility bridge is unavailable.");
+if (!window.RedlineLegacy) throw new Error("Redline Grid legacy compatibility bridge is unavailable.");
+const legacy = window.RedlineLegacy as unknown as LegacyBridge;
 const $ = (id: string): HTMLElement | null => document.getElementById(id);
 const value = (id: string): HTMLSelectElement | null => document.getElementById(id) as HTMLSelectElement | null;
 let sessions: RadioSession[] = [];
 let meetingKey: string | null = null;
 let requestKey = "";
-let allClips: RadioClip[] | null = null;
+let allClips: RadioClip[] = [];
 let clips: RadioClip[] = [];
 let drivers: Record<string, RadioDriver> = {};
 let context = { key: "", control: [] as any[], positions: [] as any[], intervals: [] as any[], stints: [] as any[] };
 function setContext(next: RadioContext): void {
   sessions = next.sessions.slice();
   meetingKey = next.meetingKey;
-  allClips = null;
+  allClips = [];
 }
 function nearest(rows: any[], field: string, driver: string, timestamp: number, maxMs = 180000): any | null {
   return rows.filter((item) => String(item.driver_number) === driver && item[field] &&
@@ -42,7 +42,7 @@ async function load(): Promise<void> {
   const root = $("radioList");
   if (root) root.innerHTML = '<div class="state">Loading team radio for this race weekend…</div>';
   try {
-    if (!Array.isArray(allClips)) {
+    if (!allClips.length) {
       if (!meetingKey) throw new Error("The selected race weekend has no OpenF1 meeting key.");
       allClips = await legacy.get("/team_radio?meeting_key=" + meetingKey);
     }
