@@ -7,7 +7,7 @@ The mobile app is a separate, mobile-first experience packaged with Capacitor. T
 - Vanilla HTML, CSS and JavaScript
 - Capacitor 8
 - Android and iOS native shells
-- A small Node build script that copies `mobile/` into Capacitor's `www/` web directory
+- A Node build script that copies `mobile/` into Capacitor's `www/` web directory and bundles the 2026 season archive
 
 ## Requirements
 
@@ -29,7 +29,9 @@ The Android platform can be built on supported Windows, macOS or Linux developme
 
 ## Development
 
-Edit the mobile app in `mobile/`. Then run:
+Edit the mobile app in `mobile/`. The current build copies `archive/2026.json` into `www/data/2026.json`, which powers the home snapshot, upcoming race schedule, latest classification and championship tables.
+
+Then run:
 
 ```sh
 npm run build
@@ -56,4 +58,6 @@ Or use the convenience scripts `npm run open:android` and `npm run open:ios`.
 
 ## Current milestone
 
-The initial mobile shell includes the five primary destinations: Home, Schedule, Live, Results and More. The data-backed screens are intentionally marked as awaiting integration. The next milestone is to connect the existing archive and data services, then replace the integration placeholders with real content.
+The mobile shell has five primary destinations: Home, Schedule, Live, Results and More. Home, Schedule and Results now read the real 2026 archive: the next Grand Prix and session timetable, latest completed race podium/classification, and driver/constructor standings. Session times are formatted in the device's local timezone. Live timing remains an honest between-session state until a supported live data source is integrated.
+
+Next: connect a supported live timing source, complete the secondary More destinations, then generate and test the Android/iOS native projects on their required toolchains.
