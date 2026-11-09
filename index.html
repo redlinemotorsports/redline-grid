@@ -5685,7 +5685,7 @@ function drawRadio(){
      <div class="context-card"><small>Tyre Stint</small><b>${esc(tyre)}</b><p>${esc(tyreAge||"Stint detail not recorded for this lap")}</p></div>
     </div><div class="context-summary"><b>What was happening?</b><p>${esc(what)} ${nearby?"Race control: "+esc(String(nearby.message||"message recorded"))+".":""}</p></div><small class="context-foot">Original audio from the session. Context is based on recorded timing and race-control data near this timestamp; no AI transcript or invented quotes.</small>
    </section></article>`
- }).join("")||'<div class="state">No radio clips for this session.</div>';
+ }).join("")||'<div class="state">No original team-radio recordings were returned for any completed session in this race weekend.</div>';
 }
 $("rsess").onchange=()=>{$("lsess").value=$("rsess").value;loadRadio();loadLaps()};
 
