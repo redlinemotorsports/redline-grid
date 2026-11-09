@@ -9,9 +9,7 @@ async function openF1NetworkFirst(request){
  try{
   const response=await fetch(request,{signal:controller.signal});
   if(response.ok&&response.headers.get("content-type")?.includes("json")){
-   await cache.put(request,response.clone());
-   const keys=await cache.keys();
-   if(keys.length>120)await Promise.all(keys.slice(0,keys.length-120).map(key=>cache.delete(key)));
+   try{await cache.put(request,response.clone());const keys=await cache.keys();if(keys.length>120)await Promise.all(keys.slice(0,keys.length-120).map(key=>cache.delete(key)))}catch(_){/* Storage pressure must never block a fresh API response. */}
   }
   return response;
  }catch(error){
