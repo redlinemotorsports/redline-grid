@@ -242,5 +242,8 @@ function initDriverStats(): void {
   });
 }
 
-initDriverStats();
-void loadDriverStats();
+// The legacy Driver Statistics panel is not mounted in the current page shell.
+if (document.getElementById("statsContent") && document.getElementById("statsYear")) {
+  initDriverStats();
+  void loadDriverStats();
+}
