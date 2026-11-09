@@ -4697,6 +4697,30 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
  #gps{left:0!important;right:0!important;top:auto!important;bottom:calc(60px + env(safe-area-inset-bottom))!important;width:100%!important;max-height:min(78dvh,calc(100dvh - 110px))!important;border-radius:16px 16px 0 0!important;transform:translateY(calc(100% + 70px))!important;opacity:1!important;visibility:visible!important;transition:transform .25s ease!important}
  body.sheet #gps{transform:none!important}
 }
+
+/* STANDINGS — unified graphite page backdrop */
+#v-standings.pane.grid{
+ box-sizing:border-box;
+ padding:16px!important;
+ gap:14px!important;
+ border:1px solid rgba(255,255,255,.105)!important;
+ border-radius:5px!important;
+ background:linear-gradient(145deg,rgba(20,23,29,.98),rgba(12,14,18,.98))!important;
+ box-shadow:0 12px 32px rgba(0,0,0,.2)!important;
+ overflow:hidden;
+}
+#v-standings>.standings-head{
+ border-radius:4px 4px 0 0!important;
+}
+#v-standings>.standings-switch{
+ border:1px solid var(--line);
+ border-radius:5px;
+ background:rgba(255,255,255,.025);
+}
+@media(max-width:640px){
+ #v-standings.pane.grid{padding:11px!important;gap:11px!important}
+}
+
 </style>
 </head>
 <body>
