@@ -13,16 +13,7 @@ type LegacyBridge = {
   getCurrentRace: () => any;
   getLapData: () => any;
 };
-declare global {
-  interface Window {
-    RedlineLegacy?: LegacyBridge;
-    RedlineRadio?: {
-      setContext: (context: RadioContext) => void;
-      load: () => Promise<void>;
-    };
-  }
-}
-const legacy = window.RedlineLegacy;
+const legacy = window.RedlineLegacy as unknown as LegacyBridge | undefined;
 if (!legacy) throw new Error("Redline Grid legacy compatibility bridge is unavailable.");
 const $ = (id: string): HTMLElement | null => document.getElementById(id);
 const value = (id: string): HTMLSelectElement | null => document.getElementById(id) as HTMLSelectElement | null;
