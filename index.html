@@ -5040,7 +5040,7 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
 
 /* LAP TIMES — mobile-first hierarchy. Desktop presentation remains unchanged. */
 @media(max-width:600px){
-  #v-tele{display:flex;flex-direction:column}
+  #v-tele:not([hidden]){display:flex;flex-direction:column}
   #v-tele>.simple-title-head{order:0}
   #v-tele>.tools{order:1;display:grid;grid-template-columns:minmax(0,1fr);gap:7px;padding:11px 12px;background:transparent}
   #v-tele>.tools select{width:100%;min-width:0;min-height:42px;padding:9px 12px;border:1px solid var(--line);border-radius:5px;background:var(--card2);color:var(--txt);font:600 12px Inter}
