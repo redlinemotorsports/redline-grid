@@ -150,7 +150,7 @@ function draw(): void {
       '</small></div><div class="radio-time">' + esc(time) + '<br><span>' + esc(date.toLocaleDateString([], { day: "numeric", month: "short" })) + '</span></div></div>' +
       '<div class="radio-audio"><div class="radio-wave" aria-hidden="true">' + Array.from({ length: 64 }, (_, index) => {
         const envelope = 0.3 + 0.7 * Math.abs(Math.sin(index * 0.17) + 0.34 * Math.sin(index * 0.053));
-        const height = Math.max(3, Math.min(15, Math.round(3 + envelope * (3 + ((index * 7 + index * index) % 7))));
+        const height = Math.max(3, Math.min(15, Math.round(3 + envelope * (3 + ((index * 7 + index * index) % 7)))));
         return '<i style="height:' + height + 'px"></i>';
       }).join("") + '</div><audio controls preload="none" src="' + esc(clip.recording_url) + '">Your browser does not support audio playback.</audio></div>' +
       '<section class="radio-context"><div class="context-head"><b>REDLINE TEAM RADIO CONTEXT</b><small>' +
