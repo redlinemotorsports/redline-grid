@@ -31,6 +31,10 @@ type LegacyBridge = {
 declare global {
   interface Window {
     RedlineLegacy?: LegacyBridge;
+    RedlineLiveTiming?: {
+      start: () => Promise<void>;
+      stop: () => void;
+    };
     RedlineRadio?: {
       setContext: (context: { sessions: Array<{ session_key: number | string; session_name?: string; date_start?: string }>; meetingKey: string }) => void;
       load: () => Promise<void>;
@@ -429,5 +433,10 @@ async function startLiveTiming(): Promise<void> {
     }
   }
 }
+
+window.RedlineLiveTiming = {
+  start: startLiveTiming,
+  stop: stopLiveTiming,
+};
 
 rt$("rtRefresh")?.addEventListener("click", () => void startLiveTiming());
