@@ -5128,7 +5128,7 @@ async function loadYear(y){
 
  if(!rounds.length){$("last").innerHTML="<small>No races found for this season.</small>";return}
  const done=rounds.filter(r=>new Date(r.date_end)<Date.now());
- renderChampionshipArchive();
+ renderChampionshipPulse(true);
  if(!done.length&&y===nowY&&y>2023)return loadYear(y-1);
  const nxt=rounds.findIndex(r=>new Date(r.date_start)>Date.now());
  $("rounds").innerHTML=rounds.map((r,i)=>`<button class="gp" data-i="${i}" ${new Date(r.date_end).getTime()>Date.now()?"disabled":""} aria-pressed="false"><span class="n">${String(i+1).padStart(2,"0")}</span><span><b>${esc(r.location||r.country_name)}</b><small>${esc(r.country_name)} · ${new Date(r.date_start).toLocaleDateString(undefined,{day:"numeric",month:"short"})}</small></span>${i===nxt?'<span class="badge">Next</span>':""}</button>`).join("");
