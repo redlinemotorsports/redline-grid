@@ -1,7 +1,7 @@
 /* LAP TIMES — desktop workspace redesign.
    Presentation-only: the existing selectors, data rendering and mobile layout remain intact. */
 @media (min-width: 1024px) {
-  #v-tele {
+  #v-tele:not([hidden]) {
     display: grid;
     grid-template-columns: minmax(0, 1.12fr) minmax(340px, .88fr);
     grid-template-rows: auto auto minmax(230px, auto) minmax(230px, auto) auto auto auto;
@@ -255,5 +255,212 @@
     gap: 12px;
     max-width: 720px;
   }
+
+  /* Compact analysis panels — keep the same graphite, red and mono type system. */
+  #v-tele > #paceCompare,
+  #v-tele > #sessionCompare,
+  #v-tele > #qualifyingGap {
+    padding-top: 0;
+  }
+
+  #v-tele > #paceCompare .pace-compare,
+  #v-tele > #sessionCompare .pace-compare,
+  #v-tele > #qualifyingGap .pace-compare {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--card);
+  }
+
+  #v-tele > #paceCompare .pace-compare-head,
+  #v-tele > #sessionCompare .pace-compare-head,
+  #v-tele > #qualifyingGap .pace-compare-head {
+    padding: 12px 15px 10px;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(100deg, rgba(227, 38, 54, .045), transparent 68%);
+  }
+
+  #v-tele .pace-compare-kicker {
+    margin: 0 0 4px;
+    color: var(--red);
+    font: 600 8px/1.3 "IBM Plex Mono", monospace;
+    letter-spacing: .14em;
+  }
+
+  #v-tele .pace-compare-head h3 {
+    margin: 0 0 5px;
+    color: var(--txt);
+    font: 700 20px/1 "Barlow Condensed", Inter, sans-serif;
+    letter-spacing: .015em;
+  }
+
+  #v-tele .pace-compare-head > p:last-child {
+    max-width: 900px;
+    margin: 0;
+    color: var(--mute);
+    font: 400 10px/1.45 Inter, sans-serif;
+  }
+
+  #v-tele .pace-compare-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+    padding: 9px 12px;
+  }
+
+  #v-tele .pace-driver {
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, .012);
+  }
+
+  #v-tele .pace-driver-top {
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  #v-tele .pace-driver-name {
+    overflow: hidden;
+    color: var(--txt);
+    font: 700 14px/1.05 "Barlow Condensed", Inter, sans-serif;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #v-tele .pace-driver-team,
+  #v-tele .pace-rank {
+    color: var(--mute);
+    font: 500 8px/1.35 "IBM Plex Mono", monospace;
+    letter-spacing: .045em;
+  }
+
+  #v-tele .pace-rank { color: var(--red); }
+
+  #v-tele .pace-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  #v-tele .pace-metric {
+    min-width: 0;
+    margin-top: 0 !important;
+    padding: 6px 7px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, .025);
+  }
+
+  #v-tele .pace-metric span {
+    display: block;
+    color: var(--mute);
+    font: 500 7px/1.3 "IBM Plex Mono", monospace;
+    letter-spacing: .04em;
+  }
+
+  #v-tele .pace-metric b {
+    display: block;
+    margin-top: 3px;
+    color: var(--txt);
+    font: 600 12px/1.1 "IBM Plex Mono", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #v-tele .pace-compare-note,
+  #v-tele .session-compare-note,
+  #v-tele .qual-gap-foot {
+    margin: 0;
+    padding: 8px 13px 10px;
+    border-top: 1px solid var(--line);
+    color: var(--mute);
+    font: 400 9px/1.45 Inter, sans-serif;
+  }
+
+  #v-tele .session-compare-body {
+    overflow-x: auto;
+    padding: 0 12px;
+  }
+
+  #v-tele .session-compare-table,
+  #v-tele .qual-gap-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #v-tele .session-compare-table th,
+  #v-tele .qual-gap-table th {
+    padding: 8px 9px;
+    color: var(--mute);
+    font: 600 8px/1.25 "IBM Plex Mono", monospace;
+    letter-spacing: .08em;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  #v-tele .session-compare-table td,
+  #v-tele .qual-gap-table td {
+    padding: 8px 9px;
+    border-top: 1px solid var(--line);
+    color: var(--txt);
+    font: 500 10px/1.25 "IBM Plex Mono", monospace;
+    white-space: nowrap;
+  }
+
+  #v-tele .session-compare-table td:first-child,
+  #v-tele .qual-gap-table td:nth-child(2) {
+    font: 700 13px/1.1 "Barlow Condensed", Inter, sans-serif;
+  }
+
+  #v-tele .session-delta {
+    display: block;
+    margin-top: 3px;
+    color: var(--mute);
+    font: 500 8px/1.3 "IBM Plex Mono", monospace;
+  }
+
+  #v-tele .session-delta.down { color: #78c69a; }
+  #v-tele .session-delta.up { color: #e58b83; }
+
+  #v-tele .qual-gap-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  #v-tele .qual-gap-session {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, .012);
+  }
+
+  #v-tele .qual-gap-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(255, 255, 255, .018);
+  }
+
+  #v-tele .qual-gap-title span:first-child {
+    color: var(--txt);
+    font: 700 13px/1.1 "Barlow Condensed", Inter, sans-serif;
+    text-transform: uppercase;
+  }
+
+  #v-tele .qual-gap-title span:last-child {
+    color: var(--mute);
+    font: 500 8px/1.2 "IBM Plex Mono", monospace;
+  }
+
+  #v-tele .qual-gap-session > div[style*="overflow-x"] { padding: 0 5px; }
+  #v-tele .qual-gap-table th,
+  #v-tele .qual-gap-table td { padding: 6px 7px; }
 }
 
