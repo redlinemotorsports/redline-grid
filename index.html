@@ -4522,6 +4522,24 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #v-news .home-weather-card .briefing-weather-foot{margin-top:7px}
 @media(max-width:380px){#v-news .home-weather-card .home-weather-row{grid-template-columns:minmax(0,1fr) minmax(104px,auto);gap:7px}#v-news .home-weather-card .home-weather-temp{font-size:15px}#v-news .home-weather-card .home-weather-reading{gap:2px 6px}}
 
+
+/* Season / Grand Prix rail — aligned with the Redline Grid pitwall system */
+#gps{border:1px solid var(--line)!important;border-radius:4px!important;background:var(--card)!important;box-shadow:none!important;padding:0!important;overflow:hidden!important}
+#gps>h2{margin:0!important;padding:13px 14px 11px!important;border-bottom:1px solid var(--line)!important;background:linear-gradient(90deg,rgba(242,29,36,.11),transparent 78%)!important;color:var(--txt)!important;font:600 9px "IBM Plex Mono",monospace!important;letter-spacing:.19em!important;text-transform:uppercase!important}
+#gps .yr{margin:0!important;padding:10px 12px!important;border-bottom:1px solid var(--line)!important;background:transparent!important}
+#gps .yr select{min-height:34px!important;padding:7px 9px!important;border:1px solid var(--line)!important;border-radius:3px!important;background:var(--card2,#090b0f)!important;color:var(--txt)!important;font:600 11px "IBM Plex Mono",monospace!important;letter-spacing:.04em!important}
+#gps .gplist{display:block!important;background:transparent!important;scrollbar-width:thin;scrollbar-color:#414852 transparent}
+#gps .gp{position:relative!important;display:grid!important;grid-template-columns:25px minmax(0,1fr) auto!important;align-items:center!important;gap:8px!important;min-height:42px!important;padding:9px 12px!important;border:0!important;border-bottom:1px solid rgba(255,255,255,.055)!important;border-radius:0!important;background:transparent!important;text-align:left!important;box-shadow:none!important}
+#gps .gp:last-child{border-bottom:0!important}
+#gps .gp:hover{background:var(--hover)!important}
+#gps .gp .n{color:var(--mute)!important;font:600 10px "IBM Plex Mono",monospace!important}
+#gps .gp b{min-width:0;color:var(--txt)!important;font:650 12px "Barlow Condensed",Impact,sans-serif!important;letter-spacing:.035em!important;text-transform:uppercase!important}
+#gps .gp small{color:var(--mute)!important;font:9px "IBM Plex Mono",monospace!important}
+#gps .gp[aria-pressed=true]{background:linear-gradient(90deg,rgba(242,29,36,.13),rgba(242,29,36,.018))!important;box-shadow:inset 2px 0 0 var(--red)!important}
+#gps .gp[aria-pressed=true] .n{color:var(--red)!important}
+#gps .gp:focus-visible{outline:1px solid var(--red)!important;outline-offset:-2px!important}
+@media(max-width:820px){#gps{border-radius:5px 5px 0 0!important}#gps>h2{padding:12px 14px 10px!important}#gps .gp{min-height:46px!important;padding:10px 13px!important}}
+
 </style>
 </head>
 <body>
