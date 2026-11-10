@@ -557,20 +557,15 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
 #v-control .control-list{padding:0 10px}
 #v-control .control-message{border-bottom:1px solid var(--line)}
 #v-control .control-message:last-child{border-bottom:0}
-#v-control .control-message summary{display:grid;grid-template-columns:54px 7px minmax(0,1fr) 14px;align-items:center;gap:11px;min-height:56px;padding:9px 8px;cursor:pointer;list-style:none}
+#v-control .control-message summary{display:grid;grid-template-columns:54px 3px minmax(0,1fr) 14px;align-items:center;gap:11px;min-height:56px;padding:9px 8px;cursor:pointer;list-style:none}
 #v-control .control-message summary::-webkit-details-marker{display:none}
 #v-control .control-message summary time{color:var(--mute);font:600 11px/1.3 "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
-#v-control .control-dot{width:7px;height:7px;border-radius:50%;background:var(--mute)}
+#v-control .control-rail{display:block;width:3px;min-height:34px;align-self:stretch;border-radius:3px;background:var(--mute)}
 #v-control .control-summary{display:block;min-width:0}
 #v-control .control-summary b{display:block;color:var(--txt);font-size:12px;line-height:1.4;font-weight:600;overflow-wrap:anywhere}
 #v-control .control-summary small{display:block;margin-top:3px;color:var(--mute);font-size:10px;line-height:1.3}
 #v-control .control-chevron{color:var(--mute);font-size:19px;line-height:1;text-align:center;transition:transform .15s ease}
 #v-control .control-message[open] .control-chevron{transform:rotate(90deg);color:var(--red)}
-#v-control .control-message.event-yellow .control-dot{background:#e5b800}
-#v-control .control-message.event-red .control-dot{background:#e04444}
-#v-control .control-message.event-green .control-dot{background:#16a34a}
-#v-control .control-message.event-blue .control-dot{background:#2a6df5}
-#v-control .control-message.event-penalty .control-dot{background:#a78bfa}
 #v-control .control-detail{padding:0 30px 12px 83px}
 #v-control .control-detail p{margin:0;color:var(--txt);font-size:12px;line-height:1.5;overflow-wrap:anywhere}
 #v-control .control-detail small{display:inline-block;margin:7px 8px 0 0;color:var(--mute);font-size:10px}
@@ -580,8 +575,32 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
  #v-control .control-filters button{padding:6px 9px;font-size:10px}
  #v-control .control-count{font-size:9px}
  #v-control .control-list{padding:0 6px}
- #v-control .control-message summary{grid-template-columns:43px 7px minmax(0,1fr) 12px;gap:8px;padding:9px 6px;min-height:54px}
+ #v-control .control-message summary{grid-template-columns:43px 3px minmax(0,1fr) 12px;gap:8px;padding:9px 6px;min-height:54px}
  #v-control .control-message summary time{font-size:10px}
  #v-control .control-summary b{font-size:11px}
  #v-control .control-detail{padding:0 22px 11px 64px}
+}
+
+
+/* Pitwall Race Control: compact session counters and vertical event severity rails. */
+#v-control .control-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin:0 16px 12px;background:var(--line);border:1px solid var(--line);border-radius:9px;overflow:hidden}
+#v-control .control-stats>div{display:flex;align-items:baseline;justify-content:space-between;gap:8px;min-width:0;padding:10px 12px;background:var(--soft)}
+#v-control .control-stats small{color:var(--mute);font:700 9px Inter;letter-spacing:.1em}
+#v-control .control-stats b{color:var(--txt);font:600 19px/1 "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+#v-control .control-message summary{align-items:stretch;gap:12px;min-height:58px}
+#v-control .control-message summary time{align-self:center}
+#v-control .control-summary{align-self:center}
+#v-control .control-message.event-yellow .control-rail{background:#e5b800}
+#v-control .control-message.event-red .control-rail{background:#e04444}
+#v-control .control-message.event-green .control-rail{background:#16a34a}
+#v-control .control-message.event-blue .control-rail{background:#2a6df5}
+#v-control .control-message.event-penalty .control-rail{background:#a78bfa}
+#v-control .control-message.event-neutral .control-rail{background:var(--mute);opacity:.55}
+#v-control .control-chevron{align-self:center}
+@media(max-width:560px){
+ #v-control .control-stats{margin:0 12px 10px}
+ #v-control .control-stats>div{padding:9px 10px}
+ #v-control .control-stats small{font-size:8px;letter-spacing:.07em}
+ #v-control .control-stats b{font-size:17px}
+ #v-control .control-message summary{grid-template-columns:43px 3px minmax(0,1fr) 12px;gap:9px;min-height:56px}
 }
