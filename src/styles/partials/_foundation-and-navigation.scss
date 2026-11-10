@@ -585,3 +585,28 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
  #v-control .control-summary b{font-size:11px}
  #v-control .control-detail{padding:0 22px 11px 64px}
 }
+
+
+/* Pitwall Race Control: compact session counters and vertical event severity rails. */
+#v-control .control-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin:0 16px 12px;background:var(--line);border:1px solid var(--line);border-radius:9px;overflow:hidden}
+#v-control .control-stats>div{display:flex;align-items:baseline;justify-content:space-between;gap:8px;min-width:0;padding:10px 12px;background:var(--soft)}
+#v-control .control-stats small{color:var(--mute);font:700 9px Inter;letter-spacing:.1em}
+#v-control .control-stats b{color:var(--txt);font:600 19px/1 "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+#v-control .control-message summary{grid-template-columns:54px 3px minmax(0,1fr) 14px;align-items:stretch;gap:12px;min-height:58px}
+#v-control .control-message summary time{align-self:center}
+#v-control .control-rail{display:block;width:3px;min-height:34px;align-self:stretch;border-radius:3px;background:var(--mute)}
+#v-control .control-summary{align-self:center}
+#v-control .control-message.event-yellow .control-rail{background:#e5b800}
+#v-control .control-message.event-red .control-rail{background:#e04444}
+#v-control .control-message.event-green .control-rail{background:#16a34a}
+#v-control .control-message.event-blue .control-rail{background:#2a6df5}
+#v-control .control-message.event-penalty .control-rail{background:#a78bfa}
+#v-control .control-message.event-neutral .control-rail{background:var(--mute);opacity:.55}
+#v-control .control-chevron{align-self:center}
+@media(max-width:560px){
+ #v-control .control-stats{margin:0 12px 10px}
+ #v-control .control-stats>div{padding:9px 10px}
+ #v-control .control-stats small{font-size:8px;letter-spacing:.07em}
+ #v-control .control-stats b{font-size:17px}
+ #v-control .control-message summary{grid-template-columns:43px 3px minmax(0,1fr) 12px;gap:9px;min-height:56px}
+}
