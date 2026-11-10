@@ -546,3 +546,42 @@ main,.layout>*{min-width:0}.panel{min-width:0;max-width:100%}
  #tabs button[aria-selected=true],#tabs button[aria-selected=true]:hover{background:rgba(255,42,24,.14);border-color:rgba(255,42,24,.48);color:var(--txt);box-shadow:none}
  #tabs button:focus-visible{outline-offset:-3px}
 }
+
+
+/* Data tab Race Control: compact message rows with optional detail disclosure. */
+#v-control .control-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line)}
+#v-control .control-filters{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+#v-control .control-filters button{min-height:32px;padding:6px 11px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--mute);font:600 10px Inter;cursor:pointer}
+#v-control .control-filters button[aria-pressed=true]{background:var(--red);border-color:var(--red);color:#fff}
+#v-control .control-count{color:var(--mute);font:600 10px Inter;letter-spacing:.06em;white-space:nowrap}
+#v-control .control-list{padding:0 10px}
+#v-control .control-message{border-bottom:1px solid var(--line)}
+#v-control .control-message:last-child{border-bottom:0}
+#v-control .control-message summary{display:grid;grid-template-columns:54px 7px minmax(0,1fr) 14px;align-items:center;gap:11px;min-height:56px;padding:9px 8px;cursor:pointer;list-style:none}
+#v-control .control-message summary::-webkit-details-marker{display:none}
+#v-control .control-message summary time{color:var(--mute);font:600 11px/1.3 "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+#v-control .control-dot{width:7px;height:7px;border-radius:50%;background:var(--mute)}
+#v-control .control-summary{display:block;min-width:0}
+#v-control .control-summary b{display:block;color:var(--txt);font-size:12px;line-height:1.4;font-weight:600;overflow-wrap:anywhere}
+#v-control .control-summary small{display:block;margin-top:3px;color:var(--mute);font-size:10px;line-height:1.3}
+#v-control .control-chevron{color:var(--mute);font-size:19px;line-height:1;text-align:center;transition:transform .15s ease}
+#v-control .control-message[open] .control-chevron{transform:rotate(90deg);color:var(--red)}
+#v-control .control-message.event-yellow .control-dot{background:#e5b800}
+#v-control .control-message.event-red .control-dot{background:#e04444}
+#v-control .control-message.event-green .control-dot{background:#16a34a}
+#v-control .control-message.event-blue .control-dot{background:#2a6df5}
+#v-control .control-message.event-penalty .control-dot{background:#a78bfa}
+#v-control .control-detail{padding:0 30px 12px 83px}
+#v-control .control-detail p{margin:0;color:var(--txt);font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+#v-control .control-detail small{display:inline-block;margin:7px 8px 0 0;color:var(--mute);font-size:10px}
+@media(max-width:560px){
+ #v-control .control-tools{align-items:center;padding:10px 12px}
+ #v-control .control-filters{gap:5px}
+ #v-control .control-filters button{padding:6px 9px;font-size:10px}
+ #v-control .control-count{font-size:9px}
+ #v-control .control-list{padding:0 6px}
+ #v-control .control-message summary{grid-template-columns:43px 7px minmax(0,1fr) 12px;gap:8px;padding:9px 6px;min-height:54px}
+ #v-control .control-message summary time{font-size:10px}
+ #v-control .control-summary b{font-size:11px}
+ #v-control .control-detail{padding:0 22px 11px 64px}
+}
