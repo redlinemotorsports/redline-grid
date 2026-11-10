@@ -19,6 +19,7 @@ on:
 jobs:
   newsroom-browser-smoke:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -32,10 +33,16 @@ jobs:
         run: |
           npm run typecheck
           npm run build
+      - name: Cache Playwright Chromium
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-chromium-v1
       - name: Install Playwright
+        timeout-minutes: 5
         run: |
           npm install --no-save --no-package-lock playwright
-          npx playwright install --with-deps chromium
+          npx playwright install chromium
       - name: Start production preview
         run: |
           npm run preview -- --host 127.0.0.1 > /tmp/redline-preview.log 2>&1 &
