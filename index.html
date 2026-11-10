@@ -2249,7 +2249,6 @@ setInterval(renderBriefingRecapSessionStatus,15000);
   input.addEventListener('input',run);
   new MutationObserver(run).observe(root,{childList:true,subtree:true});
  }
- searchCards('controlSearch','control','.msg');
  searchCards('radioSearch','radioList','article.radio');
 })();
 
