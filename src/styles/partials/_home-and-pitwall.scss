@@ -695,4 +695,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  #v-live .strategy-data-foot{font-size:8px}
 }
 
-
+/* Race Control: compact event context with a clear vertical flag rail. */
+.rt-control-row{align-items:stretch;gap:9px}
+.rt-control-rail{display:block;width:3px;min-height:32px;flex:0 0 3px;align-self:stretch;border-radius:3px;background:var(--mute)}
+.rt-control-rail.red{background:#ef5350}
+.rt-control-rail.yellow{background:#f2c94c}
+.rt-control-rail.green{background:#45b879}
+.rt-control-rail.blue{background:#55a8e8}
+.rt-control-rail.penalty{background:#d78be8}
+.rt-control-copy{flex:1;min-width:0}
+.rt-control-copy b{display:block;line-height:1.4}
+.rt-control-copy small{line-height:1.45;overflow-wrap:anywhere}
+.rt-control-tag{align-self:flex-start;margin-top:1px}
+.rt-control-time{padding-top:2px}
