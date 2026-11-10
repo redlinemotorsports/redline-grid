@@ -215,13 +215,33 @@ function rtAuxRender(): void {
   rtText("rtControlCount", messages.length + " MESSAGES");
   const box = rt$("rtControl");
   if (box) {
-    box.innerHTML = messages.slice(0, 18).map((message: any) =>
-      '<div class="rt-control-row"><span class="rt-control-tag">' + escapeHtml(String(message.category || message.flag || message.type || "NOTICE").toUpperCase()) +
-      '</span><div><b>' + escapeHtml(message.message || message.text || message.category || "Race control update") +
-      "</b><small>" + escapeHtml(message.scope || message.driver || "Official race-control message") +
-      '</small></div><time class="rt-control-time">' + escapeHtml(message.timestamp ? new Date(message.timestamp).toLocaleTimeString() : "") +
-      "</time></div>"
-    ).join("") || '<div class="timing-empty">No race-control messages received yet.</div>';
+    box.innerHTML = messages.slice(0, 18).map((message: any) => {
+      const category = String(message.category || message.flag || message.type || "NOTICE").toUpperCase();
+      const categoryClass = /RED/.test(category) ? "red" : /YELLOW/.test(category) ? "yellow" :
+        /GREEN/.test(category) ? "green" : /BLUE/.test(category) ? "blue" :
+        /PENALTY|BLACK/.test(category) ? "penalty" : "neutral";
+      const headline = message.message || message.text || message.description || message.category || "Race control update";
+      const context = [
+        message.scope,
+        message.driver || message.driver_number ? "Driver " + (message.driver || message.driver_number) : "",
+        message.lap != null || message.lap_number != null ? "Lap " + (message.lap ?? message.lap_number) : "",
+        message.sector != null ? "Sector " + message.sector : "",
+        message.session || message.session_name,
+      ].filter((item: any) => item != null && item !== "").map(String);
+      const detail = message.detail || message.details || message.reason;
+      if (detail && String(detail) !== String(headline)) context.push(String(detail));
+      const rawTime = message.timestamp || message.date || message.time;
+      const parsedTime = rawTime == null ? NaN : (typeof rawTime === "number"
+        ? new Date(rawTime < 1e12 ? rawTime * 1000 : rawTime).getTime()
+        : Date.parse(String(rawTime)));
+      const time = Number.isFinite(parsedTime)
+        ? new Date(parsedTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })
+        : "";
+      return '<article class="rt-control-row"><i class="rt-control-rail ' + categoryClass + '" aria-hidden="true"></i><span class="rt-control-tag">' +
+        escapeHtml(category) + '</span><div class="rt-control-copy"><b>' + escapeHtml(headline) +
+        '</b><small>' + escapeHtml(context.join(" · ") || "Race direction update") + '</small></div><time class="rt-control-time">' +
+        escapeHtml(time) + "</time></article>";
+    }).join("") || '<div class="timing-empty">No race-control messages received yet.</div>';
   }
 }
 
