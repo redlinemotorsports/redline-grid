@@ -794,13 +794,14 @@ function renderLapTimes(){
  const {g={},by={},order=[]}=lapData||{},driver=$("lapTimesDriver")?.value||"",view=$("lapTimesView")?.value||"highlights";
  if(!order.length){host.innerHTML='<tr><td colspan="7" class="timing-empty">No timed laps are available for this session.</td></tr>';return}
  const rows=driver?(g[driver]||[]).map(l=>({number:l.lap_number,driver_number:driver,...l})):Object.entries(g).flatMap(([n,ls])=>ls.map(l=>({driver_number:n,...l})));
- const valid=rows.filter(l=>typeof l.lap_duration==="number"&&Number.isFinite(l.lap_duration)&&!l.is_pit_out_lap);
+ const valid=rows.filter(l=>typeof l.lap_duration==="number"&&Number.isFinite(l.lap_duration));
+ const eligible=valid.filter(l=>!l.is_pit_out_lap);
  const bestByDriver=new Map();
- valid.forEach(l=>{const key=String(l.driver_number),current=bestByDriver.get(key);if(!current||l.lap_duration<current)bestByDriver.set(key,l.lap_duration)});
+ eligible.forEach(l=>{const key=String(l.driver_number),current=bestByDriver.get(key);if(!current||l.lap_duration<current)bestByDriver.set(key,l.lap_duration)});
  let displayed=valid;
  if(view==="highlights"){
   const personalBest=new Map();
-  valid.forEach(l=>{
+  eligible.forEach(l=>{
    const key=String(l.driver_number),current=personalBest.get(key);
    if(!current||l.lap_duration<current.lap_duration)personalBest.set(key,l);
   });
