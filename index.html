@@ -707,7 +707,7 @@ function controlEventStyle(x){
  if(flag.includes("YELLOW")||flag==="DOUBLE"||/yellow flag|yellow sector/.test(msg))return "event-yellow";
  if(flag.includes("GREEN")||flag==="CLEAR"||/green flag|track clear/.test(msg))return "event-green";
  if(flag.includes("BLUE")||/blue flag/.test(msg))return "event-blue";
- if(/safety car|virtual safety car|\\bvsc\\b|\\bfcy\\b|full course yellow/.test(msg))return "event-yellow";
+ if(/safety car|virtual safety car|\bvsc\b|\bfcy\b|full course yellow/.test(msg))return "event-yellow";
  if(controlCategory(x)==="penalties")return "event-penalty";
  return "event-neutral";
 }
