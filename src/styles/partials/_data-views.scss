@@ -399,3 +399,84 @@
   #v-tele .pace-compare-grid{padding:12px 16px}
 }
 
+/* Race Control v2 — pit-wall event monitor */
+#v-control.race-control-pane{overflow:hidden;background:linear-gradient(145deg,rgba(18,21,27,.99),rgba(9,11,15,.99))}
+#v-control .control-hero{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:24px 26px 21px;border-bottom:1px solid var(--line);background:linear-gradient(105deg,rgba(242,29,36,.13),transparent 66%)}
+#v-control .control-kicker{margin:0 0 8px;color:var(--red);font:700 9px "IBM Plex Mono",monospace;letter-spacing:.18em}
+#v-control .control-hero h2{margin:0;color:var(--txt);font:800 clamp(32px,4vw,45px)/.95 "Barlow Condensed",Impact,sans-serif;letter-spacing:.02em;text-transform:uppercase}
+#v-control .control-hero .briefing-intro{max-width:560px;margin:9px 0 0;color:var(--mute);font-size:11px;line-height:1.5}
+#v-control .control-hero-mark{display:flex;align-items:center;gap:10px;flex:none}
+#v-control .control-hero-mark>span{display:grid;place-items:center;width:48px;height:48px;background:var(--red);color:#fff;font:800 22px "Barlow Condensed",Impact,sans-serif;transform:skew(-8deg)}
+#v-control .control-hero-mark small{color:var(--mute);font:700 8px/1.5 "IBM Plex Mono",monospace;letter-spacing:.12em}
+#v-control .control-board{padding:16px 18px 18px}
+#v-control .control-board-heading,#v-control .control-feed-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#v-control .control-board-heading{margin-bottom:9px;color:var(--mute);font:700 9px "IBM Plex Mono",monospace;letter-spacing:.14em}
+#v-control .control-board-heading span:last-child{font-weight:500;letter-spacing:.06em}
+#v-control .control-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin:0;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.09);border-radius:3px;overflow:hidden}
+#v-control .control-stats>div{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0;padding:13px 15px;background:rgba(255,255,255,.025)}
+#v-control .control-stats small{color:var(--mute);font:700 8px "IBM Plex Mono",monospace;letter-spacing:.12em}
+#v-control .control-stats b{color:var(--txt);font:600 22px/1 "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+#v-control .control-tools{display:flex;align-items:center;gap:14px;padding:16px 0 12px;border:0}
+#v-control .control-filter-label{flex:none;color:var(--mute);font:700 8px "IBM Plex Mono",monospace;letter-spacing:.13em}
+#v-control .control-filters{display:flex;flex-wrap:wrap;gap:6px}
+#v-control .control-filters button{min-height:32px;padding:7px 12px;border:1px solid var(--line);border-radius:3px;background:transparent;color:var(--mute);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+#v-control .control-filters button[aria-pressed=true]{border-color:var(--red);background:rgba(242,29,36,.13);color:#fff;box-shadow:inset 0 -2px var(--red)}
+#v-control .control-feed-heading{padding:10px 12px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--mute);font:700 8px "IBM Plex Mono",monospace;letter-spacing:.14em}
+#v-control .control-feed-heading span:first-child{color:var(--txt)}
+#v-control .control-list{padding:0}
+#v-control .control-message{border-bottom:1px solid rgba(255,255,255,.075);background:rgba(255,255,255,.008);transition:background .15s}
+#v-control .control-message:hover,#v-control .control-message[open]{background:rgba(255,255,255,.025)}
+#v-control .control-message summary{display:grid;grid-template-columns:66px 4px minmax(0,1fr) 14px;align-items:stretch;gap:14px;min-height:78px;padding:13px 12px;cursor:pointer;list-style:none}
+#v-control .control-message summary::-webkit-details-marker{display:none}
+#v-control .control-event-time{align-self:start;padding-top:3px;color:var(--mute);font:600 10px "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+#v-control .control-rail{display:block;width:4px;min-height:48px;align-self:stretch;border-radius:1px;background:var(--mute)}
+#v-control .control-message.event-yellow .control-rail{background:#e5b800}
+#v-control .control-message.event-red .control-rail{background:#e04444}
+#v-control .control-message.event-green .control-rail{background:#16a34a}
+#v-control .control-message.event-blue .control-rail{background:#2a6df5}
+#v-control .control-message.event-penalty .control-rail{background:#a78bfa}
+#v-control .control-message.event-neutral .control-rail{background:#7c8491}
+#v-control .control-summary{display:block;min-width:0;align-self:center}
+#v-control .control-event-topline{display:flex;align-items:center;gap:10px;margin-bottom:5px}
+#v-control .control-event-topline em{color:var(--mute);font:700 8px "IBM Plex Mono",monospace;font-style:normal;letter-spacing:.1em}
+#v-control .control-message.event-yellow .control-event-topline em{color:#e5b800}
+#v-control .control-message.event-red .control-event-topline em{color:#ef6262}
+#v-control .control-message.event-green .control-event-topline em{color:#48bd78}
+#v-control .control-message.event-blue .control-event-topline em{color:#65a0ff}
+#v-control .control-message.event-penalty .control-event-topline em{color:#b79bff}
+#v-control .control-event-topline small{color:var(--mute);font:500 8px "IBM Plex Mono",monospace;letter-spacing:.08em}
+#v-control .control-summary>b{display:block;color:var(--txt);font-size:12px;line-height:1.45;font-weight:650;overflow-wrap:anywhere}
+#v-control .control-event-meta{display:block;margin-top:5px;color:var(--mute);font:500 8px "IBM Plex Mono",monospace;letter-spacing:.035em;line-height:1.4;overflow-wrap:anywhere}
+#v-control .control-event-meta i{padding:0 4px;color:var(--red);font-style:normal}
+#v-control .control-chevron{align-self:center;color:var(--mute);font-size:20px;line-height:1;transition:transform .15s}
+#v-control .control-message[open] .control-chevron{transform:rotate(90deg);color:var(--red)}
+#v-control .control-detail{padding:0 34px 14px 96px}
+#v-control .control-detail p{margin:0;color:var(--txt);font-size:11px;line-height:1.55;overflow-wrap:anywhere}
+#v-control .control-detail small{display:inline-block;margin:7px 8px 0 0;color:var(--mute);font:500 9px "IBM Plex Mono",monospace}
+#v-control .control-empty{display:grid;gap:7px;padding:34px 16px;text-align:center}
+#v-control .control-empty b{color:var(--txt);font:700 10px "IBM Plex Mono",monospace;letter-spacing:.12em}
+#v-control .control-empty span{color:var(--mute);font-size:11px}
+@media(max-width:620px){
+ #v-control .control-hero{padding:19px 14px 16px}
+ #v-control .control-hero h2{font-size:34px}
+ #v-control .control-hero-mark>span{width:40px;height:40px;font-size:19px}
+ #v-control .control-board{padding:12px 10px 13px}
+ #v-control .control-stats>div{display:grid;gap:7px;padding:10px 9px}
+ #v-control .control-stats small{font-size:7px;letter-spacing:.07em}
+ #v-control .control-stats b{font-size:19px}
+ #v-control .control-tools{display:block;padding:13px 0 10px}
+ #v-control .control-filter-label{display:block;margin-bottom:8px}
+ #v-control .control-filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+ #v-control .control-filters button{min-width:0;padding:7px 3px;font-size:8px;letter-spacing:0}
+ #v-control .control-message summary{grid-template-columns:48px 3px minmax(0,1fr) 10px;gap:9px;min-height:76px;padding:11px 7px}
+ #v-control .control-event-time{font-size:9px}
+ #v-control .control-rail{width:3px;min-height:45px}
+ #v-control .control-summary>b{font-size:11px}
+ #v-control .control-event-meta{font-size:7px}
+ #v-control .control-event-topline em{font-size:7px}
+ #v-control .control-detail{padding:0 20px 12px 67px}
+ #v-control .control-feed-heading{padding:9px 7px}
+}
+
+#v-control .control-message summary:focus-visible{outline:2px solid var(--red);outline-offset:-2px}
+@media(prefers-reduced-motion:reduce){#v-control .control-message,#v-control .control-chevron{transition:none}}
