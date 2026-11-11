@@ -401,13 +401,8 @@
 
 /* Race Control v2 — pit-wall event monitor */
 #v-control.race-control-pane{overflow:hidden;background:linear-gradient(145deg,rgba(18,21,27,.99),rgba(9,11,15,.99))}
-#v-control .control-hero{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:24px 26px 21px;border-bottom:1px solid var(--line);background:linear-gradient(105deg,rgba(242,29,36,.13),transparent 66%)}
-#v-control .control-kicker{margin:0 0 8px;color:var(--red);font:700 9px "IBM Plex Mono",monospace;letter-spacing:.18em}
-#v-control .control-hero h2{margin:0;color:var(--txt);font:800 clamp(32px,4vw,45px)/.95 "Barlow Condensed",Impact,sans-serif;letter-spacing:.02em;text-transform:uppercase}
-#v-control .control-hero .briefing-intro{max-width:560px;margin:9px 0 0;color:var(--mute);font-size:11px;line-height:1.5}
-#v-control .control-hero-mark{display:flex;align-items:center;gap:10px;flex:none}
-#v-control .control-hero-mark>span{display:grid;place-items:center;width:48px;height:48px;background:var(--red);color:#fff;font:800 22px "Barlow Condensed",Impact,sans-serif;transform:skew(-8deg)}
-#v-control .control-hero-mark small{color:var(--mute);font:700 8px/1.5 "IBM Plex Mono",monospace;letter-spacing:.12em}
+#v-control .control-hero{padding:22px 24px 20px}
+#v-control .control-hero .briefing-intro{max-width:680px}
 #v-control .control-board{padding:16px 18px 18px}
 #v-control .control-board-heading,#v-control .control-feed-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
 #v-control .control-board-heading{margin-bottom:9px;color:var(--mute);font:700 9px "IBM Plex Mono",monospace;letter-spacing:.14em}
@@ -457,9 +452,7 @@
 #v-control .control-empty b{color:var(--txt);font:700 10px "IBM Plex Mono",monospace;letter-spacing:.12em}
 #v-control .control-empty span{color:var(--mute);font-size:11px}
 @media(max-width:620px){
- #v-control .control-hero{padding:19px 14px 16px}
- #v-control .control-hero h2{font-size:34px}
- #v-control .control-hero-mark>span{width:40px;height:40px;font-size:19px}
+ #v-control .control-hero{padding:18px 14px 16px}
  #v-control .control-board{padding:12px 10px 13px}
  #v-control .control-stats>div{display:grid;gap:7px;padding:10px 9px}
  #v-control .control-stats small{font-size:7px;letter-spacing:.07em}
