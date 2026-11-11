@@ -696,8 +696,8 @@ async function loadResult(){
 }
 let controlMessages=[],controlFilter="all";
 function controlCategory(x){
- const msg=String(x.message||"").toLowerCase(),flag=String(x.flag||"").toLowerCase();
- if(/penalt|drive[- ]through|stop[- ]and[- ]go|disqualif|reprimand|time penalty|grid penalty/.test(msg))return "penalties";
+ const msg=String(x.message||"").toLowerCase(),flag=String(x.flag||"").toLowerCase(),category=String(x.category||"").toLowerCase();
+ if(/steward|investigat|summon|hearing|reprimand|penalt|drive[- ]through|stop[- ]and[- ]go|disqualif|time penalty|grid penalty|infringement|breach|impeding|unsafe release|collision|track limits|parc ferme|parc fermé|technical delegate|document review|decision no\.?\s*\d/.test(msg)||/steward|penalt|investigat|summon|hearing/.test(category))return "penalties";
  if(x.flag||/\bflag\b|track clear|yellow sector|safety car|virtual safety car|\bvsc\b|\bfcy\b|full course yellow/.test(msg)||flag)return "flags";
  return "other";
 }
@@ -734,8 +734,9 @@ function renderControlTimeline(){
   const flag=x.flag?String(x.flag).replace(/_/g," "):"";
   const category=controlCategory(x);
   const label=flag|| (category==="penalties"?"STEWARD NOTICE":category==="flags"?"TRACK STATUS":"RACE CONTROL");
-  const detail=[x.description,x.reason].filter(v=>v&&String(v)!==message).map(v=>esc(v));
-  return `<details class="control-message ${controlEventStyle(x)}"><summary><span class="control-event-time">${time}</span><span class="control-rail" aria-hidden="true"></span><span class="control-summary"><span class="control-event-topline"><em>${esc(label.toUpperCase())}</em><small>${lap}</small></span><b>${esc(message)}</b><small class="control-event-meta">${metadata.join(" <i>·</i> ")||"OFFICIAL SESSION UPDATE"}</small></span><span class="control-chevron" aria-hidden="true">›</span></summary><div class="control-detail"><p>${esc(message)}</p>${detail.map(v=>'<small>'+v+'</small>').join("")}${metadata.length?'<small>'+metadata.join(" · ")+'</small>':""}</div></details>`;
+  const detail=[x.description,x.reason].filter(v=>v&&String(v).trim()!==""&&String(v)!==message).map(v=>esc(v));
+  const detailContent=detail.length?detail.map(v=>'<p>'+v+'</p>').join(""):'<small>NO ADDITIONAL DETAIL SUPPLIED</small>';
+  return `<details class="control-message ${controlEventStyle(x)}"><summary><span class="control-event-time">${time}</span><span class="control-rail" aria-hidden="true"></span><span class="control-summary"><span class="control-event-topline"><em>${esc(label.toUpperCase())}</em><small>${lap}</small></span><b>${esc(message)}</b><small class="control-event-meta">${metadata.join(" <i>·</i> ")||"OFFICIAL SESSION UPDATE"}</small></span><span class="control-chevron" aria-hidden="true">›</span></summary><div class="control-detail">${detailContent}</div></details>`;
  }).join("");
 }
 $("controlTools").addEventListener("click",e=>{
