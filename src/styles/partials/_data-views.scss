@@ -477,3 +477,6 @@
  #v-control .control-detail{padding:0 20px 12px 67px}
  #v-control .control-feed-heading{padding:9px 7px}
 }
+
+#v-control .control-message summary:focus-visible{outline:2px solid var(--red);outline-offset:-2px}
+@media(prefers-reduced-motion:reduce){#v-control .control-message,#v-control .control-chevron{transition:none}}
