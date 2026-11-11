@@ -31,7 +31,7 @@ jobs:
       - name: Install Playwright
         run: |
           npm install --no-save --no-package-lock playwright
-          npx playwright install --with-deps chromium
+          npx playwright install chromium
       - name: Start production preview
         run: |
           npm run preview -- --host 127.0.0.1 > /tmp/redline-preview.log 2>&1 &
