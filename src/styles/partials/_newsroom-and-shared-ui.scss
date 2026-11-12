@@ -925,3 +925,28 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
  margin-left:0!important;
  margin-right:auto!important;
 }
+
+
+/* Race Control: use a block title frame so inherited flex alignment cannot centre the copy. */
+#v-control .control-hero{
+ display:block!important;
+ width:100%!important;
+ box-sizing:border-box!important;
+ text-align:left!important;
+}
+#v-control .control-hero>div{
+ display:block!important;
+ width:100%!important;
+ max-width:none!important;
+ margin:0!important;
+ text-align:left!important;
+}
+#v-control .control-hero .briefing-kicker,
+#v-control .control-hero h2,
+#v-control .control-hero .briefing-intro{
+ display:block!important;
+ width:100%!important;
+ margin-left:0!important;
+ margin-right:0!important;
+ text-align:left!important;
+}
