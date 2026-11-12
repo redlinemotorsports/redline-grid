@@ -905,3 +905,23 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
 @media(max-width:430px){#v-timing .timing-between-mark{display:none}#v-timing .timing-between-main{min-height:195px}#v-timing .timing-last-list-head,.timing-last-row{grid-template-columns:31px minmax(0,1fr) minmax(0,.8fr) minmax(70px,.55fr);gap:6px;padding-left:7px;padding-right:7px}#v-timing .timing-last-list-head{font-size:7px}#v-timing .timing-last-row{font-size:9px}#v-timing .timing-last-row>small{font-size:8px}}
 
 
+
+
+/* Race Control hero: keep the title block left-aligned like the pit-wall layout. */
+#v-control>.control-hero{
+ display:flex!important;
+ align-items:flex-start!important;
+ justify-content:flex-start!important;
+ text-align:left!important;
+}
+#v-control>.control-hero>div{
+ width:100%;
+ text-align:left!important;
+}
+#v-control>.control-hero .briefing-kicker,
+#v-control>.control-hero h2,
+#v-control>.control-hero .briefing-intro{
+ text-align:left!important;
+ margin-left:0!important;
+ margin-right:auto!important;
+}
