@@ -984,3 +984,13 @@ body.sheet #scrim{display:block!important;position:fixed!important;inset:0!impor
   justify-self:start!important;
  }
 }
+
+/* Desktop Race Control: keep the title and intro visually connected. */
+@media(min-width:761px){
+  #v-control>.control-hero h2{
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    box-shadow:none!important;
+  }
+}
