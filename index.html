@@ -1004,7 +1004,7 @@ async function setWeekendCircuitBackdrop(session){
  const page=match[1],key="redline-circuit-photo-v2:"+page;
  const curatedCircuitPhotos={
   "Las_Vegas_Strip_Circuit":"https://commons.wikimedia.org/wiki/Special:FilePath/Las_Vegas_Strip_at_night_2023.jpg?width=1800",
-  "Lusail_International_Circuit":"https://commons.wikimedia.org/wiki/Special:FilePath/WTCC_2016,_Qatar.jpg?width=1800"
+  "Lusail_International_Circuit":"https://upload.wikimedia.org/wikipedia/commons/9/9e/WTCC_2016%2C_Qatar.jpg"
  };
  if(weekendPhotoRequest===page&&weekendPhotoUrl){card.style.setProperty("--weekend-circuit-photo",'url("'+weekendPhotoUrl+'")');card.classList.add("has-circuit-photo");return}
  weekendPhotoRequest=page;
