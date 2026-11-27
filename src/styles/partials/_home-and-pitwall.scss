@@ -708,3 +708,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .rt-control-copy small{line-height:1.45;overflow-wrap:anywhere}
 .rt-control-tag{align-self:flex-start;margin-top:1px}
 .rt-control-time{padding-top:2px}
+
+
+/* Attribution for the curated Lusail / Qatar hero photograph. */
+#v-news .home-photo-credit{position:relative;z-index:3;margin-top:8px;color:rgba(255,255,255,.58);font:500 8px/1.4 "IBM Plex Mono",monospace;letter-spacing:.04em;text-transform:uppercase}
+#v-news .home-photo-credit a{color:rgba(255,255,255,.82);text-decoration:underline;text-underline-offset:2px}
+#v-news .home-photo-credit a:hover{color:#fff}
