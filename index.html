@@ -110,6 +110,7 @@
    <div class="home-weekend-card-top"><span>RACE WEEKEND</span><span id="weekendStatus" class="home-weekend-status">LOADING</span></div>
    <div id="briefingSummary" class="home-weekend-summary" aria-live="polite"><div class="state">Checking the schedule…</div></div>
    <div class="home-weekend-card-bottom"><span id="weekendSessionMeta">SESSION INFORMATION</span><button type="button" data-weekend-link="cal">Full schedule <span aria-hidden="true">→</span></button></div>
+  <div class="home-photo-credit">PHOTO: <a href="https://commons.wikimedia.org/wiki/File:WTCC_2016,_Qatar.jpg" target="_blank" rel="noopener">Dmitry Racer / Wikimedia Commons</a> · CC BY-SA 4.0</div>
   </section>
   <p class="briefing-note" id="briefingNote" role="status" aria-live="polite"></p>
   <div class="home-support-grid" aria-label="Race weekend details">
@@ -1002,7 +1003,8 @@ async function setWeekendCircuitBackdrop(session){
  if(!match){card.style.removeProperty("--weekend-circuit-photo");card.classList.remove("has-circuit-photo");return}
  const page=match[1],key="redline-circuit-photo-v2:"+page;
  const curatedCircuitPhotos={
-  "Las_Vegas_Strip_Circuit":"https://commons.wikimedia.org/wiki/Special:FilePath/Las_Vegas_Strip_at_night_2023.jpg?width=1800"
+  "Las_Vegas_Strip_Circuit":"https://commons.wikimedia.org/wiki/Special:FilePath/Las_Vegas_Strip_at_night_2023.jpg?width=1800",
+  "Lusail_International_Circuit":"https://commons.wikimedia.org/wiki/Special:FilePath/WTCC_2016,_Qatar.jpg?width=1800"
  };
  if(weekendPhotoRequest===page&&weekendPhotoUrl){card.style.setProperty("--weekend-circuit-photo",'url("'+weekendPhotoUrl+'")');card.classList.add("has-circuit-photo");return}
  weekendPhotoRequest=page;
