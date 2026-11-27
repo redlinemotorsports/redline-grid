@@ -2282,6 +2282,9 @@ window.RedlineLegacy = {
   getLapData: () => lapData,
 };
 </script>
+<script>
+(()=>{const root=document.getElementById("v-engineering");if(!root)return;const tabs=[...root.querySelectorAll("[data-eng-topic]")],panels=[...root.querySelectorAll("[data-eng-panel]")];tabs.forEach(tab=>tab.addEventListener("click",()=>{const key=tab.dataset.engTopic;tabs.forEach(item=>{const active=item===tab;item.classList.toggle("active",active);item.setAttribute("aria-pressed",String(active))});panels.forEach(panel=>panel.hidden=panel.dataset.engPanel!==key)}));})();
+</script>
 <script type="module" src="./src/newsroom.ts"></script>
 <script type="module" src="./src/team-radio.ts"></script>
 
