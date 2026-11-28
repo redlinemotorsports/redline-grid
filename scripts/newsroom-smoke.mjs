@@ -84,13 +84,13 @@ try {
   await page.locator("#v-engineering").waitFor({ state: "visible" });
   await page.locator('#v-engineering [data-eng-panel="anatomy"]').getByText("Monocoque").waitFor({ state: "visible" });
   await page.locator('#v-engineering [data-eng-topic="aero"]').click();
-  await page.locator('#v-engineering [data-eng-panel="aero"]').getByText("Downforce").waitFor({ state: "visible" });
+  await page.locator('#v-engineering [data-eng-panel="aero"]').getByRole("heading", { name: "Downforce" }).waitFor({ state: "visible" });
   await page.locator('#v-engineering [data-eng-topic="power"]').click();
-  await page.locator('#v-engineering [data-eng-panel="power"]').getByText("MGU-K").waitFor({ state: "visible" });
+  await page.locator('#v-engineering [data-eng-panel="power"]').getByText("MGU-K", { exact: true }).first().waitFor({ state: "visible" });
   await page.locator('#v-engineering [data-eng-topic="tyres"]').click();
-  await page.locator('#v-engineering [data-eng-panel="tyres"]').getByText("Intermediate").waitFor({ state: "visible" });
+  await page.locator('#v-engineering [data-eng-panel="tyres"]').getByRole("heading", { name: "Intermediate" }).waitFor({ state: "visible" });
   await page.locator('#v-engineering [data-eng-topic="evolution"]').click();
-  await page.locator('#v-engineering [data-eng-panel="evolution"]').getByText("A new technical chapter").waitFor({ state: "visible" });
+  await page.locator('#v-engineering [data-eng-panel="evolution"]').getByRole("heading", { name: "A new technical chapter" }).waitFor({ state: "visible" });
   if (await page.locator('#tabs button[data-v="timing"]').count()) {
     throw new Error("Legacy Live Timing navigation entry is still present");
   }
