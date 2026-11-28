@@ -78,16 +78,21 @@ try {
   await page.locator('#sub button[data-s="headlines"]').click();
   await content.getByText("Cached paddock report").waitFor({ state: "visible", timeout: 10000 });
 
-  // The final classification must load from the bundled season archive even
-  // when the live timing service is offline.
-  await page.route("https://f1-live-api.onrender.com/**", route => route.abort());
-  await page.locator('#tabs button[data-v="timing"]').click();
-  await page.waitForFunction(() =>
-    document.getElementById("rtLastRaceName")?.textContent?.includes("Brazilian GP"),
-    { timeout: 15000 }
-  );
-  if (!(await page.locator("#rtLastPodium").getByText("Lando Norris").count())) {
-    throw new Error("Latest Brazilian GP podium was not loaded from the season archive");
+  // Engineering Lab replaces the former Live Timing navigation entry.
+  const engineeringTab = page.locator('#tabs button[data-v="engineering"]');
+  await engineeringTab.click();
+  await page.locator("#v-engineering").waitFor({ state: "visible" });
+  await page.locator('#v-engineering [data-eng-panel="anatomy"]').getByText("Monocoque").waitFor({ state: "visible" });
+  await page.locator('#v-engineering [data-eng-topic="aero"]').click();
+  await page.locator('#v-engineering [data-eng-panel="aero"]').getByRole("heading", { name: "Downforce" }).waitFor({ state: "visible" });
+  await page.locator('#v-engineering [data-eng-topic="power"]').click();
+  await page.locator('#v-engineering [data-eng-panel="power"]').getByText("MGU-K", { exact: true }).first().waitFor({ state: "visible" });
+  await page.locator('#v-engineering [data-eng-topic="tyres"]').click();
+  await page.locator('#v-engineering [data-eng-panel="tyres"]').getByRole("heading", { name: "Intermediate" }).waitFor({ state: "visible" });
+  await page.locator('#v-engineering [data-eng-topic="evolution"]').click();
+  await page.locator('#v-engineering [data-eng-panel="evolution"]').getByRole("heading", { name: "A new technical chapter" }).waitFor({ state: "visible" });
+  if (await page.locator('#tabs button[data-v="timing"]').count()) {
+    throw new Error("Legacy Live Timing navigation entry is still present");
   }
 
   if (failures.length) throw new Error("Browser page errors: " + failures.join(" | "));
@@ -124,7 +129,7 @@ try {
   }
   await retryPage.close();
 
-  console.log("PASS: Newsroom, Live Timing archive fallback, and final-classification retry recovery");
+  console.log("PASS: Newsroom and Engineering Lab topic navigation/content");
 } finally {
   await browser.close();
 }
