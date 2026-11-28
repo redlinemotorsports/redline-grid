@@ -1,15 +1,17 @@
 /* ENGINEERING LAB — technical editorial workspace, independent of live session feeds. */
 .engineering-lab-pane{overflow:hidden}
-.engineering-hero{position:relative;display:flex;align-items:center;min-height:260px;overflow:hidden;padding:clamp(26px,4vw,48px);border-bottom:1px solid var(--line);border-left:3px solid var(--red);background:linear-gradient(110deg,#14171d 0%,#0b0d12 72%)}
-.engineering-hero-copy{position:relative;z-index:1;max-width:760px;min-width:0}
-.engineering-hero h2{margin:8px 0 12px;color:var(--txt);font:800 clamp(42px,6vw,68px)/.94 "Barlow Condensed",sans-serif;letter-spacing:-.025em;text-transform:uppercase}
+/* Section hero shares the Home tab's restrained editorial language. No illustration or SVG artwork. */
+.engineering-hero{position:relative;isolation:isolate;display:flex;align-items:center;min-height:360px;overflow:hidden;padding:clamp(26px,4vw,48px);margin:0 0 18px;border:1px solid rgba(255,255,255,.13);border-left:3px solid var(--red);border-radius:8px;background:radial-gradient(ellipse at 78% 40%,rgba(255,59,48,.18),transparent 38%),linear-gradient(110deg,#111923 0%,#0A0E15 54%,#15151B 100%)}
+.engineering-hero::before{content:"";position:absolute;z-index:-1;inset:0;opacity:.36;background:repeating-linear-gradient(0deg,transparent 0 38px,rgba(180,200,225,.07) 39px 40px),repeating-linear-gradient(90deg,transparent 0 38px,rgba(180,200,225,.06) 39px 40px);mask-image:linear-gradient(90deg,#000,transparent 90%)}
+.engineering-hero::after{content:"";position:absolute;z-index:-1;right:-5%;bottom:-44%;width:66%;height:100%;transform:rotate(-13deg);border-top:2px solid rgba(255,59,48,.55);border-bottom:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,rgba(255,255,255,.035),transparent);box-shadow:0 -18px 60px rgba(255,59,48,.08)}
+.engineering-hero-copy{position:relative;z-index:1;max-width:700px;min-width:0}
+.engineering-hero .briefing-kicker{color:#C4CEDA;font:600 9px "IBM Plex Mono",monospace;letter-spacing:.18em}
+.engineering-hero h2{margin:22px 0 12px;color:#F5F7FA;font:800 clamp(54px,8vw,88px)/.88 "Barlow Condensed",sans-serif;letter-spacing:-.015em;text-transform:uppercase}
 .engineering-hero h2 em{color:var(--red);font-style:normal}
-.engineering-hero .briefing-intro{max-width:570px;font-size:13px;line-height:1.75}
-.engineering-hero-meta{display:flex;flex-wrap:wrap;gap:18px;margin-top:24px;color:var(--mute);font:600 8px "IBM Plex Mono",monospace;letter-spacing:.12em}
+.engineering-hero .briefing-intro{max-width:480px;color:#AEB9C7;font-size:13px;line-height:1.7}
+.engineering-hero-meta{display:flex;flex-wrap:wrap;gap:18px;margin-top:28px;color:#8693A2;font:600 8px "IBM Plex Mono",monospace;letter-spacing:.12em}
 .engineering-hero-meta span:first-child{color:var(--red)}
-.engineering-hero-index{position:absolute;right:clamp(18px,4vw,48px);bottom:24px;display:grid;justify-items:end;gap:5px;color:rgba(255,255,255,.42);font-family:"IBM Plex Mono",monospace}
-.engineering-hero-index span,.engineering-hero-index small{font-size:8px;letter-spacing:.14em}
-.engineering-hero-index b{color:rgba(255,255,255,.09);font:800 clamp(78px,13vw,150px)/.75 "Barlow Condensed",sans-serif}
+.engineering-hero-index{display:none}
 .engineering-topic-bar{display:flex;gap:6px;overflow-x:auto;padding:13px 18px;border-bottom:1px solid var(--line);background:#0d0f14;scrollbar-width:thin}
 .engineering-topic-bar button{flex:0 0 auto;min-height:36px;padding:0 13px;border:1px solid var(--line);border-radius:3px;background:transparent;color:var(--mute);font:600 9px "IBM Plex Mono",monospace;letter-spacing:.035em;cursor:pointer}
 .engineering-topic-bar button.active,.engineering-topic-bar button[aria-pressed=true]{border-color:rgba(255,42,24,.55);background:rgba(255,42,24,.09);color:var(--txt);box-shadow:inset 0 -2px var(--red)}
